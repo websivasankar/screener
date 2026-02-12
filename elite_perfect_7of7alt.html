@@ -1,0 +1,292 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>🎯 ELITE Stock Screener - Perfect 7/7 Matches Only</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+        }
+        .dashboard-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+            border-radius: 10px;
+            color: white;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .stat-number { font-size: 2.5em; font-weight: bold; }
+        .stat-label  { font-size: 0.9em; opacity: 0.9; margin-top: 5px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+        td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover           { background-color: #e3f2fd; }
+
+        .symbol-cell      { font-weight: bold; color: #2c3e50; font-size: 1.1em; }
+        .signal-positive  { color: #27ae60; font-weight: bold; }
+        .signal-negative  { color: #e74c3c; font-weight: bold; }
+        .signal-neutral   { color: #95a5a6; }
+        .perfect-match    { background: #27ae60; color: white; font-weight: bold; }
+        .score-high       { background: #f39c12; color: white; font-weight: bold; border-radius: 5px; }
+        .score-medium     { background: #e74c3c; color: white; font-weight: bold; border-radius: 5px; }
+
+        .section-title {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 30px 0 20px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        .criteria-alert {
+            background: linear-gradient(45deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .recurrence-legend {
+            display: flex;
+            gap: 20px;
+            margin: 10px 0 15px 0;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: #34495e;
+            color: white;
+            border-radius: 10px;
+            font-size: 0.9em;
+        }
+    </style>
+    
+    </head>
+    <body>
+        <div class="dashboard-container">
+            <div class="header">
+                <h1>🎯 ELITE Stock Screener — Perfect 7/7 Matches Only</h1>
+                <h3>Last Updated: 2026-02-12 00:00:00</h3>
+            </div>
+
+            <div class="criteria-alert">
+                ⚡ ULTRA-STRICT CRITERIA: Only 7/7 Perfect Matches + 15D Return >5% in ALL Last 3 Days ⚡
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">2957</div>
+                    <div class="stat-label">Total Stocks Screened</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Perfect 7/7 Matches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0.14%</div>
+                    <div class="stat-label">Elite Success Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Days Analyzed</div>
+                </div>
+            </div>
+
+            <div class="section-title">🏆 ELITE Qualified Stocks — Perfect 7/7 Score Only</div>
+            <table>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Latest Price</th>
+                    <th>Perfect Score</th>
+                    <th>1D Return</th>
+                    <th>2D Return</th>
+                    <th>3D Return</th>
+                    <th>5D Return</th>
+                    <th>15D Return</th>
+                    <th>Min 15D Return (3D)</th>
+                    <th>RSI</th>
+                </tr>
+    
+        <tr>
+            <td class="symbol-cell">JKTYRE</td>
+            <td>₹582.75</td>
+            <td class="perfect-match">7/7 ⭐</td>
+            <td class="signal-negative">-3.7%</td>
+            <td class="signal-positive">1.9%</td>
+            <td class="signal-positive">4.8%</td>
+            <td class="signal-positive">8.7%</td>
+            <td class="signal-positive">12.0%</td>
+            <td class="signal-positive">12.0%</td>
+            <td class="signal-positive">69.3</td>
+        </tr>
+        
+        <tr>
+            <td class="symbol-cell">ASHOKLEY</td>
+            <td>₹211.02</td>
+            <td class="perfect-match">7/7 ⭐</td>
+            <td class="signal-positive">2.3%</td>
+            <td class="signal-positive">0.6%</td>
+            <td class="signal-positive">2.5%</td>
+            <td class="signal-positive">4.7%</td>
+            <td class="signal-positive">10.9%</td>
+            <td class="signal-positive">10.9%</td>
+            <td class="signal-positive">71.2</td>
+        </tr>
+        
+        <tr>
+            <td class="symbol-cell">OIL</td>
+            <td>₹474.85</td>
+            <td class="perfect-match">7/7 ⭐</td>
+            <td class="signal-negative">-0.9%</td>
+            <td class="signal-negative">-2.9%</td>
+            <td class="signal-negative">-3.1%</td>
+            <td class="signal-negative">-4.7%</td>
+            <td class="signal-positive">8.8%</td>
+            <td class="signal-positive">8.8%</td>
+            <td class="signal-positive">61.8</td>
+        </tr>
+        
+        <tr>
+            <td class="symbol-cell">ICICIB22</td>
+            <td>₹125.12</td>
+            <td class="perfect-match">7/7 ⭐</td>
+            <td class="signal-positive">0.0%</td>
+            <td class="signal-positive">0.5%</td>
+            <td class="signal-positive">0.9%</td>
+            <td class="signal-positive">2.5%</td>
+            <td class="signal-positive">7.3%</td>
+            <td class="signal-positive">7.3%</td>
+            <td class="signal-positive">72.3</td>
+        </tr>
+        </table><div class="section-title">🔁 Recurring Stocks — Appeared Multiple Times (Not One-Time Spikes)</div>
+        <div class="recurrence-legend">
+            <span class="legend-item" style="background:#d4edda;">🟢 STRONG — 2+ times in last 5 days</span>
+            <span class="legend-item" style="background:#fff3cd;">🟡 BUILDING — 3+ times in last 15 days</span>
+            <span class="legend-item" style="background:#cce5ff;">🔵 TRACKING — Appeared 2+ times in 20 days</span>
+        </div>
+        <table>
+            <tr>
+                <th>Symbol</th>
+                <th>Latest Score</th>
+                <th>Appearances in 5D</th>
+                <th>Appearances in 15D</th>
+                <th>Appearances in 20D</th>
+                <th>First Seen</th>
+                <th>Last Seen</th>
+                <th>Signal Strength</th>
+            </tr>
+        
+            <tr style="background:#d4edda;">
+                <td class="symbol-cell">ASHOKLEY</td>
+                <td>7/7</td>
+                <td style="font-weight:bold">2/5</td>
+                <td>2/15</td>
+                <td>2/20</td>
+                <td>2026-02-11</td>
+                <td>2026-02-12</td>
+                <td>🟢 STRONG</td>
+            </tr>
+            
+            <tr style="background:#d4edda;">
+                <td class="symbol-cell">ICICIB22</td>
+                <td>7/7</td>
+                <td style="font-weight:bold">2/5</td>
+                <td>2/15</td>
+                <td>2/20</td>
+                <td>2026-02-11</td>
+                <td>2026-02-12</td>
+                <td>🟢 STRONG</td>
+            </tr>
+            
+            <tr style="background:#d4edda;">
+                <td class="symbol-cell">JKTYRE</td>
+                <td>7/7</td>
+                <td style="font-weight:bold">2/5</td>
+                <td>2/15</td>
+                <td>2/20</td>
+                <td>2026-02-11</td>
+                <td>2026-02-12</td>
+                <td>🟢 STRONG</td>
+            </tr>
+            
+            <tr style="background:#d4edda;">
+                <td class="symbol-cell">OIL</td>
+                <td>7/7</td>
+                <td style="font-weight:bold">2/5</td>
+                <td>2/15</td>
+                <td>2/20</td>
+                <td>2026-02-11</td>
+                <td>2026-02-12</td>
+                <td>🟢 STRONG</td>
+            </tr>
+            </table>
+        <div class="footer">
+            Generated on 2026-02-12 18:39:45 &nbsp;|&nbsp;
+            History tracked in screener_history.csv &nbsp;|&nbsp;
+            ELITE Stock Screener
+        </div>
+        </div>
+    </body>
+    </html>
+    
