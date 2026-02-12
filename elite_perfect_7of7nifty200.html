@@ -1,0 +1,196 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>🎯 ELITE Stock Screener - Perfect 7/7 Matches Only</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+        }
+        .dashboard-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #f39c12, #e74c3c);
+            border-radius: 10px;
+            color: white;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .stat-number { font-size: 2.5em; font-weight: bold; }
+        .stat-label { font-size: 0.9em; opacity: 0.9; margin-top: 5px; }
+        
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th { 
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+        td { 
+            padding: 12px 10px; 
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover { background-color: #e3f2fd; }
+        
+        .symbol-cell {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        
+        .score-perfect { background: #27ae60; color: white; font-weight: bold; border-radius: 5px; }
+        .score-high { background: #f39c12; color: white; font-weight: bold; border-radius: 5px; }
+        .score-medium { background: #e74c3c; color: white; font-weight: bold; border-radius: 5px; }
+        
+        .signal-positive { color: #27ae60; font-weight: bold; }
+        .signal-negative { color: #e74c3c; font-weight: bold; }
+        .signal-neutral { color: #95a5a6; }
+        
+        .perfect-match { background: #27ae60; color: white; font-weight: bold; }
+        
+        .section-title {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 30px 0 20px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: #34495e;
+            color: white;
+            border-radius: 10px;
+            font-size: 0.9em;
+        }
+        
+        .criteria-alert {
+            background: linear-gradient(45deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+    </style>
+    
+    </head>
+    <body>
+        <div class="dashboard-container">
+            <div class="header">
+                <h1>🎯 ELITE Stock Screener - Perfect 7/7 Matches Only</h1>
+                <h3>Last Updated: 2025-12-19 00:00:00</h3>
+            </div>
+            
+            <div class="criteria-alert">
+                ⚡ ULTRA-STRICT CRITERIA: Only 7/7 Perfect Matches + 15D Return >10% in ALL Last 3 Days ⚡
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">2931</div>
+                    <div class="stat-label">Total Stocks Screened</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Perfect 7/7 Matches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0.00%</div>
+                    <div class="stat-label">Elite Success Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Days Analyzed</div>
+                </div>
+            </div>
+            
+            <div class="section-title">🏆 ELITE Qualified Stocks - Perfect 7/7 Score Only</div>
+            
+            <table>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Latest Price</th>
+                    <th>Perfect Score</th>
+                    <th>3D Return</th>
+                    <th>5D Return</th>
+                    <th>15D Return</th>
+                    <th>Min 15D Return (3D)</th>
+                    <th>RSI</th>
+                    <th>Delivery Status</th>
+                    <th>MA Perfect Alignment</th>
+                </tr>
+    
+        <tr>
+            <td colspan="10" style="text-align: center; padding: 30px; font-size: 1.2em; color: #e74c3c;">
+                🔍 No stocks meet the ULTRA-STRICT 7/7 criteria today. Try lowering the threshold or check back tomorrow!
+            </td>
+        </tr>
+        
+            <div class="section">
+                <h3>Accumulation Candidates (Volume Spread Analysis)</h3>
+                <p style="text-align:center; color:#aaa;">No accumulation patterns detected in the recent period.</p>
+            </div>
+            
+            </table>
+            
+            <div class="footer">
+                <strong>🎯 ULTRA-STRICT ELITE CRITERIA:</strong><br>
+                ✅ Above ALL 3 MAs (5/20/50) for ALL 5 days<br>
+                ✅ HIGH Delivery Interest (60%+ deviation) for 2+ days<br>
+                ✅ RSI between 60-75 (Strong Bullish Momentum)<br>
+                ✅ 15D Return >10% in ALL last 3 consecutive days<br>
+                ✅ Perfect 7/7 Strength Score ONLY<br><br>
+                <strong>Generated:</strong> 2025-12-22 14:00:30 | <strong>Data:</strong> NSE
+            </div>
+        </div>
+    </body>
+    </html>
+    
