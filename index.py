@@ -76,7 +76,7 @@ html += """
         <ol>
             <li><strong>Data Collection:</strong> Market data is gathered at EOD — indices, stock performance, volatility, breadth, futures & options OI, delivery trends.</li>
             <li><strong>AI Interpretation:</strong> An AI model analyzes the data to identify market regime (Bull/Bear/Neutral), sector rotation, institutional activity, and stock-specific patterns.</li>
-            <li><strong>Report Generation:</strong> A structured HTML report is automatically generated with commentary, key metrics, and charts.</li>
+            <li><strong>Report Generation:</strong> A structured HTML report is automatically generated with commentary, key metrics.</li>
             <li><strong>Publication:</strong> The report is published daily as a dated HTML file on this site.</li>
         </ol>
     </section>
