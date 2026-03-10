@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSE AI Analysis v2 — 2026-03-10</title>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--muted:#7d8590}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;
+      font-size:13px;padding:16px}
+h1{font-size:18px;font-weight:700;color:#58a6ff;margin-bottom:4px}
+.meta{color:var(--muted);font-size:11px;margin-bottom:16px}
+.badge-v2{background:#1a2744;color:#58a6ff;border:1px solid #1f6feb;
+           padding:1px 8px;border-radius:10px;font-size:10px;font-weight:700;
+           margin-left:8px;vertical-align:middle}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+       gap:14px;margin-top:14px}
+.full-width{grid-column:1/-1}
+.card{background:var(--surface);border:1px solid var(--border);
+       border-radius:8px;padding:14px 16px}
+.card-title{font-size:11px;font-weight:700;letter-spacing:1.2px;
+             color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.regime-val{font-size:28px;font-weight:800}
+.regime-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.chip{border:1px solid;border-radius:12px;padding:2px 10px;
+       font-size:11px;margin:2px;display:inline-block}
+.warn{background:#2d1a00;border-left:3px solid #e3b341;
+       padding:6px 10px;margin:4px 0;border-radius:4px;font-size:12px}
+.sec-card{background:var(--bg);border:1px solid var(--border);
+           border-radius:6px;padding:8px 10px;margin:4px 0}
+.sec-name{font-weight:600;margin-right:8px}
+.sec-sig{font-weight:700;margin-right:8px}
+.sec-sm{font-size:10px;color:#79c0ff;margin-right:6px;
+         background:#1a2744;padding:1px 6px;border-radius:8px}
+.sec-why{color:var(--muted);font-size:11px}
+table{width:100%;border-collapse:collapse}
+th{color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;
+    padding:6px 8px;border-bottom:1px solid var(--border);text-align:left}
+td{padding:6px 8px;border-bottom:1px solid #21262d;vertical-align:top}
+.sym-td{font-weight:700;color:#58a6ff;font-size:12px}
+.cf-badge{background:#1a2744;color:#79c0ff;border-radius:10px;
+           padding:2px 8px;font-size:10px;margin:1px;display:inline-block}
+.muted{color:var(--muted);font-style:italic}
+.oi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.oi-cell{background:var(--bg);border:1px solid var(--border);
+          border-radius:6px;padding:8px 10px}
+.oi-label{color:var(--muted);font-size:10px;text-transform:uppercase}
+.oi-val{font-size:15px;font-weight:700;margin-top:2px}
+</style>
+</head>
+<body>
+<h1>NSE EOD Analysis <span class='badge-v2'>v2</span></h1>
+<div class='meta'>2026-03-10 · claude-sonnet-4-6 · unified screener · compact OI</div>
+
+<div class='grid'>
+
+<div class='card'>
+  <div class='card-title'>Market Regime</div>
+  <div class='regime-val' style='color:#e3b341'>TRANSITION</div>
+  <div style='color:#e3b341;font-weight:600;margin-top:4px'>
+    MEDIUM confidence</div>
+  <div class='regime-sub'>Violent short-covering bounce within an intact bear structure; FII still massively short.</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Today's 85.9% advance day (56 stocks up >4%) follows a -88.3% breadth collapse on Mar-09; this is SHORT_COVERING (Nifty near-futures OI fell 0.48% while price rose 1.12%), not fresh longs. Structural damage persists: %>EMA20=22.2%, %E10>E20=22.2%, 52W-highs only 6 vs 14 new lows; FII remains net-short -187K lots with a 2-day streak and -₹4,673 Cr cash equity selling.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>India VIX</div>
+  <div class='regime-val'>18.91</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:6px'>VIX fell 19% today (23.36→18.91) signalling panic exit, but at 95.6th percentile and still 25% above its 20D MA of 15.06 — risk-off conditions remain; max sector view = HOLD.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Breadth</div>
+  <div style='color:#3fb950;font-weight:700'>IMPROVING</div>
+  <div style='font-size:12px;color:var(--muted);margin-top:6px'>Today's 85.9% advance (Adv=426, ↑4%=56) is the strongest single day in the 60-day window but follows two deeply bearish sessions (10.7% and 11.7%); structural repair is absent — %>EMA20 only 22.2%, %E10>E20=22.2%, %E20>E40=31.2%, new 52W-highs=6 vs new 52W-lows=14. Weekly ↓4%(W)=153 stocks still down >4% on the week despite today's surge.</div>
+  <div class='warn'>⚠ Single day 85.9% breadth is short-covering noise, not trend reversal — two prior days were 10.7% and 11.7%</div><div class='warn'>⚠ %E20>E40 at 31.2% signals structural downtrend in majority of N500 stocks</div><div class='warn'>⚠ VIX at 95.6th percentile — elevated tail risk remains</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>OI Structure</div>
+  <div class='oi-grid'>
+    <div class='oi-cell'>
+      <div class='oi-label'>Weekly bias</div>
+      <div class='oi-val' style='color:#7d8590'>NEUTRAL</div>
+    </div>
+    <div class='oi-cell'>
+      <div class='oi-label'>Monthly bias</div>
+      <div class='oi-val' style='color:#f85149'>BEARISH</div>
+    </div>
+    <div class='oi-cell'>
+      <div class='oi-label'>Weekly max pain</div>
+      <div class='oi-val'>24200.0</div>
+    </div>
+    <div class='oi-cell'>
+      <div class='oi-label'>Monthly max pain</div>
+      <div class='oi-val'>24500.0</div>
+    </div>
+  </div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Weekly: spot 24262 is sandwiched between a MASSIVE 19.2M CE wall at 24300 (+16.3M fresh writing today = critical ceiling just 38 pts up) and massive 22.2M PE support at 24250 (+21.9M fresh); free zone is only 38 pts up and 62 pts down — extremely compressed. Monthly: dominant CE walls at 25000 (5M, +787K fresh) and 26000 (6.7M) cap upside; 23000 PE wall (6.2M, +1.4M fresh writing) anchors downside structural support ~1,262 pts below spot; 24000 PE (6M) is nearest monthly floor at -262 pts.</div>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Sector Rotation</div>
+  <div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'>
+    <div><div style='font-size:11px;color:#3fb950;font-weight:700;
+               margin-bottom:6px'>▲ LEADING</div>
+      <div class='sec-card'><span class='sec-name'>Aerospace & Defense</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>3/3 PASS: 5D=+2.6%, 10D=+5.2%, 20D=+3.9%; pct_above_ma20=66.7% (highest in universe); vol_ratio=0.9, pct_vol_spike=16.7% (below MARKUP threshold of 30%); SM=NEUTRAL. VIX ELEVATED caps view at HOLD.</span></div><div class='sec-card'><span class='sec-name'>Offshore Support Solution Drilling</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">MARKUP</span><span class='sec-why'>3/3 PASS: 5D=+15.2%, 10D=+17.2%, 20D=+13.6%; vol_ratio=1.2, pct_vol_spike=60% (>30) → MARKUP signal; pct_above_ma20=80%. Only 5 stocks; VIX elevated caps to HOLD.</span></div><div class='sec-card'><span class='sec-name'>Sugar</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>2/3 PASS: 5D=+3.3%, 10D=+4.1%, 20D=0.0%; vol_ratio=0.8, pct_vol_spike=20% (not >30 for MARKUP); deliv_trend=-2.6; SM=NEUTRAL. Watch for pct_vol_spike expansion.</span></div>
+    </div>
+    <div><div style='font-size:11px;color:#f85149;font-weight:700;
+               margin-bottom:6px'>▼ LAGGING</div>
+      <div class='sec-card'><span class='sec-name'>Cement & Cement Products</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">MARKDOWN</span><span class='sec-why'>0/3 FAIL: 5D=-5.0%, 10D=-8.8%, 20D=-13.8%; pct_vol_spike=41.9%, pct_above_ma20=3.2%; deep structural damage.</span></div><div class='sec-card'><span class='sec-name'>IT Enabled Services</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">MARKDOWN</span><span class='sec-why'>0/3 FAIL: 5D=-2.2%, 10D=-10.3%, 20D=-17.1%; 100D=-25.3% showing persistent distribution; pct_above_ma20=6.5%.</span></div><div class='sec-card'><span class='sec-name'>Speciality Retail</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">DISTRIBUTION</span><span class='sec-why'>0/3 FAIL: 5D=-3.9%, 10D=-8.9%, 20D=-16.1%; deliv_trend=+3.8 AND 5D<-2 AND pct_vol_spike=50% → DISTRIBUTION signal; pct_above_ma20=0%.</span></div><div class='sec-card'><span class='sec-name'>Civil Construction</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">MARKDOWN</span><span class='sec-why'>0/3 FAIL: 5D=-2.9%, 10D=-8.6%, 20D=-12.4%; 100D=-26.5%; pct_above_ma20=11.3%; deliv_trend=-0.3.</span></div><div class='sec-card'><span class='sec-name'>Petrochemicals</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">MARKDOWN</span><span class='sec-why'>5D=-5.3%, 10D=-8.1%, 20D=-12.7%; vol_ratio=1.4, pct_vol_spike=50% → MARKDOWN; 200D_position degrading.</span></div>
+    </div>
+  </div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Aerospace & Defense is the lone structural winner; all cap-goods, construction, IT, retail, and chemicals are in markdown/distribution — defensive rotation with extremely narrow breadth quality.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Delivery Signal</div>
+  <div style='color:#f85149;font-weight:700'>DISTRIBUTING</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:6px'>All 15 IN_D delivery-spike stocks show MA_SIGNAL=RED (except AGIIL=GREEN which has CONFLUENCE=1), confirming Gate 2 distribution traps; delivery spikes are occurring into weakness (e.g., STALLION SPIKE_RATIO=12.2×, MA=RED; DCW 4.4×, PETRONET 3.6×, IOLCP 3.4×, AWL 3.4× — all RED). No CLEAN delivery accumulation signal with CONFLUENCE≥2 is present in today's data.</div>
+  <table style='margin-top:10px'>
+    <tr><th>Symbol</th><th>Ratio</th><th>Note</th></tr>
+    <tr><td colspan='3' class='muted'>No picks</td></tr>
+  </table>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Risk Flags</div>
+  <div class='warn'>⚠ FII net index short -187,070 lots (STRONG_BEARISH, 2-day streak); FII_SHORT_CLIENT_LONG = most bearish divergence setup</div><div class='warn'>⚠ FII cash equity net -₹4,673 Cr today; -₹6,346 Cr yesterday — sustained equity selling</div><div class='warn'>⚠ FII PE_long 849K >> CE_long 473K → FII actively hedging via puts</div><div class='warn'>⚠ VIX 18.91 at 95.6th percentile of 52W range (9.15–23.36); spike_alert=True; still 25% above 20D MA of 15.06</div><div class='warn'>⚠ Weekly spot squeezed in 38-pt free zone (24262–24300); 19.2M CE wall at 24300 with +16.3M fresh OI written today = hard ceiling</div><div class='warn'>⚠ %>EMA20=22.2%, %E10>E20=22.2% — structural trend broken for 78% of Nifty 500</div><div class='warn'>⚠ Today's rally is SHORT_COVERING (near-Nifty OI -0.48%); no fresh LONG_BUILDUP in near expiry</div><div class='warn'>⚠ BankNifty PCR monthly 0.812 and next-month 0.782 both labelled BEARISH; double resistance at 58000</div>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Watchlist <span style='font-size:10px;color:var(--muted);font-weight:400;letter-spacing:0'>(hover symbol for full reason)</span></div>
+  <table>
+    <tr>
+      <th>Symbol</th><th>LTP</th><th>Conv</th><th>Screen</th>
+
+    </tr>
+    <tr><td class='sym-td'><span title='CONFLUENCE=2 (M+H); Aerospace & Defense industry 3/3 PASS (5D=+2.6%, 10D=+5.2%, 20D=+3.9%); 200D_high_dist=-1.5% (CLEAN), 200D_position=96.1%, resilience_score=5; MA_SCORE=3 (above all MAs), RSI=80.7 (near overbought — monitor), RS_5D=+9.9% (strong Nifty outperformance); VIX ELEVATED caps conviction to MEDIUM/HOLD.' style='cursor:help;border-bottom:1px dotted #58a6ff'>DATAPATTNS</span></td><td style='color:#ffd166'>₹3441.8</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=2 (R+H); Aerospace & Defense 3/3 PASS; 200D_high_dist=-1.1% (CLEAN), 200D_position=95.1%, resilience_score=4; LAST_SEEN=2026-03-10 (fresh today), COUNT_40D=36/COUNT_15D=14 (extremely consistent recurring signal); MA_SIGNAL=GREEN; RSI=58.4 (non-overbought, room to run); DELIV_PCT=35.0 vs DELIV_AVG60=48.2 (delivery below average — note); VIX ELEVATED caps to HOLD.' style='cursor:help;border-bottom:1px dotted #58a6ff'>BEL</span></td><td style='color:#ffd166'>₹463.4</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr>
+  </table>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Avoid</div>
+  <table><tr><th>Symbol</th><th>Gate / Reason</th></tr>
+    <tr><td class='sym-td'>STALLION</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1 with SPIKE_RATIO=12.2×, MA_SIGNAL=RED; delivery spike into downtrend; CONFLUENCE=1</td></tr><tr><td class='sym-td'>DCW</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1, SPIKE_RATIO=4.4×, MA_SIGNAL=RED; Petrochemicals = MARKDOWN industry</td></tr><tr><td class='sym-td'>IMAGICAA</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1, SPIKE_RATIO=4.0×, MA_SIGNAL=RED; Amusement Parks industry NEUTRAL with failing 10D/20D</td></tr><tr><td class='sym-td'>PETRONET</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1, SPIKE_RATIO=3.6×, MA_SIGNAL=RED; LPG/CNG industry 5D=-5.8%, 10D=-8.2% → MARKDOWN</td></tr><tr><td class='sym-td'>IOLCP</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1, SPIKE_RATIO=3.4×, MA_SIGNAL=RED; Pharma industry 0/3 FAIL</td></tr><tr><td class='sym-td'>AWL</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1, SPIKE_RATIO=3.4×, MA_SIGNAL=RED; Edible Oil 5D=-0.7%, 10D=-6.2% failing</td></tr><tr><td class='sym-td'>ABLBL</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1, SPIKE_RATIO=3.1×, MA_SIGNAL=RED; Speciality Retail = DISTRIBUTION phase</td></tr><tr><td class='sym-td'>RTNINDIA</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1, SPIKE_RATIO=3.0×, MA_SIGNAL=RED; E-Retail 5D=-0.5%, 10D=-10.0%, 20D=-19.8% → severe markdown</td></tr><tr><td class='sym-td'>CAMS</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1, SPIKE_RATIO=2.3×, MA_SIGNAL=RED; Depositories industry 5D=+1.7%, 10D=-6.5%, 20D=-8.9% → fails strength test</td></tr><tr><td class='sym-td'>ANGELONE</td><td style='color:#f85149;text-align:left'>Gate 2: IN_D=1, SPIKE_RATIO=2.3×, MA_SIGNAL=RED; Stockbroking 5D=-2.4%, 10D=-7.1%, 20D=-9.7% → FAIL</td></tr><tr><td class='sym-td'>UNIVPHOTO</td><td style='color:#f85149;text-align:left'>CONFLUENCE=2 but Consumer Electronics industry 0/3 FAIL (5D=0.0%, 10D=-2.6%, 20D=-5.1%); requires CONFLUENCE≥3 for failing industry — excluded</td></tr><tr><td class='sym-td'>JINDALPOLY</td><td style='color:#f85149;text-align:left'>CONFLUENCE=2 but Packaging industry 0/3 FAIL (5D=-2.8%, 10D=-7.1%, 20D=-8.0%); requires CONFLUENCE≥3 — excluded</td></tr><tr><td class='sym-td'>PRECWIRE</td><td style='color:#f85149;text-align:left'>CONFLUENCE=2 but Al/Cu/Zn industry 0/3 FAIL (5D=+0.8%, 10D=-4.1%, 20D=-8.9%); requires CONFLUENCE≥3 — excluded</td></tr><tr><td class='sym-td'>ANANDRATHI</td><td style='color:#f85149;text-align:left'>CONFLUENCE=2 but industry 'Financial Products Distributor' not in rotation table (unknown); requires CONFLUENCE≥3 — excluded</td></tr>
+  </table>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Themes</div>
+  <span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Short-covering bounce from extreme oversold (2-day Adv% of 10.7%/11.7% followed by 85.9%); structural trend still broken</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Aerospace & Defense (BEL, DATAPATTNS) is the only sector with 3/3 positive return profile and clean 200D structure</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Offshore drilling (ONGC-proxy sector) showing rare MARKUP signal with 5D=+15.2%</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Sugar sector showing resilience (5D=+3.3%, 10D=+4.1%) amid broad market weakness — watch for delivery confirmation</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>FII-retail divergence at extremes: retail CLIENT net-long +118K lots vs FII net-short -187K lots = retail trapped at highs</span>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Action Plan</div>
+  <div style='font-size:13px;line-height:1.7'>VIX at 18.91 (ELEVATED, 96th percentile) with FII holding a -187K net-short position mandates strict position sizing and no BUY ratings — all entries are HOLD/watchlist only; deploy only 25–30% of intended capital. On Nifty, the weekly options market has boxed spot between a 19.2M CE wall at 24300 (just 38 pts up) and massive 22.2M PE support at 24250–24200; a sustained break above 24300 with volume would signal genuine reversal and unlock a move toward 24500–25000, but failure here risks a retest of 24000 (monthly PE support). Only two stocks clear all gates — DATAPATTNS and BEL (both Aerospace & Defense, CLEAN structure, resilience ≥4) — initiate only on confirmed dips to MA20 support with hard stops at 1.5×ATR, and exit fully if Nifty closes below 24000 or VIX spikes back above 22.</div>
+</div>
+
+
+<div class='card full-width' style='margin-top:14px'>
+  <div class='card-title' style='cursor:pointer' onclick="
+    var el=document.getElementById('reasoning-body');
+    el.style.display=el.style.display==='none'?'block':'none';
+    this.textContent=el.style.display==='none'?
+      '🧠 CLAUDE REASONING  ▶ (click to expand)':
+      '🧠 CLAUDE REASONING  ▼ (click to collapse)'
+  ">🧠 CLAUDE REASONING  ▶ (click to expand)</div>
+  
+</div>
+</body>
+</html>
