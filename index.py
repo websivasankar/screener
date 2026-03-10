@@ -62,15 +62,16 @@ html = """<!DOCTYPE html>
             This site provides <strong>daily AI-generated End-of-Day (EOD) market reports</strong> for the Indian NSE. Each report summarizes key market conditions, breadth, sector rotation, institutional activity, and stock insights based on the latest available data.
         </p>
 <div class="report-list">
+<ul>
 """
 
 # Add links
 for f in files:
-    html += f'<a href="{f}">{f}</a><br>\n'
+    html += f'<li><a href="{f}">{f}</a></li>'
 
 # End HTML
 html += """
-    <section id="how-it-works">
+    </ul><section id="how-it-works">
         <h2>How It Works</h2>
         <ol>
             <li><strong>Data Collection:</strong> Market data is gathered at EOD — indices, stock performance, volatility, breadth, futures & options OI, delivery trends.</li>
