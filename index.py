@@ -47,7 +47,7 @@ files.sort(reverse=True)
 report_links = ""
 
 for f in files:
-    report_links += f'<li><a href="{f}">{f}</a></li>\n'
+    report_links += f'<li><a href="{f}" target="_blank">{f}</a></li>\n'
 
 
 # ==============================
