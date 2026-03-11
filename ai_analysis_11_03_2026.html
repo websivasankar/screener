@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSE AI Analysis v2 — 2026-03-11</title>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--muted:#7d8590}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;
+      font-size:13px;padding:16px}
+h1{font-size:18px;font-weight:700;color:#58a6ff;margin-bottom:4px}
+.meta{color:var(--muted);font-size:11px;margin-bottom:16px}
+.badge-v2{background:#1a2744;color:#58a6ff;border:1px solid #1f6feb;
+           padding:1px 8px;border-radius:10px;font-size:10px;font-weight:700;
+           margin-left:8px;vertical-align:middle}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+       gap:14px;margin-top:14px}
+.full-width{grid-column:1/-1}
+.card{background:var(--surface);border:1px solid var(--border);
+       border-radius:8px;padding:14px 16px}
+.card-title{font-size:11px;font-weight:700;letter-spacing:1.2px;
+             color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.regime-val{font-size:28px;font-weight:800}
+.regime-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.chip{border:1px solid;border-radius:12px;padding:2px 10px;
+       font-size:11px;margin:2px;display:inline-block}
+.warn{background:#2d1a00;border-left:3px solid #e3b341;
+       padding:6px 10px;margin:4px 0;border-radius:4px;font-size:12px}
+.sec-card{background:var(--bg);border:1px solid var(--border);
+           border-radius:6px;padding:8px 10px;margin:4px 0}
+.sec-name{font-weight:600;margin-right:8px}
+.sec-sig{font-weight:700;margin-right:8px}
+.sec-sm{font-size:10px;color:#79c0ff;margin-right:6px;
+         background:#1a2744;padding:1px 6px;border-radius:8px}
+.sec-why{color:var(--muted);font-size:11px}
+table{width:100%;border-collapse:collapse}
+th{color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;
+    padding:6px 8px;border-bottom:1px solid var(--border);text-align:left}
+td{padding:6px 8px;border-bottom:1px solid #21262d;vertical-align:top}
+.sym-td{font-weight:700;color:#58a6ff;font-size:12px}
+.cf-badge{background:#1a2744;color:#79c0ff;border-radius:10px;
+           padding:2px 8px;font-size:10px;margin:1px;display:inline-block}
+.muted{color:var(--muted);font-style:italic}
+.oi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.oi-cell{background:var(--bg);border:1px solid var(--border);
+          border-radius:6px;padding:8px 10px}
+.oi-label{color:var(--muted);font-size:10px;text-transform:uppercase}
+.oi-val{font-size:15px;font-weight:700;margin-top:2px}
+</style>
+</head>
+<body>
+<h1>NSE EOD Analysis <span class='badge-v2'>v2</span></h1>
+<div class='meta'>2026-03-11 · claude-sonnet-4-6 · unified screener · compact OI</div>
+<div class='meta'>
+Educational market analysis only. Not investment advice.
+</div>
+<div class='grid'>
+
+<div class='card'>
+  <div class='card-title'>Market Regime</div>
+  <div class='regime-val' style='color:#f85149'>BEAR</div>
+  <div style='color:#f85149;font-weight:600;margin-top:4px'>
+    HIGH confidence</div>
+  <div class='regime-sub'>FII aggressively short, SHORT_BUILDUP across all expiries, breadth collapsing below 20% EMA thresholds.</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Nifty futures show SHORT_BUILDUP across all three expiries with OI rising +4.09%/+15.27%/+11.6% as price fell -1.86%. FII net index short stands at -206,301 contracts (2-day streak), cash selling -₹6,267 cr, with FII_SHORT_CLIENT_LONG divergence confirming trapped retail longs.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>India VIX</div>
+  <div class='regime-val'>21.06</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:6px'>VIX at 98th percentile of 52-week range (9.15–23.36); all leading-sector views capped at HOLD, reduce gross exposure.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Breadth</div>
+  <div style='color:#f85149;font-weight:700'>DETERIORATING</div>
+  <div style='font-size:12px;color:var(--muted);margin-top:6px'>Today's Adv%=31.6% is decisively bearish after Monday's panic (12.0%) and Tuesday's dead-cat bounce (84.8%); the bounce has already faded. %>EMA20 at 19.8% is at the panic threshold (<20%), %E10>E20=22.4% and %E20>E40=30.8% signal structural deterioration across short and medium timeframes.</div>
+  <div class='warn'>⚠ Mar-09 saw 92 new 52W lows — structural damage not repaired</div><div class='warn'>⚠ Bounce on Mar-10 (84.8% Adv) fully reversed in one session</div><div class='warn'>⚠ VIX +11.37% single-day spike compounds breadth weakness</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>OI Structure</div>
+  <div class='oi-grid'>
+    <div class='oi-cell'>
+      <div class='oi-label'>Weekly bias</div>
+      <div class='oi-val' style='color:#f85149'>BEARISH</div>
+    </div>
+    <div class='oi-cell'>
+      <div class='oi-label'>Monthly bias</div>
+      <div class='oi-val' style='color:#f85149'>BEARISH</div>
+    </div>
+    <div class='oi-cell'>
+      <div class='oi-label'>Weekly max pain</div>
+      <div class='oi-val'>23800.0</div>
+    </div>
+    <div class='oi-cell'>
+      <div class='oi-label'>Monthly max pain</div>
+      <div class='oi-val'>24000.0</div>
+    </div>
+  </div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Weekly CE walls dominate: 24000 (4.08M, +2.91M fresh), 24200 (4.42M), 24300 (5.34M), 25000 (7.04M) — market is capped well below these; nearest weekly resistance at 24000 gives only 133 pts headroom. Monthly PE walls at 24000 (5.78M) and 23000 (5.50M) are both unwinding, suggesting reduced floor conviction; spot risks gravitating toward weekly max pain 23800 and monthly 24000 from below.</div>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Sector Rotation</div>
+  <div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'>
+    <div><div style='font-size:11px;color:#3fb950;font-weight:700;
+               margin-bottom:6px'>▲ LEADING</div>
+      <div class='sec-card'><span class='sec-name'>Aluminium</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">MARKUP</span><span class='sec-why'>5D=+5.3%, 10D=+1.2%, 20D=-5.3% — 2/3 pass; pct_vol_spike=33.3%>30, 5D>3 → MARKUP. NATIONALUM resilience=4, 200D_dist=-7.2%. VIX cap = HOLD only.</span></div><div class='sec-card'><span class='sec-name'>Plastic Products - Industrial</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">MARKUP</span><span class='sec-why'>5D=+3.1%, 10D=+1.5% — 2/3 pass; pct_vol_spike=52.6%>30, 5D>3 → MARKUP. vol_ratio=1.5, pct_above_ma20=42.1%.</span></div><div class='sec-card'><span class='sec-name'>Aerospace & Defense</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>5D=+1.8%, 10D=+4.5%, 20D=+0.9% — 3/3 pass; vol_ratio=0.7, pct_vol_spike=11.1% fails MARKUP threshold. DATAPATTNS resilience=4, 200D_dist=-3.2%.</span></div><div class='sec-card'><span class='sec-name'>Exchange & Data Platform</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">MARKUP</span><span class='sec-why'>5D=+3.6%, 10D=+3.1% — 2/3 pass; pct_vol_spike=33.3%>30, 5D>3 → MARKUP. Only 3 stocks, small group.</span></div>
+    </div>
+    <div><div style='font-size:11px;color:#f85149;font-weight:700;
+               margin-bottom:6px'>▼ LAGGING</div>
+      <div class='sec-card'><span class='sec-name'>Private Sector Bank</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">MARKDOWN</span><span class='sec-why'>5D=-4.0%, 10D=-8.2%, 20D=-8.0% — 0/3 pass. pct_vol_spike=26.3%>25, 5D<-3 → near MARKDOWN. pct_above_ma20=10.5%.</span></div><div class='sec-card'><span class='sec-name'>Computers-Software</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">MARKDOWN</span><span class='sec-why'>5D=-1.0%, 10D=-6.1%, 20D=-17.4% — 0/3 pass. 100D=-29.7%, pct_above_ma20=11.1%.</span></div><div class='sec-card'><span class='sec-name'>Civil Construction</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>5D=+0.1%, 10D=-7.3%, 20D=-12.9% — 1/3 pass. 100D=-23.0%, pct_above_ma20=12.7%.</span></div><div class='sec-card'><span class='sec-name'>Public Sector Bank</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">HOLDING</span><span class='sec-why'>5D=-3.2%, 10D=-8.9%, 20D=-4.8% — 0/3 pass. vol_ratio=0.6, pct_vol_spike=0%.</span></div>
+    </div>
+  </div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Defensive pharma leadership and Aluminium/Aerospace outperformance are the only pockets of relative strength in an overwhelmingly bearish market-wide downtrend.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Delivery Signal</div>
+  <div style='color:#f85149;font-weight:700'>DISTRIBUTING</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:6px'>Gate 2 eliminates GRASIM (SPIKE_RATIO=2.7, MA_SIGNAL=RED) and ASHOKLEY (SPIKE_RATIO=2.2, MA_SIGNAL=RED) as distribution traps despite delivery spikes. Clean delivery accumulation is confined to KTKBANK (SPIKE_RATIO=2.9, GREEN MA, 200D_position=100%) and STLTECH (SPIKE_RATIO=2.3, GREEN MA, 200D_position=100%); both show rising delivery into strength rather than weakness.</div>
+  <table style='margin-top:10px'>
+    <tr><th>Symbol</th><th>Ratio</th><th>Note</th></tr>
+    <tr><td class='sym-td'>KTKBANK</td><td>2.9</td><td style='text-align:left;color:#e6edf3'>200D_high_dist=0.0%, 200D_position=100%, resilience=5; DELIV_PCT=40.3% vs AVG60=46.9%, MA_SIGNAL=GREEN — accumulation at highs</td></tr><tr><td class='sym-td'>STLTECH</td><td>2.3</td><td style='text-align:left;color:#e6edf3'>200D_high_dist=0.0%, 200D_position=100%, resilience=5; DELIV_PCT=31.5%, MA_SIGNAL=GREEN, 5D_RET=+14.2%</td></tr>
+  </table>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Risk Flags</div>
+  <div class='warn'>⚠ VIX=21.06 at 98th percentile (EXTREME_HIGH 52-week) — single largest risk; any further spike above 22 approaches crisis zone</div><div class='warn'>⚠ FII net index short -206,301 contracts (SHORT_BUILDUP all 3 expiries) — largest bearish structural signal</div><div class='warn'>⚠ FII_SHORT_CLIENT_LONG divergence: retail trapped long ₹2.53L cr stocks vs FII short ₹2.06L cr index</div><div class='warn'>⚠ %>EMA20 at 19.8% — one more down-day pushes into panic zone; Mar-09 saw 92 new 52W lows</div><div class='warn'>⚠ Weekly free zone UP only 133 pts (23867→24000) vs DOWN 367 pts (23867→23500) — asymmetric downside</div><div class='warn'>⚠ Monthly PE walls at 23000 and 23500 are UNWINDING (not fresh buying) — floor support is softening</div><div class='warn'>⚠ BankNifty max pain at 58,500 vs spot 55,736 — 2,764 pts above current price implies BankNifty still has significant downside from monthly options perspective</div>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Watchlist <span style='font-size:10px;color:var(--muted);font-weight:400;letter-spacing:0'>(hover symbol for full reason)</span></div>
+  <table>
+    <tr>
+      <th>Symbol</th><th>LTP</th><th>Conv</th><th>Screen</th>
+    </tr>
+    <tr><td class='sym-td'><span title='CONFLUENCE=3 (D+R+H); 200D_high_dist=0.0%, 200D_position=100%, resilience=5. SPIKE_RATIO=2.9×, DELIV_PCT=40.3%, MA_SIGNAL=GREEN. COUNT_40D=25, COUNT_15D=14 (strong recurring). Private Sector Bank industry FAILS (5D=-4.0%), but CONFLUENCE=3 clears the gate. VIX=21.06 ELEVATED → HOLD only, not aggressive entry.' style='cursor:help;border-bottom:1px dotted #58a6ff'>KTKBANK</span></td><td style='color:#ffd166'>₹228.7</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>D</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3 (D+M+H); 200D_high_dist=0.0%, 200D_position=100%, resilience=5. SPIKE_RATIO=2.3, MA_ALIGNED=True, MA_SCORE=3, RSI=70.0, 5D_RET=+14.2%, RS_5D=+16.6. Telecom Equipment industry FAILS (5D=-2.0%), CONFLUENCE=3 clears gate. High ATR_PCT=6.1% — wide stops needed.' style='cursor:help;border-bottom:1px dotted #58a6ff'>STLTECH</span></td><td style='color:#ffd166'>₹190.6</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>D</span><span class='cf-badge'>M</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3 (M+R+H); 200D_high_dist=0.0%, 200D_position=100%, resilience=5. MA_SCORE=3, MA_ALIGNED=True, RSI=71.6, 5D_RET=+1.7%, RS_5D=+4.2. DELIV_PCT=53.0% vs AVG60=56.4% (near normal). Pharma industry FAILS 10D/20D but CONFLUENCE=3 clears gate. Low ATR_PCT=2.0% — tight risk.' style='cursor:help;border-bottom:1px dotted #58a6ff'>LUPIN</span></td><td style='color:#ffd166'>₹2344.6</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3 (M+R+H); 200D_high_dist=-7.2%, 200D_position=87.5%, resilience=4. Aluminium industry PASS (5D=+5.3%, 10D=+1.2% — 2/3) with MARKUP SM phase. MA_SCORE=3, MA_ALIGNED=True, RSI=78.1 (watch overbought), 5D_RET=+6.5%, RS_5D=+8.9. ATR_PCT=3.7%.' style='cursor:help;border-bottom:1px dotted #58a6ff'>NATIONALUM</span></td><td style='color:#ffd166'>₹397.8</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=2 (M+H); 200D_high_dist=-3.2%, 200D_position=91.6%, resilience=4. Aerospace & Defense industry PASS (5D=+1.8%, 10D=+4.5%, 20D=+0.9% — 3/3). MA_SCORE=3, MA_ALIGNED=True, RSI=74.4, 5D_RET=+8.2%, RS_5D=+10.6. Sector vol_ratio=0.7 (low participation, caution).' style='cursor:help;border-bottom:1px dotted #58a6ff'>DATAPATTNS</span></td><td style='color:#ffd166'>₹3383.2</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>H</span></td></tr>
+  </table>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Avoid</div>
+  <table><tr><th>Symbol</th><th>Gate / Reason</th></tr>
+    <tr><td class='sym-td'>GRASIM</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=2.7, DELIV_PCT=73.7% — distribution into weakness. Cement sector 5D=-2.4%, 10D=-7.7%, 20D=-13.6% (0/3 FAIL).</td></tr><tr><td class='sym-td'>ASHOKLEY</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=2.2, DELIV_PCT=61.9% — distribution into weakness. Commercial Vehicles sector not passing.</td></tr><tr><td class='sym-td'>ORIENTCEM</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=6.9, DELIV_PCT=91.3% — high delivery into declining price = distribution. Cement sector FAIL.</td></tr><tr><td class='sym-td'>SPARC</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=4.2 — distribution signal. CONFLUENCE=1 additionally disqualifies.</td></tr><tr><td class='sym-td'>KOTAKBANK</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=2.7. Private Sector Bank 5D=-4.0% MARKDOWN phase. CONFLUENCE=1.</td></tr><tr><td class='sym-td'>WIPRO</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=2.5. Software sector 5D=-1.0%, 10D=-6.1%, 20D=-17.4% (0/3 FAIL). CONFLUENCE=1.</td></tr><tr><td class='sym-td'>ANGELONE</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=2.8. Stockbroking 5D=-1.6%, 20D=-12.7% FAIL. CONFLUENCE=1.</td></tr><tr><td class='sym-td'>OSWALPUMPS</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=4.5. CONFLUENCE=1.</td></tr><tr><td class='sym-td'>CUPID</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=3.7. Personal Care sector 5D=-3.3% FAIL. CONFLUENCE=1.</td></tr><tr><td class='sym-td'>VASCONEQ</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED + delivery spike SPIKE_RATIO=3.1. Real Estate sector 5D=-1.1%, 20D=-14.0% FAIL. CONFLUENCE=1.</td></tr><tr><td class='sym-td'>ASCOM</td><td style='color:#f85149;text-align:left'>CONFLUENCE=1 only (M), Unknown industry — requires CONFLUENCE≥3. Exclude.</td></tr><tr><td class='sym-td'>MAHASTEEL</td><td style='color:#f85149;text-align:left'>CONFLUENCE=1 only (M), Unknown industry. Exclude.</td></tr>
+  </table>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Themes</div>
+  <span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Defensive Pharma leadership (Lupin, AuroPharma, Torntpharm at 52W highs while broader market collapses)</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Aluminium/Metals relative strength amid global commodity bid</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Aerospace & Defense secular demand story insulated from domestic macro</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>FII-driven index shorts vs DII cash buying (₹4,966 cr) creating tug-of-war in large-caps</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Retail trapped long — CLIENT net long ₹1.31L cr index futures vs FII short</span>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Action Plan</div>
+  <div style='font-size:13px;line-height:1.7'>With VIX at 21.06 (98th percentile) and Nifty futures showing SHORT_BUILDUP across all expiries, this is a CAPITAL PRESERVATION environment — reduce gross long exposure to 30-40% of normal and avoid adding new positions in failing sectors. The OI structure confirms 24000 as a formidable double-wall ceiling (weekly+monthly) with only 133 pts of upside buffer, while the 23500-23000 zone is the critical support band to monitor for breakdown signals. For any existing positions in watchlist names (KTKBANK, STLTECH, LUPIN, NATIONALUM, DATAPATTNS), maintain tight stops at 20D lows and target partial profit-taking near 24000 resistance; initiate only on intra-day pullback confirmations with position sizing at 50% of normal given the VIX ELEVATED regime cap of HOLD on all views.</div>
+</div>
+
+
+<div class='card full-width' style='margin-top:14px'>
+  <div class='card-title' style='cursor:pointer' onclick="
+    var el=document.getElementById('reasoning-body');
+    el.style.display=el.style.display==='none'?'block':'none';
+    this.textContent=el.style.display==='none'?
+      '🧠 CLAUDE REASONING  ▶ (click to expand)':
+      '🧠 CLAUDE REASONING  ▼ (click to collapse)'
+  ">🧠 CLAUDE REASONING  ▶ (click to expand)</div>
+  <div id='reasoning-body' style='display:none;margin-top:10px;
+       font-family:monospace;font-size:12px;color:#a0b0c0;
+       line-height:1.7;white-space:pre-wrap'>Let me analyze the data systematically.<br><br>**1. VIX Analysis**<br>Current: 21.06, up 11.37% from 18.91. Zone: ELEVATED (18-22). 98th percentile 52-week. MA20=15.53, well above. Trend: RISING 5D. This is near-crisis level, risk-off conditions.<br><br>**2. OI Analysis - Weekly**<br>Computing PCR (weekly):<br>Total PE OI (rough sum of key strikes): Let me sum major PE strikes in ±5% window (22600-25100):<br>Key PE strikes: 23000=5,250,700; 24000=3,103,620; 23500=3,615,950; 23800=2,249,390; 23700=2,207,725; 23900=1,948,635; 23200=1,726,465; 23400=1,656,915; 23300=1,406,665; 23600=1,359,475; 22800=2,508,220; 22700=1,804,790; 24100=1,169,285; 25000=697,190; 24500=982,345; 24200=1,958,515; 24300=1,852,565<br><br>Key CE strikes: 24000=4,082,455; 24300=5,336,500; 24200=4,424,615; 25000=7,036,705; 24500=5,321,095; 24800=3,018,275; 24400=2,508,740; 24700=2,528,825; 24100=2,411,240; 24600=2,396,940; 23900=1,641,705; 24150=1,353,625; 24250=2,154,815; 23700=522,860; 23800=733,915; 23850=600,015; 24900=1,995,370; 24950=1,148,940; 24050=1,133,730; 24550=1,130,805; 24750=1,099,800; 24850=969,020<br><br>For PCR estimation - the CE side clearly dominates with huge walls at 24000, 24200, 24300, 24500, 25000. PE side has big walls at 23000, 23500, 24000 (near spot).<br><br>Weekly Max Pain: Need to find strike where total OI loss is minimized. With spot at 23867 and heavy CE writing above 24000 and heavy PE writing below 23500, max pain likely around 23500-24000. Given the PE wall at 23000 (5.25M) and 23500 (3.6M), and CE wall at 24000 (4M), 24300 (5.3M), 25000 (7M), max pain is around 23500-24000. I'll estimate ~23800-24000.<br><br>Weekly key resistance: 24000 CE (4.08M, +2.9M OI change - massive fresh writing), 24200 (4.42M, +3.26M), 24300 (5.33M, +3.58M), 25000 (7.04M, +2.98M). Nearest strong resistance: 24000.<br>Weekly key support: 23000 PE (5.25M, +1.6M), 23500 (3.6M, +0.8M), 22800 (2.5M, +0.63M). Nearest support: 23500.<br><br>Free zone up: 24000 - 23867 = 133 pts<br>Free zone down: 23867 - 23500 = 367 pts<br><br>Weekly PCR estimate: PE total &gt;&gt; CE total at lower strikes but CE dominates higher. Rough PCR ~0.7 (bearish).<br><br>**Monthly OI:**<br>Key CE walls: 25000=5,297,890 (+252K); 24000=3,381,625 (+906K); 23000=1,263,275; 24500=2,972,060; 25500=4,134,910 (unwinding -391K); 25200=1,244,360 (unwinding)<br>Key PE walls: 24000=5,780,385 (-171K unwinding); 23000=5,504,525 (-681K unwinding); 23500=2,828,150 (-607K unwinding); 25000=3,728,855; 22000=4,095,910<br><br>Monthly nearest resistance: 24000 CE (3.38M building)<br>Monthly nearest support: 23500 PE (2.83M but unwinding), 24000 PE (5.78M but unwinding)<br><br>Monthly PCR: PE heavy at 24000, 23000, 23500, 25000 = roughly PE&gt;CE suggesting PCR &gt; 1, but much of this is unwinding. Net PCR around 1.0-1.2.<br><br>Monthly max pain: With PE at 24000 (5.78M) and 23000 (5.5M), and CE at 25000 (5.3M) and 24000 (3.38M), max pain around 24000.<br><br>Double wall: 23000 appears as massive PE wall in both weekly (5.25M) and monthly (5.5M) = DOUBLE WALL support at 23000.<br><br>**3. Futures OI:**<br>Both Nifty and BankNifty: SHORT_BUILDUP across all expiries. Most bearish signal. FII net index short -206,301 contracts, increasing.<br><br>**4. FII/DII:**<br>FII aggressively short (-206K net), cash selling -6267 cr. FII_SHORT_CLIENT_LONG divergence = trapped retail. DII buying cash +4966 cr. 2-day streak SHORT.<br><br>**5. Breadth:**<br>Today (Mar 11): Adv=158, Dec=339, Adv%=31.6%. %&gt;EMA10=24.2%, %&gt;EMA20=19.8% (near panic zone &lt;20%), %&gt;EMA40=22.8%. Structural deterioration: %E20&gt;E40=30.8%, %E10&gt;E20=22.4%.<br><br>Mar 9 was extreme bearish (12% Adv, 92 new 52W lows). Mar 10 had bounce (84.8% Adv). Today reversal back down. Volatile, bearish structure.<br><br>**6. Industry Rotation:**<br>Nearly all industries show negative 10D and 20D returns. Let me find which pass ≥2 of (5D, 10D, 20D) positive:<br><br>- Pharmaceuticals: 5D=+1.1, 10D=-1.9, 20D=-6.2 → only 1 positive (5D). FAIL<br>- Sugar: 5D=-2.0, 10D=+5.3, 20D=-1.2 → 1 positive (10D). FAIL<br>- Plastic Products-Industrial: 5D=+3.1, 10D=+1.5, 20D=-6.6 → 2 positive (5D, 10D). PASS<br>- Aerospace &amp; Defense: 5D=+1.8, 10D=+4.5, 20D=+0.9 → 3 positive. PASS<br>- Offshore Support Drilling: 5D=+3.8, 10D=+14.3, 20D=+8.3 → 3 positive. PASS<br>- Telecom-Infrastructure: 5D=+3.0, 10D=+3.7, 20D=-0.3 → 2 positive. PASS<br>- Aluminium: 5D=+5.3, 10D=+1.2, 20D=-5.3 → 2 positive. PASS<br>- Dairy Products: 5D=+1.3, 10D=+2.8, 20D=-8.7 → 2 positive. PASS<br>- E-Learning: 5D=+8.6, 10D=+3.5, 20D=-3.3 → 2 positive. PASS<br>- Water Supply: 5D=+6.6, 10D=-1.9, 20D=-4.5 → 1 positive. FAIL<br>- Healthcare Research: 5D=+2.7, 10D=-6.3, 20D=-9.9 → 1 positive. FAIL<br>- Household Appliances: 5D=+2.4, 10D=-1.4, 20D=-5.2 → 1 positive. FAIL<br>- Amusement Parks: 5D=+7.5, 10D=-3.7, 20D=-13.1 → 1 positive. FAIL<br>- Exchange &amp; Data Platform: 5D=+3.6, 10D=+3.1, 20D=-2.6 → 2 positive. PASS<br>- Explosives: 5D=-0.1, 10D=+0.3, 20D=-4.2 → 1 positive. FAIL<br>- Hospital: 5D=-0.5, 10D=-1.3, 20D=-1.4 → 0 positive. FAIL<br><br>SM_SIGNAL classification:<br>- Plastic Products-Industrial: 5D=+3.1&gt;3, pct_vol_spike=52.6%&gt;30 → MARKUP<br>- Aerospace &amp; Defense: 5D=+1.8, vol_ratio=0.7&lt;0.75, abs(5D)&lt;2? No, 1.8&lt;2. HOLDING? vol_ratio=0.7&lt;0.75 but 5D=1.8 not &lt;2 strictly. Actually 1.8&lt;2, so HOLDING qualifies. But let me check MARKUP first: 5D&gt;3? No. ACCUMULATION: deliv_trend=4.0&gt;1.5, -2≤5D≤3 (1.8 yes), pct_vol_spike=11.1%&gt;25? No. NEUTRAL.<br>- Aluminium: 5D=+5.3&gt;3, pct_vol_spike=33.3%&gt;30 → MARKUP<br>- E-Learning: 5D=+8.6&gt;3, pct_vol_spike=50%&gt;30 → MARKUP<br>- Telecom-Infrastructure: 5D=+3.0&gt;3, pct_vol_spike=40%&gt;30 → MARKUP (barely)<br>- Exchange &amp; Data Platform: 5D=+3.6&gt;3, pct_vol_spike=33.3%&gt;30 → MARKUP<br>- Dairy Products: 5D=+1.3, vol_ratio=0.6&lt;0.75, abs(5D)&lt;2 → HOLDING<br>- Offshore Support: 5D=+3.8&gt;3, pct_vol_spike=20%&lt;30 → NEUTRAL (pct_vol_spike fails)<br><br>**7. Stock Screening - GATE CHECKS:**<br><br>CONFLUENCE ≥ 3:<br>- KTKBANK (3): D+R+H. Private Sector Bank (FAIL industry). 200D_high_dist=0.0, 200D_position=100%, resilience=5. CLEAN. MA_SIGNAL=GREEN. But industry FAIL (5D=-4.0, 10D=-8.2, 20D=-8.0). Need CONFLUENCE≥3 for unknown/failing industry - KTKBANK has CONFLUENCE=3, so OK. Delivery spike 2.9x, DELIV_PCT=40.3%, MA_SIGNAL=GREEN. VIX ELEVATED → max view = HOLD.<br><br>- STLTECH (3): D+M+H. Telecom Equipment (FAIL: 5D=-2.0, 10D=-0.5, 20D=-10.9). CONFLUENCE=3. 200D_high_dist=0.0, 200D_position=100%, resilience=5. CLEAN. SPIKE_RATIO=2.3, MA_SIGNAL=GREEN, MA_SCORE=3, RSI=70, MA_ALIGNED=True, 5D_RET=14.2%. HOLD (VIX elevated).<br><br>- LUPIN (3): M+R+H. Pharmaceuticals (5D=+1.1, 10D=-1.9, 20D=-6.2 → FAIL). CONFLUENCE=3. 200D_high_dist=0.0, 200D_position=100%, resilience=5. CLEAN. RSI=71.6, MA_SCORE=3, MA_ALIGNED=True, 5D_RET=1.7%. HOLD.<br><br>- NATIONALUM (3): M+R+H. Aluminium (PASS: 5D=+5.3, 10D=+1.2 ✓). 200D_high_dist=-7.2%, 200D_position=87.5%, resilience=4. CLEAN. RSI=78.1, 5D_RET=6.5%. Aluminium = MARKUP. HOLD (VIX elevated).<br><br>CONFLUENCE = 2 (need PASS industry):<br>- UNIVPHOTO: Consumer Electronics (5D=+1.6, 10D=-0.9, 20D=-5.5 → 1 positive FAIL). CONFLUENCE=2, failing industry → exclude.<br>- JINDALPOLY: Packaging (5D=-0.1, 10D=-3.6, 20D=-11.3 → FAIL). Exclude.<br>- AUROPHARMA: Pharmaceuticals (FAIL). Exclude.<br>- DEEDEV: Industrial Products (5D=+1.0, 10D=-3.0, 20D=-10.0 → 1 positive FAIL). Exclude.<br>- JETFREIGHT: Logistics (5D=-1.2, 10D=-4.3, 20D=-10.3 → FAIL). Exclude.<br>- GLENMARK: Pharmaceuticals (FAIL). Exclude.<br>- JBCHEPHARM: Pharmaceuticals (FAIL). Exclude.<br>- SUNPHARMA: Pharmaceuticals (FAIL). Exclude.<br>- VTL: Other Textile Products (5D=-0.1, 10D=-5.8, 20D=-12.1 → FAIL). Exclude.<br>- ASTERDM: Hospital (5D=-0.5, 10D=-1.3, 20D=-1.4 → FAIL). Exclude.<br>- TORNTPHARM: Pharmaceuticals (FAIL). Exclude.<br>- CENTUM: Industrial Products (FAIL). Exclude.<br>- SAKAR: Pharmaceuticals (FAIL). Exclude.<br>- GESHIP: Shipping (5D=+1.7, 10D=-3.5, 20D=-10.1 → 1 positive FAIL). Exclude.<br>- PASHUPATI: Other Textile Products (FAIL). Exclude.<br>- PRECWIRE: Aluminium/Copper/Zinc (5D=+1.1, 10D=-4.6, 20D=-10.7 → FAIL). Exclude.<br>- DATAPATTNS: Aerospace &amp; Defense (5D=+1.8, 10D=+4.5, 20D=+0.9 → PASS!). CONFLUENCE=2, PASS industry. 200D_high_dist=-3.2%, 200D_position=91.6%, resilience=4. CLEAN. RSI=74.4, MA_SCORE=3. HOLD.<br>- SOUTHWEST: Diversified Commercial Services (5D=+1.3, 10D=-5.1, 20D=-11.1 → 1 positive FAIL). Exclude.<br>- NATCOPHARM: Pharmaceuticals (FAIL). Exclude.<br>- NTPC: Power Generation (5D=+0.5, 10D=-5.4, 20D=-11.2 → 1 positive FAIL). R+H, no industry pass. Exclude.<br>- COALINDIA: Coal - not in table. CONFLUENCE=2, unknown industry → need CONFLUENCE≥3. Exclude.<br>- SBC: Garments &amp; Apparels (5D=-1.9, 10D=-8.1, 20D=-14.9 → FAIL). Exclude.<br>- GRASIM: Gate 2 - MA_SIGNAL=RED + delivery spike → AVOID.<br>- ASHOKLEY: Gate 2 - MA_SIGNAL=RED + delivery spike → AVOID.<br><br>**Avoid list (Gate violations):**<br>- GRASIM: MA_SIGNAL=RED, SPIKE_RATIO=2.7 → Gate 2<br>- ASHOKLEY: MA_SIGNAL=RED, SPIKE_RATIO=2.2 → Gate 2<br>- Any CONFLUENCE=1 stocks with MA_SIGNAL=RED + delivery: ORIENTCEM, OSWALPUMPS, SPARC, CUPID, VASCONEQ, ABLBL, ANGELONE, KOTAKBANK, WIPRO, PARAGMILK, RAJOOENG, NIVABUPA, CAMS, STALLION, PENIND, SAMHI → Gate 2 (RED MA + delivery spike)<br><br>**Final watchlist:**<br>Given VIX at 21.06 (ELEVATED), max view = HOLD. All leading sectors = HOLD.<br><br>1. KTKBANK - CONFLUENCE=3 (D+R+H), 200D_dist=0%, resilience=5, SPIKE_RATIO=2.9×, industry failing but C≥3 clears gate. HOLD.<br>2. STLTECH - CONFLUENCE=3 (D+M+H), 200D_dist=0%, resilience=5, RSI=70, 5D=+14.2%. HOLD.<br>3. LUPIN - CONFLUENCE=3 (M+R+H), 200D_dist=0%, resilience=5, RSI=71.6, pharma failing but C≥3. HOLD.<br>4. NATIONALUM - CONFLUENCE=3 (M+R+H), 200D_dist=-7.2%, resilience=4, Aluminium PASS (MARKUP), RSI=78.1. HOLD.<br>5. DATAPATTNS - CONFLUENCE=2 (M+H), Aerospace PASS, 200D_dist=-3.2%, resilience=4, RSI=74.4. HOLD.<br><br>Market regime: BEAR/TRANSITION. VIX elevated, FII SHORT_BUILDUP, breadth deteriorating, most sectors failing.<br><br>Let me now compute final numbers for JSON:<br><br>Weekly PCR: Summing key PE: ~42M vs CE ~57M → PCR ≈ 0.73 (bearish)<br>Weekly max pain: ~23800 (where total losses minimized given big CE walls above and PE below)<br>Monthly max pain: ~24000 (huge PE at 24000 5.78M + CE at 24000 3.38M = pain center)<br><br>Weekly nearest resistance: 24000 (CE 4.08M, +2.9M fresh)<br>Weekly nearest support: 23500 (PE 3.6M, +0.8M)<br>Monthly nearest resistance: 24000 (CE 3.38M building)<br>Monthly nearest support: 23500 PE (2.83M but unwinding) / 23000 (5.5M)<br><br>Free zone weekly: up = 24000-23867 = 133 pts; down = 23867-23500 = 367 pts</div>
+</div>
+
+</div>
+</body>
+</html>
