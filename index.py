@@ -1,15 +1,14 @@
 import os
 import shutil
-import subprocess
 
 # ==============================
 # PATHS
 # ==============================
 
-base_output = r"D:\PositionalSystem\screener\output"
-git_folder = r"D:\PositionalSystem\screener\gitpublic"
+source_folder = r"D:\PositionalSystem\screener\output\2026-03-10"
+dest_folder = r"D:\PositionalSystem\screener\gitpublic"
 
-# analysis pages to publish
+# analysis pages
 analysis_pages = [
     "breadth.html",
     "delivery_spike.html",
@@ -20,100 +19,78 @@ analysis_pages = [
 ]
 
 # ==============================
-# FIND LATEST OUTPUT FOLDER
-# ==============================
-
-folders = sorted(os.listdir(base_output))
-latest_folder = folders[-1]
-
-source_folder = os.path.join(base_output, latest_folder)
-
-print("\n==============================")
-print("AI RESEARCH PUBLISH PIPELINE")
-print("==============================")
-print("Source Folder :", source_folder)
-print("Destination   :", git_folder)
-print("------------------------------")
-
-# ==============================
 # COPY FILES
 # ==============================
-
-copied = 0
 
 for file in analysis_pages:
 
     src = os.path.join(source_folder, file)
-    dst = os.path.join(git_folder, file)
+    dst = os.path.join(dest_folder, file)
 
     if os.path.exists(src):
-
         shutil.copy(src, dst)
-        copied += 1
-        print(f"✔ Copied: {file}")
-
+        print("Copied:", file)
     else:
-        print(f"✖ Missing: {file}")
-
-print("------------------------------")
-print(f"SUCCESS: {copied} analysis files copied")
+        print("Missing:", file)
 
 # ==============================
-# FIND AI REPORTS
+# GET AI REPORT FILES
 # ==============================
 
-reports = [
-    f for f in os.listdir(git_folder)
+files = [
+    f for f in os.listdir(dest_folder)
     if f.startswith("ai_analysis") and f.endswith(".html")
 ]
 
-reports.sort(reverse=True)
+files.sort(reverse=True)
 
 report_links = ""
 
-for r in reports:
+for f in files:
+    report_links += f'<li><a href="{f}">{f}</a></li>\n'
 
-    name = r.replace("ai_analysis_", "").replace(".html", "")
-    report_links += f'<li><a href="{r}" target="_blank">{name}</a></li>\n'
-
-latest_report = reports[0] if reports else ""
 
 # ==============================
-# BUILD INDEX.HTML
+# GENERATE INDEX.HTML
 # ==============================
 
 html = f"""
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
 
-<title>AI NSE Market Intelligence</title>
+<head>
+<meta charset="UTF-8">
+<title>AI EOD NSE Market Reports</title>
 
 <style>
 
 body {{
-font-family:Arial;
+font-family: Arial;
 margin:0;
-background:#f4f6fb;
+background:#f5f7fb;
 }}
 
 header {{
-background:#002b5c;
+background:#003366;
 color:white;
-padding:30px;
+padding:25px;
 text-align:center;
 }}
 
 nav {{
-background:#0050a0;
+background:#0055aa;
 padding:12px;
 }}
 
 nav a {{
 color:white;
-margin-right:25px;
+margin-right:20px;
 text-decoration:none;
 font-weight:bold;
+}}
+
+nav a:hover {{
+text-decoration:underline;
 }}
 
 .container {{
@@ -122,43 +99,56 @@ margin:auto;
 padding:20px;
 }}
 
+.section-title {{
+color:#003366;
+margin-top:40px;
+}}
+
 .grid {{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
 gap:20px;
+margin-top:20px;
 }}
 
 .card {{
 background:white;
 padding:20px;
 border-radius:8px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
 }}
 
-.highlight {{
-background:#e8f2ff;
-padding:15px;
-border-radius:8px;
-margin-bottom:20px;
+.card h3 {{
+margin-top:0;
+}}
+
+.card a {{
+color:#0055aa;
+font-weight:bold;
+text-decoration:none;
 }}
 
 footer {{
-background:#eee;
-text-align:center;
-padding:15px;
 margin-top:40px;
+background:#eaeaea;
+padding:15px;
+text-align:center;
 }}
 
 </style>
 
 </head>
 
+
 <body>
 
 <header>
+
 <h1>AI EOD NSE Market Intelligence</h1>
-<p>Automated Quant Research Dashboard</p>
+<p>Automated Quant Market Analysis</p>
+
 </header>
+
 
 <nav>
 
@@ -169,27 +159,53 @@ margin-top:40px;
 
 </nav>
 
+
 <div class="container">
 
-<div class="highlight">
-<b>Latest Report:</b>
-<a href="{latest_report}" target="_blank">{latest_report}</a>
-</div>
-
-<h2 id="signals">Market Signal Dashboards</h2>
+<h2 id="signals" class="section-title">Market Signal Dashboards</h2>
 
 <div class="grid">
 
-<div class="card"><h3>Breadth</h3><a href="breadth.html">Open</a></div>
-<div class="card"><h3>Delivery Spike</h3><a href="delivery_spike.html">Open</a></div>
-<div class="card"><h3>High Low</h3><a href="highlow.html">Open</a></div>
-<div class="card"><h3>Momentum MA</h3><a href="momentum_ma.html">Open</a></div>
-<div class="card"><h3>Recurring Entry</h3><a href="recurring_entry.html">Open</a></div>
-<div class="card"><h3>Sector Rotation</h3><a href="sector_rotation.html">Open</a></div>
+<div class="card">
+<h3>Breadth Analysis</h3>
+<p>Market participation and strength analysis.</p>
+<a href="breadth.html" target="_blank">Open →</a>
+</div>
+
+<div class="card">
+<h3>Delivery Spike</h3>
+<p>Institutional accumulation detection.</p>
+<a href="delivery_spike.html" target="_blank">Open →</a>
+</div>
+
+<div class="card">
+<h3>High vs Low</h3>
+<p>Stocks hitting new highs and lows.</p>
+<a href="highlow.html" target="_blank">Open →</a>
+</div>
+
+<div class="card">
+<h3>Momentum MA</h3>
+<p>Moving average trend momentum signals.</p>
+<a href="momentum_ma.html" target="_blank">Open →</a>
+</div>
+
+<div class="card">
+<h3>Recurring Entry</h3>
+<p>Repeated institutional entry patterns.</p>
+<a href="recurring_entry.html" target="_blank">Open →</a>
+</div>
+
+<div class="card">
+<h3>Sector Rotation</h3>
+<p>Capital rotation across sectors.</p>
+<a href="sector_rotation.html" target="_blank">Open →</a>
+</div>
 
 </div>
 
-<h2 id="reports">AI Daily Reports</h2>
+
+<h2 id="reports" class="section-title">AI Daily Market Reports</h2>
 
 <ul>
 
@@ -197,20 +213,22 @@ margin-top:40px;
 
 </ul>
 
-<h2 id="how">How It Works</h2>
+
+<h2 id="how" class="section-title">How the System Works</h2>
 
 <ol>
-<li>EOD NSE data collected</li>
-<li>Quant signals generated</li>
-<li>AI interprets market regime</li>
-<li>HTML report auto generated</li>
+<li>End-of-day NSE market data collected.</li>
+<li>Quant features derived (breadth, momentum, delivery, OI).</li>
+<li>AI interprets the market regime.</li>
+<li>Automated HTML report generated and published.</li>
 </ol>
 
 </div>
 
+
 <footer>
 
-Educational Purpose Only • Not Financial Advice
+AI EOD NSE Market Reports – Educational Purpose Only
 
 </footer>
 
@@ -218,26 +236,9 @@ Educational Purpose Only • Not Financial Advice
 </html>
 """
 
-index_path = os.path.join(git_folder, "index.html")
 
-with open(index_path, "w", encoding="utf-8") as f:
+# write file
+with open(os.path.join(dest_folder, "index.html"), "w", encoding="utf-8") as f:
     f.write(html)
 
-print("✔ index.html built")
-
-# ==============================
-# GIT COMMIT + PUSH
-# ==============================
-
-print("------------------------------")
-print("Publishing to GitHub...")
-
-os.chdir(git_folder)
-
-subprocess.run(["git", "add", "."])
-subprocess.run(["git", "commit", "-m", f"Auto publish {latest_folder}"])
-subprocess.run(["git", "push"])
-
-print("------------------------------")
-print("🚀 WEBSITE UPDATED SUCCESSFULLY")
-print("https://websivasankar.github.io/screener/")
+print("index.html created successfully")
