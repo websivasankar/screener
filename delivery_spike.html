@@ -1,0 +1,3963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Delivery Spike — 2026-03-10</title>
+<style>
+
+:root {
+  --bg:      #0d1117;
+  --surface: #161b22;
+  --surface2:#21262d;
+  --border:  #30363d;
+  --text:    #e6edf3;
+  --muted:   #7d8590;
+  --bull:    #3fb950;
+  --bear:    #f85149;
+  --neu:     #e3b341;
+  --accent:  #58a6ff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg); color: var(--text);
+  font-size: 12px; padding: 16px 20px 60px;
+}
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.topbar h1 { font-size: 17px; font-weight: 700; color: var(--accent); }
+.meta { color: var(--muted); font-size: 11px; }
+table { border-collapse: collapse; width: 100%; }
+thead th {
+  background: var(--surface2); color: var(--muted);
+  font-size: 10px; font-weight: 600; padding: 7px 8px;
+  border-bottom: 1px solid var(--border);
+  text-align: center; white-space: nowrap;
+  position: sticky; top: 0; z-index: 5;
+}
+tbody td {
+  padding: 5px 8px; border-bottom: 1px solid var(--surface2);
+  text-align: center; white-space: nowrap;
+}
+tbody tr:hover td { background: #1c2128 !important; }
+.c-vdg { background:#14532d; color:#86efac; }
+.c-dg  { background:#166534; color:#4ade80; }
+.c-mg  { background:#1a3a1a; color:#86efac; }
+.c-lg  { background:#0f2a0f; color:#bbf7d0; }
+.c-lr  { background:#2a0f0f; color:#fecaca; }
+.c-mr  { background:#3a1515; color:#fca5a5; }
+.c-dr  { background:#5a1a1a; color:#f87171; }
+.c-vdr { background:#7f1d1d; color:#fca5a5; }
+.sym-td {
+  text-align: left !important; font-weight: 600;
+  color: var(--accent); padding-left: 10px; min-width: 90px;
+}
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+
+.dashboard-title { font-size:18px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+.dashboard-sub   { font-size:11px; color:var(--muted); margin-bottom:18px; }
+.legend-row      { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; font-size:11px; }
+.leg { display:flex; align-items:center; gap:6px; padding:4px 10px; border-radius:5px; border:1px solid var(--border); }
+.leg-dot { width:10px; height:10px; border-radius:50%; }
+.toolbar { margin-bottom:14px; }
+#search-input { padding:5px 12px; border-radius:6px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-size:11px; width:200px; }
+.industry-block { margin-bottom:22px; }
+.industry-hdr { background:var(--surface2); border:1px solid var(--border); border-bottom:none; border-radius:8px 8px 0 0; padding:9px 14px; font-size:13px; font-weight:600; display:flex; align-items:center; gap:8px; }
+.ind-count { font-size:11px; color:var(--muted); }
+.ind-spike-count { font-size:11px; padding:2px 8px; border-radius:10px; background:#3d1a00; color:#fdba74; font-weight:600; }
+.table-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:0 0 8px 8px; }
+.spike-badge { display:inline-block; padding:1px 6px; border-radius:8px; background:#ff6b00; color:#fff; font-size:9px; font-weight:700; margin-left:4px; }
+.ratio-cell  { font-size:10px; color:var(--muted); }
+#scroll-top { position:fixed; bottom:24px; right:24px; background:var(--accent); color:#000; border:none; border-radius:50%; width:34px; height:34px; font-size:15px; cursor:pointer; display:none; align-items:center; justify-content:center; }
+
+</style>
+</head>
+<body>
+<div class="dashboard-title">📦 Delivery Spike Screener</div>
+<div class="dashboard-sub">
+  Cell color = LTP vs 20 &amp; 50 DMA &nbsp;·&nbsp;
+  2026-03-10 &nbsp;·&nbsp;
+  21 spikes of 376 symbols &nbsp;·&nbsp;
+  Spike = DELIV_QTY &gt; 2.0× 60D avg &amp; DELIV_PCT ≥ 25%
+</div>
+
+<div class="legend-row">
+  <div class="leg"><div class="leg-dot" style="background:#4cff8f"></div><span style="color:#4cff8f">GREEN — LTP &gt; 20D &amp; 50D MA</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#ff5e5e"></div><span style="color:#ff5e5e">RED — LTP &lt; 20D &amp; 50D MA</span></div>
+  <div class="leg"><div class="leg-dot" style="background:#9aa5c4"></div><span style="color:#9aa5c4">NEUTRAL — mixed</span></div>
+  <div class="leg" style="margin-left:12px;color:var(--muted)">🔥 SPIKE = DELIV_QTY ≥ 2.0× 60D avg &amp; DELIV_PCT ≥ 25% (HFT filter)</div>
+</div>
+
+<div class="toolbar">
+  <input id="search-input" type="text" placeholder="Search symbol…">
+</div>
+
+
+<div class="industry-block">
+  <div class="industry-hdr">2/3 Wheelers <span class="ind-count">(4 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ATHERENERG</td>
+<td>₹695.75</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:695.75 | 20DMA:708.02 | 50DMA:681.58 | AvgDeliv60D:571452.0 | DelivVal: ₹28.5Cr'>35.9%</td>
+<td class='ratio-cell'>(0.7×) ₹28.5Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>HEROMOTOCO</td>
+<td>₹5711.50</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:5711.5 | 20DMA:5595.57 | 50DMA:5657.78 | AvgDeliv60D:300883.0 | DelivVal: ₹123.4Cr'>43.8%</td>
+<td class='ratio-cell'>(0.7×) ₹123.4Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>OLAELEC</td>
+<td>₹24.22</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:24.22 | 20DMA:26.76 | 50DMA:32.02 | AvgDeliv60D:21002194.0 | DelivVal: ₹36.8Cr'>28.0%</td>
+<td class='ratio-cell'>(0.7×) ₹36.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TVSMOTOR</td>
+<td>₹3785.10</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:3785.1 | 20DMA:3828.32 | 50DMA:3754.69 | AvgDeliv60D:383878.0 | DelivVal: ₹209.8Cr'>57.9%</td>
+<td class='ratio-cell'>(1.4×) ₹209.8Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Aerospace & Defense <span class="ind-count">(7 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>APOLLO</td>
+<td>₹217.67</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:217.67 | 20DMA:230.07 | 50DMA:241.84 | AvgDeliv60D:1127962.0 | DelivVal: ₹37.8Cr'>26.6%</td>
+<td class='ratio-cell'>(1.5×) ₹37.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>AVANTEL</td>
+<td>₹146.00</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:146.0 | 20DMA:146.41 | 50DMA:149.01 | AvgDeliv60D:510987.0 | DelivVal: ₹6.9Cr'>49.6%</td>
+<td class='ratio-cell'>(0.9×) ₹6.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>BDL</td>
+<td>₹1384.40</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:1384.4 | 20DMA:1284.36 | 50DMA:1386.93 | AvgDeliv60D:481171.0 | DelivVal: ₹70.7Cr'>21.9%</td>
+<td class='ratio-cell'>(1.1×) ₹70.7Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>BEL</td>
+<td>₹463.35</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:463.35 | 20DMA:446.06 | 50DMA:430.04 | AvgDeliv60D:8906860.0 | DelivVal: ₹314.9Cr'>35.0%</td>
+<td class='ratio-cell'>(0.8×) ₹314.9Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>DCXINDIA</td>
+<td>₹192.67</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:192.67 | 20DMA:178.59 | 50DMA:178.05 | AvgDeliv60D:394728.0 | DelivVal: ₹13.8Cr'>16.9%</td>
+<td class='ratio-cell'>(1.8×) ₹13.8Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>HAL</td>
+<td>₹4040.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:4040.1 | 20DMA:4067.95 | 50DMA:4264.82 | AvgDeliv60D:631969.0 | DelivVal: ₹254.3Cr'>39.1%</td>
+<td class='ratio-cell'>(1.0×) ₹254.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MIDHANI</td>
+<td>₹342.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:342.1 | 20DMA:352.67 | 50DMA:353.24 | AvgDeliv60D:320433.0 | DelivVal: ₹7.2Cr'>35.4%</td>
+<td class='ratio-cell'>(0.7×) ₹7.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Airline <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>INDIGO</td>
+<td>₹4380.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:4380.4 | 20DMA:4766.1 | 50DMA:4830.35 | AvgDeliv60D:863325.0 | DelivVal: ₹526.6Cr'>46.6%</td>
+<td class='ratio-cell'>(1.4×) ₹526.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Airport & Airport services <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>GMRAIRPORT</td>
+<td>₹95.53</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:95.53 | 20DMA:98.22 | 50DMA:98.44 | AvgDeliv60D:8170673.0 | DelivVal: ₹84.1Cr'>62.6%</td>
+<td class='ratio-cell'>(1.1×) ₹84.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Aluminium <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ARFIN</td>
+<td>₹81.43</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:81.43 | 20DMA:73.73 | 50DMA:75.34 | AvgDeliv60D:472559.0 | DelivVal: ₹6.1Cr'>49.0%</td>
+<td class='ratio-cell'>(1.6×) ₹6.1Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>HINDALCO</td>
+<td>₹956.60</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:956.6 | 20DMA:933.32 | 50DMA:934.73 | AvgDeliv60D:3411461.0 | DelivVal: ₹211.9Cr'>45.8%</td>
+<td class='ratio-cell'>(0.7×) ₹211.9Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>NATIONALUM</td>
+<td>₹388.75</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:388.75 | 20DMA:361.64 | 50DMA:358.93 | AvgDeliv60D:5747672.0 | DelivVal: ₹213.7Cr'>42.2%</td>
+<td class='ratio-cell'>(1.0×) ₹213.7Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Amusement Parks/ Other Recreation <span class="ind-count">(2 stocks)</span> <span class='ind-spike-count'>🔥 2 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>DELTACORP<span class='spike-badge'>SPIKE</span></td>
+<td>₹56.43</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:56.43 | 20DMA:63.44 | 50DMA:65.63 | AvgDeliv60D:460332.0 | DelivVal: ₹5.5Cr'>58.1%</td>
+<td class='ratio-cell'>(2.1×) ₹5.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IMAGICAA<span class='spike-badge'>SPIKE</span></td>
+<td>₹41.75</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:41.75 | 20DMA:44.84 | 50DMA:47.68 | AvgDeliv60D:371091.0 | DelivVal: ₹6.2Cr'>57.2%</td>
+<td class='ratio-cell'>(4.0×) ₹6.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Animal Feed <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AVANTIFEED</td>
+<td>₹1204.20</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:1204.2 | 20DMA:1289.51 | 50DMA:1026.89 | AvgDeliv60D:332406.0 | DelivVal: ₹21.8Cr'>30.3%</td>
+<td class='ratio-cell'>(0.5×) ₹21.8Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Asset Management Company <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HDFCAMC</td>
+<td>₹2534.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:2534.7 | 20DMA:2705.95 | 50DMA:2633.06 | AvgDeliv60D:615415.0 | DelivVal: ₹247.3Cr'>62.1%</td>
+<td class='ratio-cell'>(1.6×) ₹247.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Auto Components & Equipments <span class="ind-count">(9 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BELRISE</td>
+<td>₹193.85</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:193.85 | 20DMA:187.12 | 50DMA:179.58 | AvgDeliv60D:2481946.0 | DelivVal: ₹88.2Cr'>52.1%</td>
+<td class='ratio-cell'>(1.8×) ₹88.2Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>BHARATFORG</td>
+<td>₹1842.20</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:1842.2 | 20DMA:1810.38 | 50DMA:1602.78 | AvgDeliv60D:606847.0 | DelivVal: ₹74.5Cr'>42.1%</td>
+<td class='ratio-cell'>(0.7×) ₹74.5Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>EXIDEIND</td>
+<td>₹317.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:317.05 | 20DMA:331.61 | 50DMA:337.64 | AvgDeliv60D:601749.0 | DelivVal: ₹10.4Cr'>37.3%</td>
+<td class='ratio-cell'>(0.6×) ₹10.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JAMNAAUTO</td>
+<td>₹126.36</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:126.36 | 20DMA:139.41 | 50DMA:131.25 | AvgDeliv60D:1415584.0 | DelivVal: ₹13.9Cr'>37.6%</td>
+<td class='ratio-cell'>(0.8×) ₹13.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MOTHERSON</td>
+<td>₹123.41</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:123.41 | 20DMA:129.4 | 50DMA:121.54 | AvgDeliv60D:7199025.0 | DelivVal: ₹124.3Cr'>49.2%</td>
+<td class='ratio-cell'>(1.4×) ₹124.3Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>MSUMI</td>
+<td>₹40.74</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:40.74 | 20DMA:42.59 | 50DMA:44.52 | AvgDeliv60D:3633749.0 | DelivVal: ₹6.7Cr'>48.1%</td>
+<td class='ratio-cell'>(0.5×) ₹6.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RICOAUTO</td>
+<td>₹111.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:111.9 | 20DMA:123.37 | 50DMA:124.53 | AvgDeliv60D:1110331.0 | DelivVal: ₹7.5Cr'>20.8%</td>
+<td class='ratio-cell'>(0.6×) ₹7.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SONACOMS</td>
+<td>₹511.75</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:511.75 | 20DMA:526.05 | 50DMA:499.25 | AvgDeliv60D:919633.0 | DelivVal: ₹38.9Cr'>41.3%</td>
+<td class='ratio-cell'>(0.8×) ₹38.9Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>UNOMINDA<span class='spike-badge'>SPIKE</span></td>
+<td>₹1114.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1114.5 | 20DMA:1185.49 | 50DMA:1201.87 | AvgDeliv60D:400029.0 | DelivVal: ₹98.7Cr'>47.0%</td>
+<td class='ratio-cell'>(2.2×) ₹98.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Breweries & Distilleries <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>SDBL</td>
+<td>₹76.55</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:76.55 | 20DMA:81.88 | 50DMA:90.91 | AvgDeliv60D:331721.0 | DelivVal: ₹2.9Cr'>49.6%</td>
+<td class='ratio-cell'>(1.1×) ₹2.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>UNITDSPR</td>
+<td>₹1407.10</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:1407.1 | 20DMA:1392.55 | 50DMA:1371.89 | AvgDeliv60D:501489.0 | DelivVal: ₹59.5Cr'>56.6%</td>
+<td class='ratio-cell'>(0.8×) ₹59.5Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Business Process Outsourcing (BPO)/ Knowledge Process Outsourcing (KPO) <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>FSL</td>
+<td>₹213.77</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:213.77 | 20DMA:239.08 | 50DMA:287.13 | AvgDeliv60D:435733.0 | DelivVal: ₹4.6Cr'>28.2%</td>
+<td class='ratio-cell'>(0.5×) ₹4.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Carbon Black <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HSCL</td>
+<td>₹451.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:451.4 | 20DMA:465.98 | 50DMA:466.49 | AvgDeliv60D:418920.0 | DelivVal: ₹9.5Cr'>20.2%</td>
+<td class='ratio-cell'>(0.5×) ₹9.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PCBL</td>
+<td>₹275.45</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:275.45 | 20DMA:299.74 | 50DMA:288.31 | AvgDeliv60D:495271.0 | DelivVal: ₹8.9Cr'>39.5%</td>
+<td class='ratio-cell'>(0.7×) ₹8.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Castings & Forgings <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BALUFORGE</td>
+<td>₹468.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:468.9 | 20DMA:480.29 | 50DMA:474.47 | AvgDeliv60D:404582.0 | DelivVal: ₹7.3Cr'>43.6%</td>
+<td class='ratio-cell'>(0.4×) ₹7.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Cement & Cement Products <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AMBUJACEM</td>
+<td>₹462.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:462.1 | 20DMA:505.35 | 50DMA:526.67 | AvgDeliv60D:1041753.0 | DelivVal: ₹46.6Cr'>44.8%</td>
+<td class='ratio-cell'>(1.0×) ₹46.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>GRASIM</td>
+<td>₹2743.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:2743.9 | 20DMA:2838.32 | 50DMA:2824.18 | AvgDeliv60D:403385.0 | DelivVal: ₹169.2Cr'>59.6%</td>
+<td class='ratio-cell'>(1.5×) ₹169.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SANGHIIND</td>
+<td>₹55.44</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:55.44 | 20DMA:60.32 | 50DMA:62.26 | AvgDeliv60D:436210.0 | DelivVal: ₹3.0Cr'>72.3%</td>
+<td class='ratio-cell'>(1.2×) ₹3.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Ceramics <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ASIANTILES</td>
+<td>₹66.94</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:66.94 | 20DMA:69.82 | 50DMA:71.69 | AvgDeliv60D:1211134.0 | DelivVal: ₹12.7Cr'>25.6%</td>
+<td class='ratio-cell'>(1.6×) ₹12.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Civil Construction <span class="ind-count">(13 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ASHOKA</td>
+<td>₹120.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:120.05 | 20DMA:139.74 | 50DMA:149.03 | AvgDeliv60D:437057.0 | DelivVal: ₹6.0Cr'>46.7%</td>
+<td class='ratio-cell'>(1.1×) ₹6.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ENGINERSIN</td>
+<td>₹199.96</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:199.96 | 20DMA:207.9 | 50DMA:194.66 | AvgDeliv60D:1684723.0 | DelivVal: ₹15.4Cr'>28.1%</td>
+<td class='ratio-cell'>(0.5×) ₹15.4Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>GARUDA</td>
+<td>₹170.82</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:170.82 | 20DMA:183.69 | 50DMA:178.94 | AvgDeliv60D:301133.0 | DelivVal: ₹2.1Cr'>33.0%</td>
+<td class='ratio-cell'>(0.4×) ₹2.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IRB</td>
+<td>₹41.93</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:41.93 | 20DMA:41.7 | 50DMA:41.57 | AvgDeliv60D:3267397.0 | DelivVal: ₹19.4Cr'>51.5%</td>
+<td class='ratio-cell'>(1.4×) ₹19.4Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>IRCON</td>
+<td>₹140.17</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:140.17 | 20DMA:146.97 | 50DMA:156.92 | AvgDeliv60D:1132081.0 | DelivVal: ₹11.7Cr'>20.8%</td>
+<td class='ratio-cell'>(0.7×) ₹11.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>KNRCON</td>
+<td>₹123.39</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:123.39 | 20DMA:135.54 | 50DMA:143.41 | AvgDeliv60D:632065.0 | DelivVal: ₹5.6Cr'>48.2%</td>
+<td class='ratio-cell'>(0.7×) ₹5.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>LT</td>
+<td>₹3876.00</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:3876.0 | 20DMA:4168.2 | 50DMA:4050.2 | AvgDeliv60D:1258643.0 | DelivVal: ₹649.2Cr'>50.3%</td>
+<td class='ratio-cell'>(1.3×) ₹649.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NBCC</td>
+<td>₹87.04</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:87.04 | 20DMA:93.93 | 50DMA:101.4 | AvgDeliv60D:3789022.0 | DelivVal: ₹20.8Cr'>31.0%</td>
+<td class='ratio-cell'>(0.6×) ₹20.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NCC</td>
+<td>₹145.02</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:145.02 | 20DMA:149.52 | 50DMA:150.66 | AvgDeliv60D:1343689.0 | DelivVal: ₹13.2Cr'>43.4%</td>
+<td class='ratio-cell'>(0.7×) ₹13.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PATELENG</td>
+<td>₹25.47</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:25.47 | 20DMA:27.73 | 50DMA:28.17 | AvgDeliv60D:3584684.0 | DelivVal: ₹5.2Cr'>38.5%</td>
+<td class='ratio-cell'>(0.6×) ₹5.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RVNL</td>
+<td>₹283.60</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:283.6 | 20DMA:305.26 | 50DMA:324.43 | AvgDeliv60D:2287284.0 | DelivVal: ₹39.6Cr'>23.6%</td>
+<td class='ratio-cell'>(0.6×) ₹39.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SWSOLAR</td>
+<td>₹177.82</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:177.82 | 20DMA:197.91 | 50DMA:198.44 | AvgDeliv60D:630294.0 | DelivVal: ₹13.0Cr'>40.8%</td>
+<td class='ratio-cell'>(1.2×) ₹13.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>VPRPL</td>
+<td>₹38.58</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:38.58 | 20DMA:44.78 | 50DMA:46.96 | AvgDeliv60D:864357.0 | DelivVal: ₹8.2Cr'>24.8%</td>
+<td class='ratio-cell'>(2.5×) ₹8.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Coal <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>COALINDIA</td>
+<td>₹443.55</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:443.55 | 20DMA:428.81 | 50DMA:426.49 | AvgDeliv60D:4261948.0 | DelivVal: ₹219.3Cr'>45.5%</td>
+<td class='ratio-cell'>(1.2×) ₹219.3Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>SANDUMA</td>
+<td>₹198.92</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:198.92 | 20DMA:205.13 | 50DMA:219.5 | AvgDeliv60D:1033229.0 | DelivVal: ₹10.3Cr'>41.6%</td>
+<td class='ratio-cell'>(0.5×) ₹10.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Commercial Vehicles <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ASHOKLEY</td>
+<td>₹193.56</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:193.56 | 20DMA:205.46 | 50DMA:195.95 | AvgDeliv60D:7744434.0 | DelivVal: ₹146.8Cr'>42.7%</td>
+<td class='ratio-cell'>(1.0×) ₹146.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Compressors, Pumps & Diesel Engines <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>CUMMINSIND</td>
+<td>₹4718.00</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:4718.0 | 20DMA:4691.44 | 50DMA:4374.09 | AvgDeliv60D:365853.0 | DelivVal: ₹164.9Cr'>62.8%</td>
+<td class='ratio-cell'>(1.0×) ₹164.9Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>GREAVESCOT</td>
+<td>₹149.20</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:149.2 | 20DMA:158.35 | 50DMA:168.06 | AvgDeliv60D:370523.0 | DelivVal: ₹7.9Cr'>58.2%</td>
+<td class='ratio-cell'>(1.4×) ₹7.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SHAKTIPUMP</td>
+<td>₹489.95</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:489.95 | 20DMA:551.45 | 50DMA:625.31 | AvgDeliv60D:415164.0 | DelivVal: ₹16.7Cr'>39.3%</td>
+<td class='ratio-cell'>(0.8×) ₹16.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Computers - Software & Consulting <span class="ind-count">(12 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BSOFT</td>
+<td>₹385.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:385.05 | 20DMA:392.06 | 50DMA:412.05 | AvgDeliv60D:517100.0 | DelivVal: ₹31.6Cr'>36.0%</td>
+<td class='ratio-cell'>(1.6×) ₹31.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>COFORGE</td>
+<td>₹1139.20</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1139.2 | 20DMA:1287.84 | 50DMA:1513.26 | AvgDeliv60D:1484002.0 | DelivVal: ₹103.0Cr'>37.0%</td>
+<td class='ratio-cell'>(0.6×) ₹103.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>HCLTECH</td>
+<td>₹1361.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1361.5 | 20DMA:1421.33 | 50DMA:1565.58 | AvgDeliv60D:1683470.0 | DelivVal: ₹125.9Cr'>55.3%</td>
+<td class='ratio-cell'>(0.6×) ₹125.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>HEXT</td>
+<td>₹442.55</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:442.55 | 20DMA:510.1 | 50DMA:632.95 | AvgDeliv60D:662587.0 | DelivVal: ₹18.1Cr'>48.9%</td>
+<td class='ratio-cell'>(0.6×) ₹18.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>INFY</td>
+<td>₹1295.60</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1295.6 | 20DMA:1344.12 | 50DMA:1511.65 | AvgDeliv60D:5719063.0 | DelivVal: ₹360.6Cr'>29.0%</td>
+<td class='ratio-cell'>(0.5×) ₹360.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>KPITTECH</td>
+<td>₹693.25</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:693.25 | 20DMA:810.28 | 50DMA:988.09 | AvgDeliv60D:475321.0 | DelivVal: ₹43.9Cr'>33.8%</td>
+<td class='ratio-cell'>(1.3×) ₹43.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MCLOUD</td>
+<td>₹23.83</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:23.83 | 20DMA:25.61 | 50DMA:24.62 | AvgDeliv60D:1227135.0 | DelivVal: ₹2.3Cr'>50.3%</td>
+<td class='ratio-cell'>(0.8×) ₹2.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NEWGEN</td>
+<td>₹467.35</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:467.35 | 20DMA:509.01 | 50DMA:621.97 | AvgDeliv60D:444828.0 | DelivVal: ₹12.6Cr'>21.5%</td>
+<td class='ratio-cell'>(0.6×) ₹12.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PERSISTENT</td>
+<td>₹4827.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:4827.9 | 20DMA:5095.71 | 50DMA:5770.24 | AvgDeliv60D:301478.0 | DelivVal: ₹111.0Cr'>46.1%</td>
+<td class='ratio-cell'>(0.8×) ₹111.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TCS</td>
+<td>₹2513.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:2513.1 | 20DMA:2668.11 | 50DMA:2968.42 | AvgDeliv60D:1977678.0 | DelivVal: ₹596.3Cr'>54.9%</td>
+<td class='ratio-cell'>(1.2×) ₹596.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TECHM</td>
+<td>₹1336.60</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1336.6 | 20DMA:1436.49 | 50DMA:1567.67 | AvgDeliv60D:1083641.0 | DelivVal: ₹66.8Cr'>46.7%</td>
+<td class='ratio-cell'>(0.5×) ₹66.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>WIPRO</td>
+<td>₹200.93</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:200.93 | 20DMA:207.56 | 50DMA:233.3 | AvgDeliv60D:6369004.0 | DelivVal: ₹127.7Cr'>49.0%</td>
+<td class='ratio-cell'>(1.0×) ₹127.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Computers Hardware & Equipments <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>MOSCHIP</td>
+<td>₹171.88</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:171.88 | 20DMA:188.57 | 50DMA:193.12 | AvgDeliv60D:541176.0 | DelivVal: ₹9.4Cr'>39.5%</td>
+<td class='ratio-cell'>(1.0×) ₹9.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Consumer Electronics <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HAVELLS</td>
+<td>₹1358.00</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1358.0 | 20DMA:1388.45 | 50DMA:1383.22 | AvgDeliv60D:411608.0 | DelivVal: ₹104.5Cr'>50.3%</td>
+<td class='ratio-cell'>(1.9×) ₹104.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PGEL</td>
+<td>₹544.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:544.1 | 20DMA:607.41 | 50DMA:586.84 | AvgDeliv60D:659925.0 | DelivVal: ₹118.8Cr'>20.2%</td>
+<td class='ratio-cell'>(3.3×) ₹118.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Copper <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HINDCOPPER</td>
+<td>₹548.95</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:548.95 | 20DMA:571.76 | 50DMA:570.78 | AvgDeliv60D:7332154.0 | DelivVal: ₹61.1Cr'>26.4%</td>
+<td class='ratio-cell'>(0.1×) ₹61.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Dairy Products <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>PARAGMILK</td>
+<td>₹201.25</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:201.25 | 20DMA:208.34 | 50DMA:244.16 | AvgDeliv60D:333531.0 | DelivVal: ₹5.5Cr'>53.3%</td>
+<td class='ratio-cell'>(0.8×) ₹5.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Depositories, Clearing Houses and Other Intermediaries <span class="ind-count">(3 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>CAMS<span class='spike-badge'>SPIKE</span></td>
+<td>₹671.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:671.1 | 20DMA:701.06 | 50DMA:713.64 | AvgDeliv60D:541793.0 | DelivVal: ₹83.6Cr'>50.1%</td>
+<td class='ratio-cell'>(2.3×) ₹83.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>CDSL</td>
+<td>₹1249.30</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1249.3 | 20DMA:1305.41 | 50DMA:1352.78 | AvgDeliv60D:609030.0 | DelivVal: ₹70.1Cr'>34.6%</td>
+<td class='ratio-cell'>(0.9×) ₹70.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>KFINTECH</td>
+<td>₹944.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:944.7 | 20DMA:978.42 | 50DMA:1015.15 | AvgDeliv60D:340400.0 | DelivVal: ₹33.1Cr'>38.4%</td>
+<td class='ratio-cell'>(1.0×) ₹33.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Digital Entertainment <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>NAZARA</td>
+<td>₹245.55</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:245.55 | 20DMA:265.08 | 50DMA:271.19 | AvgDeliv60D:1157573.0 | DelivVal: ₹9.7Cr'>26.6%</td>
+<td class='ratio-cell'>(0.3×) ₹9.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Diversified Commercial Services <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>CMSINFO</td>
+<td>₹293.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:293.9 | 20DMA:309.7 | 50DMA:322.57 | AvgDeliv60D:334990.0 | DelivVal: ₹11.5Cr'>59.7%</td>
+<td class='ratio-cell'>(1.2×) ₹11.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IGIL</td>
+<td>₹330.65</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:330.65 | 20DMA:330.12 | 50DMA:322.21 | AvgDeliv60D:374635.0 | DelivVal: ₹4.8Cr'>46.6%</td>
+<td class='ratio-cell'>(0.4×) ₹4.8Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Diversified FMCG <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HINDUNILVR</td>
+<td>₹2190.20</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:2190.2 | 20DMA:2321.39 | 50DMA:2352.05 | AvgDeliv60D:845261.0 | DelivVal: ₹118.1Cr'>49.7%</td>
+<td class='ratio-cell'>(0.6×) ₹118.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ITC</td>
+<td>₹309.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:309.05 | 20DMA:318.17 | 50DMA:329.17 | AvgDeliv60D:15508502.0 | DelivVal: ₹295.6Cr'>52.1%</td>
+<td class='ratio-cell'>(0.6×) ₹295.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Diversified Metals <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>VEDL</td>
+<td>₹722.00</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:722.0 | 20DMA:700.01 | 50DMA:673.61 | AvgDeliv60D:7140927.0 | DelivVal: ₹519.8Cr'>48.1%</td>
+<td class='ratio-cell'>(1.0×) ₹519.8Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Diversified Retail <span class="ind-count">(2 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>EMIL<span class='spike-badge'>SPIKE</span></td>
+<td>₹94.57</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:94.57 | 20DMA:99.42 | 50DMA:97.14 | AvgDeliv60D:341184.0 | DelivVal: ₹7.6Cr'>69.0%</td>
+<td class='ratio-cell'>(2.4×) ₹7.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>VMM</td>
+<td>₹111.32</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:111.32 | 20DMA:119.08 | 50DMA:124.04 | AvgDeliv60D:16228115.0 | DelivVal: ₹67.6Cr'>36.8%</td>
+<td class='ratio-cell'>(0.4×) ₹67.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Dyes And Pigments <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>KIRIINDUS</td>
+<td>₹400.15</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:400.15 | 20DMA:443.68 | 50DMA:492.5 | AvgDeliv60D:484280.0 | DelivVal: ₹6.4Cr'>44.5%</td>
+<td class='ratio-cell'>(0.3×) ₹6.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">E-Retail/ E-Commerce <span class="ind-count">(5 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ETERNAL</td>
+<td>₹226.62</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:226.62 | 20DMA:262.59 | 50DMA:272.96 | AvgDeliv60D:24765049.0 | DelivVal: ₹436.1Cr'>40.8%</td>
+<td class='ratio-cell'>(0.8×) ₹436.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>FIRSTCRY</td>
+<td>₹218.32</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:218.32 | 20DMA:229.31 | 50DMA:257.46 | AvgDeliv60D:583325.0 | DelivVal: ₹15.2Cr'>45.1%</td>
+<td class='ratio-cell'>(1.2×) ₹15.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NYKAA</td>
+<td>₹256.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:256.8 | 20DMA:266.3 | 50DMA:258.41 | AvgDeliv60D:3017090.0 | DelivVal: ₹54.7Cr'>55.2%</td>
+<td class='ratio-cell'>(0.7×) ₹54.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RTNINDIA<span class='spike-badge'>SPIKE</span></td>
+<td>₹27.12</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:27.12 | 20DMA:31.09 | 50DMA:35.15 | AvgDeliv60D:1016584.0 | DelivVal: ₹8.2Cr'>29.0%</td>
+<td class='ratio-cell'>(3.0×) ₹8.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SWIGGY</td>
+<td>₹294.65</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:294.65 | 20DMA:318.2 | 50DMA:332.89 | AvgDeliv60D:6601492.0 | DelivVal: ₹62.7Cr'>35.7%</td>
+<td class='ratio-cell'>(0.3×) ₹62.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Edible Oil <span class="ind-count">(3 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AWL<span class='spike-badge'>SPIKE</span></td>
+<td>₹179.01</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:179.01 | 20DMA:193.18 | 50DMA:208.98 | AvgDeliv60D:860742.0 | DelivVal: ₹52.0Cr'>80.5%</td>
+<td class='ratio-cell'>(3.4×) ₹52.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MARICO</td>
+<td>₹789.90</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:789.9 | 20DMA:783.67 | 50DMA:763.06 | AvgDeliv60D:1038863.0 | DelivVal: ₹85.0Cr'>66.6%</td>
+<td class='ratio-cell'>(1.0×) ₹85.0Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>PATANJALI</td>
+<td>₹500.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:500.1 | 20DMA:517.3 | 50DMA:524.56 | AvgDeliv60D:1104625.0 | DelivVal: ₹23.9Cr'>34.0%</td>
+<td class='ratio-cell'>(0.4×) ₹23.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Electrodes & Refractories <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>GRAPHITE</td>
+<td>₹636.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:636.05 | 20DMA:680.11 | 50DMA:650.75 | AvgDeliv60D:433704.0 | DelivVal: ₹15.0Cr'>33.7%</td>
+<td class='ratio-cell'>(0.5×) ₹15.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>HEG</td>
+<td>₹521.25</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:521.25 | 20DMA:547.19 | 50DMA:561.32 | AvgDeliv60D:614259.0 | DelivVal: ₹10.4Cr'>34.5%</td>
+<td class='ratio-cell'>(0.3×) ₹10.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Exchange and Data Platform <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BSE</td>
+<td>₹2860.60</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:2860.6 | 20DMA:2827.09 | 50DMA:2777.79 | AvgDeliv60D:1328118.0 | DelivVal: ₹502.7Cr'>33.5%</td>
+<td class='ratio-cell'>(1.3×) ₹502.7Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>IEX</td>
+<td>₹121.13</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:121.13 | 20DMA:124.35 | 50DMA:129.61 | AvgDeliv60D:3710297.0 | DelivVal: ₹46.9Cr'>50.6%</td>
+<td class='ratio-cell'>(1.0×) ₹46.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MCX</td>
+<td>₹2578.20</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:2578.2 | 20DMA:2435.65 | 50DMA:3082.89 | AvgDeliv60D:1332587.0 | DelivVal: ₹376.6Cr'>43.6%</td>
+<td class='ratio-cell'>(1.1×) ₹376.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Fertilizers <span class="ind-count">(5 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>CHAMBLFERT</td>
+<td>₹431.55</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:431.55 | 20DMA:449.11 | 50DMA:448.2 | AvgDeliv60D:455924.0 | DelivVal: ₹19.0Cr'>19.4%</td>
+<td class='ratio-cell'>(1.0×) ₹19.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>GSFC</td>
+<td>₹162.98</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:162.98 | 20DMA:169.54 | 50DMA:174.54 | AvgDeliv60D:350325.0 | DelivVal: ₹15.1Cr'>14.6%</td>
+<td class='ratio-cell'>(2.6×) ₹15.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NFL</td>
+<td>₹79.09</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:79.09 | 20DMA:77.42 | 50DMA:81.05 | AvgDeliv60D:393299.0 | DelivVal: ₹15.2Cr'>4.7%</td>
+<td class='ratio-cell'>(4.9×) ₹15.2Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>PARADEEP</td>
+<td>₹108.11</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:108.11 | 20DMA:117.06 | 50DMA:132.35 | AvgDeliv60D:1881374.0 | DelivVal: ₹20.9Cr'>18.4%</td>
+<td class='ratio-cell'>(1.0×) ₹20.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RCF</td>
+<td>₹127.68</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:127.68 | 20DMA:127.3 | 50DMA:133.58 | AvgDeliv60D:465977.0 | DelivVal: ₹28.6Cr'>3.3%</td>
+<td class='ratio-cell'>(4.8×) ₹28.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Financial Institution <span class="ind-count">(7 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HUDCO</td>
+<td>₹179.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:179.7 | 20DMA:189.01 | 50DMA:201.34 | AvgDeliv60D:1401192.0 | DelivVal: ₹16.7Cr'>30.9%</td>
+<td class='ratio-cell'>(0.7×) ₹16.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IFCI</td>
+<td>₹53.61</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:53.61 | 20DMA:59.16 | 50DMA:57.27 | AvgDeliv60D:5512043.0 | DelivVal: ₹13.9Cr'>28.0%</td>
+<td class='ratio-cell'>(0.5×) ₹13.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IREDA</td>
+<td>₹116.97</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:116.97 | 20DMA:122.92 | 50DMA:130.18 | AvgDeliv60D:2847394.0 | DelivVal: ₹23.1Cr'>31.9%</td>
+<td class='ratio-cell'>(0.7×) ₹23.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IRFC</td>
+<td>₹100.71</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:100.71 | 20DMA:107.19 | 50DMA:115.05 | AvgDeliv60D:5782058.0 | DelivVal: ₹42.5Cr'>28.5%</td>
+<td class='ratio-cell'>(0.7×) ₹42.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PFC</td>
+<td>₹412.15</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:412.15 | 20DMA:411.37 | 50DMA:390.25 | AvgDeliv60D:4097600.0 | DelivVal: ₹152.6Cr'>36.1%</td>
+<td class='ratio-cell'>(0.9×) ₹152.6Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>RECLTD</td>
+<td>₹334.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:334.4 | 20DMA:348.16 | 50DMA:360.45 | AvgDeliv60D:4246463.0 | DelivVal: ₹135.7Cr'>49.2%</td>
+<td class='ratio-cell'>(1.0×) ₹135.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TFCILTD</td>
+<td>₹66.57</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:66.57 | 20DMA:72.05 | 50DMA:67.75 | AvgDeliv60D:4809056.0 | DelivVal: ₹25.4Cr'>65.5%</td>
+<td class='ratio-cell'>(0.8×) ₹25.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Financial Technology (Fintech) <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>MOBIKWIK</td>
+<td>₹181.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:181.7 | 20DMA:201.77 | 50DMA:212.87 | AvgDeliv60D:335606.0 | DelivVal: ₹3.5Cr'>29.9%</td>
+<td class='ratio-cell'>(0.6×) ₹3.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PAYTM</td>
+<td>₹1040.60</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1040.6 | 20DMA:1116.12 | 50DMA:1196.96 | AvgDeliv60D:1340232.0 | DelivVal: ₹109.5Cr'>47.8%</td>
+<td class='ratio-cell'>(0.8×) ₹109.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>POLICYBZR</td>
+<td>₹1467.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1467.9 | 20DMA:1493.95 | 50DMA:1598.11 | AvgDeliv60D:1143014.0 | DelivVal: ₹127.0Cr'>62.9%</td>
+<td class='ratio-cell'>(0.8×) ₹127.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Garments & Apparels <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>GOKEX</td>
+<td>₹634.95</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:634.95 | 20DMA:716.2 | 50DMA:679.62 | AvgDeliv60D:426941.0 | DelivVal: ₹19.5Cr'>29.9%</td>
+<td class='ratio-cell'>(0.7×) ₹19.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>KITEX</td>
+<td>₹171.63</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:171.63 | 20DMA:184.89 | 50DMA:178.08 | AvgDeliv60D:527366.0 | DelivVal: ₹3.7Cr'>24.6%</td>
+<td class='ratio-cell'>(0.4×) ₹3.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SBC</td>
+<td>₹32.17</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:32.17 | 20DMA:31.6 | 50DMA:30.02 | AvgDeliv60D:5091480.0 | DelivVal: ₹12.2Cr'>34.3%</td>
+<td class='ratio-cell'>(0.8×) ₹12.2Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Gas Transmission/Marketing <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>GAIL</td>
+<td>₹150.29</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:150.29 | 20DMA:163.13 | 50DMA:164.73 | AvgDeliv60D:6993765.0 | DelivVal: ₹205.6Cr'>65.7%</td>
+<td class='ratio-cell'>(2.0×) ₹205.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Gems, Jewellery And Watches <span class="ind-count">(5 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>KALYANKJIL</td>
+<td>₹392.85</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:392.85 | 20DMA:409.42 | 50DMA:426.48 | AvgDeliv60D:1540427.0 | DelivVal: ₹21.4Cr'>25.4%</td>
+<td class='ratio-cell'>(0.3×) ₹21.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RGL</td>
+<td>₹106.03</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:106.03 | 20DMA:115.86 | 50DMA:116.35 | AvgDeliv60D:479399.0 | DelivVal: ₹4.1Cr'>17.0%</td>
+<td class='ratio-cell'>(0.8×) ₹4.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SENCO</td>
+<td>₹298.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:298.1 | 20DMA:326.89 | 50DMA:324.28 | AvgDeliv60D:412993.0 | DelivVal: ₹4.8Cr'>39.5%</td>
+<td class='ratio-cell'>(0.4×) ₹4.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SKYGOLD</td>
+<td>₹339.65</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:339.65 | 20DMA:354.36 | 50DMA:336.29 | AvgDeliv60D:318609.0 | DelivVal: ₹3.9Cr'>44.8%</td>
+<td class='ratio-cell'>(0.4×) ₹3.9Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>TITAN</td>
+<td>₹4220.10</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:4220.1 | 20DMA:4250.5 | 50DMA:4156.02 | AvgDeliv60D:494221.0 | DelivVal: ₹193.7Cr'>58.2%</td>
+<td class='ratio-cell'>(0.9×) ₹193.7Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">General Insurance <span class="ind-count">(3 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ICICIGI</td>
+<td>₹1889.30</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1889.3 | 20DMA:1914.48 | 50DMA:1896.59 | AvgDeliv60D:379593.0 | DelivVal: ₹66.0Cr'>73.0%</td>
+<td class='ratio-cell'>(0.9×) ₹66.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NIVABUPA<span class='spike-badge'>SPIKE</span></td>
+<td>₹71.19</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:71.19 | 20DMA:75.15 | 50DMA:76.45 | AvgDeliv60D:506118.0 | DelivVal: ₹10.5Cr'>76.0%</td>
+<td class='ratio-cell'>(2.9×) ₹10.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>STARHEALTH</td>
+<td>₹451.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:451.05 | 20DMA:464.62 | 50DMA:456.35 | AvgDeliv60D:327601.0 | DelivVal: ₹12.5Cr'>70.2%</td>
+<td class='ratio-cell'>(0.8×) ₹12.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Healthcare Research, Analytics & Technology <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>SYNGENE</td>
+<td>₹409.30</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:409.3 | 20DMA:428.03 | 50DMA:513.98 | AvgDeliv60D:518584.0 | DelivVal: ₹12.1Cr'>43.8%</td>
+<td class='ratio-cell'>(0.6×) ₹12.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Heavy Electrical Equipment <span class="ind-count">(6 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BHEL</td>
+<td>₹258.65</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:258.65 | 20DMA:260.16 | 50DMA:266.16 | AvgDeliv60D:5337074.0 | DelivVal: ₹39.6Cr'>24.8%</td>
+<td class='ratio-cell'>(0.3×) ₹39.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ENRIN</td>
+<td>₹2957.60</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:2957.6 | 20DMA:2843.48 | 50DMA:2612.21 | AvgDeliv60D:345367.0 | DelivVal: ₹34.8Cr'>53.0%</td>
+<td class='ratio-cell'>(0.3×) ₹34.8Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>INOXWIND</td>
+<td>₹82.93</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:82.93 | 20DMA:95.67 | 50DMA:106.12 | AvgDeliv60D:3360372.0 | DelivVal: ₹28.4Cr'>35.1%</td>
+<td class='ratio-cell'>(1.0×) ₹28.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SUZLON</td>
+<td>₹41.45</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:41.45 | 20DMA:43.76 | 50DMA:47.05 | AvgDeliv60D:24371553.0 | DelivVal: ₹104.5Cr'>35.6%</td>
+<td class='ratio-cell'>(1.0×) ₹104.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TARIL</td>
+<td>₹289.00</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:289.0 | 20DMA:292.8 | 50DMA:277.15 | AvgDeliv60D:1507512.0 | DelivVal: ₹19.3Cr'>25.7%</td>
+<td class='ratio-cell'>(0.4×) ₹19.3Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>TDPOWERSYS</td>
+<td>₹815.35</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:815.35 | 20DMA:870.69 | 50DMA:768.07 | AvgDeliv60D:382656.0 | DelivVal: ₹37.5Cr'>45.2%</td>
+<td class='ratio-cell'>(1.2×) ₹37.5Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Holding Company <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BAJAJFINSV</td>
+<td>₹1867.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1867.8 | 20DMA:1993.14 | 50DMA:1994.09 | AvgDeliv60D:688854.0 | DelivVal: ₹78.0Cr'>47.1%</td>
+<td class='ratio-cell'>(0.6×) ₹78.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>EDELWEISS</td>
+<td>₹109.45</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:109.45 | 20DMA:117.84 | 50DMA:111.5 | AvgDeliv60D:2335626.0 | DelivVal: ₹16.1Cr'>36.0%</td>
+<td class='ratio-cell'>(0.6×) ₹16.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JMFINANCIL</td>
+<td>₹121.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:121.05 | 20DMA:131.96 | 50DMA:133.81 | AvgDeliv60D:1135434.0 | DelivVal: ₹15.4Cr'>33.7%</td>
+<td class='ratio-cell'>(1.1×) ₹15.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Hospital <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ASTERDM</td>
+<td>₹665.50</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:665.5 | 20DMA:634.97 | 50DMA:603.48 | AvgDeliv60D:373249.0 | DelivVal: ₹7.2Cr'>31.7%</td>
+<td class='ratio-cell'>(0.3×) ₹7.2Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>FORTIS</td>
+<td>₹881.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:881.8 | 20DMA:915.75 | 50DMA:893.26 | AvgDeliv60D:968313.0 | DelivVal: ₹43.0Cr'>56.2%</td>
+<td class='ratio-cell'>(0.5×) ₹43.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MAXHEALTH</td>
+<td>₹1043.10</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:1043.1 | 20DMA:1069.14 | 50DMA:1036.8 | AvgDeliv60D:1833034.0 | DelivVal: ₹139.6Cr'>56.5%</td>
+<td class='ratio-cell'>(0.7×) ₹139.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Hotels & Resorts <span class="ind-count">(5 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>DBREALTY</td>
+<td>₹103.52</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:103.52 | 20DMA:115.29 | 50DMA:112.82 | AvgDeliv60D:809371.0 | DelivVal: ₹8.3Cr'>46.8%</td>
+<td class='ratio-cell'>(1.0×) ₹8.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>INDHOTEL</td>
+<td>₹629.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:629.4 | 20DMA:669.91 | 50DMA:682.02 | AvgDeliv60D:1583211.0 | DelivVal: ₹104.3Cr'>57.5%</td>
+<td class='ratio-cell'>(1.1×) ₹104.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ITCHOTELS</td>
+<td>₹163.88</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:163.88 | 20DMA:176.39 | 50DMA:183.7 | AvgDeliv60D:1588545.0 | DelivVal: ₹27.3Cr'>54.6%</td>
+<td class='ratio-cell'>(1.1×) ₹27.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>LEMONTREE</td>
+<td>₹107.99</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:107.99 | 20DMA:118.83 | 50DMA:131.59 | AvgDeliv60D:1852042.0 | DelivVal: ₹29.7Cr'>49.0%</td>
+<td class='ratio-cell'>(1.5×) ₹29.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SAMHI</td>
+<td>₹154.76</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:154.76 | 20DMA:161.48 | 50DMA:172.41 | AvgDeliv60D:415297.0 | DelivVal: ₹12.1Cr'>50.8%</td>
+<td class='ratio-cell'>(1.9×) ₹12.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Household Appliances <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>CROMPTON</td>
+<td>₹245.25</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:245.25 | 20DMA:260.08 | 50DMA:250.05 | AvgDeliv60D:1447592.0 | DelivVal: ₹12.5Cr'>43.7%</td>
+<td class='ratio-cell'>(0.3×) ₹12.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>EPACK</td>
+<td>₹250.00</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:250.0 | 20DMA:250.01 | 50DMA:254.25 | AvgDeliv60D:332312.0 | DelivVal: ₹6.7Cr'>45.6%</td>
+<td class='ratio-cell'>(0.8×) ₹6.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>VOLTAS</td>
+<td>₹1448.90</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:1448.9 | 20DMA:1509.9 | 50DMA:1441.33 | AvgDeliv60D:307041.0 | DelivVal: ₹20.6Cr'>34.3%</td>
+<td class='ratio-cell'>(0.5×) ₹20.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Housing Finance Company <span class="ind-count">(5 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>APTUS<span class='spike-badge'>SPIKE</span></td>
+<td>₹232.02</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:232.02 | 20DMA:242.26 | 50DMA:260.95 | AvgDeliv60D:647932.0 | DelivVal: ₹33.3Cr'>61.6%</td>
+<td class='ratio-cell'>(2.2×) ₹33.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>BAJAJHFL</td>
+<td>₹84.60</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:84.6 | 20DMA:87.39 | 50DMA:90.35 | AvgDeliv60D:2855353.0 | DelivVal: ₹24.3Cr'>54.1%</td>
+<td class='ratio-cell'>(1.0×) ₹24.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>LICHSGFIN</td>
+<td>₹512.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:512.5 | 20DMA:522.42 | 50DMA:523.55 | AvgDeliv60D:844721.0 | DelivVal: ₹36.3Cr'>60.0%</td>
+<td class='ratio-cell'>(0.8×) ₹36.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PNBHOUSING</td>
+<td>₹791.30</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:791.3 | 20DMA:828.36 | 50DMA:878.53 | AvgDeliv60D:572687.0 | DelivVal: ₹29.7Cr'>41.9%</td>
+<td class='ratio-cell'>(0.7×) ₹29.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SAMMAANCAP</td>
+<td>₹145.03</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:145.03 | 20DMA:148.37 | 50DMA:146.04 | AvgDeliv60D:5214417.0 | DelivVal: ₹40.1Cr'>48.2%</td>
+<td class='ratio-cell'>(0.5×) ₹40.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">IT Enabled Services <span class="ind-count">(5 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>NETWEB</td>
+<td>₹3324.10</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:3324.1 | 20DMA:3390.19 | 50DMA:3274.91 | AvgDeliv60D:305243.0 | DelivVal: ₹97.2Cr'>13.1%</td>
+<td class='ratio-cell'>(1.0×) ₹97.2Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>ORIENTTECH</td>
+<td>₹270.25</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:270.25 | 20DMA:301.95 | 50DMA:340.35 | AvgDeliv60D:312687.0 | DelivVal: ₹2.3Cr'>30.7%</td>
+<td class='ratio-cell'>(0.3×) ₹2.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SAGILITY</td>
+<td>₹39.02</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:39.02 | 20DMA:43.4 | 50DMA:47.94 | AvgDeliv60D:13027682.0 | DelivVal: ₹34.1Cr'>40.7%</td>
+<td class='ratio-cell'>(0.7×) ₹34.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TATATECH</td>
+<td>₹568.00</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:568.0 | 20DMA:592.26 | 50DMA:626.64 | AvgDeliv60D:324283.0 | DelivVal: ₹19.4Cr'>42.5%</td>
+<td class='ratio-cell'>(1.1×) ₹19.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ZAGGLE</td>
+<td>₹224.36</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:224.36 | 20DMA:245.58 | 50DMA:282.34 | AvgDeliv60D:500953.0 | DelivVal: ₹10.8Cr'>41.4%</td>
+<td class='ratio-cell'>(1.0×) ₹10.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Industrial Gases <span class="ind-count">(2 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>REFEX</td>
+<td>₹210.22</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:210.22 | 20DMA:229.64 | 50DMA:235.42 | AvgDeliv60D:379669.0 | DelivVal: ₹6.0Cr'>43.8%</td>
+<td class='ratio-cell'>(0.8×) ₹6.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>STALLION<span class='spike-badge'>SPIKE</span></td>
+<td>₹106.89</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:106.89 | 20DMA:136.36 | 50DMA:180.08 | AvgDeliv60D:505093.0 | DelivVal: ₹65.7Cr'>67.1%</td>
+<td class='ratio-cell'>(12.2×) ₹65.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Industrial Minerals <span class="ind-count">(5 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ASHAPURMIN</td>
+<td>₹526.95</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:526.95 | 20DMA:541.39 | 50DMA:683.12 | AvgDeliv60D:346760.0 | DelivVal: ₹9.2Cr'>51.6%</td>
+<td class='ratio-cell'>(0.5×) ₹9.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>GMDCLTD</td>
+<td>₹547.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:547.5 | 20DMA:563.0 | 50DMA:572.71 | AvgDeliv60D:1061112.0 | DelivVal: ₹29.3Cr'>33.7%</td>
+<td class='ratio-cell'>(0.5×) ₹29.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>LLOYDSME</td>
+<td>₹1170.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1170.8 | 20DMA:1194.25 | 50DMA:1215.26 | AvgDeliv60D:353667.0 | DelivVal: ₹18.7Cr'>42.6%</td>
+<td class='ratio-cell'>(0.5×) ₹18.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MOIL</td>
+<td>₹276.95</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:276.95 | 20DMA:300.85 | 50DMA:329.22 | AvgDeliv60D:437806.0 | DelivVal: ₹18.7Cr'>57.4%</td>
+<td class='ratio-cell'>(1.5×) ₹18.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NMDC</td>
+<td>₹79.67</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:79.67 | 20DMA:80.72 | 50DMA:81.57 | AvgDeliv60D:12055020.0 | DelivVal: ₹56.0Cr'>39.8%</td>
+<td class='ratio-cell'>(0.6×) ₹56.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Industrial Products <span class="ind-count">(7 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>KAYNES</td>
+<td>₹3841.60</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:3841.6 | 20DMA:3886.32 | 50DMA:3761.34 | AvgDeliv60D:321222.0 | DelivVal: ₹57.6Cr'>16.1%</td>
+<td class='ratio-cell'>(0.5×) ₹57.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>LLOYDSENGG</td>
+<td>₹44.93</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:44.93 | 20DMA:49.34 | 50DMA:49.81 | AvgDeliv60D:1250073.0 | DelivVal: ₹6.3Cr'>45.0%</td>
+<td class='ratio-cell'>(1.1×) ₹6.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PENIND</td>
+<td>₹144.23</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:144.23 | 20DMA:154.51 | 50DMA:170.44 | AvgDeliv60D:338457.0 | DelivVal: ₹6.6Cr'>43.4%</td>
+<td class='ratio-cell'>(1.4×) ₹6.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PRAJIND</td>
+<td>₹314.00</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:314.0 | 20DMA:315.26 | 50DMA:306.99 | AvgDeliv60D:483929.0 | DelivVal: ₹13.0Cr'>24.1%</td>
+<td class='ratio-cell'>(0.8×) ₹13.0Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>SYRMA</td>
+<td>₹761.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:761.1 | 20DMA:823.97 | 50DMA:772.22 | AvgDeliv60D:403008.0 | DelivVal: ₹16.1Cr'>20.8%</td>
+<td class='ratio-cell'>(0.5×) ₹16.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TEXRAIL</td>
+<td>₹97.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:97.9 | 20DMA:107.57 | 50DMA:119.1 | AvgDeliv60D:720458.0 | DelivVal: ₹7.9Cr'>40.9%</td>
+<td class='ratio-cell'>(1.1×) ₹7.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>WALCHANNAG</td>
+<td>₹164.85</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:164.85 | 20DMA:170.82 | 50DMA:173.11 | AvgDeliv60D:419921.0 | DelivVal: ₹2.1Cr'>42.9%</td>
+<td class='ratio-cell'>(0.3×) ₹2.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Integrated Power Utilities <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ADANIPOWER</td>
+<td>₹138.94</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:138.94 | 20DMA:142.38 | 50DMA:142.41 | AvgDeliv60D:5923506.0 | DelivVal: ₹122.8Cr'>58.4%</td>
+<td class='ratio-cell'>(1.5×) ₹122.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>CESC</td>
+<td>₹154.52</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:154.52 | 20DMA:154.77 | 50DMA:155.58 | AvgDeliv60D:812249.0 | DelivVal: ₹12.4Cr'>45.1%</td>
+<td class='ratio-cell'>(1.0×) ₹12.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TATAPOWER</td>
+<td>₹381.30</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:381.3 | 20DMA:376.33 | 50DMA:370.96 | AvgDeliv60D:1919305.0 | DelivVal: ₹139.4Cr'>47.6%</td>
+<td class='ratio-cell'>(1.9×) ₹139.4Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Internet & Catalogue Retail <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>NAUKRI</td>
+<td>₹976.60</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:976.6 | 20DMA:1068.04 | 50DMA:1203.0 | AvgDeliv60D:819342.0 | DelivVal: ₹42.1Cr'>52.6%</td>
+<td class='ratio-cell'>(0.5×) ₹42.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Investment Company <span class="ind-count">(3 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ABCAPITAL</td>
+<td>₹332.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:332.5 | 20DMA:341.57 | 50DMA:347.56 | AvgDeliv60D:3826005.0 | DelivVal: ₹29.0Cr'>33.5%</td>
+<td class='ratio-cell'>(0.2×) ₹29.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JIOFIN</td>
+<td>₹236.00</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:236.0 | 20DMA:255.03 | 50DMA:267.34 | AvgDeliv60D:5946571.0 | DelivVal: ₹276.2Cr'>50.6%</td>
+<td class='ratio-cell'>(2.0×) ₹276.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RELIGARE<span class='spike-badge'>SPIKE</span></td>
+<td>₹221.42</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:221.42 | 20DMA:222.53 | 50DMA:234.95 | AvgDeliv60D:898707.0 | DelivVal: ₹41.9Cr'>68.0%</td>
+<td class='ratio-cell'>(2.1×) ₹41.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Iron & Steel <span class="ind-count">(7 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>JAIBALAJI</td>
+<td>₹61.03</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:61.03 | 20DMA:66.28 | 50DMA:68.44 | AvgDeliv60D:864676.0 | DelivVal: ₹2.8Cr'>34.3%</td>
+<td class='ratio-cell'>(0.5×) ₹2.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JINDALSTEL</td>
+<td>₹1187.20</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:1187.2 | 20DMA:1208.27 | 50DMA:1132.57 | AvgDeliv60D:655449.0 | DelivVal: ₹51.5Cr'>36.5%</td>
+<td class='ratio-cell'>(0.7×) ₹51.5Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>JSL</td>
+<td>₹721.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:721.5 | 20DMA:769.05 | 50DMA:789.78 | AvgDeliv60D:395591.0 | DelivVal: ₹33.2Cr'>52.5%</td>
+<td class='ratio-cell'>(1.2×) ₹33.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JSWSTEEL</td>
+<td>₹1214.30</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:1214.3 | 20DMA:1243.29 | 50DMA:1210.37 | AvgDeliv60D:737094.0 | DelivVal: ₹60.7Cr'>44.2%</td>
+<td class='ratio-cell'>(0.7×) ₹60.7Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>NSLNISP</td>
+<td>₹37.64</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:37.64 | 20DMA:39.61 | 50DMA:41.28 | AvgDeliv60D:1811570.0 | DelivVal: ₹4.9Cr'>49.0%</td>
+<td class='ratio-cell'>(0.7×) ₹4.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SAIL</td>
+<td>₹149.84</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:149.84 | 20DMA:158.9 | 50DMA:153.66 | AvgDeliv60D:8597149.0 | DelivVal: ₹51.0Cr'>29.1%</td>
+<td class='ratio-cell'>(0.4×) ₹51.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TATASTEEL</td>
+<td>₹195.00</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:195.0 | 20DMA:205.56 | 50DMA:194.7 | AvgDeliv60D:13619651.0 | DelivVal: ₹148.6Cr'>29.6%</td>
+<td class='ratio-cell'>(0.6×) ₹148.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Iron & Steel Products <span class="ind-count">(11 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AEROFLEX</td>
+<td>₹220.49</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:220.49 | 20DMA:214.91 | 50DMA:195.36 | AvgDeliv60D:487413.0 | DelivVal: ₹5.1Cr'>26.7%</td>
+<td class='ratio-cell'>(0.5×) ₹5.1Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>APLAPOLLO</td>
+<td>₹2100.60</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:2100.6 | 20DMA:2202.39 | 50DMA:2079.49 | AvgDeliv60D:467691.0 | DelivVal: ₹130.3Cr'>54.0%</td>
+<td class='ratio-cell'>(1.3×) ₹130.3Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>ELECTCAST</td>
+<td>₹63.02</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:63.02 | 20DMA:69.92 | 50DMA:71.88 | AvgDeliv60D:604848.0 | DelivVal: ₹2.6Cr'>42.7%</td>
+<td class='ratio-cell'>(0.7×) ₹2.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>GPIL</td>
+<td>₹253.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:253.8 | 20DMA:261.33 | 50DMA:258.91 | AvgDeliv60D:911685.0 | DelivVal: ₹13.1Cr'>42.4%</td>
+<td class='ratio-cell'>(0.6×) ₹13.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>HITECH</td>
+<td>₹79.16</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:79.16 | 20DMA:85.42 | 50DMA:84.34 | AvgDeliv60D:433762.0 | DelivVal: ₹2.2Cr'>44.0%</td>
+<td class='ratio-cell'>(0.7×) ₹2.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JAYNECOIND</td>
+<td>₹73.15</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:73.15 | 20DMA:77.33 | 50DMA:79.4 | AvgDeliv60D:2580911.0 | DelivVal: ₹6.2Cr'>43.9%</td>
+<td class='ratio-cell'>(0.3×) ₹6.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JINDALSAW</td>
+<td>₹165.85</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:165.85 | 20DMA:181.08 | 50DMA:177.2 | AvgDeliv60D:1005722.0 | DelivVal: ₹10.3Cr'>46.1%</td>
+<td class='ratio-cell'>(0.6×) ₹10.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JTLIND</td>
+<td>₹52.59</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:52.59 | 20DMA:61.4 | 50DMA:64.52 | AvgDeliv60D:1301257.0 | DelivVal: ₹5.3Cr'>55.2%</td>
+<td class='ratio-cell'>(0.8×) ₹5.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MSPL</td>
+<td>₹31.57</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:31.57 | 20DMA:31.62 | 50DMA:32.29 | AvgDeliv60D:713846.0 | DelivVal: ₹3.6Cr'>49.2%</td>
+<td class='ratio-cell'>(1.6×) ₹3.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RATNAVEER</td>
+<td>₹140.02</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:140.02 | 20DMA:150.18 | 50DMA:149.68 | AvgDeliv60D:529175.0 | DelivVal: ₹4.5Cr'>55.8%</td>
+<td class='ratio-cell'>(0.6×) ₹4.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SAMBHV</td>
+<td>₹93.34</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:93.34 | 20DMA:98.01 | 50DMA:93.99 | AvgDeliv60D:453119.0 | DelivVal: ₹4.0Cr'>45.2%</td>
+<td class='ratio-cell'>(0.9×) ₹4.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">LPG/CNG/PNG/LNG Supplier <span class="ind-count">(2 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>IGL</td>
+<td>₹157.66</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:157.66 | 20DMA:167.22 | 50DMA:175.9 | AvgDeliv60D:1053408.0 | DelivVal: ₹22.9Cr'>42.8%</td>
+<td class='ratio-cell'>(1.4×) ₹22.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PETRONET<span class='spike-badge'>SPIKE</span></td>
+<td>₹290.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:290.1 | 20DMA:300.42 | 50DMA:292.44 | AvgDeliv60D:1862376.0 | DelivVal: ₹194.4Cr'>56.4%</td>
+<td class='ratio-cell'>(3.6×) ₹194.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Life Insurance <span class="ind-count">(5 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HDFCLIFE</td>
+<td>₹656.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:656.1 | 20DMA:706.1 | 50DMA:724.15 | AvgDeliv60D:1821431.0 | DelivVal: ₹146.5Cr'>63.0%</td>
+<td class='ratio-cell'>(1.2×) ₹146.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ICICIPRULI</td>
+<td>₹601.65</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:601.65 | 20DMA:642.04 | 50DMA:653.12 | AvgDeliv60D:720404.0 | DelivVal: ₹28.6Cr'>48.9%</td>
+<td class='ratio-cell'>(0.7×) ₹28.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>LICI</td>
+<td>₹821.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:821.4 | 20DMA:859.11 | 50DMA:844.11 | AvgDeliv60D:532861.0 | DelivVal: ₹44.2Cr'>52.4%</td>
+<td class='ratio-cell'>(1.0×) ₹44.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MFSL</td>
+<td>₹1733.20</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:1733.2 | 20DMA:1801.3 | 50DMA:1716.0 | AvgDeliv60D:420058.0 | DelivVal: ₹104.7Cr'>62.2%</td>
+<td class='ratio-cell'>(1.4×) ₹104.7Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>SBILIFE</td>
+<td>₹1963.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1963.7 | 20DMA:2023.86 | 50DMA:2033.94 | AvgDeliv60D:564205.0 | DelivVal: ₹52.6Cr'>45.6%</td>
+<td class='ratio-cell'>(0.5×) ₹52.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Logistics Solution Provider <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>CONCOR</td>
+<td>₹472.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:472.8 | 20DMA:495.73 | 50DMA:506.16 | AvgDeliv60D:666282.0 | DelivVal: ₹32.5Cr'>52.9%</td>
+<td class='ratio-cell'>(1.0×) ₹32.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>DELHIVERY</td>
+<td>₹425.85</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:425.85 | 20DMA:429.12 | 50DMA:418.7 | AvgDeliv60D:1060666.0 | DelivVal: ₹15.4Cr'>47.8%</td>
+<td class='ratio-cell'>(0.3×) ₹15.4Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>GATEWAY</td>
+<td>₹57.23</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:57.23 | 20DMA:59.06 | 50DMA:58.78 | AvgDeliv60D:446674.0 | DelivVal: ₹2.5Cr'>67.7%</td>
+<td class='ratio-cell'>(1.0×) ₹2.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Lubricants <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>CASTROLIND</td>
+<td>₹185.96</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:185.96 | 20DMA:186.78 | 50DMA:186.91 | AvgDeliv60D:1224085.0 | DelivVal: ₹15.2Cr'>61.8%</td>
+<td class='ratio-cell'>(0.7×) ₹15.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Media & Entertainment <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>NETWORK18</td>
+<td>₹32.82</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:32.82 | 20DMA:35.33 | 50DMA:38.03 | AvgDeliv60D:1317915.0 | DelivVal: ₹4.6Cr'>52.2%</td>
+<td class='ratio-cell'>(1.1×) ₹4.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PFOCUS</td>
+<td>₹280.05</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:280.05 | 20DMA:270.87 | 50DMA:250.14 | AvgDeliv60D:1045948.0 | DelivVal: ₹18.7Cr'>16.7%</td>
+<td class='ratio-cell'>(0.6×) ₹18.7Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Non Banking Financial Company (NBFC) <span class="ind-count">(16 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BAJFINANCE</td>
+<td>₹939.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:939.8 | 20DMA:992.73 | 50DMA:970.67 | AvgDeliv60D:4667442.0 | DelivVal: ₹509.3Cr'>64.0%</td>
+<td class='ratio-cell'>(1.2×) ₹509.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>CGCL</td>
+<td>₹165.58</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:165.58 | 20DMA:168.46 | 50DMA:173.74 | AvgDeliv60D:571105.0 | DelivVal: ₹35.3Cr'>21.9%</td>
+<td class='ratio-cell'>(3.7×) ₹35.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>CHOLAFIN</td>
+<td>₹1621.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1621.9 | 20DMA:1695.81 | 50DMA:1696.89 | AvgDeliv60D:961612.0 | DelivVal: ₹94.8Cr'>55.0%</td>
+<td class='ratio-cell'>(0.6×) ₹94.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>FEDFINA</td>
+<td>₹124.62</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:124.62 | 20DMA:134.62 | 50DMA:145.44 | AvgDeliv60D:633785.0 | DelivVal: ₹9.2Cr'>60.2%</td>
+<td class='ratio-cell'>(1.2×) ₹9.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>FIVESTAR</td>
+<td>₹387.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:387.9 | 20DMA:424.19 | 50DMA:469.43 | AvgDeliv60D:595655.0 | DelivVal: ₹19.9Cr'>52.9%</td>
+<td class='ratio-cell'>(0.9×) ₹19.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>HDBFS</td>
+<td>₹662.65</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:662.65 | 20DMA:704.67 | 50DMA:724.25 | AvgDeliv60D:646963.0 | DelivVal: ₹59.3Cr'>73.2%</td>
+<td class='ratio-cell'>(1.4×) ₹59.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IIFL</td>
+<td>₹491.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:491.4 | 20DMA:502.81 | 50DMA:551.6 | AvgDeliv60D:903608.0 | DelivVal: ₹18.6Cr'>43.7%</td>
+<td class='ratio-cell'>(0.4×) ₹18.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>LTF</td>
+<td>₹274.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:274.05 | 20DMA:288.14 | 50DMA:293.07 | AvgDeliv60D:3347637.0 | DelivVal: ₹29.8Cr'>35.9%</td>
+<td class='ratio-cell'>(0.3×) ₹29.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MANAPPURAM</td>
+<td>₹261.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:261.8 | 20DMA:291.87 | 50DMA:297.24 | AvgDeliv60D:1988156.0 | DelivVal: ₹63.2Cr'>47.9%</td>
+<td class='ratio-cell'>(1.2×) ₹63.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MUFIN</td>
+<td>₹106.47</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:106.47 | 20DMA:113.85 | 50DMA:114.89 | AvgDeliv60D:404803.0 | DelivVal: ₹7.4Cr'>36.8%</td>
+<td class='ratio-cell'>(1.7×) ₹7.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MUTHOOTFIN</td>
+<td>₹3283.20</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:3283.2 | 20DMA:3496.68 | 50DMA:3695.53 | AvgDeliv60D:311724.0 | DelivVal: ₹108.6Cr'>53.5%</td>
+<td class='ratio-cell'>(1.1×) ₹108.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PAISALO</td>
+<td>₹32.98</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:32.98 | 20DMA:34.38 | 50DMA:34.51 | AvgDeliv60D:1810219.0 | DelivVal: ₹3.0Cr'>51.2%</td>
+<td class='ratio-cell'>(0.5×) ₹3.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>POONAWALLA</td>
+<td>₹424.25</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:424.25 | 20DMA:458.27 | 50DMA:450.6 | AvgDeliv60D:595135.0 | DelivVal: ₹14.5Cr'>41.5%</td>
+<td class='ratio-cell'>(0.6×) ₹14.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SBFC</td>
+<td>₹93.17</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:93.17 | 20DMA:95.49 | 50DMA:97.04 | AvgDeliv60D:1174347.0 | DelivVal: ₹2.5Cr'>45.6%</td>
+<td class='ratio-cell'>(0.2×) ₹2.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SBICARD</td>
+<td>₹716.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:716.1 | 20DMA:762.85 | 50DMA:793.31 | AvgDeliv60D:715127.0 | DelivVal: ₹14.8Cr'>39.8%</td>
+<td class='ratio-cell'>(0.3×) ₹14.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SHRIRAMFIN</td>
+<td>₹1062.90</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:1062.9 | 20DMA:1058.03 | 50DMA:1021.84 | AvgDeliv60D:4146489.0 | DelivVal: ₹601.8Cr'>39.6%</td>
+<td class='ratio-cell'>(1.4×) ₹601.8Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Oil Exploration & Production <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>OIL</td>
+<td>₹470.55</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:470.55 | 20DMA:474.72 | 50DMA:461.36 | AvgDeliv60D:2164229.0 | DelivVal: ₹79.6Cr'>33.3%</td>
+<td class='ratio-cell'>(0.8×) ₹79.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>ONGC</td>
+<td>₹269.20</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:269.2 | 20DMA:274.78 | 50DMA:259.15 | AvgDeliv60D:8808580.0 | DelivVal: ₹224.6Cr'>45.1%</td>
+<td class='ratio-cell'>(0.9×) ₹224.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Oil Storage & Transportation <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AEGISVOPAK</td>
+<td>₹194.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:194.1 | 20DMA:214.26 | 50DMA:222.18 | AvgDeliv60D:508495.0 | DelivVal: ₹4.2Cr'>28.5%</td>
+<td class='ratio-cell'>(0.4×) ₹4.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Other Agricultural Products <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>GRMOVER</td>
+<td>₹156.38</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:156.38 | 20DMA:160.69 | 50DMA:163.39 | AvgDeliv60D:512564.0 | DelivVal: ₹6.9Cr'>22.5%</td>
+<td class='ratio-cell'>(0.9×) ₹6.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>LTFOODS</td>
+<td>₹378.00</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:378.0 | 20DMA:408.88 | 50DMA:388.01 | AvgDeliv60D:399141.0 | DelivVal: ₹18.6Cr'>17.1%</td>
+<td class='ratio-cell'>(1.2×) ₹18.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Other Bank <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AUBANK</td>
+<td>₹938.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:938.5 | 20DMA:983.0 | 50DMA:988.16 | AvgDeliv60D:1593596.0 | DelivVal: ₹114.7Cr'>62.2%</td>
+<td class='ratio-cell'>(0.8×) ₹114.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>EQUITASBNK</td>
+<td>₹58.26</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:58.26 | 20DMA:64.79 | 50DMA:66.17 | AvgDeliv60D:1888885.0 | DelivVal: ₹9.8Cr'>45.1%</td>
+<td class='ratio-cell'>(0.9×) ₹9.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>UJJIVANSFB</td>
+<td>₹56.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:56.05 | 20DMA:59.94 | 50DMA:59.8 | AvgDeliv60D:7172114.0 | DelivVal: ₹33.8Cr'>42.8%</td>
+<td class='ratio-cell'>(0.8×) ₹33.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Other Beverages <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>VBL</td>
+<td>₹436.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:436.5 | 20DMA:451.5 | 50DMA:468.5 | AvgDeliv60D:2702795.0 | DelivVal: ₹79.8Cr'>55.1%</td>
+<td class='ratio-cell'>(0.7×) ₹79.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Other Electrical Equipment <span class="ind-count">(4 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>DIACABS</td>
+<td>₹139.19</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:139.19 | 20DMA:135.86 | 50DMA:132.92 | AvgDeliv60D:600720.0 | DelivVal: ₹11.2Cr'>43.3%</td>
+<td class='ratio-cell'>(1.4×) ₹11.2Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>PREMIERENE</td>
+<td>₹747.75</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:747.75 | 20DMA:750.69 | 50DMA:756.41 | AvgDeliv60D:607422.0 | DelivVal: ₹31.5Cr'>30.2%</td>
+<td class='ratio-cell'>(0.7×) ₹31.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>WAAREEENER</td>
+<td>₹2655.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:2655.7 | 20DMA:2869.76 | 50DMA:2805.06 | AvgDeliv60D:424703.0 | DelivVal: ₹64.3Cr'>30.6%</td>
+<td class='ratio-cell'>(0.6×) ₹64.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>WEBELSOLAR</td>
+<td>₹54.71</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:54.71 | 20DMA:61.11 | 50DMA:73.13 | AvgDeliv60D:1599336.0 | DelivVal: ₹9.9Cr'>25.2%</td>
+<td class='ratio-cell'>(1.1×) ₹9.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Other Industrial Products <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HBLENGINE</td>
+<td>₹684.60</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:684.6 | 20DMA:712.06 | 50DMA:779.62 | AvgDeliv60D:575242.0 | DelivVal: ₹30.7Cr'>35.1%</td>
+<td class='ratio-cell'>(0.8×) ₹30.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Other Telecom Services <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>RAILTEL</td>
+<td>₹288.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:288.4 | 20DMA:315.73 | 50DMA:334.61 | AvgDeliv60D:391843.0 | DelivVal: ₹5.3Cr'>26.3%</td>
+<td class='ratio-cell'>(0.5×) ₹5.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Other Textile Products <span class="ind-count">(4 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BOMDYEING</td>
+<td>₹106.94</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:106.94 | 20DMA:114.67 | 50DMA:119.01 | AvgDeliv60D:330653.0 | DelivVal: ₹3.8Cr'>42.9%</td>
+<td class='ratio-cell'>(1.1×) ₹3.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>FILATEX</td>
+<td>₹41.16</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:41.16 | 20DMA:45.17 | 50DMA:46.14 | AvgDeliv60D:373500.0 | DelivVal: ₹2.3Cr'>42.8%</td>
+<td class='ratio-cell'>(1.5×) ₹2.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TRIDENT</td>
+<td>₹23.24</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:23.24 | 20DMA:25.49 | 50DMA:26.04 | AvgDeliv60D:2615612.0 | DelivVal: ₹5.1Cr'>38.2%</td>
+<td class='ratio-cell'>(0.8×) ₹5.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>WELSPUNLIV</td>
+<td>₹116.97</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:116.97 | 20DMA:131.05 | 50DMA:129.42 | AvgDeliv60D:987217.0 | DelivVal: ₹8.7Cr'>38.3%</td>
+<td class='ratio-cell'>(0.8×) ₹8.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Packaged Foods <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BECTORFOOD</td>
+<td>₹187.31</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:187.31 | 20DMA:210.2 | 50DMA:220.47 | AvgDeliv60D:320223.0 | DelivVal: ₹6.9Cr'>54.2%</td>
+<td class='ratio-cell'>(1.1×) ₹6.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NESTLEIND</td>
+<td>₹1241.20</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1241.2 | 20DMA:1286.19 | 50DMA:1295.29 | AvgDeliv60D:561452.0 | DelivVal: ₹93.3Cr'>57.7%</td>
+<td class='ratio-cell'>(1.3×) ₹93.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Paints <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ASIANPAINT</td>
+<td>₹2280.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:2280.4 | 20DMA:2367.49 | 50DMA:2539.58 | AvgDeliv60D:757123.0 | DelivVal: ₹123.4Cr'>45.4%</td>
+<td class='ratio-cell'>(0.7×) ₹123.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Passenger Cars & Utility Vehicles <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HYUNDAI</td>
+<td>₹2099.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:2099.8 | 20DMA:2171.73 | 50DMA:2224.49 | AvgDeliv60D:330022.0 | DelivVal: ₹31.1Cr'>50.3%</td>
+<td class='ratio-cell'>(0.5×) ₹31.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Personal Care <span class="ind-count">(6 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BAJAJCON</td>
+<td>₹374.70</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:374.7 | 20DMA:381.37 | 50DMA:332.47 | AvgDeliv60D:517384.0 | DelivVal: ₹4.7Cr'>46.4%</td>
+<td class='ratio-cell'>(0.2×) ₹4.7Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>CUPID</td>
+<td>₹92.85</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:92.85 | 20DMA:382.3 | 50DMA:409.87 | AvgDeliv60D:2049333.0 | DelivVal: ₹63.9Cr'>11.3%</td>
+<td class='ratio-cell'>(3.4×) ₹63.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>DABUR</td>
+<td>₹480.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:480.9 | 20DMA:506.51 | 50DMA:509.49 | AvgDeliv60D:916828.0 | DelivVal: ₹25.9Cr'>52.3%</td>
+<td class='ratio-cell'>(0.6×) ₹25.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>EMAMILTD</td>
+<td>₹444.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:444.7 | 20DMA:476.24 | 50DMA:493.49 | AvgDeliv60D:343608.0 | DelivVal: ₹19.3Cr'>67.1%</td>
+<td class='ratio-cell'>(1.3×) ₹19.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>GODREJCP</td>
+<td>₹1111.60</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1111.6 | 20DMA:1187.58 | 50DMA:1200.85 | AvgDeliv60D:636966.0 | DelivVal: ₹87.1Cr'>52.6%</td>
+<td class='ratio-cell'>(1.2×) ₹87.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>HONASA</td>
+<td>₹289.05</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:289.05 | 20DMA:298.78 | 50DMA:289.32 | AvgDeliv60D:438826.0 | DelivVal: ₹3.4Cr'>47.6%</td>
+<td class='ratio-cell'>(0.3×) ₹3.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Pesticides & Agrochemicals <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>UPL</td>
+<td>₹630.30</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:630.3 | 20DMA:681.69 | 50DMA:724.81 | AvgDeliv60D:1796557.0 | DelivVal: ₹46.0Cr'>49.4%</td>
+<td class='ratio-cell'>(0.4×) ₹46.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Petrochemicals <span class="ind-count">(2 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>DCW<span class='spike-badge'>SPIKE</span></td>
+<td>₹44.53</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:44.53 | 20DMA:49.17 | 50DMA:50.48 | AvgDeliv60D:460295.0 | DelivVal: ₹9.0Cr'>43.8%</td>
+<td class='ratio-cell'>(4.4×) ₹9.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RAIN</td>
+<td>₹120.65</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:120.65 | 20DMA:145.49 | 50DMA:147.41 | AvgDeliv60D:1666734.0 | DelivVal: ₹19.1Cr'>39.1%</td>
+<td class='ratio-cell'>(0.9×) ₹19.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Pharmaceuticals <span class="ind-count">(15 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AUROPHARMA</td>
+<td>₹1285.90</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:1285.9 | 20DMA:1189.96 | 50DMA:1184.89 | AvgDeliv60D:645841.0 | DelivVal: ₹88.0Cr'>31.1%</td>
+<td class='ratio-cell'>(1.1×) ₹88.0Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>BIOCON</td>
+<td>₹395.80</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:395.8 | 20DMA:384.64 | 50DMA:379.52 | AvgDeliv60D:1434628.0 | DelivVal: ₹76.8Cr'>54.6%</td>
+<td class='ratio-cell'>(1.4×) ₹76.8Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>BLISSGVS</td>
+<td>₹223.02</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:223.02 | 20DMA:218.13 | 50DMA:190.05 | AvgDeliv60D:838586.0 | DelivVal: ₹18.3Cr'>33.3%</td>
+<td class='ratio-cell'>(1.0×) ₹18.3Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>CIPLA</td>
+<td>₹1333.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1333.5 | 20DMA:1337.5 | 50DMA:1377.17 | AvgDeliv60D:962761.0 | DelivVal: ₹63.8Cr'>45.5%</td>
+<td class='ratio-cell'>(0.5×) ₹63.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>COHANCE</td>
+<td>₹295.60</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:295.6 | 20DMA:312.03 | 50DMA:383.0 | AvgDeliv60D:410445.0 | DelivVal: ₹10.3Cr'>38.3%</td>
+<td class='ratio-cell'>(0.8×) ₹10.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>DRREDDY</td>
+<td>₹1314.60</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:1314.6 | 20DMA:1289.54 | 50DMA:1249.45 | AvgDeliv60D:813120.0 | DelivVal: ₹165.3Cr'>54.0%</td>
+<td class='ratio-cell'>(1.6×) ₹165.3Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>GRANULES</td>
+<td>₹581.30</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:581.3 | 20DMA:578.82 | 50DMA:581.57 | AvgDeliv60D:449174.0 | DelivVal: ₹19.8Cr'>47.7%</td>
+<td class='ratio-cell'>(0.8×) ₹19.8Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>IOLCP<span class='spike-badge'>SPIKE</span></td>
+<td>₹72.58</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:72.58 | 20DMA:73.69 | 50DMA:75.29 | AvgDeliv60D:348186.0 | DelivVal: ₹8.6Cr'>62.8%</td>
+<td class='ratio-cell'>(3.4×) ₹8.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>LAURUSLABS</td>
+<td>₹1038.00</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:1038.0 | 20DMA:1031.49 | 50DMA:1034.28 | AvgDeliv60D:857594.0 | DelivVal: ₹69.9Cr'>49.2%</td>
+<td class='ratio-cell'>(0.8×) ₹69.9Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>LUPIN</td>
+<td>₹2337.40</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:2337.4 | 20DMA:2265.47 | 50DMA:2198.75 | AvgDeliv60D:473501.0 | DelivVal: ₹165.6Cr'>63.3%</td>
+<td class='ratio-cell'>(1.5×) ₹165.6Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>MARKSANS</td>
+<td>₹174.06</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:174.06 | 20DMA:177.51 | 50DMA:175.29 | AvgDeliv60D:317389.0 | DelivVal: ₹3.4Cr'>47.9%</td>
+<td class='ratio-cell'>(0.6×) ₹3.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MOREPENLAB</td>
+<td>₹40.65</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:40.65 | 20DMA:40.84 | 50DMA:39.19 | AvgDeliv60D:1085248.0 | DelivVal: ₹4.8Cr'>33.5%</td>
+<td class='ratio-cell'>(1.1×) ₹4.8Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>NATCOPHARM</td>
+<td>₹1039.20</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:1039.2 | 20DMA:927.33 | 50DMA:887.48 | AvgDeliv60D:320306.0 | DelivVal: ₹54.7Cr'>25.9%</td>
+<td class='ratio-cell'>(1.6×) ₹54.7Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>PPLPHARMA</td>
+<td>₹155.37</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:155.37 | 20DMA:159.68 | 50DMA:162.4 | AvgDeliv60D:1138289.0 | DelivVal: ₹10.0Cr'>44.4%</td>
+<td class='ratio-cell'>(0.6×) ₹10.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SUNPHARMA</td>
+<td>₹1812.80</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:1812.8 | 20DMA:1743.46 | 50DMA:1708.42 | AvgDeliv60D:1683110.0 | DelivVal: ₹361.7Cr'>60.5%</td>
+<td class='ratio-cell'>(1.2×) ₹361.7Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Plastic Products - Industrial <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>JISLJALEQS</td>
+<td>₹32.39</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:32.39 | 20DMA:35.49 | 50DMA:36.98 | AvgDeliv60D:1236610.0 | DelivVal: ₹5.9Cr'>60.5%</td>
+<td class='ratio-cell'>(1.5×) ₹5.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TIMETECHNO</td>
+<td>₹170.98</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:170.98 | 20DMA:188.58 | 50DMA:185.09 | AvgDeliv60D:701460.0 | DelivVal: ₹23.5Cr'>55.4%</td>
+<td class='ratio-cell'>(2.0×) ₹23.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Port & Port services <span class="ind-count">(3 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ADANIPORTS</td>
+<td>₹1424.10</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1424.1 | 20DMA:1514.56 | 50DMA:1473.77 | AvgDeliv60D:1120987.0 | DelivVal: ₹209.6Cr'>54.4%</td>
+<td class='ratio-cell'>(1.3×) ₹209.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>GPPL</td>
+<td>₹161.54</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:161.54 | 20DMA:173.15 | 50DMA:175.05 | AvgDeliv60D:792400.0 | DelivVal: ₹7.4Cr'>49.3%</td>
+<td class='ratio-cell'>(0.6×) ₹7.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JSWINFRA</td>
+<td>₹262.90</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:262.9 | 20DMA:258.63 | 50DMA:264.59 | AvgDeliv60D:702769.0 | DelivVal: ₹16.5Cr'>49.8%</td>
+<td class='ratio-cell'>(0.9×) ₹16.5Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Power - Transmission <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>POWERGRID</td>
+<td>₹298.65</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:298.65 | 20DMA:298.19 | 50DMA:278.4 | AvgDeliv60D:9569684.0 | DelivVal: ₹291.7Cr'>66.8%</td>
+<td class='ratio-cell'>(1.0×) ₹291.7Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Power Distribution <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ADANIENSOL</td>
+<td>₹1013.60</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:1013.6 | 20DMA:1006.68 | 50DMA:976.12 | AvgDeliv60D:538961.0 | DelivVal: ₹103.4Cr'>48.1%</td>
+<td class='ratio-cell'>(1.9×) ₹103.4Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Power Generation <span class="ind-count">(11 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ACMESOLAR</td>
+<td>₹224.13</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:224.13 | 20DMA:229.72 | 50DMA:225.61 | AvgDeliv60D:343924.0 | DelivVal: ₹5.7Cr'>43.4%</td>
+<td class='ratio-cell'>(0.7×) ₹5.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ADANIGREEN</td>
+<td>₹856.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:856.9 | 20DMA:946.64 | 50DMA:938.3 | AvgDeliv60D:814475.0 | DelivVal: ₹118.5Cr'>42.7%</td>
+<td class='ratio-cell'>(1.7×) ₹118.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>INOXGREEN</td>
+<td>₹147.00</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:147.0 | 20DMA:168.11 | 50DMA:177.71 | AvgDeliv60D:527782.0 | DelivVal: ₹7.5Cr'>54.4%</td>
+<td class='ratio-cell'>(1.0×) ₹7.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JSWENERGY</td>
+<td>₹488.70</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:488.7 | 20DMA:484.78 | 50DMA:482.24 | AvgDeliv60D:1091072.0 | DelivVal: ₹35.4Cr'>40.2%</td>
+<td class='ratio-cell'>(0.7×) ₹35.4Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>KPIGREEN</td>
+<td>₹356.45</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:356.45 | 20DMA:385.27 | 50DMA:415.66 | AvgDeliv60D:458690.0 | DelivVal: ₹16.6Cr'>40.8%</td>
+<td class='ratio-cell'>(1.0×) ₹16.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NHPC</td>
+<td>₹73.04</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:73.04 | 20DMA:75.09 | 50DMA:77.76 | AvgDeliv60D:7644097.0 | DelivVal: ₹52.1Cr'>59.9%</td>
+<td class='ratio-cell'>(0.9×) ₹52.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NLCINDIA</td>
+<td>₹245.15</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:245.15 | 20DMA:257.73 | 50DMA:257.1 | AvgDeliv60D:710583.0 | DelivVal: ₹9.7Cr'>43.8%</td>
+<td class='ratio-cell'>(0.6×) ₹9.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>NTPC</td>
+<td>₹377.30</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:377.3 | 20DMA:373.55 | 50DMA:357.25 | AvgDeliv60D:6875274.0 | DelivVal: ₹226.1Cr'>55.1%</td>
+<td class='ratio-cell'>(0.9×) ₹226.1Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>NTPCGREEN</td>
+<td>₹86.71</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:86.71 | 20DMA:88.95 | 50DMA:90.22 | AvgDeliv60D:1644087.0 | DelivVal: ₹6.9Cr'>45.0%</td>
+<td class='ratio-cell'>(0.5×) ₹6.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RPOWER</td>
+<td>₹22.71</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:22.71 | 20DMA:25.37 | 50DMA:28.91 | AvgDeliv60D:14194832.0 | DelivVal: ₹17.9Cr'>22.8%</td>
+<td class='ratio-cell'>(0.6×) ₹17.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SJVN</td>
+<td>₹69.86</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:69.86 | 20DMA:73.98 | 50DMA:74.89 | AvgDeliv60D:2030688.0 | DelivVal: ₹8.8Cr'>33.6%</td>
+<td class='ratio-cell'>(0.6×) ₹8.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Power Trading <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>PTC</td>
+<td>₹158.08</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:158.08 | 20DMA:169.55 | 50DMA:167.3 | AvgDeliv60D:687782.0 | DelivVal: ₹8.8Cr'>50.5%</td>
+<td class='ratio-cell'>(0.8×) ₹8.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Private Sector Bank <span class="ind-count">(16 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AXISBANK</td>
+<td>₹1314.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1314.7 | 20DMA:1357.1 | 50DMA:1323.25 | AvgDeliv60D:4007158.0 | DelivVal: ₹424.6Cr'>51.4%</td>
+<td class='ratio-cell'>(0.8×) ₹424.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>BANDHANBNK</td>
+<td>₹182.26</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:182.26 | 20DMA:175.18 | 50DMA:158.96 | AvgDeliv60D:4190535.0 | DelivVal: ₹62.8Cr'>38.6%</td>
+<td class='ratio-cell'>(0.8×) ₹62.8Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>CSBBANK</td>
+<td>₹358.85</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:358.85 | 20DMA:387.27 | 50DMA:436.9 | AvgDeliv60D:381487.0 | DelivVal: ₹12.3Cr'>58.2%</td>
+<td class='ratio-cell'>(0.9×) ₹12.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>CUB</td>
+<td>₹251.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:251.4 | 20DMA:278.08 | 50DMA:282.79 | AvgDeliv60D:1193049.0 | DelivVal: ₹38.2Cr'>60.5%</td>
+<td class='ratio-cell'>(1.3×) ₹38.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>DCBBANK</td>
+<td>₹174.61</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:174.61 | 20DMA:186.29 | 50DMA:185.79 | AvgDeliv60D:1065685.0 | DelivVal: ₹16.7Cr'>54.7%</td>
+<td class='ratio-cell'>(0.9×) ₹16.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>FEDERALBNK</td>
+<td>₹276.00</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:276.0 | 20DMA:289.75 | 50DMA:279.4 | AvgDeliv60D:4746381.0 | DelivVal: ₹173.8Cr'>57.4%</td>
+<td class='ratio-cell'>(1.3×) ₹173.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>HDFCBANK</td>
+<td>₹849.45</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:849.45 | 20DMA:899.44 | 50DMA:927.57 | AvgDeliv60D:17988898.0 | DelivVal: ₹2531.1Cr'>56.4%</td>
+<td class='ratio-cell'>(1.7×) ₹2531.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ICICIBANK</td>
+<td>₹1311.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1311.9 | 20DMA:1381.85 | 50DMA:1380.68 | AvgDeliv60D:8271952.0 | DelivVal: ₹1194.4Cr'>47.6%</td>
+<td class='ratio-cell'>(1.1×) ₹1194.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IDBI</td>
+<td>₹103.02</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:103.02 | 20DMA:110.94 | 50DMA:106.06 | AvgDeliv60D:5915644.0 | DelivVal: ₹55.6Cr'>23.1%</td>
+<td class='ratio-cell'>(0.9×) ₹55.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IDFCFIRSTB</td>
+<td>₹67.27</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:67.27 | 20DMA:76.06 | 50DMA:80.89 | AvgDeliv60D:20630450.0 | DelivVal: ₹132.5Cr'>29.6%</td>
+<td class='ratio-cell'>(0.9×) ₹132.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>INDUSINDBK</td>
+<td>₹898.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:898.7 | 20DMA:929.5 | 50DMA:913.27 | AvgDeliv60D:2209960.0 | DelivVal: ₹216.8Cr'>53.0%</td>
+<td class='ratio-cell'>(1.1×) ₹216.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>KARURVYSYA</td>
+<td>₹301.60</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:301.6 | 20DMA:319.91 | 50DMA:296.07 | AvgDeliv60D:1687673.0 | DelivVal: ₹30.4Cr'>51.2%</td>
+<td class='ratio-cell'>(0.6×) ₹30.4Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>KOTAKBANK</td>
+<td>₹391.85</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:391.85 | 20DMA:417.24 | 50DMA:835.65 | AvgDeliv60D:7905347.0 | DelivVal: ₹575.4Cr'>68.8%</td>
+<td class='ratio-cell'>(1.9×) ₹575.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>KTKBANK</td>
+<td>₹221.31</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:221.31 | 20DMA:206.22 | 50DMA:197.71 | AvgDeliv60D:1530004.0 | DelivVal: ₹66.6Cr'>36.4%</td>
+<td class='ratio-cell'>(2.0×) ₹66.6Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>RBLBANK</td>
+<td>₹308.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:308.4 | 20DMA:316.65 | 50DMA:309.94 | AvgDeliv60D:2385059.0 | DelivVal: ₹41.9Cr'>32.0%</td>
+<td class='ratio-cell'>(0.6×) ₹41.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SOUTHBANK</td>
+<td>₹39.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:39.8 | 20DMA:40.49 | 50DMA:41.01 | AvgDeliv60D:10065134.0 | DelivVal: ₹19.9Cr'>44.5%</td>
+<td class='ratio-cell'>(0.5×) ₹19.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Public Sector Bank <span class="ind-count">(11 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BANKBARODA</td>
+<td>₹294.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:294.4 | 20DMA:302.81 | 50DMA:300.05 | AvgDeliv60D:4841694.0 | DelivVal: ₹145.0Cr'>54.9%</td>
+<td class='ratio-cell'>(1.0×) ₹145.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>BANKINDIA</td>
+<td>₹156.17</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:156.17 | 20DMA:167.82 | 50DMA:160.19 | AvgDeliv60D:4513110.0 | DelivVal: ₹29.1Cr'>27.1%</td>
+<td class='ratio-cell'>(0.4×) ₹29.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>CANBK</td>
+<td>₹142.27</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:142.27 | 20DMA:149.76 | 50DMA:150.84 | AvgDeliv60D:12217276.0 | DelivVal: ₹143.9Cr'>46.5%</td>
+<td class='ratio-cell'>(0.8×) ₹143.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>CENTRALBK</td>
+<td>₹36.74</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:36.74 | 20DMA:38.11 | 50DMA:37.64 | AvgDeliv60D:3189583.0 | DelivVal: ₹11.7Cr'>35.4%</td>
+<td class='ratio-cell'>(1.0×) ₹11.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>INDIANB</td>
+<td>₹929.75</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:929.75 | 20DMA:937.43 | 50DMA:889.35 | AvgDeliv60D:908699.0 | DelivVal: ₹71.6Cr'>47.4%</td>
+<td class='ratio-cell'>(0.8×) ₹71.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>IOB</td>
+<td>₹33.79</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:33.79 | 20DMA:35.42 | 50DMA:35.38 | AvgDeliv60D:3089893.0 | DelivVal: ₹6.4Cr'>31.3%</td>
+<td class='ratio-cell'>(0.6×) ₹6.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MAHABANK</td>
+<td>₹68.77</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:68.77 | 20DMA:69.26 | 50DMA:66.12 | AvgDeliv60D:9450781.0 | DelivVal: ₹49.9Cr'>34.6%</td>
+<td class='ratio-cell'>(0.8×) ₹49.9Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>PNB</td>
+<td>₹117.53</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:117.53 | 20DMA:124.41 | 50DMA:124.34 | AvgDeliv60D:7649753.0 | DelivVal: ₹84.1Cr'>39.1%</td>
+<td class='ratio-cell'>(0.9×) ₹84.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SBIN</td>
+<td>₹1112.20</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:1112.2 | 20DMA:1186.51 | 50DMA:1093.71 | AvgDeliv60D:7171133.0 | DelivVal: ₹1064.0Cr'>54.7%</td>
+<td class='ratio-cell'>(1.3×) ₹1064.0Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>UCOBANK</td>
+<td>₹26.84</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:26.84 | 20DMA:28.5 | 50DMA:28.84 | AvgDeliv60D:2773267.0 | DelivVal: ₹9.2Cr'>37.6%</td>
+<td class='ratio-cell'>(1.2×) ₹9.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>UNIONBANK</td>
+<td>₹186.30</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:186.3 | 20DMA:190.2 | 50DMA:177.8 | AvgDeliv60D:7321417.0 | DelivVal: ₹140.1Cr'>40.7%</td>
+<td class='ratio-cell'>(1.0×) ₹140.1Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Railway Wagons <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>JWL</td>
+<td>₹285.95</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:285.95 | 20DMA:284.88 | 50DMA:303.57 | AvgDeliv60D:920556.0 | DelivVal: ₹22.6Cr'>9.3%</td>
+<td class='ratio-cell'>(0.9×) ₹22.6Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Refineries & Marketing <span class="ind-count">(6 stocks)</span> <span class='ind-spike-count'>🔥 2 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BPCL<span class='spike-badge'>SPIKE</span></td>
+<td>₹325.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:325.9 | 20DMA:369.51 | 50DMA:367.99 | AvgDeliv60D:3973868.0 | DelivVal: ₹279.3Cr'>53.8%</td>
+<td class='ratio-cell'>(2.2×) ₹279.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>CHENNPETRO</td>
+<td>₹929.65</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:929.65 | 20DMA:924.25 | 50DMA:874.03 | AvgDeliv60D:370039.0 | DelivVal: ₹30.3Cr'>18.9%</td>
+<td class='ratio-cell'>(0.9×) ₹30.3Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>HINDPETRO<span class='spike-badge'>SPIKE</span></td>
+<td>₹387.35</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:387.35 | 20DMA:434.02 | 50DMA:446.45 | AvgDeliv60D:2491663.0 | DelivVal: ₹205.2Cr'>46.4%</td>
+<td class='ratio-cell'>(2.1×) ₹205.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IOC</td>
+<td>₹159.94</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:159.94 | 20DMA:175.84 | 50DMA:168.29 | AvgDeliv60D:8014846.0 | DelivVal: ₹199.9Cr'>46.7%</td>
+<td class='ratio-cell'>(1.6×) ₹199.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>MRPL</td>
+<td>₹193.60</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:193.6 | 20DMA:193.42 | 50DMA:172.31 | AvgDeliv60D:2134862.0 | DelivVal: ₹44.6Cr'>15.8%</td>
+<td class='ratio-cell'>(1.1×) ₹44.6Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>RELIANCE</td>
+<td>₹1408.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1408.8 | 20DMA:1415.6 | 50DMA:1441.51 | AvgDeliv60D:6476761.0 | DelivVal: ₹864.1Cr'>33.9%</td>
+<td class='ratio-cell'>(0.9×) ₹864.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Residential, Commercial Projects <span class="ind-count">(9 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AGIIL<span class='spike-badge'>SPIKE</span></td>
+<td>₹306.70</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:306.7 | 20DMA:279.31 | 50DMA:271.09 | AvgDeliv60D:467175.0 | DelivVal: ₹32.5Cr'>36.7%</td>
+<td class='ratio-cell'>(2.3×) ₹32.5Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>ANANTRAJ</td>
+<td>₹485.35</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:485.35 | 20DMA:529.13 | 50DMA:538.75 | AvgDeliv60D:854448.0 | DelivVal: ₹22.9Cr'>37.6%</td>
+<td class='ratio-cell'>(0.6×) ₹22.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ATALREAL</td>
+<td>₹23.31</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:23.31 | 20DMA:25.08 | 50DMA:25.91 | AvgDeliv60D:769238.0 | DelivVal: ₹2.7Cr'>25.5%</td>
+<td class='ratio-cell'>(1.5×) ₹2.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>DLF</td>
+<td>₹584.55</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:584.55 | 20DMA:617.12 | 50DMA:640.31 | AvgDeliv60D:1906348.0 | DelivVal: ₹148.7Cr'>54.1%</td>
+<td class='ratio-cell'>(1.3×) ₹148.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>GODREJPROP</td>
+<td>₹1675.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1675.4 | 20DMA:1780.02 | 50DMA:1798.0 | AvgDeliv60D:669856.0 | DelivVal: ₹171.1Cr'>64.0%</td>
+<td class='ratio-cell'>(1.5×) ₹171.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>HUBTOWN</td>
+<td>₹218.31</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:218.31 | 20DMA:214.97 | 50DMA:221.21 | AvgDeliv60D:351208.0 | DelivVal: ₹5.8Cr'>52.2%</td>
+<td class='ratio-cell'>(0.8×) ₹5.8Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>LODHA</td>
+<td>₹901.95</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:901.95 | 20DMA:1020.05 | 50DMA:1025.78 | AvgDeliv60D:776159.0 | DelivVal: ₹32.5Cr'>49.1%</td>
+<td class='ratio-cell'>(0.5×) ₹32.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>PRESTIGE</td>
+<td>₹1307.30</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1307.3 | 20DMA:1452.51 | 50DMA:1495.68 | AvgDeliv60D:379200.0 | DelivVal: ₹87.4Cr'>69.5%</td>
+<td class='ratio-cell'>(1.8×) ₹87.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TARC</td>
+<td>₹139.11</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:139.11 | 20DMA:150.41 | 50DMA:158.43 | AvgDeliv60D:350825.0 | DelivVal: ₹3.6Cr'>62.2%</td>
+<td class='ratio-cell'>(0.7×) ₹3.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Restaurants <span class="ind-count">(4 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>DEVYANI</td>
+<td>₹110.59</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:110.59 | 20DMA:127.23 | 50DMA:128.71 | AvgDeliv60D:1218504.0 | DelivVal: ₹9.1Cr'>41.9%</td>
+<td class='ratio-cell'>(0.7×) ₹9.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JUBLFOOD</td>
+<td>₹482.35</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:482.35 | 20DMA:519.98 | 50DMA:522.15 | AvgDeliv60D:1146840.0 | DelivVal: ₹60.7Cr'>39.1%</td>
+<td class='ratio-cell'>(1.1×) ₹60.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>RBA</td>
+<td>₹62.49</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:62.49 | 20DMA:63.67 | 50DMA:64.46 | AvgDeliv60D:3752925.0 | DelivVal: ₹20.6Cr'>78.3%</td>
+<td class='ratio-cell'>(0.9×) ₹20.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>SAPPHIRE<span class='spike-badge'>SPIKE</span></td>
+<td>₹173.16</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:173.16 | 20DMA:207.73 | 50DMA:212.26 | AvgDeliv60D:408857.0 | DelivVal: ₹15.6Cr'>57.0%</td>
+<td class='ratio-cell'>(2.2×) ₹15.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Ship Building & Allied Services <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>MAZDOCK</td>
+<td>₹2482.10</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:2482.1 | 20DMA:2338.62 | 50DMA:2406.72 | AvgDeliv60D:338302.0 | DelivVal: ₹175.5Cr'>17.1%</td>
+<td class='ratio-cell'>(2.1×) ₹175.5Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Shipping <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>SCI</td>
+<td>₹245.25</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:245.25 | 20DMA:258.92 | 50DMA:236.02 | AvgDeliv60D:1227558.0 | DelivVal: ₹28.2Cr'>30.0%</td>
+<td class='ratio-cell'>(0.9×) ₹28.2Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Speciality Retail <span class="ind-count">(5 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ABFRL</td>
+<td>₹61.72</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:61.72 | 20DMA:68.29 | 50DMA:69.76 | AvgDeliv60D:3137067.0 | DelivVal: ₹9.1Cr'>42.8%</td>
+<td class='ratio-cell'>(0.5×) ₹9.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ABLBL<span class='spike-badge'>SPIKE</span></td>
+<td>₹104.01</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:104.01 | 20DMA:106.45 | 50DMA:111.44 | AvgDeliv60D:1975416.0 | DelivVal: ₹63.4Cr'>86.9%</td>
+<td class='ratio-cell'>(3.1×) ₹63.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>KALAMANDIR</td>
+<td>₹102.47</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:102.47 | 20DMA:111.72 | 50DMA:119.76 | AvgDeliv60D:342117.0 | DelivVal: ₹3.8Cr'>51.7%</td>
+<td class='ratio-cell'>(1.1×) ₹3.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>STYLEBAAZA</td>
+<td>₹275.15</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:275.15 | 20DMA:318.88 | 50DMA:305.79 | AvgDeliv60D:337573.0 | DelivVal: ₹4.0Cr'>44.4%</td>
+<td class='ratio-cell'>(0.4×) ₹4.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TRENT</td>
+<td>₹3715.30</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:3715.3 | 20DMA:3993.79 | 50DMA:3993.65 | AvgDeliv60D:426924.0 | DelivVal: ₹129.5Cr'>48.0%</td>
+<td class='ratio-cell'>(0.8×) ₹129.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Specialty Chemicals <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>AARTIIND</td>
+<td>₹427.40</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:427.4 | 20DMA:445.07 | 50DMA:404.33 | AvgDeliv60D:406089.0 | DelivVal: ₹13.8Cr'>44.1%</td>
+<td class='ratio-cell'>(0.8×) ₹13.8Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>PIDILITIND</td>
+<td>₹1427.70</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1427.7 | 20DMA:1470.21 | 50DMA:1467.82 | AvgDeliv60D:381267.0 | DelivVal: ₹37.1Cr'>42.3%</td>
+<td class='ratio-cell'>(0.7×) ₹37.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Stockbroking & Allied <span class="ind-count">(6 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>360ONE</td>
+<td>₹1055.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1055.8 | 20DMA:1106.49 | 50DMA:1133.08 | AvgDeliv60D:472098.0 | DelivVal: ₹14.2Cr'>41.3%</td>
+<td class='ratio-cell'>(0.3×) ₹14.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>ANGELONE<span class='spike-badge'>SPIKE</span></td>
+<td>₹225.31</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:225.31 | 20DMA:1650.64 | 50DMA:2164.07 | AvgDeliv60D:565753.0 | DelivVal: ₹29.1Cr'>29.2%</td>
+<td class='ratio-cell'>(2.3×) ₹29.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>GEOJITFSL</td>
+<td>₹60.25</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:60.25 | 20DMA:65.24 | 50DMA:68.9 | AvgDeliv60D:1053766.0 | DelivVal: ₹2.1Cr'>65.4%</td>
+<td class='ratio-cell'>(0.3×) ₹2.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IIFLCAPS</td>
+<td>₹302.45</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:302.45 | 20DMA:314.22 | 50DMA:336.91 | AvgDeliv60D:383059.0 | DelivVal: ₹8.3Cr'>42.8%</td>
+<td class='ratio-cell'>(0.7×) ₹8.3Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>INDOTHAI</td>
+<td>₹261.05</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:261.05 | 20DMA:260.45 | 50DMA:260.61 | AvgDeliv60D:412647.0 | DelivVal: ₹9.3Cr'>73.6%</td>
+<td class='ratio-cell'>(0.9×) ₹9.3Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>MOTILALOFS</td>
+<td>₹715.90</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:715.9 | 20DMA:753.51 | 50DMA:784.33 | AvgDeliv60D:453102.0 | DelivVal: ₹21.2Cr'>47.2%</td>
+<td class='ratio-cell'>(0.7×) ₹21.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Sugar <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>RENUKA</td>
+<td>₹25.05</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:25.05 | 20DMA:24.3 | 50DMA:24.72 | AvgDeliv60D:1287750.0 | DelivVal: ₹4.3Cr'>26.5%</td>
+<td class='ratio-cell'>(1.3×) ₹4.3Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">TV Broadcasting & Software Production <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ZEEL</td>
+<td>₹80.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:80.4 | 20DMA:88.84 | 50DMA:87.85 | AvgDeliv60D:3233141.0 | DelivVal: ₹20.4Cr'>41.9%</td>
+<td class='ratio-cell'>(0.8×) ₹20.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Tea & Coffee <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>TATACONSUM</td>
+<td>₹1099.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1099.5 | 20DMA:1142.83 | 50DMA:1158.25 | AvgDeliv60D:631803.0 | DelivVal: ₹70.7Cr'>55.2%</td>
+<td class='ratio-cell'>(1.0×) ₹70.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Telecom -  Equipment & Accessories <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>STLTECH</td>
+<td>₹180.14</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:180.14 | 20DMA:163.75 | 50DMA:127.88 | AvgDeliv60D:1929510.0 | DelivVal: ₹28.2Cr'>27.3%</td>
+<td class='ratio-cell'>(0.8×) ₹28.2Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+<tr>
+<td class='sym-td'>TEJASNET</td>
+<td>₹464.40</td>
+<td style='background:#0d3d1e;color:#4cff8f;border:1px solid #1a6b35' title='LTP:464.4 | 20DMA:380.61 | 50DMA:377.51 | AvgDeliv60D:965268.0 | DelivVal: ₹88.6Cr'>6.8%</td>
+<td class='ratio-cell'>(2.0×) ₹88.6Cr</td>
+<td style='color:#fdba74'>GREEN</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Telecom - Cellular & Fixed line services <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BHARTIARTL</td>
+<td>₹1850.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1850.4 | 20DMA:1950.74 | 50DMA:1997.59 | AvgDeliv60D:4283321.0 | DelivVal: ₹1393.5Cr'>64.1%</td>
+<td class='ratio-cell'>(1.8×) ₹1393.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>TTML</td>
+<td>₹39.32</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:39.32 | 20DMA:42.07 | 50DMA:44.36 | AvgDeliv60D:917601.0 | DelivVal: ₹2.6Cr'>35.6%</td>
+<td class='ratio-cell'>(0.7×) ₹2.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Telecom - Infrastructure <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HFCL</td>
+<td>₹69.81</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:69.81 | 20DMA:70.11 | 50DMA:67.8 | AvgDeliv60D:8089576.0 | DelivVal: ₹47.8Cr'>42.2%</td>
+<td class='ratio-cell'>(0.8×) ₹47.8Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>INDUSTOWER</td>
+<td>₹445.45</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:445.45 | 20DMA:461.81 | 50DMA:443.48 | AvgDeliv60D:3788404.0 | DelivVal: ₹50.1Cr'>50.3%</td>
+<td class='ratio-cell'>(0.3×) ₹50.1Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Tour, Travel Related Services <span class="ind-count">(5 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BLS</td>
+<td>₹252.40</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:252.4 | 20DMA:273.5 | 50DMA:284.8 | AvgDeliv60D:519934.0 | DelivVal: ₹10.0Cr'>38.5%</td>
+<td class='ratio-cell'>(0.8×) ₹10.0Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IRCTC</td>
+<td>₹547.95</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:547.95 | 20DMA:599.11 | 50DMA:623.18 | AvgDeliv60D:1158977.0 | DelivVal: ₹47.7Cr'>53.3%</td>
+<td class='ratio-cell'>(0.8×) ₹47.7Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>IXIGO</td>
+<td>₹170.08</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:170.08 | 20DMA:183.0 | 50DMA:207.95 | AvgDeliv60D:983541.0 | DelivVal: ₹15.1Cr'>56.4%</td>
+<td class='ratio-cell'>(0.9×) ₹15.1Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>THOMASCOOK</td>
+<td>₹93.89</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:93.89 | 20DMA:105.08 | 50DMA:120.84 | AvgDeliv60D:430979.0 | DelivVal: ₹5.5Cr'>35.8%</td>
+<td class='ratio-cell'>(1.4×) ₹5.5Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>YATRA</td>
+<td>₹109.79</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:109.79 | 20DMA:134.34 | 50DMA:148.5 | AvgDeliv60D:700274.0 | DelivVal: ₹12.2Cr'>28.6%</td>
+<td class='ratio-cell'>(1.6×) ₹12.2Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Trading & Distributors <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>REDINGTON</td>
+<td>₹259.30</td>
+<td style='background:#1e2535;color:#9aa5c4;border:1px solid #2a3349' title='LTP:259.3 | 20DMA:255.08 | 50DMA:263.77 | AvgDeliv60D:785121.0 | DelivVal: ₹72.9Cr'>3.7%</td>
+<td class='ratio-cell'>(3.6×) ₹72.9Cr</td>
+<td style='color:var(--muted)'>NEUTRAL</td>
+</tr>
+<tr>
+<td class='sym-td'>VINCOFE</td>
+<td>₹134.48</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:134.48 | 20DMA:142.85 | 50DMA:149.8 | AvgDeliv60D:421284.0 | DelivVal: ₹6.4Cr'>25.7%</td>
+<td class='ratio-cell'>(1.1×) ₹6.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Trading - Metals <span class="ind-count">(1 stocks)</span> <span class='ind-spike-count'>🔥 1 spikes</span></div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>LLOYDSENT<span class='spike-badge'>SPIKE</span></td>
+<td>₹49.32</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:49.32 | 20DMA:53.25 | 50DMA:57.09 | AvgDeliv60D:1780019.0 | DelivVal: ₹21.6Cr'>71.3%</td>
+<td class='ratio-cell'>(2.5×) ₹21.6Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Trading - Minerals <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>ADANIENT</td>
+<td>₹1996.50</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:1996.5 | 20DMA:2153.86 | 50DMA:2146.88 | AvgDeliv60D:407546.0 | DelivVal: ₹150.4Cr'>44.8%</td>
+<td class='ratio-cell'>(1.9×) ₹150.4Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Transport Related Services <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>BLACKBUCK</td>
+<td>₹585.55</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:585.55 | 20DMA:601.4 | 50DMA:612.61 | AvgDeliv60D:370365.0 | DelivVal: ₹8.9Cr'>51.1%</td>
+<td class='ratio-cell'>(0.4×) ₹8.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Tyres & Rubber Products <span class="ind-count">(2 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>APOLLOTYRE</td>
+<td>₹437.80</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:437.8 | 20DMA:463.31 | 50DMA:487.92 | AvgDeliv60D:456288.0 | DelivVal: ₹21.8Cr'>53.0%</td>
+<td class='ratio-cell'>(1.1×) ₹21.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+<tr>
+<td class='sym-td'>JKTYRE</td>
+<td>₹447.45</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:447.45 | 20DMA:524.17 | 50DMA:518.09 | AvgDeliv60D:542595.0 | DelivVal: ₹17.8Cr'>24.1%</td>
+<td class='ratio-cell'>(0.7×) ₹17.8Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+<div class="industry-block">
+  <div class="industry-hdr">Zinc <span class="ind-count">(1 stocks)</span> </div>
+  <div class="table-wrap">
+  <table>
+  <thead><tr>
+    <th style="text-align:left;padding-left:10px">Symbol</th>
+    <th>LTP</th><th>Deliv%</th><th>Spike Ratio / Val</th><th>MA Signal</th>
+  </tr></thead>
+  <tbody><tr>
+<td class='sym-td'>HINDZINC</td>
+<td>₹589.95</td>
+<td style='background:#3d0d0d;color:#ff5e5e;border:1px solid #6b1a1a' title='LTP:589.95 | 20DMA:598.7 | 50DMA:624.02 | AvgDeliv60D:4450532.0 | DelivVal: ₹70.9Cr'>33.6%</td>
+<td class='ratio-cell'>(0.3×) ₹70.9Cr</td>
+<td style='color:#f87171'>RED</td>
+</tr>
+</tbody>
+  </table></div>
+</div>
+
+<button id="scroll-top" title="Top">↑</button>
+<script>
+document.getElementById('search-input').addEventListener('input', function() {
+  const q = this.value.trim().toUpperCase();
+  document.querySelectorAll('tbody tr').forEach(tr => {
+    const sym = tr.querySelector('.sym-td')?.textContent.trim().toUpperCase() || '';
+    tr.style.display = (!q || sym.includes(q)) ? '' : 'none';
+  });
+  document.querySelectorAll('.industry-block').forEach(b => {
+    const vis = Array.from(b.querySelectorAll('tbody tr')).some(tr => tr.style.display !== 'none');
+    b.style.display = vis ? '' : 'none';
+  });
+});
+const st = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => st.style.display = window.scrollY > 300 ? 'flex' : 'none');
+st.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>

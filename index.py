@@ -1,104 +1,244 @@
 import os
+import shutil
 
-# Get all AI report files
-files = [f for f in os.listdir() if f.startswith("ai_analysis") and f.endswith(".html")]
-files.sort(reverse=True)  # latest first
+# ==============================
+# PATHS
+# ==============================
 
-# Start HTML
-html = """<!DOCTYPE html>
+source_folder = r"D:\PositionalSystem\screener\output\2026-03-10"
+dest_folder = r"D:\PositionalSystem\screener\gitpublic"
+
+# analysis pages
+analysis_pages = [
+    "breadth.html",
+    "delivery_spike.html",
+    "highlow.html",
+    "momentum_ma.html",
+    "recurring_entry.html",
+    "sector_rotation.html"
+]
+
+# ==============================
+# COPY FILES
+# ==============================
+
+for file in analysis_pages:
+
+    src = os.path.join(source_folder, file)
+    dst = os.path.join(dest_folder, file)
+
+    if os.path.exists(src):
+        shutil.copy(src, dst)
+        print("Copied:", file)
+    else:
+        print("Missing:", file)
+
+# ==============================
+# GET AI REPORT FILES
+# ==============================
+
+files = [
+    f for f in os.listdir(dest_folder)
+    if f.startswith("ai_analysis") and f.endswith(".html")
+]
+
+files.sort(reverse=True)
+
+report_links = ""
+
+for f in files:
+    report_links += f'<li><a href="{f}">{f}</a></li>\n'
+
+
+# ==============================
+# GENERATE INDEX.HTML
+# ==============================
+
+html = f"""
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <title>AI EOD NSE Market Reports</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        header {
-            background-color: #004080;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        main {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        h1, h2 {
-            color: #004080;
-        }
-        ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        a {
-            color: #004080;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            margin-top: 20px;
-            background-color: #e6e6e6;
-            font-size: 0.9em;
-        }
-    </style>
+
+<style>
+
+body {{
+font-family: Arial;
+margin:0;
+background:#f5f7fb;
+}}
+
+header {{
+background:#003366;
+color:white;
+padding:25px;
+text-align:center;
+}}
+
+nav {{
+background:#0055aa;
+padding:12px;
+}}
+
+nav a {{
+color:white;
+margin-right:20px;
+text-decoration:none;
+font-weight:bold;
+}}
+
+nav a:hover {{
+text-decoration:underline;
+}}
+
+.container {{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}}
+
+.section-title {{
+color:#003366;
+margin-top:40px;
+}}
+
+.grid {{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:20px;
+margin-top:20px;
+}}
+
+.card {{
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
+}}
+
+.card h3 {{
+margin-top:0;
+}}
+
+.card a {{
+color:#0055aa;
+font-weight:bold;
+text-decoration:none;
+}}
+
+footer {{
+margin-top:40px;
+background:#eaeaea;
+padding:15px;
+text-align:center;
+}}
+
+</style>
+
 </head>
+
+
 <body>
 
-        <h2>AI Market Analysis Reports</h2>
-        <p>
-            This site provides <strong>daily AI-generated End-of-Day (EOD) market reports</strong> for the Indian NSE. Each report summarizes key market conditions, breadth, sector rotation, institutional activity, and stock insights based on the latest available data.
-        </p>
-<div class="report-list">
+<header>
+
+<h1>AI EOD NSE Market Intelligence</h1>
+<p>Automated Quant Market Analysis</p>
+
+</header>
+
+
+<nav>
+
+<a href="#">Home</a>
+<a href="#signals">Market Signals</a>
+<a href="#reports">AI Reports</a>
+<a href="#how">How It Works</a>
+
+</nav>
+
+
+<div class="container">
+
+<h2 id="signals" class="section-title">Market Signal Dashboards</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Breadth Analysis</h3>
+<p>Market participation and strength analysis.</p>
+<a href="breadth.html">Open →</a>
+</div>
+
+<div class="card">
+<h3>Delivery Spike</h3>
+<p>Institutional accumulation detection.</p>
+<a href="delivery_spike.html">Open →</a>
+</div>
+
+<div class="card">
+<h3>High vs Low</h3>
+<p>Stocks hitting new highs and lows.</p>
+<a href="highlow.html">Open →</a>
+</div>
+
+<div class="card">
+<h3>Momentum MA</h3>
+<p>Moving average trend momentum signals.</p>
+<a href="momentum_ma.html">Open →</a>
+</div>
+
+<div class="card">
+<h3>Recurring Entry</h3>
+<p>Repeated institutional entry patterns.</p>
+<a href="recurring_entry.html">Open →</a>
+</div>
+
+<div class="card">
+<h3>Sector Rotation</h3>
+<p>Capital rotation across sectors.</p>
+<a href="sector_rotation.html">Open →</a>
+</div>
+
+</div>
+
+
+<h2 id="reports" class="section-title">AI Daily Market Reports</h2>
+
 <ul>
-"""
 
-# Add links
-for f in files:
-    html += f'<li><a href="{f}">{f}</a></li>'
+{report_links}
 
-# End HTML
-html += """
-    </ul><section id="how-it-works">
-        <h2>How It Works</h2>
-        <ol>
-            <li><strong>Data Collection:</strong> Market data is gathered at EOD — indices, stock performance, volatility, breadth, futures & options OI, delivery trends.</li>
-            <li><strong>AI Interpretation:</strong> An AI model analyzes the data to identify market regime (Bull/Bear/Neutral), sector rotation, institutional activity, and stock-specific patterns.</li>
-            <li><strong>Report Generation:</strong> A structured HTML report is automatically generated with commentary, key metrics.</li>
-            <li><strong>Publication:</strong> The report is published daily as a dated HTML file on this site.</li>
-        </ol>
-    </section>
+</ul>
 
-    <section id="why-use">
-        <h2>Why Use It</h2>
-        <ul>
-            <li>Saves time — ready-made, data-driven market summary.</li>
-            <li>AI contextual analysis of multiple signals for better insight.</li>
-            <li>Daily reports archived for historical reference and tracking market evolution.</li>
-        </ul>
-    </section>
-</main>
+
+<h2 id="how" class="section-title">How the System Works</h2>
+
+<ol>
+<li>End-of-day NSE market data collected.</li>
+<li>Quant features derived (breadth, momentum, delivery, OI).</li>
+<li>AI interprets the market regime.</li>
+<li>Automated HTML report generated and published.</li>
+</ol>
+
+</div>
+
 
 <footer>
-    &copy; 2026 AI EOD NSE Market Reports. For educational purposes only, not financial advice.
+
+AI EOD NSE Market Reports – Educational Purpose Only
+
 </footer>
-</div>
+
 </body>
 </html>
 """
 
-# Write to index.html
-with open("index.html", "w") as f:
+
+# write file
+with open(os.path.join(dest_folder, "index.html"), "w", encoding="utf-8") as f:
     f.write(html)
+
+print("index.html created successfully")
