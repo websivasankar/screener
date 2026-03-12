@@ -179,6 +179,8 @@ font-weight:bold;
 
 <a href="#">Home</a>
 <a href="#signals">Market Signals</a>
+<a href="#oi">OI Charts</a>
+<a href="#dashboard">Dashboards</a>
 <a href="#reports">AI Reports</a>
 <a href="#how">How It Works</a>
 
@@ -229,7 +231,52 @@ font-weight:bold;
 
 </div>
 
+<h2 id="oi" class="section-title">Options OI Charts</h2>
 
+<div class="grid">
+
+<div class="card">
+<h3>Weekly OI Chart</h3>
+<p>Nifty option open interest structure.</p>
+<a href="options_oi_chart.html" target="_blank">Open →</a>
+</div>
+
+<div class="card">
+<h3>Next Week OI</h3>
+<p>Next expiry positioning analysis.</p>
+<a href="options_oi_chartnxtweek.html" target="_blank">Open →</a>
+</div>
+
+<div class="card">
+<h3>Monthly OI Chart</h3>
+<p>Monthly expiry option structure.</p>
+<a href="options_oi_chartmonth.html" target="_blank">Open →</a>
+</div>
+
+<div class="card">
+<h3>Next Month OI</h3>
+<p>Next month positioning data.</p>
+<a href="options_oi_chartnxtmonth.html" target="_blank">Open →</a>
+</div>
+
+</div>
+<h2 id="dashboard" class="section-title">Market Dashboards</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Market Dashboard</h3>
+<p>Complete market analytics dashboard.</p>
+<a href="Dashboard.html" target="_blank">Open →</a>
+</div>
+
+<div class="card">
+<h3>Monthly Dashboard</h3>
+<p>Monthly cycle and trend analysis.</p>
+<a href="DashboardMonth.html" target="_blank">Open →</a>
+</div>
+
+</div>
 <h2 id="reports" class="section-title">AI Daily Market Reports</h2>
 
 <ul>
