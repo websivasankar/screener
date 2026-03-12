@@ -48,8 +48,10 @@ files.sort(reverse=True)
 report_links = ""
 
 for f in files:
+    
     report_links += f'<li><a href="{f}" target="_blank">{f}</a></li>\n'
 
+report_links +=  f'<li><a href="confluence_report.html" target="_blank">Conflunce Signals</a></li>\n'
 
 # ==============================
 # GENERATE INDEX.HTML
