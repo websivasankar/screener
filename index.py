@@ -5,7 +5,7 @@ import shutil
 # PATHS
 # ==============================
 
-source_folder = r"D:\PositionalSystem\screener\output\2026-03-12"
+source_folder = r"D:\PositionalSystem\screener\output\2026-03-13"
 dest_folder = r"D:\PositionalSystem\screener\gitpublic"
 
 # analysis pages
@@ -46,7 +46,7 @@ files = [
 files.sort(reverse=True)
 
 report_links = ""
-report_links +=  f'<li><a href="confluence_report.html" target="_blank">Conflunce Signals</a></li>\n'
+report_links +=  f'<li><a href="confluence_report.html" target="_blank">Conflunce Signals(5 days)</a></li>\n'
 
 for f in files:
     
