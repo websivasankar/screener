@@ -172,7 +172,7 @@ font-weight:bold;
 </head>
 
 
-<body>
+<body class="container">
 
 <header>
 
@@ -182,7 +182,7 @@ font-weight:bold;
 </header>
 
 
-<nav class="container">
+<nav>
 
 <a href="#">Home</a>
 <a href="#signals">Market Signals</a>
