@@ -75,10 +75,14 @@ background:#f5f7fb;
 }}
 
 header {{
-background:#003366;
-color:white;
-padding:25px;
-text-align:center;
+  background-image: url("banner.png");
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color:white;
+  padding:25px;
+  text-align:center;
 }}
 
 nav {{
@@ -325,7 +329,7 @@ this work through donations.
 
 <b>UPI Donation</b><br><br>
 
-UPI ID: <b>9884346789</b>
+UPI ID: <b>websivasankar@okicici</b>
 
 <p>Support helps maintain:</p>
 
