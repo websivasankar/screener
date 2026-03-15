@@ -248,7 +248,7 @@ font-weight:bold;
 </div>
 
 <div class="card">
-<h3>Next Week OI</h3>
+<h3>Next Week OI Chart</h3>
 <p>Next expiry positioning analysis.</p>
 <a href="options_oi_chartnxtweek.html" target="_blank">Open →</a>
 </div>
@@ -260,7 +260,7 @@ font-weight:bold;
 </div>
 
 <div class="card">
-<h3>Next Month OI</h3>
+<h3>Next Month OI Chart</h3>
 <p>Next month positioning data.</p>
 <a href="options_oi_chartnxtmonth.html" target="_blank">Open →</a>
 </div>
