@@ -187,7 +187,6 @@ font-weight:bold;
 <a href="#">Home</a>
 <a href="#signals">Market Signals</a>
 <a href="#oi">OI Charts</a>
-<a href="#dashboard">Dashboards</a>
 <a href="#reports">AI Reports</a>
 <a href="#how">How It Works</a>
 
