@@ -182,7 +182,7 @@ font-weight:bold;
 </header>
 
 
-<nav>
+<nav class="container">
 
 <a href="#">Home</a>
 <a href="#signals">Market Signals</a>
