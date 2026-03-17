@@ -5,7 +5,7 @@ import shutil
 # PATHS
 # ==============================
 
-source_folder = r"D:\PositionalSystem\screener\output\2026-03-13"
+source_folder = r"D:\PositionalSystem\screener\output\2026-03-16"
 dest_folder = r"D:\PositionalSystem\screener\gitpublic"
 
 # analysis pages
@@ -46,7 +46,6 @@ files = [
 files.sort(reverse=True)
 
 report_links = ""
-report_links +=  f'<li><a href="confluence_report.html" target="_blank">Conflunce Signals(5 days)</a></li>\n'
 
 for f in files:
     
@@ -175,10 +174,6 @@ font-weight:bold;
 <body class="container">
 
 <header>
-
-<h1>AI EOD NSE Market Intelligence</h1>
-<p>Automated Quant Market Analysis</p>
-
 </header>
 
 
@@ -352,7 +347,7 @@ UPI ID: <b>websivasankar@okicici</b>
 
 <div class="contact">
 
-Contact / WhatsApp: 9884346789
+Contact / WhatsApp: (91)9884346789
 
 </div>
 
