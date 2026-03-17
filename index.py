@@ -5,7 +5,7 @@ import shutil
 # PATHS
 # ==============================
 
-source_folder = r"D:\PositionalSystem\screener\output\2026-03-16"
+source_folder = r"D:\PositionalSystem\screener\output\2026-03-17"
 dest_folder = r"D:\PositionalSystem\screener\gitpublic"
 
 # analysis pages

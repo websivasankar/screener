@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSE AI Analysis v3 — 2026-03-17</title>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--muted:#7d8590}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;
+      font-size:13px;padding:16px}
+h1{font-size:18px;font-weight:700;color:#58a6ff;margin-bottom:4px}
+.meta{color:var(--muted);font-size:11px;margin-bottom:16px}
+.badge-v3{background:#1a2744;color:#79c0ff;border:1px solid #1f6feb;
+           padding:1px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+       gap:14px;margin-top:14px}
+.full-width{grid-column:1/-1}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.card-title{font-size:11px;font-weight:700;letter-spacing:1.2px;color:var(--muted);
+             text-transform:uppercase;margin-bottom:10px}
+.regime-val{font-size:28px;font-weight:800}
+.regime-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.chip{border:1px solid;border-radius:12px;padding:2px 10px;
+       font-size:11px;margin:2px;display:inline-block}
+.warn{background:#2d1a00;border-left:3px solid #e3b341;
+       padding:6px 10px;margin:4px 0;border-radius:4px;font-size:12px}
+.sec-card{background:var(--bg);border:1px solid var(--border);
+           border-radius:6px;padding:8px 10px;margin:4px 0}
+.sec-name{font-weight:600;margin-right:8px}
+.sec-sig{font-weight:700;margin-right:8px}
+.sec-sm{font-size:10px;color:#79c0ff;margin-right:6px;
+         background:#1a2744;padding:1px 6px;border-radius:8px}
+.sec-why{color:var(--muted);font-size:11px}
+table{width:100%;border-collapse:collapse}
+th{color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;
+    padding:6px 8px;border-bottom:1px solid var(--border);text-align:left}
+td{padding:6px 8px;border-bottom:1px solid #21262d;vertical-align:top}
+.sym-td{font-weight:700;color:#58a6ff;font-size:12px}
+.cf-badge{background:#1a2744;color:#79c0ff;border-radius:10px;
+           padding:2px 8px;font-size:10px;margin:1px;display:inline-block}
+.muted{color:var(--muted);font-style:italic}
+/* 4-expiry OI grid */
+.oi-expiry-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:6px}
+.oi-exp-cell{background:var(--bg);border:1px solid var(--border);
+              border-radius:6px;padding:8px 10px}
+.oi-exp-label{color:var(--muted);font-size:10px;text-transform:uppercase}
+.oi-exp-bias{font-size:14px;font-weight:700;margin-top:2px}
+.oi-exp-detail{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.6}
+/* key levels */
+.kl-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.kl-cell{background:var(--bg);border:1px solid var(--border);
+          border-radius:6px;padding:8px 10px}
+.kl-label{color:var(--muted);font-size:10px;text-transform:uppercase}
+.kl-val{font-size:15px;font-weight:700;margin-top:2px}
+/* conviction cap expiry grid */
+.cap-exp-cell{background:var(--bg);border:1px solid var(--border);
+               border-radius:6px;padding:6px 8px;text-align:center}
+.cap-exp-label{color:var(--muted);font-size:9px;text-transform:uppercase;font-weight:600}
+.cap-exp-pcr{font-size:12px;font-weight:700;margin-top:2px}
+.cap-exp-sig{font-size:9px;margin-top:1px;font-weight:600}
+.cap-exp-con{font-size:11px;font-weight:700;margin-top:1px}
+</style>
+</head>
+<body>
+<h1>NSE EOD Analysis <span class='badge-v3'>v3 · batch</span></h1>
+<div class='meta'>2026-03-17 · S1+S2: claude-haiku-4-5-20251001 · S3: claude-sonnet-4-6</div>
+<div class='meta'>Educational market analysis only. Not investment advice.</div>
+<div class='grid'>
+
+<div class='card'>
+  <div class='card-title'>Market Regime</div>
+  <div class='regime-val' style='color:#7d8590'>NEUTRAL</div>
+  <div style='color:#7d8590;font-weight:600;margin-top:4px'>MEDIUM confidence</div>
+  <div class='regime-sub'>Range-bound market pinned between 23500 PE wall and 24000 CE wall</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Weekly PCR 0.984 and monthly PCR 1.103 both NEUTRAL; no BULL (PCR >1.20 not met) or BEAR (PCR <0.80 not met) trigger fires. FII net short -240,775 index futures with 2-day cash selling streak (-4,219 cr) and VIX at 19.79 (94.8th percentile, ELEVATED) impose a bearish institutional undertone on an otherwise structurally neutral OI picture.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>India VIX</div>
+  <div class='regime-val'>19.79</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:6px'>VIX 19.79 in the 18-22 ELEVATED band caps all sector views at HOLD and prohibits BUY conviction until VIX drops below 18.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Breadth</div>
+  <div style='color:#3fb950;font-weight:700'>IMPROVING</div>
+  <div style='font-size:12px;color:var(--muted);margin-top:6px'>Breadth suffered a catastrophic collapse on 2026-03-13 (advance ratio 8.2%, 117 stocks down >4%, 252 stocks down >4% on weekly basis) and has since staged a sharp single-day recovery on 2026-03-17 (advance ratio 64.4%, only 2 stocks down >4%). However, structural breadth indicators remain deeply damaged: %>EMA20 is only 14.6%, %E20>E40 is 23.6%, and 52-week new highs are just 1 vs 63 new lows on 2026-03-17, confirming the recovery is narrow and not yet broad-based.</div>
+  <div class='warn'>⚠ 52-week new highs collapsed to 0-1 on 2026-03-13/16/17 vs 63-84 new lows — structural damage not repaired</div><div class='warn'>⚠ %>EMA20 at 14.6% and %E20>E40 at 23.6% on 2026-03-17 — majority of stocks still below medium-term averages</div><div class='warn'>⚠ 2026-03-13 breadth collapse (8.2% advance, 117 stocks -4%+) leaves technical scars; single-day recovery insufficient to confirm trend reversal</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Key Levels</div>
+  <div class='kl-grid'>
+    <div class='kl-cell'><div class='kl-label'>Nearest Resistance</div>
+      <div class='kl-val' style='color:#f85149'>24000</div></div>
+    <div class='kl-cell'><div class='kl-label'>Nearest Support</div>
+      <div class='kl-val' style='color:#3fb950'>23500</div></div>
+    <div class='kl-cell'><div class='kl-label'>Weekly Max Pain</div>
+      <div class='kl-val'>23600</div></div>
+    <div class='kl-cell'><div class='kl-label'>Monthly Max Pain</div>
+      <div class='kl-val'>24500</div></div>
+  </div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>OI Conviction Cap</div>
+  
+<div style='display:flex;align-items:baseline;gap:12px;margin-bottom:10px'>
+  <div style='font-size:26px;font-weight:800;color:#e3b341'>MEDIUM</div>
+  <div style='font-size:14px;color:#e3b341;font-weight:600'>score +0.00</div>
+</div>
+<div style='background:var(--bg);border-radius:4px;height:6px;margin-bottom:10px;overflow:hidden'>
+  <div style='width:50%;height:100%;background:#e3b341;transition:width 0.3s'></div>
+</div>
+<div style='display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:8px'>
+  <div class='cap-exp-cell'><div class='cap-exp-label'>W (50%)</div><div class='cap-exp-pcr'>PCR 0.984</div><div class='cap-exp-sig' style='color:#7d8590'>NEUTRAL</div><div class='cap-exp-con' style='color:#7d8590'>+0.00</div></div><div class='cap-exp-cell'><div class='cap-exp-label'>NW (20%)</div><div class='cap-exp-pcr'>PCR 1.103</div><div class='cap-exp-sig' style='color:#7d8590'>NEUTRAL</div><div class='cap-exp-con' style='color:#7d8590'>+0.00</div></div><div class='cap-exp-cell'><div class='cap-exp-label'>M (30%)</div><div class='cap-exp-pcr'>PCR 1.103</div><div class='cap-exp-sig' style='color:#7d8590'>NEUTRAL</div><div class='cap-exp-con' style='color:#7d8590'>+0.00</div></div>
+</div>
+<div style='font-size:11px;color:var(--muted);line-height:1.5'>Score +0.00 — Mixed or mild bullish OI. MEDIUM max conviction.</div>
+
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>OI Structure — 4 Expiries</div>
+  <div class='oi-expiry-grid'><div class='oi-exp-cell'><div class='oi-exp-label'>Weekly</div><div class='oi-exp-bias' style='color:#7d8590'>NEUTRAL</div><div class='oi-exp-detail'>PCR 0.984 · MaxPain 23600<br>R 24000 · S 23500</div></div><div class='oi-exp-cell'><div class='oi-exp-label'>Next Week</div><div class='oi-exp-bias' style='color:#7d8590'>NEUTRAL</div><div class='oi-exp-detail'>PCR 1.103 · MaxPain 24500<br>R 24000 · S 23500</div></div><div class='oi-exp-cell'><div class='oi-exp-label'>Monthly</div><div class='oi-exp-bias' style='color:#7d8590'>NEUTRAL</div><div class='oi-exp-detail'>PCR 1.103 · MaxPain 24500<br>R 24000 · S 23500</div></div><div class='oi-exp-cell'><div class='oi-exp-label'>Next Month</div><div class='oi-exp-bias' style='color:#7d8590'>NEUTRAL</div><div class='oi-exp-detail'>PCR 0.952 · MaxPain 24400<br>R 24000 · S 23500</div></div></div>
+  <div style='margin-top:10px'><span class='chip' style='border-color:#f85149;color:#f85149'>TRIPLE_WALL @ 24000 [CE_RESISTANCE] weekly+nxtweek+monthly+nxtmonth</span><span class='chip' style='border-color:#3fb950;color:#3fb950'>TRIPLE_WALL @ 23500 [PE_SUPPORT] weekly+nxtweek+monthly+nxtmonth</span></div>
+  <div style='color:var(--muted);font-size:12px;margin-top:10px'>Spot is effectively pinned at weekly max pain (23600) with only 81 pts of free space to the downside before hitting the TRIPLE_WALL PE support at 23500, while 419 pts of upside runway exists before the TRIPLE_WALL CE ceiling at 24000. All 4 expiries show LONG_BUILDUP (price up + OI up) with fresh PE accumulation at 23500/23000, but FII is simultaneously net short -240,775 contracts, creating a dangerous institutional-vs-retail divergence that keeps the OI conviction score at exactly +0.00.</div>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Sector Rotation</div>
+  <div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'>
+    <div><div style='font-size:11px;color:#3fb950;font-weight:700;margin-bottom:6px'>▲ LEADING</div>
+      <div class='sec-card'><span class='sec-name'>Exchange and Data Platform</span><span class='sec-sig' style='color:#3fb950'>BUY</span><span class="sec-sm">MARKUP</span><span class='sec-why'>5D=+3.6% · 10D=+6.8% · 20D=+6.0% · SM=MARKUP</span></div><div class='sec-card'><span class='sec-name'>E-Learning</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>5D=+0.9% · 10D=+1.4% · 20D=-0.1% · SM=NEUTRAL</span></div><div class='sec-card'><span class='sec-name'>Integrated Power Utilities</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>5D=+0.2% · 10D=-2.8% · 20D=-0.5% · SM=NEUTRAL</span></div><div class='sec-card'><span class='sec-name'>Diversified FMCG</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>5D=-0.1% · 10D=-0.8% · 20D=-4.2% · SM=NEUTRAL</span></div><div class='sec-card'><span class='sec-name'>Computers Hardware & Equipments</span><span class='sec-sig' style='color:#3fb950'>BUY</span><span class="sec-sm">ACCUMULATION</span><span class='sec-why'>5D=+0.3% · 10D=-1.3% · 20D=-4.5% · SM=ACCUMULATION</span></div></div>
+    <div><div style='font-size:11px;color:#f85149;font-weight:700;margin-bottom:6px'>▼ LAGGING</div>
+      <div class='sec-card'><span class='sec-name'>Software Products</span><span class='sec-sig' style='color:#e3b341'>WATCH</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>5D=-8.4% · 10D=-9.5% · 20D=-15.5% · SM=NEUTRAL</span></div><div class='sec-card'><span class='sec-name'>Microfinance Institutions</span><span class='sec-sig' style='color:#e3b341'>WATCH</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>5D=-6.4% · 10D=-11.0% · 20D=-18.9% · SM=NEUTRAL</span></div><div class='sec-card'><span class='sec-name'>Advertising & Media Agencies</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">DISTRIBUTION</span><span class='sec-why'>5D=-7.5% · 10D=-12.4% · 20D=-17.2% · SM=DISTRIBUTION</span></div></div>
+  </div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Leading sectors showing NEUTRAL phase; 3 sectors lagging.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Delivery Signal</div>
+  <div style='color:#7d8590;font-weight:700'>NEUTRAL</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:6px'>7 CLEAN candidates passed all quality gates (TATAPOWER, AEROFLEX, CHENNPETRO, PFC, AUROPHARMA, COALINDIA, KTKBANK) with GREEN MA signals and 200D positions above 80%; 10 stocks failed Gate 2 as delivery spikes into RED MA (ANGELONE spike_ratio=4.7, SPARC=3.19, HINDPETRO=2.72) — classic distribution traps. TATAPOWER is the sole CLEAN delivery spike (spike_ratio=2.3) into a GREEN MA, representing genuine accumulation; all other Gate 2 failures show smart money exiting into retail buying.</div>
+  <table style='margin-top:10px'>
+    <tr><th>Symbol</th><th>Ratio</th><th>Note</th></tr>
+    <tr><td class='sym-td'>TATAPOWER</td><td>2.3</td><td style='text-align:left;color:#e6edf3'>200D_high_dist=-3.3% (near 52W high), 200D_position=80.1%, resilience=5 — only CLEAN delivery spike (2.3x) into GREEN MA in the entire universe; Integrated Power Utilities NEUTRAL sector</td></tr>
+  </table>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Risk Flags</div>
+  <div class='warn'>⚠ OI cap MEDIUM (score=+0.00) — reduce sizing; no HIGH conviction allowed until PCR>0.80 and VIX<18</div><div class='warn'>⚠ VIX 19.79 (ELEVATED) — elevated fear; all conviction capped MEDIUM; BUY requires VIX below 18</div><div class='warn'>⚠ TRIPLE_WALL @ 24000 [CE_RESISTANCE] — weekly+nxtweek+monthly+nxtmonth expiries stacked</div><div class='warn'>⚠ TRIPLE_WALL @ 23500 [PE_SUPPORT] — weekly+nxtweek+monthly+nxtmonth expiries stacked</div><div class='warn'>⚠ 52-week new highs collapsed to 0-1 on 2026-03-13/16/17 vs 63-84 new lows — structural damage not repaired</div><div class='warn'>⚠ %>EMA20 at 14.6% and %E20>E40 at 23.6% on 2026-03-17 — majority of stocks still below medium-term averages</div><div class='warn'>⚠ 2026-03-13 breadth collapse (8.2% advance, 117 stocks -4%+) leaves technical scars; single-day recovery insufficient to confirm trend reversal</div>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Watchlist <span style='font-size:10px;color:var(--muted);font-weight:400'>(hover symbol for reason)</span></div>
+  <table>
+    <tr><th>Symbol</th><th>LTP</th><th>Conv</th><th>Screeners</th></tr>
+    <tr><td class='sym-td'><span title='CONFLUENCE=4 (highest in universe), downgraded HIGH→MEDIUM by OI cap=MEDIUM (score=+0.00). 200D_high_dist=-3.3%, 200D_position=80.1%, resilience=5, industry=Integrated Power Utilities (SM=NEUTRAL, PASS), RSI=62.7 (healthy), RS_5D=+8.0, spike_ratio=2.3 into GREEN MA — strongest overall setup.' style='cursor:help;border-bottom:1px dotted #58a6ff'>TATAPOWER</span></td><td style='color:#ffd166'>₹400.8</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>D</span><span class='cf-badge'>M</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3, downgraded HIGH→MEDIUM by OI cap. 200D_high_dist=0.0% (AT 52W high), 200D_position=100%, resilience=5, industry=Iron & Steel Products (SM=NEUTRAL, PASS), RSI=68.7, RS_5D=+17.0 — 5D_RET=14.2% and 15D_RET=14.3% confirm strong momentum.' style='cursor:help;border-bottom:1px dotted #58a6ff'>AEROFLEX</span></td><td style='color:#ffd166'>₹251.8</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3, downgraded HIGH→MEDIUM by OI cap. 200D_high_dist=-1.7%, 200D_position=92.2%, resilience=4, industry=Coal (SM=NEUTRAL, PASS), RSI=65.8, RS_5D=+7.0 — 5D_RET=4.2%, 15D_RET=8.5%; defensive PSU with consistent delivery.' style='cursor:help;border-bottom:1px dotted #58a6ff'>COALINDIA</span></td><td style='color:#ffd166'>₹462.2</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3, downgraded HIGH→MEDIUM by OI cap. 200D_high_dist=-1.1%, 200D_position=95.6% (near 52W high), resilience=4, industry=Private Sector Bank (SM=NEUTRAL, PASS), RSI=64.5, RS_5D=+5.0.' style='cursor:help;border-bottom:1px dotted #58a6ff'>KTKBANK</span></td><td style='color:#ffd166'>₹226.2</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3, downgraded HIGH→MEDIUM by OI cap. 200D_high_dist=-3.1%, 200D_position=86.1%, resilience=5, industry=Financial Institution (SM=NEUTRAL, PASS), RSI=49.5 (room to run), RS_5D=+4.3 — low RSI relative to peers is a positive.' style='cursor:help;border-bottom:1px dotted #58a6ff'>PFC</span></td><td style='color:#ffd166'>₹418.0</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3, downgraded HIGH→MEDIUM by OI cap. 200D_high_dist=-2.0%, 200D_position=91.1%, resilience=4, industry=Pharmaceuticals (SM=NEUTRAL, PASS), RSI=75.7 (elevated — monitor for pullback), RS_5D=+2.8.' style='cursor:help;border-bottom:1px dotted #58a6ff'>AUROPHARMA</span></td><td style='color:#ffd166'>₹1286.0</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3, downgraded HIGH→MEDIUM by OI cap. 200D_high_dist=-2.9%, 200D_position=93.5%, resilience=5, industry=Refineries & Marketing (SM=MARKDOWN — caution), RSI=65.9, RS_5D=+17.4 — strong momentum but MARKDOWN industry sector warrants tighter stops.' style='cursor:help;border-bottom:1px dotted #58a6ff'>CHENNPETRO</span></td><td style='color:#ffd166'>₹1065.0</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>M</span><span class='cf-badge'>R</span><span class='cf-badge'>H</span></td></tr><tr><td class='sym-td'><span title='CONFLUENCE=3, SUSPECT (missing 200D metrics), industry=Civil Construction (SM=NEUTRAL, PASS), spike_ratio=2.2 into GREEN MA, RS_5D=+6.9, RSI=58.6, 5D_RET=4.1%, 15D_RET=12.3% — position sizing must be reduced vs CLEAN candidates due to SUSPECT classification.' style='cursor:help;border-bottom:1px dotted #58a6ff'>TICL</span></td><td style='color:#ffd166'>₹26.2</td><td><span style='background:#3a2e00;color:#e3b341;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700'>MEDIUM</span></td><td><span class='cf-badge'>D</span><span class='cf-badge'>M</span><span class='cf-badge'>R</span></td></tr>
+  </table>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Avoid</div>
+  <table><tr><th>Symbol</th><th>Gate / Reason</th></tr>
+    <tr><td class='sym-td'>ZENTEC</td><td style='color:#f85149;text-align:left'>Gate 1: 200D_high_dist=-36.1% (far below -25% threshold), 200D_position=19.6% (<30%). Distribution trap in Aerospace & Defense MARKDOWN sector.</td></tr><tr><td class='sym-td'>ATALREAL</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED, spike_ratio=2.17 — delivery spike into downtrend. 5D_RET=-3.8%, 15D_RET=-11.2%. Residential sector MARKDOWN.</td></tr><tr><td class='sym-td'>ANGELONE</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED, spike_ratio=4.7 (strongest distribution spike in universe) into RED MA. Stockbroking DISTRIBUTION sector — classic smart money exit.</td></tr><tr><td class='sym-td'>SPARC</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED, spike_ratio=3.19, deliv_pct=78.5% — heavy delivery spike into downtrend. Pharma sector NEUTRAL but stock in MARKDOWN.</td></tr><tr><td class='sym-td'>HINDPETRO</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED, spike_ratio=2.72, deliv_pct=52.9%. Refineries MARKDOWN sector — sector-level distribution confirmed.</td></tr><tr><td class='sym-td'>CUPID</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED, spike_ratio=2.32, deliv_pct=41.2%. Personal Care DISTRIBUTION sector.</td></tr><tr><td class='sym-td'>BPCL</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED, spike_ratio=2.20, deliv_pct=58.3%. Refineries MARKDOWN sector — same sector headwind as HINDPETRO.</td></tr><tr><td class='sym-td'>HINDOILEXP</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED, spike_ratio=2.18, deliv_pct=46.1%. Oil Exploration NEUTRAL sector but stock in downtrend.</td></tr><tr><td class='sym-td'>TIMETECHNO</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED, spike_ratio=2.08, deliv_pct=31.9%. Plastic Products NEUTRAL sector but RED MA disqualifies.</td></tr><tr><td class='sym-td'>MANAPPURAM</td><td style='color:#f85149;text-align:left'>Gate 2: MA_SIGNAL=RED, spike_ratio=2.05, deliv_pct=54.8%. NBFC DISTRIBUTION sector — double negative (RED MA + DISTRIBUTION industry).</td></tr><tr><td class='sym-td'>JINDALSAW</td><td style='color:#f85149;text-align:left'>Gate 3: 200D_high_dist=-20.2% (moderate trap zone), 200D_position=47.3% (<50%). Iron & Steel Products NEUTRAL but insufficient resilience evidence despite 5D_RET=20.7% spike.</td></tr><tr><td class='sym-td'>PAISALO</td><td style='color:#f85149;text-align:left'>SUSPECT classification (missing 200D metrics) + industry SM=DISTRIBUTION (NBFC sector). DISTRIBUTION phase → AVOID per sector rules despite confluence=3 and spike_ratio=2.9 into GREEN MA.</td></tr><tr><td class='sym-td'>JINDALPOLY</td><td style='color:#f85149;text-align:left'>CONFLUENCE=2 (LOW conviction threshold), industry=Packaging SM=MARKDOWN (FAIL). RSI=89.2 (severely overbought). MARKDOWN industry + LOW confluence → avoid.</td></tr><tr><td class='sym-td'>DCMFINSERV</td><td style='color:#f85149;text-align:left'>CONFLUENCE=2 (LOW conviction threshold), RSI=81.1 (overbought), 5D_RET=65.2% (extreme momentum spike — unsustainable). LTP=7.8 (micro-cap risk). Extreme overbought + LOW confluence → avoid chasing.</td></tr>
+  </table>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Themes</div>
+  <span class='chip' style='border-color:#58a6ff;color:#58a6ff'>NEUTRAL phase leading: Exchange and Data Platform, E-Learning, Integrated Power Utilities</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Avoid: Software Products, Microfinance Institutions</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Watchlist concentrated in: Refineries, Iron, Private</span>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Action Plan</div>
+  <div style='font-size:13px;line-height:1.7'>Market in NEUTRAL (MEDIUM confidence), OI cap MEDIUM (score=+0.00) — reduce sizing to 50% of normal. VIX 19.79 caps conviction at MEDIUM; no HIGH conviction until VIX below 18. 8 watchlist names (1 CLEAN): TATAPOWER, AEROFLEX, COALINDIA, KTKBANK, PFC. Key range: support 23500, resistance 24000. For conviction upgrade, all three must be met: weekly PCR > 0.80, VIX < 18, FO quadrant not SHORT_BUILDUP.</div>
+</div>
+
+
+<div class='card full-width' style='margin-top:14px'>
+  <div class='card-title' style='cursor:pointer' onclick="
+    var el=document.getElementById('reasoning-body');
+    el.style.display=el.style.display==='none'?'block':'none';
+    this.textContent=el.style.display==='none'?
+      '🧠 STAGE 3 REASONING  ▶':'🧠 STAGE 3 REASONING  ▼'
+  ">🧠 STAGE 3 REASONING  ▶ (click to expand)</div>
+  <div id='reasoning-body' style='display:none;margin-top:10px;
+       font-family:monospace;font-size:12px;color:#a0b0c0;
+       line-height:1.7;white-space:pre-wrap'>Let me work through this systematically.<br><br>**1. OI Conviction Cap Check FIRST**<br>- cap=MEDIUM, score=+0.00<br>- divergence=NO<br>- This means: ALL HIGH conviction must be downgraded to MEDIUM. No HIGH conviction allowed.<br>- No AVOID_ALL, so watchlist can have candidates.<br><br>**2. Regime + VIX Impact**<br>- Regime signal: NEUTRAL (verbatim from Stage 1)<br>- Regime confidence: MEDIUM (verbatim from Stage 1)<br>- VIX: 19.79, ELEVATED zone (18-22), FALLING trend, ABOVE_20DMA (+2.48pts)<br>- VIX &gt; 18 → no BUY conviction allowed per rules. Max sector view = HOLD.<br>- Wait, the sector rotation shows "BUY" for Exchange and Data Platform and Computers Hardware. But VIX rule says ELEVATED VIX (18-22): max sector view = HOLD. BUY only allowed if VIX &lt; 18. So I need to downgrade those BUY views to HOLD.<br><br>**3. Candidates - Conviction Assignment**<br>After cap=MEDIUM check:<br>- TATAPOWER: CONFLUENCE=4, CLEAN, industry PASS (NEUTRAL), RS_5D=8.0 &gt; 0 → Would be HIGH but cap=MEDIUM → MEDIUM<br>- AEROFLEX: CONFLUENCE=3, CLEAN, industry PASS (NEUTRAL), RS_5D=17.0 &gt; 0 → Would be HIGH but cap=MEDIUM → MEDIUM<br>- CHENNPETRO: CONFLUENCE=3, CLEAN, industry PASS (NEUTRAL but SM=MARKDOWN), RS_5D=17.4 &gt; 0 → Would be HIGH but cap=MEDIUM → MEDIUM. Wait, industry_sm=MARKDOWN for Refineries &amp; Marketing. But industry_pass=true. DISTRIBUTION/MARKDOWN phase → view = AVOID per sector rules. But this is the stock's industry, not the sector rotation view. The industry_pass=true means it passed the industry gate. Let me keep it as MEDIUM but note the MARKDOWN industry.<br>- PFC: CONFLUENCE=3, CLEAN, industry PASS (NEUTRAL), RS_5D=4.3 &gt; 0 → MEDIUM<br>- AUROPHARMA: CONFLUENCE=3, CLEAN, industry PASS (NEUTRAL), RS_5D=2.8 &gt; 0 → MEDIUM<br>- COALINDIA: CONFLUENCE=3, CLEAN, industry PASS (NEUTRAL), RS_5D=7.0 &gt; 0 → MEDIUM<br>- KTKBANK: CONFLUENCE=3, CLEAN, industry PASS (NEUTRAL), RS_5D=5.0 &gt; 0 → MEDIUM<br>- PAISALO: CONFLUENCE=3, SUSPECT, industry PASS but SM=DISTRIBUTION → MEDIUM (confluence=2 threshold for MEDIUM, but SUSPECT + DISTRIBUTION industry → should be LOW → avoid)<br>  Actually: MEDIUM — CONFLUENCE=2, SUSPECT or partial industry. PAISALO has CONFLUENCE=3 but SUSPECT classification and industry SM=DISTRIBUTION. The conviction rules say MEDIUM for CONFLUENCE=2, SUSPECT or partial industry. PAISALO has CONFLUENCE=3 but SUSPECT + DISTRIBUTION industry. I'll assign MEDIUM but note the risks.<br>  Wait, re-reading: "MEDIUM — CONFLUENCE=2, SUSPECT or partial industry". PAISALO has confluence=3 but SUSPECT. The rules say HIGH requires CLEAN classification. SUSPECT → can't be HIGH. With confluence=3 and SUSPECT, it would be MEDIUM. But industry SM=DISTRIBUTION is a concern. I'll include as MEDIUM with caveats.<br>- TICL: CONFLUENCE=3, SUSPECT, industry PASS (NEUTRAL) → MEDIUM<br>- JINDALPOLY: CONFLUENCE=2, CLEAN, industry FAIL (MARKDOWN) → LOW → avoid<br>- DCMFINSERV: CONFLUENCE=2, CLEAN, industry PASS (NEUTRAL) → LOW → avoid (confluence=2 is MEDIUM threshold but LOW conviction → avoid)<br><br>Wait, re-reading conviction rules:<br>- HIGH: CONFLUENCE=3 or 4, CLEAN, passing industry, RS_5D &gt; 0 (only when cap=HIGH)<br>- MEDIUM: CONFLUENCE=2, SUSPECT or partial industry<br>- LOW → avoid<br><br>So CONFLUENCE=3 CLEAN with passing industry and RS_5D &gt; 0 would normally be HIGH, but cap=MEDIUM downgrades to MEDIUM.<br>CONFLUENCE=2 with CLEAN and passing industry → MEDIUM (since it meets the MEDIUM criteria)<br>CONFLUENCE=2 with failing industry → LOW → avoid<br><br>JINDALPOLY: confluence=2, industry FAIL → LOW → avoid<br>DCMFINSERV: confluence=2, industry PASS → MEDIUM? But the conviction rules say MEDIUM is for CONFLUENCE=2. Let me include it.<br><br>Actually wait - DCMFINSERV has RSI=81.1 (overbought) and 5D_RET=65.2% (extreme momentum). This is suspicious. But the rules don't explicitly exclude it. I'll include as MEDIUM with strong caveats.<br><br>Actually, let me reconsider PAISALO - industry SM=DISTRIBUTION. The sector rules say DISTRIBUTION/MARKDOWN phase → view = AVOID. So PAISALO's industry is DISTRIBUTION → should be avoided.<br><br>Let me finalize watchlist:<br>- TATAPOWER: MEDIUM (downgraded from HIGH due to cap)<br>- AEROFLEX: MEDIUM<br>- CHENNPETRO: MEDIUM (note MARKDOWN industry)<br>- PFC: MEDIUM<br>- AUROPHARMA: MEDIUM<br>- COALINDIA: MEDIUM<br>- KTKBANK: MEDIUM<br>- TICL: MEDIUM (SUSPECT, missing 200D)<br>- PAISALO: avoid (DISTRIBUTION industry)<br>- JINDALPOLY: avoid (confluence=2, industry FAIL)<br>- DCMFINSERV: MEDIUM or avoid? confluence=2, industry PASS (NEUTRAL), CLEAN → MEDIUM<br><br>Actually I'll keep the watchlist to the stronger candidates. DCMFINSERV with 65% 5D return and RSI 81 is extremely overbought - I'll include it but with strong caveats.<br><br>**4. Risk Flags**<br>- VIX 19.79 in ELEVATED zone (94.8th percentile)<br>- FII consecutive selling streak: 2 days (not ≥ 3, so no flag for that)<br>- TRIPLE_WALL at 24000 (CE resistance) across all 4 expiries - within... 24000 vs spot 23581 = 419 pts away = 1.78% away. The rule says "within 1% of spot". 1% of 23581 = 235.81. 24000 - 23581 = 419 pts &gt; 235 pts. So NOT within 1%. 23500 - 23581 = -81 pts, which IS within 1% (81 &lt; 235). So the PE support at 23500 is within 1% of spot. That's a TRIPLE_WALL within 1%.<br>- cap=MEDIUM (not AVOID_ALL, so no specific flag needed for that)<br>- Breadth: March 13 showed only 8.2% advance ratio (41 advances vs 459 declines) - severe breadth deterioration<br>- FII 2-day selling streak (not ≥ 3)<br><br>**5. Breadth Reading**<br>- March 13: catastrophic breadth (8.2% advance, 117 stocks down &gt;4%)<br>- March 17: recovery (64.4% advance, only 2 stocks down &gt;4%)<br>- But structural indicators remain weak: %&gt;EMA20 only 14.6%, %E20&gt;E40 only 23.6%<br>- Trend: IMPROVING (from 8.2% to 64.4% over the week)<br><br>**Action Plan**<br>Since cap=MEDIUM (not AVOID_ALL), the action plan should note the MEDIUM cap, re-entry conditions for full BUY conviction (PCR &gt; 0.80 already met at 0.984, VIX &lt; 18 needed), and risk management.<br><br>Let me now construct the JSON.<br><br>For sector rotation - VIX is ELEVATED so BUY views must be downgraded to HOLD:<br>- Exchange and Data Platform: SM=MARKUP, would be BUY but VIX &gt; 18 → HOLD<br>- Computers Hardware: SM=ACCUMULATION, would be BUY but VIX &gt; 18 → HOLD<br><br>For delivery signal:<br>- CLEAN candidates: TATAPOWER (spike_ratio=2.3), others without spike_ratio<br>- TRAP candidates: ANGELONE (4.7), SPARC (3.19), HINDPETRO (2.72), etc.<br>- Smart money: NEUTRAL to mild accumulation given mixed signals<br><br>Let me write the JSON now.<br><br>For stacked walls: TRIPLE_WALL at 23500 (PE support) is 81 pts below spot = 0.34% away → within 1% → risk flag.<br>TRIPLE_WALL at 24000 (CE resistance) is 419 pts above spot = 1.78% away → NOT within 1%.<br><br>Risk flags:<br>1. "TRIPLE_WALL PE support at 23500 is 81 pts (0.34%) below spot 23581 — pinning risk, breach could accelerate selling"<br>2. "VIX 19.79 at 94.8th percentile (52W) — ELEVATED zone caps all conviction to MEDIUM; BUY conviction requires VIX &lt; 18"<br>3. "FII net short -240,775 index futures with 2-day selling streak; cash selling -4,219 cr — institutional-vs-retail divergence"<br>4. "Breadth collapse on 2026-03-13: only 8.2% advance ratio (41/500), 117 stocks down &gt;4% — structural damage not yet repaired (%&gt;EMA20 = 14.6%)"<br>5. "OI cap MEDIUM (score=+0.00): mixed OI structure prevents HIGH conviction across all candidates"<br><br>For the action plan - since cap=MEDIUM (not AVOID_ALL), I should still mention re-entry conditions for full conviction:<br>"NEUTRAL regime with MEDIUM OI cap (score=+0.00) limits all positions to MEDIUM conviction. Spot at 23581 is pinned between TRIPLE_WALL support at 23500 (81 pts below) and TRIPLE_WALL resistance at 24000 (419 pts above), creating an asymmetric range. Prefer MEDIUM conviction longs in CLEAN stocks (TATAPOWER, AEROFLEX, COALINDIA) with strict stops below 23500. For full BUY conviction to be restored, weekly PCR must remain above 0.80 (currently 0.984 — met), VIX must drop below 18 (currently 19.79 — not met), and FO quadrant must not be SHORT_BUILDUP (currently LONG_BUILDUP — met). Until VIX &lt; 18, maintain reduced position sizing and avoid chasing overbought names (JINDALPOLY RSI=89.2, DCMFINSERV RSI=81.1)."<br><br>Let me finalize the watchlist. I'll include the strongest candidates:<br>1. TATAPOWER - MEDIUM (confluence=4, CLEAN, best setup)<br>2. AEROFLEX - MEDIUM (confluence=3, CLEAN, at 200D high)<br>3. COALINDIA - MEDIUM (confluence=3, CLEAN)<br>4. KTKBANK - MEDIUM (confluence=3, CLEAN)<br>5. PFC - MEDIUM (confluence=3, CLEAN)<br>6. AUROPHARMA - MEDIUM (confluence=3, CLEAN, RSI=75.7 elevated)<br>7. CHENNPETRO - MEDIUM (confluence=3, CLEAN, but MARKDOWN industry)<br>8. TICL - MEDIUM (confluence=3, SUSPECT)<br><br>For avoid list, I'll include all Stage 2 avoided stocks plus PAISALO (DISTRIBUTION industry), JINDALPOLY (confluence=2, industry FAIL), DCMFINSERV (confluence=2, extreme overbought).<br><br>Actually DCMFINSERV has confluence=2, industry PASS (NEUTRAL), CLEAN → technically MEDIUM. But RSI=81.1 and 5D_RET=65.2% is extreme. I'll include it in watchlist with strong caveats or avoid. Given the extreme overbought nature, I'll put it in avoid.<br><br>Let me finalize:<br><br>Watchlist (MEDIUM only):<br>1. TATAPOWER<br>2. AEROFLEX  <br>3. COALINDIA<br>4. KTKBANK<br>5. PFC<br>6. AUROPHARMA<br>7. CHENNPETRO<br>8. TICL<br><br>Avoid:<br>- All Stage 2 avoided stocks<br>- PAISALO (DISTRIBUTION industry)<br>- JINDALPOLY (confluence=2, industry FAIL/MARKDOWN)<br>- DCMFINSERV (confluence=2, extreme overbought RSI=81.1)<br><br>For delivery signal top picks, I'll use TATAPOWER (spike_ratio=2.3, GREEN MA) as the main clean delivery spike.<br><br>Let me now write the full JSON carefully.</div>
+</div>
+
+</div>
+</body>
+</html>
