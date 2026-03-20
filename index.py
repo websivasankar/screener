@@ -1,5 +1,5 @@
 """
-index.py  —  InfoAlpha ONE  |  Homepage Generator
+index.py  —  InfoAlpha  |  Homepage Generator
 ==================================================
 Reads the last 5 ai_analysis_v5.json files from screener/output/YYYY-MM-DD/
 and generates a product-grade index.html for GitHub Pages.
@@ -346,18 +346,18 @@ def generate_index(featured: dict, history: list, all_ai_files: list) -> str:
     synth    = featured.get("synthesis", "")
     # Build a crisp, keyword-rich description for Google + social cards
     regime_emoji = {"BULL":"🟢","BEAR":"🔴","NEUTRAL":"🟡","TRANSITION":"🔵"}.get(regime,"⚪")
-    og_title  = f"InfoAlpha ONE — {regime_emoji} {regime} | Strength {strength}/10 | {date_d}"
+    og_title  = f"InfoAlpha — {regime_emoji} {regime} | Strength {strength}/10 | {date_d}"
     og_desc   = (
         f"NSE market regime: {regime} (strength {strength}/10, VIX {vix}). "
         f"{synth[:160].rstrip('…')}… "
         f"Daily institutional flow, FII OI, breadth & options positioning intelligence."
     ) if synth else (
-        "InfoAlpha ONE — AI-powered NSE market regime engine. "
+        "InfoAlpha — AI-powered NSE market regime engine. "
         "Institutional flow, FII OI, breadth, VIX, and options positioning — every trading day."
     )
     og_url    = "https://infoalpha.in/"
     og_image  = "https://infoalpha.in/banner.png"   # update if you have a dedicated OG image
-    site_name = "InfoAlpha ONE"
+    site_name = "InfoAlpha"
     keywords  = (
         "NSE market regime, FII OI analysis, India VIX, Nifty options OI, "
         "market breadth, delivery spike screener, institutional flow, "
@@ -375,7 +375,7 @@ def generate_index(featured: dict, history: list, all_ai_files: list) -> str:
 <title>{og_title}</title>
 <meta name="description"      content="{og_desc}">
 <meta name="keywords"         content="{keywords}">
-<meta name="author"           content="Sivasankar S — InfoAlpha ONE">
+<meta name="author"           content="Sivasankar S — InfoAlpha">
 <meta name="robots"           content="index, follow">
 <link rel="canonical"         href="{og_url}">
 
@@ -402,14 +402,14 @@ def generate_index(featured: dict, history: list, all_ai_files: list) -> str:
 
 <!-- ── THEME / PWA ── -->
 <meta name="theme-color" content="#080d14">
-<meta name="application-name" content="InfoAlpha ONE">
+<meta name="application-name" content="InfoAlpha">
 
 <!-- ── STRUCTURED DATA (Google Rich Results) ── -->
 <script type="application/ld+json">
 {{
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "InfoAlpha ONE",
+  "name": "InfoAlpha",
   "url": "{og_url}",
   "description": "AI-powered NSE market regime engine — institutional flow, FII OI, breadth, VIX, and options positioning intelligence.",
   "author": {{
@@ -942,7 +942,7 @@ footer a:hover{{color:var(--tx2)}}
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-brand">
-    <span class="nav-brand-name">InfoAlpha ONE</span>
+    <span class="nav-brand-name">InfoAlpha</span>
     <span class="nav-brand-sub">Smart Signals · Better Trades</span>
   </a>
   <div class="nav-links">
@@ -1142,7 +1142,7 @@ footer a:hover{{color:var(--tx2)}}
   <div class="about-grid">
     <div class="about-card">
       <p style="color:var(--tx2);font-size:13px;line-height:1.9;margin-bottom:14px">
-        InfoAlpha ONE is an independent market intelligence project built by
+        InfoAlpha is an independent market intelligence project built by
         <strong style="color:var(--tx)">Sivasankar S</strong> — a developer and quant analyst
         combining institutional flow data, options positioning, and AI interpretation
         to give retail traders an institutional-grade edge.
@@ -1224,7 +1224,7 @@ footer a:hover{{color:var(--tx2)}}
 
 <!-- FOOTER -->
 <footer>
-  <p>InfoAlpha ONE — AI EOD NSE Market Reports &nbsp;·&nbsp; Educational Purpose Only &nbsp;·&nbsp; Not SEBI-registered Investment Advice</p>
+  <p>InfoAlpha — AI EOD NSE Market Reports &nbsp;·&nbsp; Educational Purpose Only &nbsp;·&nbsp; Not SEBI-registered Investment Advice</p>
   <p style="margin-top:6px">
     <a href="https://t.me/volumepricemove" target="_blank">Telegram</a> &nbsp;·&nbsp;
     <a href="https://wa.me/919884346789" target="_blank">WhatsApp</a> &nbsp;·&nbsp;
