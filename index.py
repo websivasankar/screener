@@ -187,6 +187,15 @@ def load_html_only_signals(dest: Path, known_dates: set) -> list:
 
 
 def copy_screener_files(src_date_dir: Path):
+    # Copy logo if present next to index.py
+    logo_src = Path(__file__).parent / "logo.png"
+    if logo_src.exists():
+        shutil.copy(logo_src, DEST_FOLDER / "logo.png")
+        print("  Copied: logo.png")
+    else:
+        # Also check gitpublic itself (already there from first run)
+        pass
+
     for f in SCREENER_FILES:
         src = src_date_dir / f
         if src.exists():
@@ -474,7 +483,7 @@ nav{{
   height:54px;
 }}
 .nav-brand{{
-  display:flex;flex-direction:column;gap:1px;
+  display:flex;flex-direction:row;align-items:center;gap:10px;
   text-decoration:none;
 }}
 .nav-brand-name{{
@@ -942,8 +951,12 @@ footer a:hover{{color:var(--tx2)}}
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-brand">
-    <span class="nav-brand-name">InfoAlpha</span>
-    <span class="nav-brand-sub">Smart Signals · Better Trades</span>
+    <img src="logo.png" alt="InfoAlpha logo"
+         style="height:40px;width:40px;object-fit:contain;border-radius:4px">
+    <div>
+      <span class="nav-brand-name">InfoAlpha</span>
+      <span class="nav-brand-sub">Smart Signals · Better Trades</span>
+    </div>
   </a>
   <div class="nav-links">
     <a href="#signals">Signals</a>
@@ -957,6 +970,8 @@ footer a:hover{{color:var(--tx2)}}
 
 <!-- HERO -->
 <div class="hero">
+  <img src="logo.png" alt="InfoAlpha"
+       style="height:80px;width:80px;object-fit:contain;margin-bottom:16px;border-radius:8px">
   <div class="hero-tag">NSE India · Institutional Intelligence</div>
   <h1>Institutional Flow &amp; Options<br><span>Positioning Intelligence</span></h1>
   <p class="hero-sub">
@@ -1119,12 +1134,12 @@ footer a:hover{{color:var(--tx2)}}
       <div class="how-step-desc">Breadth, delivery spikes, momentum MA, high/low resilience, sector rotation, and options OI structure computed per symbol.</div>
     </div>
     <div class="how-step" data-num="03">
-      <div class="how-step-title">3-Day Footprint Analysis</div>
-      <div class="how-step-desc">AI receives a 3-day footprint — full snapshot today, OI and FII deltas for yesterday and 2 days ago — to distinguish trend from noise.</div>
+      <div class="how-step-title">Python Labels All Rules</div>
+      <div class="how-step-desc">Regime (BULL/BEAR/NEUTRAL/TRANSITION), VIX zone, conviction cap, FII vs Client divergence, breadth trend, and stock futures sentiment are all computed in Python — zero hallucination risk.</div>
     </div>
     <div class="how-step" data-num="04">
-      <div class="how-step-title">Regime Engine Output</div>
-      <div class="how-step-desc">Python labels compute regime (BULL/BEAR/NEUTRAL/TRANSITION), VIX zone, conviction cap, and FII streak. Claude synthesizes the narrative.</div>
+      <div class="how-step-title">Claude Finds Anomalies</div>
+      <div class="how-step-desc">Claude receives raw numbers only — no labels, no rules. It identifies unusual patterns, writes the OI / FII / breadth / F&O narratives, synthesis, and action plan in a single API call.</div>
     </div>
     <div class="how-step" data-num="05">
       <div class="how-step-title">Static Site Publish</div>
