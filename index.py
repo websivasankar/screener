@@ -186,31 +186,64 @@ def load_html_only_signals(dest: Path, known_dates: set) -> list:
     return sorted(results, key=lambda x: x["date_raw"], reverse=True)
 
 
+def inject_brand(html_path: Path):
+    """
+    Inject <script src="brand.js"></script> just before </body> in an HTML file.
+    Skips if already injected. Also injects basic SEO meta if missing.
+    """
+    try:
+        text = html_path.read_text(encoding="utf-8", errors="ignore")
+        if "brand.js" in text:
+            return   # already done
+        tag = '<script src="brand.js"></script>'
+        if "</body>" in text:
+            text = text.replace("</body>", f"{tag}\n</body>", 1)
+        else:
+            text += f"\n{tag}\n"
+        html_path.write_text(text, encoding="utf-8")
+    except Exception as e:
+        print(f"  [warn] inject_brand {html_path.name}: {e}")
+
+
 def copy_screener_files(src_date_dir: Path):
-    # Copy logo if present next to index.py
+    # Copy logo if present next to index.py (skip if already in dest)
     logo_src = Path(__file__).parent / "logo.png"
-    if logo_src.exists():
+    if logo_src.exists() and logo_src.resolve() != (DEST_FOLDER / "logo.png").resolve():
         shutil.copy(logo_src, DEST_FOLDER / "logo.png")
         print("  Copied: logo.png")
-    else:
-        # Also check gitpublic itself (already there from first run)
-        pass
+
+    # Copy brand.js to gitpublic (skip if same file)
+    brand_src = Path(__file__).parent / "brand.js"
+    if brand_src.exists() and brand_src.resolve() != (DEST_FOLDER / "brand.js").resolve():
+        shutil.copy(brand_src, DEST_FOLDER / "brand.js")
+        print("  Copied: brand.js")
+
+    # Copy index.py itself to gitpublic (skip if running from there already)
+    self_src = Path(__file__).resolve()
+    self_dst = (DEST_FOLDER / "index.py").resolve()
+    if self_src != self_dst:
+        shutil.copy(self_src, self_dst)
+        print("  Copied: index.py")
 
     for f in SCREENER_FILES:
         src = src_date_dir / f
         if src.exists():
-            shutil.copy(src, DEST_FOLDER / f)
-            print(f"  Copied: {f}")
+            dst = DEST_FOLDER / f
+            shutil.copy(src, dst)
+            inject_brand(dst)
+            print(f"  Copied + branded: {f}")
         else:
             print(f"  Missing: {f}")
 
-    # OI files live in NIFTYOPA/stockscreener/advanced  — skip if not found
+    # OI files live in NIFTYOPA/stockscreener/advanced
     adv = Path(r"E:\stockscreener\advanced")
     for f in OI_FILES:
         src = adv / f
         if src.exists():
-            shutil.copy(src, DEST_FOLDER / f)
-            print(f"  Copied OI: {f}")
+            dst = DEST_FOLDER / f
+            shutil.copy(src, dst)
+            inject_brand(dst)
+            print(f"  Copied + branded OI: {f}")
 
     # Copy v4 HTML reports and rename to date-stamped names for GitHub Pages
     for d in SOURCE_BASE.iterdir():
@@ -221,16 +254,19 @@ def copy_screener_files(src_date_dir: Path):
         v4h = d / "ai_analysis_v4.html"
         if v4h.exists():
             dst_name = f"ai_analysis_v4_{d.name.replace('-', '_')}.html"
-            shutil.copy(v4h, DEST_FOLDER / dst_name)
-            print(f"  Copied report: {dst_name}")
+            dst = DEST_FOLDER / dst_name
+            shutil.copy(v4h, dst)
+            inject_brand(dst)
+            print(f"  Copied + branded report: {dst_name}")
 
-        # Legacy: ai_analysis.html  →  ai_analysis_YYYY_MM_DD.html (keep for old links)
+        # Legacy: ai_analysis.html  →  ai_analysis_YYYY_MM_DD.html
         legacy = d / "ai_analysis.html"
         if legacy.exists():
             dst_name = f"ai_analysis_{d.name.replace('-', '_')}.html"
             dst = DEST_FOLDER / dst_name
             if not dst.exists():
                 shutil.copy(legacy, dst)
+                inject_brand(dst)
 
 
 # ── REGIME COLORS ─────────────────────────────────────────────────────────────
@@ -1339,6 +1375,13 @@ def main():
     html = generate_index(featured, history_signals, all_ai)
     out  = DEST_FOLDER / "index.html"
     out.write_text(html, encoding="utf-8")
+    # 5. Inject brand.js into any HTML already in gitpublic that was missed
+    print("Injecting brand into existing HTML files …")
+    for f in DEST_FOLDER.glob("*.html"):
+        if f.name == "index.html":
+            continue   # index.html has its own nav/footer built-in
+        inject_brand(f)
+
     print(f"✅  index.html written → {out}")
     print(f"    Featured: {featured.get('date_raw','none')} {featured.get('regime','')}")
     print(f"    History:  {[s['date_raw'] for s in history_signals]}")
