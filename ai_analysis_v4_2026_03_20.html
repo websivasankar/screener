@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSE Regime 2026-03-20</title>
+<style>
+:root{--bg:#0d1117;--s:#161b22;--s2:#21262d;--bd:#30363d;--tx:#e6edf3;--mu:#7d8590}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'Segoe UI',system-ui,sans-serif;
+      font-size:12px;padding:14px 16px 40px}
+h1{font-size:15px;font-weight:700;color:#58a6ff;margin-bottom:6px}
+.status{display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+         padding:10px 14px;background:var(--s);border:1px solid var(--bd);
+         border-radius:8px;margin-bottom:12px}
+.reg{font-size:18px;font-weight:800;margin-right:4px;color:#f85149}
+.b{border:1px solid;border-radius:8px;padding:2px 9px;font-size:11px;font-weight:700}
+.sep{color:var(--bd);margin:0 2px}
+.str{font-size:11px;color:#e3b341;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.full{grid-column:1/-1}
+.card{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:12px 14px}
+.ct{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--mu);text-transform:uppercase;margin-bottom:10px}
+.wn{background:#2d1a00;border-left:3px solid #e3b341;padding:5px 9px;margin:3px 0;border-radius:3px;font-size:11px}
+.ins{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--s2);align-items:flex-start}
+.ins-l{font-weight:700;color:#58a6ff;min-width:56px;font-size:10px;padding-top:1px;flex-shrink:0}
+.ins-t{font-size:11px;line-height:1.5}
+.mu{color:var(--mu);font-style:italic}
+</style>
+</head>
+<body>
+<h1>NSE EOD Analysis <span style='font-size:10px;background:#1a2744;color:#79c0ff;padding:1px 7px;border-radius:8px;margin-left:4px'>v4</span></h1>
+
+<div class='status'>
+  <span class='reg'>BEAR</span>
+  <span class='b' style='color:#3fb950;border-color:#3fb95055'>HIGH</span>
+  <span class='sep'>|</span>
+  <span class='b' style='color:#f85149;border-color:#f8514955'>CAP AVOID_ALL -0.50</span>
+  <span class='sep'>|</span>
+  <span class='b' style='color:#f85149;border-color:#f8514955'>VIX 22.81 HIGH_FEAR</span>
+  <span class='sep'>|</span>
+  <span class='str'>Strength 5/10</span>
+  <span class='sep'>|</span>
+  <span style='color:#7d8590;font-size:10px'>2026-03-20 · claude-sonnet-4-6</span>
+</div>
+
+<div class='grid'>
+  <div class='card'>
+    <div class='ct'>Signal Narratives</div>
+    <div class='ins'><div class='ins-l'>OI</div><div class='ins-t'>Weekly PCR at 0.788 signals aggressive CE writing and a near-term ceiling, but monthly and next-month PCRs above 1.0 indicate structural support is intact. The 23000 triple wall is the dominant OI feature — PE writers across three expiries are defending this level with institutional-grade conviction.</div></div>
+    <div class='ins'><div class='ins-l'>FII</div><div class='ins-t'>FIIs remain net short in index futures (-234508, 2-day streak) and are selling cash equities (-5518 Cr), while DIIs absorb with +5706 Cr — a classic tug-of-war with domestic money providing the floor. FII heavy PE buying (1053159) signals hedging/fear rather than outright directional shorts, and their high CE writing (901910) implies a range-bound expectation capped near 23500.</div></div>
+    <div class='ins'><div class='ins-l'>F&O</div><div class='ins-t'>Nifty F&O shows long buildup while BankNifty is flat — sector divergence with Nifty leading any recovery attempt. Stock-level short-covering (84 stocks) vastly outpaces fresh long buildup (37), confirming this is a relief/squeeze rally rather than a momentum-driven move.</div></div>
+    <div class='ins'><div class='ins-l'>BREADTH</div><div class='ins-t'>Breadth is modestly positive with 58.6% advances vs 5-day average of 51% — a mild improvement but not a thrust. Only 22.4% of stocks are above their 10-day EMA, indicating the majority of the market remains in short-term downtrends despite today's advance.</div></div>
+  </div>
+
+  <div class='card'>
+    <div class='ct'>Anomalies</div>
+    <div class='wn'>! VIX at 22.81 — in capitulation zone, sitting at 99.6th percentile of 52-week range; market fear is extreme yet spot is not collapsing</div><div class='wn'>! Next-week max pain at 24500 vs spot 23114 — a 1386-point gap suggesting either stale OI or aggressive speculative positioning far from current reality</div><div class='wn'>! Triple support wall at 23000 across weekly/monthly/nxtmonth — institutionally defended floor with extraordinary conviction</div><div class='wn'>! FII futures net short -234508 contracts yet stock futures net long +1002308 — bifurcated positioning: index bearish, stock bullish</div><div class='wn'>! All four expiry quadrants show LONG_BUILDUP simultaneously — unusual alignment suggesting broad bottom-fishing or short-covering attempt</div><div class='wn'>! FII pe_long 1053159 >> ce_long 653690 — heavy protection/hedge buying consistent with fear, not directional bullishness</div><div class='wn'>! Client (retail) index net long +147946 while FII futures net short — classic retail trapped long vs institutional short setup</div><div class='wn'>! Stock short-covering (stk_sc=84) dominates over long buildup (stk_lb=37) — rally driven by covering, not fresh conviction</div>
+  </div>
+
+  <div class='card full'>
+    <div class='ct'>Synthesis</div>
+    <div style='font-size:12px;line-height:1.8'>The market is pinned in a high-fear, institutionally-defended range: VIX at capitulation levels (22.81, 99.6th percentile) while the 23000 triple wall prevents a breakdown and 23500 double resistance caps the upside — a compressed coil. FIIs are structurally short index futures and hedging heavily with puts, while DIIs and retail are providing the bid, creating a classic standoff where the path of least resistance is sideways-to-up as long as 23000 holds. The next-week max pain anomaly at 24500 and all-expiry long buildup suggest either a sharp squeeze is being set up or stale positioning will need to be unwound — resolution likely comes post-monthly expiry.</div>
+  </div>
+
+  <div class='card full'>
+    <div class='ct'>Action Plan</div>
+    <div style='font-size:12px;line-height:1.8'>Monitor 23000 as the absolute line in the sand — a daily close below this triple-wall support would signal institutional PE writers capitulating and could trigger a sharp leg down toward 22500; hold no longs below this level. On the upside, watch for VIX to drop below 20 and weekly PCR to recover above 0.85 as confirmation that the 23500 resistance can be challenged — until then, range-trade 23000-23500 with tight stops and avoid chasing the short-covering rally.</div>
+  </div>
+</div>
+</body>
+</html>
