@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSE Regime 2026-03-19</title>
+<style>
+:root{--bg:#0d1117;--s:#161b22;--s2:#21262d;--bd:#30363d;--tx:#e6edf3;--mu:#7d8590}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'Segoe UI',system-ui,sans-serif;
+      font-size:12px;padding:14px 16px 40px}
+h1{font-size:15px;font-weight:700;color:#58a6ff;margin-bottom:6px}
+.status{display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+         padding:10px 14px;background:var(--s);border:1px solid var(--bd);
+         border-radius:8px;margin-bottom:12px}
+.reg{font-size:18px;font-weight:800;margin-right:4px;color:#f85149}
+.b{border:1px solid;border-radius:8px;padding:2px 9px;font-size:11px;font-weight:700}
+.sep{color:var(--bd);margin:0 2px}
+.str{font-size:11px;color:#f85149;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.full{grid-column:1/-1}
+.card{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:12px 14px}
+.ct{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--mu);text-transform:uppercase;margin-bottom:10px}
+.wn{background:#2d1a00;border-left:3px solid #e3b341;padding:5px 9px;margin:3px 0;border-radius:3px;font-size:11px}
+.ins{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--s2);align-items:flex-start}
+.ins-l{font-weight:700;color:#58a6ff;min-width:56px;font-size:10px;padding-top:1px;flex-shrink:0}
+.ins-t{font-size:11px;line-height:1.5}
+.mu{color:var(--mu);font-style:italic}
+</style>
+</head>
+<body>
+<h1>NSE EOD Analysis <span style='font-size:10px;background:#1a2744;color:#79c0ff;padding:1px 7px;border-radius:8px;margin-left:4px'>v4</span></h1>
+
+<div class='status'>
+  <span class='reg'>BEAR</span>
+  <span class='b' style='color:#3fb950;border-color:#3fb95055'>HIGH</span>
+  <span class='sep'>|</span>
+  <span class='b' style='color:#f85149;border-color:#f8514955'>CAP AVOID_ALL -1.00</span>
+  <span class='sep'>|</span>
+  <span class='b' style='color:#f85149;border-color:#f8514955'>VIX 22.8 HIGH_FEAR</span>
+  <span class='sep'>|</span>
+  <span class='str'>Strength 2/10</span>
+  <span class='sep'>|</span>
+  <span style='color:#7d8590;font-size:10px'>2026-03-19 · claude-sonnet-4-6</span>
+</div>
+
+<div class='grid'>
+  <div class='card'>
+    <div class='ct'>Signal Narratives</div>
+    <div class='ins'><div class='ins-l'>OI</div><div class='ins-t'>23,000 is a TRIPLE WALL with PE writers defending across all four expiries — this is the most institutionally defended support level visible in the data. However, 23,500 is a double ceiling (monthly + next month CE writers), compressing the range to a 500-point corridor with spot pinned at the floor.</div></div>
+    <div class='ins'><div class='ins-l'>FII</div><div class='ins-t'>FIIs are aggressively short futures (6:1 short/long ratio, -228,952 net) and simultaneously buying massive put protection (pe_long 973K vs ce_long 575K) — this is not hedging noise, this is a directional institutional short with tail-risk insurance. Cash selling of -7,558 Cr adds to the bearish posture; DII buying at 3,864 Cr is absorbing but insufficient to neutralize.</div></div>
+    <div class='ins'><div class='ins-l'>F&O</div><div class='ins-t'>Both Nifty and BankNifty futures are in LONG_UNWINDING quadrant — longs are exiting, not fresh shorts building in index futures. At stock level, 126 stocks in long unwinding vs 77 in short buildup confirms distribution is the dominant theme. Zero stocks in short covering.</div></div>
+    <div class='ins'><div class='ins-l'>BREADTH</div><div class='ins-t'>Breadth is in collapse territory: 4.4% advance ratio against a 40.9% five-day average is a 9-sigma-type single-session deterioration. Only 11-14% of stocks are above their 10/20/40-day EMAs, confirming this is a broad market selloff, not sector rotation.</div></div>
+  </div>
+
+  <div class='card'>
+    <div class='ct'>Anomalies</div>
+    <div class='wn'>! VIX at 22.8 — up 21.79% single session, at 99.6th percentile of 52-week range: capitulation-zone spike, not routine elevation</div><div class='wn'>! Breadth catastrophic: only 22 advances vs 478 declines (4.4% adv_pct) against 5-day avg of 40.9% — extreme single-day selling breadth collapse</div><div class='wn'>! Weekly PCR at 0.689 (below 0.70 aggressive CE writing threshold) while monthly/next-week PCR hold above 1.0 — sharp weekly-only structural divergence</div><div class='wn'>! FII futures net short -228,952 contracts with 2-day short streak; fut_short 274,082 vs fut_long 45,130 — ratio ~6:1, extreme institutional short positioning</div><div class='wn'>! FII pe_long 973,356 vs ce_long 574,599 — massive put protection buying, FII hedging aggressively at scale</div><div class='wn'>! Spot sitting exactly on 23,000 TRIPLE WALL support (weekly+nxtweek+monthly+nxtmonth PE writers all defending) — make-or-break level in real time</div><div class='wn'>! stk_sb (short buildup stocks) = 77 vs stk_lu (long unwinding) = 126 — broad stock-level distribution, not index-only phenomenon</div><div class='wn'>! FII cash net -7,558 Cr while DII cash +3,864 Cr — classic FII exit / DII absorption, but DII absorption only ~51% of FII selling</div>
+  </div>
+
+  <div class='card full'>
+    <div class='ct'>Synthesis</div>
+    <div style='font-size:12px;line-height:1.8'>The market is in a high-fear, institutionally-driven distribution phase: VIX at capitulation levels, FIIs net short at extreme ratios, breadth in freefall, and both index futures unwinding longs simultaneously. Spot is sitting precisely on the 23,000 TRIPLE WALL — the most critical level in the structure — where four expiries of PE writers are defending; a daily close below 23,000 would signal that even institutional support has been overwhelmed and could trigger accelerated downside toward 22,500-22,000. The 23,500 double ceiling and compressed PCR structure suggest that even if 23,000 holds, any bounce is likely capped and short-lived given the macro FII short positioning.</div>
+  </div>
+
+  <div class='card full'>
+    <div class='ct'>Action Plan</div>
+    <div style='font-size:12px;line-height:1.8'>Monitor 23,000 on a closing basis with extreme vigilance — a confirmed close below invalidates the triple wall and opens a fast move to 22,500; do not bottom-fish intraday bounces until VIX begins contracting back below 20 and breadth recovers above 35% advances. On the upside, 23,300-23,500 is a layered resistance zone (weekly max pain + double CE wall); any rally into that zone without VIX compression and FII futures net improvement is a sell/hedge opportunity.</div>
+  </div>
+</div>
+</body>
+</html>

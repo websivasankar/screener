@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSE Regime 2026-03-18</title>
+<style>
+:root{--bg:#0d1117;--s:#161b22;--s2:#21262d;--bd:#30363d;--tx:#e6edf3;--mu:#7d8590}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'Segoe UI',system-ui,sans-serif;
+      font-size:12px;padding:14px 16px 40px}
+h1{font-size:15px;font-weight:700;color:#58a6ff;margin-bottom:6px}
+.status{display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+         padding:10px 14px;background:var(--s);border:1px solid var(--bd);
+         border-radius:8px;margin-bottom:12px}
+.reg{font-size:18px;font-weight:800;margin-right:4px;color:#e3b341}
+.b{border:1px solid;border-radius:8px;padding:2px 9px;font-size:11px;font-weight:700}
+.sep{color:var(--bd);margin:0 2px}
+.str{font-size:11px;color:#e3b341;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.full{grid-column:1/-1}
+.card{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:12px 14px}
+.ct{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--mu);text-transform:uppercase;margin-bottom:10px}
+.wn{background:#2d1a00;border-left:3px solid #e3b341;padding:5px 9px;margin:3px 0;border-radius:3px;font-size:11px}
+.ins{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--s2);align-items:flex-start}
+.ins-l{font-weight:700;color:#58a6ff;min-width:56px;font-size:10px;padding-top:1px;flex-shrink:0}
+.ins-t{font-size:11px;line-height:1.5}
+.mu{color:var(--mu);font-style:italic}
+</style>
+</head>
+<body>
+<h1>NSE EOD Analysis <span style='font-size:10px;background:#1a2744;color:#79c0ff;padding:1px 7px;border-radius:8px;margin-left:4px'>v4</span></h1>
+
+<div class='status'>
+  <span class='reg'>NEUTRAL</span>
+  <span class='b' style='color:#7d8590;border-color:#7d859055'>LOW</span>
+  <span class='sep'>|</span>
+  <span class='b' style='color:#e3b341;border-color:#e3b34155'>CAP MEDIUM +0.00</span>
+  <span class='sep'>|</span>
+  <span class='b' style='color:#f85149;border-color:#f8514955'>VIX 18.72 ELEVATED</span>
+  <span class='sep'>|</span>
+  <span class='str'>Strength 6/10</span>
+  <span class='sep'>|</span>
+  <span style='color:#7d8590;font-size:10px'>2026-03-18 · claude-sonnet-4-6</span>
+</div>
+
+<div class='grid'>
+  <div class='card'>
+    <div class='ct'>Signal Narratives</div>
+    <div class='ins'><div class='ins-l'>OI</div><div class='ins-t'>Triple stacked walls define a 23500–24000 range defended by CE and PE writers across three expiries simultaneously, creating an institutionally enforced corridor. Spot at 23777 sits 78 points above weekly max pain but 722 points below monthly/next-week max pain at 24500, creating strong upward gravitational pull into monthly expiry.</div></div>
+    <div class='ins'><div class='ins-l'>FII</div><div class='ins-t'>FIIs are net short in futures (-225797 contracts, 2-day streak) while simultaneously holding heavy put protection (pe_long 928890 vs ce_long 512819) — a classic hedged institutional bear posture. FII cash selling (-2714 Cr) is being absorbed by DII buying (+3253 Cr), preventing structural breakdown but confirming FII distribution continues.</div></div>
+    <div class='ins'><div class='ins-l'>F&O</div><div class='ins-t'>Both Nifty and BankNifty are in SHORT_COVERING quadrant, and stock-level data confirms 107 short-covers vs only 59 long buildups — the rally is squeeze-driven. With FII futures still net short and retail (client) index net long (+129270), the classic retail-long vs FII-short setup persists, keeping upside fragile.</div></div>
+    <div class='ins'><div class='ins-l'>BREADTH</div><div class='ins-t'>Today's breadth (84.2% advances, 421 stocks up) is a dramatic outlier versus the 5-day average of 47.8%, signaling a sharp short-covering event rather than sustained accumulation. Only 25.2% of stocks are above their 20-EMA and 22.2% above 40-EMA, confirming the broader market remains technically damaged despite today's surface strength.</div></div>
+  </div>
+
+  <div class='card'>
+    <div class='ct'>Anomalies</div>
+    <div class='wn'>! VIX at 18.72 still elevated (above 18 threshold) despite -5.41% single-day drop from 19.79 — fear receding but not resolved; VIX remains 93rd percentile of 52-week range</div><div class='wn'>! Breadth explosion: 84.2% advances vs 5-day avg of only 47.8% — single-day breadth surge far exceeds recent norm, suggesting short-covering rally rather than organic accumulation</div><div class='wn'>! FII cash net SELL (-2714 Cr) while DII buys (+3253 Cr) AND FII options net is strongly positive (+549559) — FII selling cash but holding options longs, bifurcated FII behavior</div><div class='wn'>! FII pe_long (928890) >> ce_long (512819) — heavy put buying relative to calls signals institutional hedging/protection still active despite today's rally</div><div class='wn'>! Next week and monthly max pain both at 24500 vs spot 23777 — spot is 722 points BELOW max pain, implying significant gravitational pull upward into expiry</div><div class='wn'>! Stock short-covering (107) vastly dominates long buildup (59) and short buildup (7) — today's rally is predominantly squeeze-driven, not fresh longs</div><div class='wn'>! FII futures remain in 2-day SHORT streak with net -225797 contracts short — institutional futures positioning remains net bearish despite surface rally</div>
+  </div>
+
+  <div class='card full'>
+    <div class='ct'>Synthesis</div>
+    <div style='font-size:12px;line-height:1.8'>Today's rally is a VIX-compression-driven short-covering squeeze, not a structural reversal — breadth spiked on shorts being forced out while FII futures positioning remains net short and cash selling continues. The market is pinned in an institutionally enforced 23500–24000 box with triple-stacked walls on both sides, but monthly max pain gravity at 24500 creates a legitimate upside magnet if FII shorts begin to unwind. The bifurcation between FII options hedging (heavy put buying), futures shorting, and cash selling suggests institutions are positioned for a range-bound to mildly bearish outcome while protecting against a squeeze toward 24000–24500.</div>
+  </div>
+
+  <div class='card full'>
+    <div class='ct'>Action Plan</div>
+    <div style='font-size:12px;line-height:1.8'>Monitor FII futures net position daily — a sustained reduction in the -225797 short book toward -150000 or below would be the key trigger confirming a genuine squeeze toward 24000 and potentially 24500 max pain. On the downside, 23500 triple-wall support is the line in the sand; a daily close below 23500 with VIX re-accelerating above 20 would invalidate the squeeze thesis and signal resumption of the downtrend.</div>
+  </div>
+</div>
+</body>
+</html>

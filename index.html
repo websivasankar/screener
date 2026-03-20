@@ -1,243 +1,784 @@
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset="UTF-8">
-<title>AI EOD NSE Market Reports</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
+<!-- ── PRIMARY SEO ── -->
+<title>InfoAlpha ONE — 🔴 BEAR | Strength 2/10 | Mar 19, 2026</title>
+<meta name="description"      content="NSE market regime: BEAR (strength 2/10, VIX HIGH_FEAR). The market is in a high-fear, institutionally-driven distribution phase: VIX at capitulation levels, FIIs net short at extreme ratios, breadth in freefall, and … Daily institutional flow, FII OI, breadth & options positioning intelligence.">
+<meta name="keywords"         content="NSE market regime, FII OI analysis, India VIX, Nifty options OI, market breadth, delivery spike screener, institutional flow, options open interest, BEAR BULL NEUTRAL signal, EOD analysis, InfoAlpha, infoalpha.in, Sivasankar">
+<meta name="author"           content="Sivasankar S — InfoAlpha ONE">
+<meta name="robots"           content="index, follow">
+<link rel="canonical"         href="https://infoalpha.in/">
+
+<!-- ── OPEN GRAPH (Facebook / LinkedIn / WhatsApp / Telegram previews) ── -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="InfoAlpha ONE">
+<meta property="og:title"       content="InfoAlpha ONE — 🔴 BEAR | Strength 2/10 | Mar 19, 2026">
+<meta property="og:description" content="NSE market regime: BEAR (strength 2/10, VIX HIGH_FEAR). The market is in a high-fear, institutionally-driven distribution phase: VIX at capitulation levels, FIIs net short at extreme ratios, breadth in freefall, and … Daily institutional flow, FII OI, breadth & options positioning intelligence.">
+<meta property="og:url"         content="https://infoalpha.in/">
+<meta property="og:image"       content="https://infoalpha.in/banner.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale"      content="en_IN">
+
+<!-- ── TWITTER / X CARD ── -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="@ssankarsiva">
+<meta name="twitter:creator"     content="@ssankarsiva">
+<meta name="twitter:title"       content="InfoAlpha ONE — 🔴 BEAR | Strength 2/10 | Mar 19, 2026">
+<meta name="twitter:description" content="NSE market regime: BEAR (strength 2/10, VIX HIGH_FEAR). The market is in a high-fear, institutionally-driven distribution phase: VIX at capitulation levels, FIIs net short at extreme ratios, breadth in freefall, and … Daily institutional flow, FII OI, breadth & options positioning intelligence.">
+<meta name="twitter:image"       content="https://infoalpha.in/banner.png">
+
+<!-- ── TELEGRAM link preview uses OG tags above — no extra tag needed ── -->
+
+<!-- ── THEME / PWA ── -->
+<meta name="theme-color" content="#080d14">
+<meta name="application-name" content="InfoAlpha ONE">
+
+<!-- ── STRUCTURED DATA (Google Rich Results) ── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "InfoAlpha ONE",
+  "url": "https://infoalpha.in/",
+  "description": "AI-powered NSE market regime engine — institutional flow, FII OI, breadth, VIX, and options positioning intelligence.",
+  "author": {
+    "@type": "Person",
+    "name": "Sivasankar S",
+    "url": "https://www.linkedin.com/in/ssivasankar/",
+    "sameAs": [
+      "https://www.youtube.com/@InfoAlphain",
+      "https://x.com/ssankarsiva",
+      "https://www.linkedin.com/in/ssivasankar/",
+      "https://t.me/volumepricemove"
+    ]
+  },
+  "potentialAction": {
+    "@type": "ReadAction",
+    "target": "https://infoalpha.in/"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
-
-body {
-font-family: Arial;
-margin:0;
-background:#f5f7fb;
+:root{
+  --bg:#080d14;
+  --bg2:#0d1520;
+  --surface:#111923;
+  --surface2:#172030;
+  --border:#1e2d3d;
+  --border2:#243547;
+  --tx:#d4e4f7;
+  --tx2:#8ca8c5;
+  --tx3:#4d6a84;
+  --accent:#3b9eff;
+  --accent2:#1a6fcc;
+  --bull:#2ecc71;
+  --bear:#e74c3c;
+  --neu:#f39c12;
+  --mono:'Space Mono',monospace;
+  --sans:'Sora',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--tx);
+  font-family:var(--sans);
+  font-size:13px;
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59,158,255,.08) 0%, transparent 60%);
 }
 
-header {
-  background-image: url("banner.png");
-  height: 250px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color:white;
-  padding:25px;
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,13,20,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:54px;
+}
+.nav-brand{
+  display:flex;flex-direction:column;gap:1px;
+  text-decoration:none;
+}
+.nav-brand-name{
+  font-family:var(--mono);
+  font-weight:700;font-size:14px;
+  color:var(--accent);
+  letter-spacing:.5px;
+}
+.nav-brand-sub{
+  font-size:9px;color:var(--tx3);
+  letter-spacing:1.5px;text-transform:uppercase;
+}
+.nav-links{
+  display:flex;gap:24px;align-items:center;
+}
+.nav-links a{
+  color:var(--tx2);text-decoration:none;
+  font-size:12px;font-weight:600;
+  letter-spacing:.3px;
+  transition:color .15s;
+}
+.nav-links a:hover{color:var(--tx)}
+.nav-cta{
+  background:var(--accent);
+  color:#000;font-weight:700;
+  padding:6px 16px;border-radius:6px;
+  font-size:11px;letter-spacing:.5px;
+  text-decoration:none;
+  transition:background .15s;
+}
+.nav-cta:hover{background:#5aabff;color:#000}
+
+/* ── HERO ── */
+.hero{
+  padding:70px 28px 50px;
+  max-width:1100px;margin:0 auto;
   text-align:center;
 }
-
-nav {
-background:#0055aa;
-padding:12px;
+.hero-tag{
+  display:inline-block;
+  background:rgba(59,158,255,.12);
+  border:1px solid rgba(59,158,255,.25);
+  color:var(--accent);
+  font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:4px 14px;border-radius:20px;
+  margin-bottom:20px;
+}
+.hero h1{
+  font-size:clamp(28px,5vw,48px);
+  font-weight:800;
+  line-height:1.15;
+  color:#e8f4ff;
+  margin-bottom:16px;
+}
+.hero h1 span{color:var(--accent)}
+.hero-sub{
+  color:var(--tx2);font-size:14px;
+  max-width:600px;margin:0 auto 36px;
+  line-height:1.7;
+  font-weight:300;
+}
+.hero-stats{
+  display:flex;gap:0;
+  justify-content:center;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+  max-width:680px;margin:0 auto;
+}
+.hero-stat{
+  flex:1;padding:18px 12px;
+  text-align:center;
+  border-right:1px solid var(--border);
+}
+.hero-stat:last-child{border-right:none}
+.hs-val{
+  font-family:var(--mono);
+  font-size:20px;font-weight:700;
+  color:var(--tx);
+}
+.hs-label{
+  font-size:9px;color:var(--tx3);
+  letter-spacing:1.5px;text-transform:uppercase;
+  margin-top:3px;
 }
 
-nav a {
-color:white;
-margin-right:20px;
-text-decoration:none;
-font-weight:bold;
+/* ── SECTION WRAPPER ── */
+.section{
+  max-width:1100px;margin:0 auto;
+  padding:40px 28px;
+}
+.section-label{
+  font-size:9px;font-weight:700;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--tx3);
+  margin-bottom:6px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-label::before{
+  content:"";display:block;
+  width:18px;height:1px;
+  background:var(--border2);
+}
+.section-title{
+  font-size:22px;font-weight:700;
+  color:#e8f4ff;margin-bottom:24px;
 }
 
-nav a:hover {
-text-decoration:underline;
+/* ── FEATURED SIGNAL ── */
+.featured-signal{
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:14px;
+  overflow:hidden;
+}
+.fs-header{
+  padding:20px 24px 16px;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.fs-date{
+  font-family:var(--mono);
+  font-size:11px;color:var(--tx2);
+  letter-spacing:.5px;
+}
+.fs-regime-pill{
+  padding:5px 16px;border-radius:8px;
+  font-family:var(--mono);
+  font-weight:700;font-size:14px;
+  border:1px solid;
+  letter-spacing:1px;
+}
+.fs-metrics{
+  display:flex;gap:20px;
+  margin-left:auto;flex-wrap:wrap;
+}
+.fs-metric{
+  display:flex;flex-direction:column;
+  align-items:center;gap:2px;
+}
+.fs-metric-label{
+  font-size:8px;letter-spacing:1.5px;
+  color:var(--tx3);text-transform:uppercase;
+}
+.fs-metric-val{
+  font-family:var(--mono);
+  font-size:13px;font-weight:700;
+  color:var(--tx2);
+}
+.fs-anomalies{
+  padding:12px 24px;
+  background:rgba(243,156,18,.04);
+  border-bottom:1px solid var(--border);
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.anom-tag{
+  background:rgba(243,156,18,.08);
+  border:1px solid rgba(243,156,18,.2);
+  color:#f39c12;
+  font-size:10px;padding:3px 10px;
+  border-radius:5px;line-height:1.5;
+}
+.fs-body{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+}
+@media(max-width:700px){.fs-body{grid-template-columns:1fr}}
+.fs-col{
+  padding:20px 24px;
+  border-right:1px solid var(--border);
+}
+.fs-col:last-child{border-right:none}
+.fs-section-title{
+  font-size:9px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--tx3);margin-bottom:10px;
+}
+.fs-text{
+  color:var(--tx2);
+  font-size:12px;line-height:1.8;
+}
+.fs-risks{
+  padding:12px 24px;
+  background:rgba(231,76,60,.03);
+  border-top:1px solid var(--border);
+  display:flex;flex-wrap:wrap;gap:8px;
+}
+.risk-item{
+  background:rgba(231,76,60,.07);
+  border:1px solid rgba(231,76,60,.15);
+  color:#e74c3c;
+  font-size:10px;padding:3px 10px;
+  border-radius:5px;line-height:1.5;
+}
+.fs-footer{
+  padding:14px 24px;
+  border-top:1px solid var(--border);
+  display:flex;gap:12px;
+}
+.btn-outline{
+  border:1px solid var(--border2);
+  color:var(--accent);
+  padding:6px 16px;border-radius:6px;
+  font-size:11px;font-weight:600;
+  text-decoration:none;
+  letter-spacing:.3px;
+  transition:all .15s;
+}
+.btn-outline:hover{
+  background:rgba(59,158,255,.1);
+  border-color:var(--accent);
 }
 
-.container {
-max-width:1100px;
-margin:auto;
-padding:20px;
+/* ── HISTORY CARDS ── */
+.hist-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:12px;
+}
+.hist-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px;
+  transition:border-color .15s, transform .15s;
+}
+.hist-card:hover{
+  border-color:var(--border2);
+  transform:translateY(-2px);
+}
+.hist-top{
+  display:flex;align-items:center;
+  justify-content:space-between;margin-bottom:10px;
+}
+.hist-date{
+  font-family:var(--mono);font-size:10px;color:var(--tx3);
+}
+.hist-regime{
+  padding:2px 8px;border-radius:5px;
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.5px;
+}
+.str-bar-wrap{
+  height:3px;background:var(--border);border-radius:2px;
+  flex:1;
+}
+.str-bar{
+  height:3px;border-radius:2px;transition:width .4s;
+}
+.hist-strength{
+  display:flex;align-items:center;gap:8px;margin-bottom:10px;
+}
+.hist-snip{
+  color:var(--tx3);font-size:11px;line-height:1.65;
+  margin-bottom:10px;
+}
+.hist-links{
+  display:flex;gap:10px;
+}
+.hist-links a{
+  color:var(--accent);font-size:10px;
+  text-decoration:none;font-weight:600;
+}
+.hist-links a:hover{text-decoration:underline}
+
+/* ── SCREENER GRID ── */
+.tool-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:10px;
+}
+.tool-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px 18px;
+  text-decoration:none;
+  transition:border-color .15s,background .15s;
+  display:block;
+}
+.tool-card:hover{
+  border-color:var(--accent2);
+  background:var(--surface2);
+}
+.tool-icon{
+  font-size:20px;margin-bottom:10px;
+}
+.tool-name{
+  font-weight:700;font-size:13px;
+  color:#e8f4ff;margin-bottom:4px;
+}
+.tool-desc{
+  color:var(--tx3);font-size:11px;line-height:1.5;
+}
+.tool-badge{
+  display:inline-block;
+  margin-top:8px;
+  background:rgba(59,158,255,.1);
+  color:var(--accent);
+  font-size:9px;padding:2px 7px;
+  border-radius:4px;letter-spacing:.5px;
+  font-weight:600;
 }
 
-.section-title {
-color:#003366;
-margin-top:40px;
+/* ── HOW IT WORKS ── */
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:14px;
+}
+.how-step{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:20px 18px;
+  position:relative;
+  overflow:hidden;
+}
+.how-step::before{
+  content:attr(data-num);
+  position:absolute;top:-10px;right:14px;
+  font-family:var(--mono);font-size:72px;font-weight:700;
+  color:rgba(59,158,255,.04);line-height:1;
+}
+.how-step-title{
+  font-weight:700;font-size:13px;
+  color:#e8f4ff;margin-bottom:6px;
+}
+.how-step-desc{
+  color:var(--tx3);font-size:11px;line-height:1.65;
 }
 
-.grid {
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:20px;
-margin-top:20px;
+/* ── AI REPORTS LIST ── */
+.reports-list{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+}
+.reports-list li{
+  list-style:none;
+  border-bottom:1px solid var(--border);
+  padding:10px 18px;
+  display:flex;align-items:center;gap:8px;
+}
+.reports-list li:last-child{border-bottom:none}
+.reports-list li::before{
+  content:"▸";color:var(--accent);font-size:11px;
+}
+.reports-list li a{
+  color:var(--tx2);text-decoration:none;
+  font-family:var(--mono);font-size:11px;
+  transition:color .15s;
+}
+.reports-list li a:hover{color:var(--accent)}
+
+/* ── ABOUT / SOCIAL ── */
+.about-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:20px;
+}
+@media(max-width:700px){.about-grid{grid-template-columns:1fr}}
+.about-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:24px;
+}
+.social-links{
+  display:flex;flex-direction:column;gap:10px;margin-top:16px;
+}
+.social-link{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  border-radius:8px;padding:9px 14px;
+  transition:border-color .15s;
+}
+.social-link:hover{border-color:var(--border2)}
+.social-link-icon{font-size:16px;}
+.social-link-text{
+  color:var(--tx2);font-size:11px;font-weight:600;
 }
 
-.card {
-background:white;
-padding:20px;
-border-radius:8px;
-box-shadow:0 3px 8px rgba(0,0,0,0.1);
-}
-
-.card h3 {
-margin-top:0;
-}
-
-.card a {
-color:#0055aa;
-font-weight:bold;
-text-decoration:none;
-}
-
-footer {
-margin-top:40px;
-background:#eaeaea;
-padding:15px;
-text-align:center;
-}
-
-/* ==========================
-   SUPPORT SECTION STYLE
-========================== */
-
+/* ── SUPPORT ── */
 .support-box{
-background:#ffffff;
-padding:25px;
-margin-top:40px;
-border-radius:10px;
-box-shadow:0 3px 8px rgba(0,0,0,0.1);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:28px;
+  margin-top:20px;
+}
+.upi-block{
+  background:rgba(59,158,255,.06);
+  border:1px solid rgba(59,158,255,.15);
+  border-radius:8px;
+  padding:16px 20px;
+  margin-top:14px;
+  font-family:var(--mono);
+  font-size:13px;color:var(--accent);
 }
 
-.support-highlight{
-background:#f0f6ff;
-padding:15px;
-border-left:5px solid #0055aa;
-margin-top:15px;
+/* ── CTA BANNER ── */
+.cta-banner{
+  background:linear-gradient(135deg,#0a1f3d 0%,#0d2848 100%);
+  border:1px solid rgba(59,158,255,.2);
+  border-radius:14px;
+  padding:42px 32px;
+  text-align:center;
+  margin:40px 28px;
+  max-width:1100px;
+  margin-left:auto;margin-right:auto;
+}
+.cta-title{
+  font-size:22px;font-weight:800;
+  color:#e8f4ff;margin-bottom:10px;
+}
+.cta-sub{
+  color:var(--tx2);font-size:13px;margin-bottom:22px;
+}
+.cta-btn{
+  background:var(--accent);color:#000;
+  padding:12px 32px;border-radius:8px;
+  font-weight:700;font-size:13px;
+  text-decoration:none;
+  display:inline-block;
+  transition:background .15s;
+}
+.cta-btn:hover{background:#5aabff;color:#000}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:20px 28px;
+  text-align:center;
+  color:var(--tx3);
+  font-size:11px;
+}
+footer a{color:var(--tx3);text-decoration:none;}
+footer a:hover{color:var(--tx2)}
+
+/* ── DIVIDER ── */
+.divider{
+  height:1px;background:var(--border);
+  max-width:1100px;margin:0 auto;
 }
 
-.contact{
-margin-top:15px;
-font-weight:bold;
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .nav-links{display:none}
+  .hero{padding:48px 16px 36px}
+  .section{padding:28px 16px}
 }
-
 </style>
-
 </head>
 
+<body>
 
-<body class="container">
-
-<header>
-</header>
-
-
+<!-- NAV -->
 <nav>
-
-<a href="#">Home</a>
-<a href="#signals">Market Signals</a>
-<a href="#oi">OI Charts</a>
-<a href="#reports">AI Reports</a>
-<a href="#how">How It Works</a>
-
+  <a href="#" class="nav-brand">
+    <span class="nav-brand-name">InfoAlpha ONE</span>
+    <span class="nav-brand-sub">Smart Signals · Better Trades</span>
+  </a>
+  <div class="nav-links">
+    <a href="#signals">Signals</a>
+    <a href="#oi">OI Charts</a>
+    <a href="#reports">AI Reports</a>
+    <a href="#about">About</a>
+    <a href="https://t.me/volumepricemove" target="_blank" class="nav-cta" style="background:#229ED9">✈ Telegram</a>
+    <a href="https://www.youtube.com/@InfoAlphain" target="_blank" class="nav-cta">▶ YouTube</a>
+  </div>
 </nav>
 
-
-<div class="container">
-
-<h2 id="signals" class="section-title">Market Signal Dashboards</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Breadth Analysis</h3>
-<p>Market participation and strength analysis.</p>
-<a href="breadth.html" target="_blank">Open →</a>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">NSE India · Institutional Intelligence</div>
+  <h1>Institutional Flow &amp; Options<br><span>Positioning Intelligence</span></h1>
+  <p class="hero-sub">
+    A data-driven market regime engine that tells you when to trade,
+    what side to favor, and when to stay out — powered by FII flow,
+    OI structure, breadth, and VIX regime analysis.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hs-val">6+</div>
+      <div class="hs-label">Screeners</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">4</div>
+      <div class="hs-label">OI Expiries</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">AI</div>
+      <div class="hs-label">Regime Engine</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">EOD</div>
+      <div class="hs-label">Daily Update</div>
+    </div>
+  </div>
 </div>
 
-<div class="card">
-<h3>Delivery Spike</h3>
-<p>Institutional accumulation detection.</p>
-<a href="delivery_spike.html" target="_blank">Open →</a>
+<div class="divider"></div>
+
+<!-- FEATURED SIGNAL -->
+<div class="section">
+  <div class="section-label">Latest Analysis</div>
+  <div class="section-title">Today's Market Regime Signal</div>
+  
+<div class="featured-signal">
+  <div class="fs-header">
+    <div class="fs-date">Mar 19, 2026</div>
+    <div class="fs-regime-pill" style="background:#3d0d0d;color:#ff5e5e;border-color:#6b1a1a">
+      BEAR
+    </div>
+    <div class="fs-metrics">
+      <div class="fs-metric">
+        <span class="fs-metric-label">STRENGTH</span>
+        <span class="fs-metric-val" style="color:#ff5e5e">2/10</span>
+      </div>
+      <div class="fs-metric">
+        <span class="fs-metric-label">CONVICTION</span>
+        <span class="fs-metric-val" style="color:#ff5e5e">AVOID_ALL</span>
+      </div>
+      <div class="fs-metric">
+        <span class="fs-metric-label">VIX ZONE</span>
+        <span class="fs-metric-val" style="color:#ff5e5e">HIGH_FEAR</span>
+      </div>
+      <div class="fs-metric">
+        <span class="fs-metric-label">FII vs CLIENT</span>
+        <span class="fs-metric-val" style="color:#ff5e5e">SHORT ↓</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fs-anomalies"><div class="anom-tag">&#x26A1; VIX at 22.8 — up 21.79% single session, at 99.6th percentile of 52-week range: capitulation-zone spike, not routine elevation</div><div class="anom-tag">&#x26A1; Breadth catastrophic: only 22 advances vs 478 declines (4.4% adv_pct) against 5-day avg of 40.9% — extreme single-day selling breadth collapse</div><div class="anom-tag">&#x26A1; Weekly PCR at 0.689 (below 0.70 aggressive CE writing threshold) while monthly/next-week PCR hold above 1.0 — sharp weekly-only structural divergence</div></div>
+
+  <div class="fs-body">
+    <div class="fs-col">
+      <div class="fs-section-title">AI Synthesis</div>
+      <div class="fs-text">The market is in a high-fear, institutionally-driven distribution phase: VIX at capitulation levels, FIIs net short at extreme ratios, breadth in freefall, and both index futures unwinding longs simultaneously. Spot is sitting precisely on the 23,000 TRIPLE WALL — the most critical level in the structure — where four expiries of PE writers are defending; a daily close below 23,…</div>
+    </div>
+    <div class="fs-col">
+      <div class="fs-section-title">Action Plan</div>
+      <div class="fs-text">Monitor 23,000 on a closing basis with extreme vigilance — a confirmed close below invalidates the triple wall and opens a fast move to 22,500; do not bottom-fish intraday bounces until VIX begins contracting back below 20 and breadth recovers above 35% advances. On the upside, 23,300-23,500 is a layered resistance zone (weekly max pain + double CE wall); any rally into that zone without VIX compression and FII futur…</div>
+    </div>
+  </div>
+
+  <div class="fs-risks"><div class="risk-item">! OI cap AVOID_ALL (score=-1.00) — no new longs</div><div class="risk-item">! VIX 22.8 — HIGH_FEAR zone</div><div class="risk-item">! VIX spike alert — panic event</div><div class="risk-item">! FII short / Client long — retail trapped</div></div>
+
+  <div class="fs-footer">
+    <a href="ai_analysis_v4_2026_03_19.html" class="btn-outline" target="_blank">Full Report →</a>
+  </div>
+</div>
 </div>
 
-<div class="card">
-<h3>High vs Low</h3>
-<p>Stocks hitting new highs and lows.</p>
-<a href="highlow.html" target="_blank">Open →</a>
+<!-- HISTORY -->
+
+
+<div class="divider"></div>
+
+<!-- SCREENERS -->
+<div class="section" id="signals">
+  <div class="section-label">Market Screeners</div>
+  <div class="section-title">Signal Dashboards</div>
+  <div class="tool-grid">
+    <a href="breadth.html" class="tool-card" target="_blank">
+      <div class="tool-icon">📊</div>
+      <div class="tool-name">Breadth Analysis</div>
+      <div class="tool-desc">Advances/declines, EMA% and market participation across N50/N200/N500</div>
+      <span class="tool-badge">60-day history</span>
+    </a>
+    <a href="delivery_spike.html" class="tool-card" target="_blank">
+      <div class="tool-icon">📦</div>
+      <div class="tool-name">Delivery Spike</div>
+      <div class="tool-desc">Institutional accumulation detection — 2× delivery spikes filtered for HFT noise</div>
+      <span class="tool-badge">smart money</span>
+    </a>
+    <a href="highlow.html" class="tool-card" target="_blank">
+      <div class="tool-icon">📈</div>
+      <div class="tool-name">High / Low Resilience</div>
+      <div class="tool-desc">Position within 5D–200D range. Fully resilient = above 80% across all periods</div>
+      <span class="tool-badge">5 periods</span>
+    </a>
+    <a href="momentum_ma.html" class="tool-card" target="_blank">
+      <div class="tool-icon">🚀</div>
+      <div class="tool-name">Momentum / MA</div>
+      <div class="tool-desc">MA5/20/50/200 scores, ATR%, RSI, and relative strength vs NIFTYBEES</div>
+      <span class="tool-badge">RS leaders tab</span>
+    </a>
+    <a href="recurring_entry.html" class="tool-card" target="_blank">
+      <div class="tool-icon">🔁</div>
+      <div class="tool-name">Recurring Entry</div>
+      <div class="tool-desc">Stocks qualifying on 4+/6 score repeatedly — relative delivery vs own 60D avg</div>
+      <span class="tool-badge">40-day scan</span>
+    </a>
+    <a href="sector_rotation.html" class="tool-card" target="_blank">
+      <div class="tool-icon">⚡</div>
+      <div class="tool-name">Sector Rotation</div>
+      <div class="tool-desc">Smart money phase (Accumulation / Markup / Distribution) by sector and industry</div>
+      <span class="tool-badge">SM signals</span>
+    </a>
+  </div>
 </div>
 
-<div class="card">
-<h3>Momentum MA</h3>
-<p>Moving average trend momentum signals.</p>
-<a href="momentum_ma.html" target="_blank">Open →</a>
+<div class="divider"></div>
+
+<!-- OI CHARTS -->
+<div class="section" id="oi">
+  <div class="section-label">Derivatives Intelligence</div>
+  <div class="section-title">Options OI Structure</div>
+  <div class="tool-grid">
+    <a href="options_oi_chart.html" class="tool-card" target="_blank">
+      <div class="tool-icon">🎯</div>
+      <div class="tool-name">Weekly OI</div>
+      <div class="tool-desc">CE vs PE open interest — current week expiry</div>
+    </a>
+    <a href="options_oi_chartnxtweek.html" class="tool-card" target="_blank">
+      <div class="tool-icon">🎯</div>
+      <div class="tool-name">Next Week OI</div>
+      <div class="tool-desc">Next expiry positioning analysis</div>
+    </a>
+    <a href="options_oi_chartmonth.html" class="tool-card" target="_blank">
+      <div class="tool-icon">📅</div>
+      <div class="tool-name">Monthly OI</div>
+      <div class="tool-desc">Monthly expiry option structure and max pain</div>
+    </a>
+    <a href="options_oi_chartnxtmonth.html" class="tool-card" target="_blank">
+      <div class="tool-icon">📅</div>
+      <div class="tool-name">Next Month OI</div>
+      <div class="tool-desc">Next month institutional positioning data</div>
+    </a>
+    <a href="csvweek.html" class="tool-card" target="_blank">
+      <div class="tool-icon">🔍</div>
+      <div class="tool-name">OI Filter — Weekly</div>
+      <div class="tool-desc">Filtered OI table with building/unwinding tags</div>
+    </a>
+    <a href="csvmonth.html" class="tool-card" target="_blank">
+      <div class="tool-icon">🔍</div>
+      <div class="tool-name">OI Filter — Monthly</div>
+      <div class="tool-desc">Monthly OI table with change analysis</div>
+    </a>
+    <a href="Dashboard.html" class="tool-card" target="_blank">
+      <div class="tool-icon">📉</div>
+      <div class="tool-name">OI Changes — Weekly</div>
+      <div class="tool-desc">4-day comparison of weekly OI movement</div>
+    </a>
+    <a href="DashboardMonth.html" class="tool-card" target="_blank">
+      <div class="tool-icon">📉</div>
+      <div class="tool-name">OI Changes — Monthly</div>
+      <div class="tool-desc">4-day comparison of monthly OI movement</div>
+    </a>
+  </div>
 </div>
 
-<div class="card">
-<h3>Recurring Entry</h3>
-<p>Repeated institutional entry patterns.</p>
-<a href="recurring_entry.html" target="_blank">Open →</a>
-</div>
+<div class="divider"></div>
 
-<div class="card">
-<h3>Sector Rotation</h3>
-<p>Capital rotation across sectors.</p>
-<a href="sector_rotation.html" target="_blank">Open →</a>
-</div>
-
-</div>
-
-<h2 id="oi" class="section-title">Options OI Charts</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Weekly OI Chart</h3>
-<p>Nifty option open interest structure.</p>
-<a href="options_oi_chart.html" target="_blank">Open →</a>
-</div>
-
-<div class="card">
-<h3>Next Week OI Chart</h3>
-<p>Next expiry positioning analysis.</p>
-<a href="options_oi_chartnxtweek.html" target="_blank">Open →</a>
-</div>
-
-<div class="card">
-<h3>Monthly OI Chart</h3>
-<p>Monthly expiry option structure.</p>
-<a href="options_oi_chartmonth.html" target="_blank">Open →</a>
-</div>
-
-<div class="card">
-<h3>Next Month OI Chart</h3>
-<p>Next month positioning data.</p>
-<a href="options_oi_chartnxtmonth.html" target="_blank">Open →</a>
-</div>
-
-<div class="card">
-<h3>OI Filter</h3>
-<p>Weekly</p>
-<a href="csvweek.html" target="_blank">Open →</a>
-</div>
-
-<div class="card">
-<h3>OI Filter</h3>
-<p>Monthly</p>
-<a href="csvmonth.html" target="_blank">Open →</a>
-</div>
-
-<div class="card">
-<h3>Option Change</h3>
-<p>Weekly OI Changes.</p>
-<a href="Dashboard.html" target="_blank">Open →</a>
-</div>
-
-<div class="card">
-<h3>Option Change</h3>
-<p>Monthly OI Changes.</p>
-<a href="DashboardMonth.html" target="_blank">Open →</a>
-</div>
-
-
-</div>
-
-
-
-
-
-<h2 id="reports" class="section-title">AI Daily Market Reports</h2>
-
-<ul>
-
-<li><a href="ai_analysis_19_03_2026.html" target="_blank">ai_analysis_19_03_2026.html</a></li>
-<li><a href="ai_analysis_18_03_2026.html" target="_blank">ai_analysis_18_03_2026.html</a></li>
+<!-- AI REPORTS ARCHIVE -->
+<div class="section" id="reports">
+  <div class="section-label">Archive</div>
+  <div class="section-title">All AI Daily Reports</div>
+  <ul class="reports-list">
+    <li><a href="ai_analysis_v4_2026_03_19.html" target="_blank">ai_analysis_v4_2026_03_19.html</a></li>
+<li><a href="ai_analysis_v4_2026_03_18.html" target="_blank">ai_analysis_v4_2026_03_18.html</a></li>
 <li><a href="ai_analysis_17_03_2026.html" target="_blank">ai_analysis_17_03_2026.html</a></li>
 <li><a href="ai_analysis_16_03_2026.html" target="_blank">ai_analysis_16_03_2026.html</a></li>
 <li><a href="ai_analysis_13_03_2026.html" target="_blank">ai_analysis_13_03_2026.html</a></li>
@@ -246,71 +787,139 @@ font-weight:bold;
 <li><a href="ai_analysis_10_03_2026.html" target="_blank">ai_analysis_10_03_2026.html</a></li>
 <li><a href="ai_analysis_09_03_2026.html" target="_blank">ai_analysis_09_03_2026.html</a></li>
 <li><a href="ai_analysis_06_03_2026.html" target="_blank">ai_analysis_06_03_2026.html</a></li>
-
-
-</ul>
-
-
-<h2 id="how" class="section-title">How the System Works</h2>
-
-<ol>
-<li>End-of-day NSE market data collected.</li>
-<li>Quant features derived (breadth, momentum, delivery, OI).</li>
-<li>AI interprets the market regime.</li>
-<li>Automated HTML report generated and published.</li>
-</ol>
-
-
-<h2 class="section-title">Support This Research</h2>
-
-<div class="support-box">
-
-<p>
-This AI market intelligence project is independently developed and maintained.
-If you find these insights useful for trading or research, consider supporting
-this work through donations.
-</p>
-
-<div class="support-highlight">
-
-<b>UPI Donation</b><br><br>
-
-UPI ID: <b>websivasankar@okicici</b>
-
-<p>Support helps maintain:</p>
-
-<ul>
-<li>Market data infrastructure</li>
-<li>AI research and automation</li>
-<li>Quant analytics development</li>
-</ul>
-
+  </ul>
 </div>
 
-<h3>Services Offered</h3>
+<div class="divider"></div>
 
-<ul>
-<li>Website Development (Static / Dynamic)</li>
-<li>Drupal Development</li>
-<li>Market Research & Quant Analysis</li>
-<li>AI & Data Analysis Training</li>
-</ul>
-
-<div class="contact">
-
-Contact / WhatsApp: (91)9884346789
-
+<!-- HOW IT WORKS -->
+<div class="section">
+  <div class="section-label">Methodology</div>
+  <div class="section-title">How the System Works</div>
+  <div class="how-grid">
+    <div class="how-step" data-num="01">
+      <div class="how-step-title">NSE EOD Data Collection</div>
+      <div class="how-step-desc">Daily bhav copy, FO participant OI (fao_participant_oi), FII cash stats, and VIX history downloaded from NSE archives.</div>
+    </div>
+    <div class="how-step" data-num="02">
+      <div class="how-step-title">Quant Feature Extraction</div>
+      <div class="how-step-desc">Breadth, delivery spikes, momentum MA, high/low resilience, sector rotation, and options OI structure computed per symbol.</div>
+    </div>
+    <div class="how-step" data-num="03">
+      <div class="how-step-title">3-Day Footprint Analysis</div>
+      <div class="how-step-desc">AI receives a 3-day footprint — full snapshot today, OI and FII deltas for yesterday and 2 days ago — to distinguish trend from noise.</div>
+    </div>
+    <div class="how-step" data-num="04">
+      <div class="how-step-title">Regime Engine Output</div>
+      <div class="how-step-desc">Python labels compute regime (BULL/BEAR/NEUTRAL/TRANSITION), VIX zone, conviction cap, and FII streak. Claude synthesizes the narrative.</div>
+    </div>
+    <div class="how-step" data-num="05">
+      <div class="how-step-title">Static Site Publish</div>
+      <div class="how-step-desc">All HTML reports and screeners are copied to GitHub Pages and served from infoalpha.in — no server, no login, no tracking.</div>
+    </div>
+  </div>
 </div>
 
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <div class="section-label">About</div>
+  <div class="section-title">Who Builds This</div>
+  <div class="about-grid">
+    <div class="about-card">
+      <p style="color:var(--tx2);font-size:13px;line-height:1.9;margin-bottom:14px">
+        InfoAlpha ONE is an independent market intelligence project built by
+        <strong style="color:var(--tx)">Sivasankar S</strong> — a developer and quant analyst
+        combining institutional flow data, options positioning, and AI interpretation
+        to give retail traders an institutional-grade edge.
+      </p>
+      <p style="color:var(--tx2);font-size:13px;line-height:1.9;margin-bottom:14px">
+        The system runs every trading day after NSE EOD — processing FII participant OI,
+        breadth, delivery data, and 4-expiry options structure through a 3-day footprint
+        model before feeding it to Claude for synthesis.
+      </p>
+      <p style="color:var(--tx3);font-size:11px;line-height:1.7">
+        Services: Website Development · Drupal · Market Research · Quant Analysis · AI & Data Training
+      </p>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+        <a href="https://wa.me/919884346789" target="_blank"
+           style="display:flex;align-items:center;gap:7px;background:#25D366;color:#000;
+                  font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;
+                  text-decoration:none;letter-spacing:.3px">
+          💬 WhatsApp Me
+        </a>
+        <a href="https://t.me/volumepricemove" target="_blank"
+           style="display:flex;align-items:center;gap:7px;background:#229ED9;color:#fff;
+                  font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;
+                  text-decoration:none;letter-spacing:.3px">
+          ✈ Telegram Channel
+        </a>
+      </div>
+
+      <!-- UPI -->
+      <div class="support-box" style="margin-top:20px;padding:20px">
+        <div style="color:var(--tx2);font-size:12px;line-height:1.7;margin-bottom:10px">
+          If you find these signals useful, consider supporting the infrastructure and research:
+        </div>
+        <div class="upi-block">
+          💸 UPI: <strong>websivasankar@okicici</strong>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="about-card" style="margin-bottom:12px">
+        <div style="color:var(--tx3);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">Connect</div>
+        <div class="social-links">
+          <a href="https://t.me/volumepricemove" class="social-link" target="_blank">
+            <span class="social-link-icon">✈</span>
+            <span class="social-link-text">Telegram @volumepricemove</span>
+          </a>
+          <a href="https://wa.me/919884346789" class="social-link" target="_blank">
+            <span class="social-link-icon">💬</span>
+            <span class="social-link-text">WhatsApp +91 98843 46789</span>
+          </a>
+          <a href="https://www.youtube.com/@InfoAlphain" class="social-link" target="_blank">
+            <span class="social-link-icon">▶</span>
+            <span class="social-link-text">YouTube @InfoAlphain</span>
+          </a>
+          <a href="https://www.linkedin.com/in/ssivasankar/" class="social-link" target="_blank">
+            <span class="social-link-icon">in</span>
+            <span class="social-link-text">LinkedIn · Sivasankar S</span>
+          </a>
+          <a href="https://x.com/ssankarsiva" class="social-link" target="_blank">
+            <span class="social-link-icon">𝕏</span>
+            <span class="social-link-text">@ssankarsiva</span>
+          </a>
+          <a href="https://www.drupal.org/u/ssankarsiva" class="social-link" target="_blank">
+            <span class="social-link-icon">🔵</span>
+            <span class="social-link-text">Drupal · ssankarsiva</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="cta-title">Get Real-Time Signals &amp; Alerts</div>
+  <div class="cta-sub">Subscribe on YouTube for live market commentary and EOD regime updates</div>
+  <a href="https://www.youtube.com/@InfoAlphain" class="cta-btn" target="_blank">▶ Subscribe on YouTube</a>
 </div>
 
-
+<!-- FOOTER -->
 <footer>
-
-AI EOD NSE Market Reports – Educational Purpose Only
-
+  <p>InfoAlpha ONE — AI EOD NSE Market Reports &nbsp;·&nbsp; Educational Purpose Only &nbsp;·&nbsp; Not SEBI-registered Investment Advice</p>
+  <p style="margin-top:6px">
+    <a href="https://t.me/volumepricemove" target="_blank">Telegram</a> &nbsp;·&nbsp;
+    <a href="https://wa.me/919884346789" target="_blank">WhatsApp</a> &nbsp;·&nbsp;
+    <a href="https://www.youtube.com/@InfoAlphain" target="_blank">YouTube</a> &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/ssivasankar/" target="_blank">LinkedIn</a> &nbsp;·&nbsp;
+    <a href="https://x.com/ssankarsiva" target="_blank">X</a> &nbsp;·&nbsp;
+    <a href="https://infoalpha.in" target="_blank">infoalpha.in</a>
+  </p>
 </footer>
 
 </body>

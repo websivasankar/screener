@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSE AI Analysis v3 — 2026-03-12</title>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--border:#30363d;--text:#e6edf3;--muted:#7d8590}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;
+      font-size:13px;padding:16px}
+h1{font-size:18px;font-weight:700;color:#58a6ff;margin-bottom:4px}
+.meta{color:var(--muted);font-size:11px;margin-bottom:16px}
+.badge-v3{background:#1a2744;color:#79c0ff;border:1px solid #1f6feb;
+           padding:1px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+       gap:14px;margin-top:14px}
+.full-width{grid-column:1/-1}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.card-title{font-size:11px;font-weight:700;letter-spacing:1.2px;color:var(--muted);
+             text-transform:uppercase;margin-bottom:10px}
+.regime-val{font-size:28px;font-weight:800}
+.regime-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.chip{border:1px solid;border-radius:12px;padding:2px 10px;
+       font-size:11px;margin:2px;display:inline-block}
+.warn{background:#2d1a00;border-left:3px solid #e3b341;
+       padding:6px 10px;margin:4px 0;border-radius:4px;font-size:12px}
+.sec-card{background:var(--bg);border:1px solid var(--border);
+           border-radius:6px;padding:8px 10px;margin:4px 0}
+.sec-name{font-weight:600;margin-right:8px}
+.sec-sig{font-weight:700;margin-right:8px}
+.sec-sm{font-size:10px;color:#79c0ff;margin-right:6px;
+         background:#1a2744;padding:1px 6px;border-radius:8px}
+.sec-why{color:var(--muted);font-size:11px}
+table{width:100%;border-collapse:collapse}
+th{color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;
+    padding:6px 8px;border-bottom:1px solid var(--border);text-align:left}
+td{padding:6px 8px;border-bottom:1px solid #21262d;vertical-align:top}
+.sym-td{font-weight:700;color:#58a6ff;font-size:12px}
+.cf-badge{background:#1a2744;color:#79c0ff;border-radius:10px;
+           padding:2px 8px;font-size:10px;margin:1px;display:inline-block}
+.muted{color:var(--muted);font-style:italic}
+/* 4-expiry OI grid */
+.oi-expiry-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:6px}
+.oi-exp-cell{background:var(--bg);border:1px solid var(--border);
+              border-radius:6px;padding:8px 10px}
+.oi-exp-label{color:var(--muted);font-size:10px;text-transform:uppercase}
+.oi-exp-bias{font-size:14px;font-weight:700;margin-top:2px}
+.oi-exp-detail{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.6}
+/* key levels */
+.kl-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.kl-cell{background:var(--bg);border:1px solid var(--border);
+          border-radius:6px;padding:8px 10px}
+.kl-label{color:var(--muted);font-size:10px;text-transform:uppercase}
+.kl-val{font-size:15px;font-weight:700;margin-top:2px}
+/* conviction cap expiry grid */
+.cap-exp-cell{background:var(--bg);border:1px solid var(--border);
+               border-radius:6px;padding:6px 8px;text-align:center}
+.cap-exp-label{color:var(--muted);font-size:9px;text-transform:uppercase;font-weight:600}
+.cap-exp-pcr{font-size:12px;font-weight:700;margin-top:2px}
+.cap-exp-sig{font-size:9px;margin-top:1px;font-weight:600}
+.cap-exp-con{font-size:11px;font-weight:700;margin-top:1px}
+</style>
+</head>
+<body>
+<h1>NSE EOD Analysis <span class='badge-v3'>v3 · batch</span></h1>
+<div class='meta'>2026-03-12 · S1+S2: claude-haiku-4-5-20251001 · S3: claude-sonnet-4-6</div>
+<div class='meta'>Educational market analysis only. Not investment advice.</div>
+<div class='grid'>
+
+<div class='card'>
+  <div class='card-title'>Market Regime</div>
+  <div class='regime-val' style='color:#f85149'>BEAR</div>
+  <div style='color:#f85149;font-weight:600;margin-top:4px'>HIGH confidence</div>
+  <div class='regime-sub'>Institutional short buildup dominates; BEAR confirmed across three independent signals</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Weekly PCR 0.697 and next-week PCR 0.543 sit far below the 0.80 neutral threshold, confirming aggressive CE writing and institutional short positioning. FII net index futures SHORT at -226,327 lots (2-day consecutive streak) plus cash equity net -7,050 cr, alongside VIX 21.52 in the ELEVATED zone, complete a three-point BEAR confirmation.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>India VIX</div>
+  <div class='regime-val'>21.52</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:6px'>VIX at the 98.8th percentile of its 52-week range locks out all BUY conviction; risk-off dominance suppresses any new long entries regardless of individual stock technicals.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Breadth</div>
+  <div style='color:#f85149;font-weight:700'>DETERIORATING</div>
+  <div style='font-size:12px;color:var(--muted);margin-top:6px'>Breadth collapsed to a catastrophic 12.0% advance ratio on 2026-03-09 (440 decliners, 76 stocks down >4% in a single session) and has not meaningfully recovered, with 2026-03-12 showing only 39.0% advances against 303 decliners. Internal structure remains broken: %> EMA10 at 26.6%, %> EMA20 at 23.2%, and 52-week new lows at 53 on 2026-03-12 versus only 10 new highs confirm sustained distribution pressure.</div>
+  <div class='warn'>⚠ 2026-03-09: advance ratio 12.0% — rare capitulation breadth; 440 decliners, 76 stocks lost >4% in one session</div><div class='warn'>⚠ 52-week new lows surging: 45→92→14→36→53 over 5 days, with 2026-03-12 net lows = 53 vs 10 new highs</div><div class='warn'>⚠ %> EMA20 only 23.2% on 2026-03-12 — fewer than 1-in-4 stocks above medium-term trend</div><div class='warn'>⚠ Weekly decline streak: ↓4%(W) on 2026-03-12 = 144 stocks vs ↑4%(W) = 46; weekly selling pressure unresolved</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Key Levels</div>
+  <div class='kl-grid'>
+    <div class='kl-cell'><div class='kl-label'>Nearest Resistance</div>
+      <div class='kl-val' style='color:#f85149'>24000</div></div>
+    <div class='kl-cell'><div class='kl-label'>Nearest Support</div>
+      <div class='kl-val' style='color:#3fb950'>23500</div></div>
+    <div class='kl-cell'><div class='kl-label'>Weekly Max Pain</div>
+      <div class='kl-val'>23900</div></div>
+    <div class='kl-cell'><div class='kl-label'>Monthly Max Pain</div>
+      <div class='kl-val'>25000</div></div>
+  </div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>OI Conviction Cap</div>
+  
+<div style='display:flex;align-items:baseline;gap:12px;margin-bottom:10px'>
+  <div style='font-size:26px;font-weight:800;color:#f85149'>AVOID_ALL</div>
+  <div style='font-size:14px;color:#f85149;font-weight:600'>score -1.40</div>
+</div>
+<div style='background:var(--bg);border-radius:4px;height:6px;margin-bottom:10px;overflow:hidden'>
+  <div style='width:15%;height:100%;background:#f85149;transition:width 0.3s'></div>
+</div>
+<div style='display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:8px'>
+  <div class='cap-exp-cell'><div class='cap-exp-label'>W (50%)</div><div class='cap-exp-pcr'>PCR 0.697</div><div class='cap-exp-sig' style='color:#f85149'>EXTREMELY_BEARISH</div><div class='cap-exp-con' style='color:#f85149'>-1.00</div></div><div class='cap-exp-cell'><div class='cap-exp-label'>NW (20%)</div><div class='cap-exp-pcr'>PCR 0.543</div><div class='cap-exp-sig' style='color:#f85149'>EXTREMELY_BEARISH</div><div class='cap-exp-con' style='color:#f85149'>-0.40</div></div><div class='cap-exp-cell'><div class='cap-exp-label'>M (30%)</div><div class='cap-exp-pcr'>PCR 1.078</div><div class='cap-exp-sig' style='color:#7d8590'>NEUTRAL</div><div class='cap-exp-con' style='color:#7d8590'>+0.00</div></div>
+</div>
+<div style='font-size:11px;color:var(--muted);line-height:1.5'>Score -1.40 driven by weekly EXTREMELY_BEARISH PCR (0.697) + nxtweek (0.543). OI strongly against longs. Monthly neutrality (1.078) creates MR_LONG micro-pattern but does NOT override macro BEAR. No new watchlist entries; hold tight on stops.</div>
+<div style='margin-top:8px;background:#2d1a00;border-left:3px solid #e3b341;padding:6px 10px;border-radius:4px;font-size:11px'>⚠ DIVERGENCE — weekly bearish, monthly structure intact. Short-term caution. Medium-term not confirmed breakdown.</div>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>OI Structure — 4 Expiries</div>
+  <div class='oi-expiry-grid'><div class='oi-exp-cell'><div class='oi-exp-label'>Weekly</div><div class='oi-exp-bias' style='color:#f85149'>BEARISH</div><div class='oi-exp-detail'>PCR 0.697 · MaxPain 23900<br>R 24000 · S 23500</div></div><div class='oi-exp-cell'><div class='oi-exp-label'>Next Week</div><div class='oi-exp-bias' style='color:#f85149'>BEARISH</div><div class='oi-exp-detail'>PCR 0.543 · MaxPain 24000<br>R 24000 · S 23600</div></div><div class='oi-exp-cell'><div class='oi-exp-label'>Monthly</div><div class='oi-exp-bias' style='color:#7d8590'>NEUTRAL</div><div class='oi-exp-detail'>PCR 1.078 · MaxPain 25000<br>R 24000 · S 23500</div></div><div class='oi-exp-cell'><div class='oi-exp-label'>Next Month</div><div class='oi-exp-bias' style='color:#7d8590'>NEUTRAL</div><div class='oi-exp-detail'>PCR 0.973 · MaxPain 24700<br>R 24000 · S 23500</div></div></div>
+  <div style='margin-top:10px'><span class='chip' style='border-color:#f85149;color:#f85149'>TRIPLE_WALL @ 24000 [CE_RESISTANCE] week+nxtweek+month+nxtmonth</span><span class='chip' style='border-color:#3fb950;color:#3fb950'>TRIPLE_WALL @ 23500 [PE_SUPPORT] week+month+nxtmonth</span></div>
+  <div style='color:var(--muted);font-size:12px;margin-top:10px'>The 23500–24000 corridor creates a 501-point structural cage with spot (23639) sitting just 139 pts above the triple PE-support floor, leaving only 361 pts of upside before hitting the quad CE-resistance ceiling. Monthly PCR of 1.078 introduces a MR_LONG micro-divergence on dips to 23500, but macro SHORT_BUILDUP dominance across near-term expiries overrides this signal entirely.</div>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Sector Rotation</div>
+  <div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'>
+    <div><div style='font-size:11px;color:#3fb950;font-weight:700;margin-bottom:6px'>▲ LEADING</div>
+      <div class='sec-card'><span class='sec-name'>E-Learning</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">MARKUP</span><span class='sec-why'>5D +4.7%, 10D +4.0%, 20D -2.4%; vol_ratio 1.8 and vol_spike 50% confirm institutional participation. MARKUP phase intact but VIX 21.52 ELEVATED caps view at HOLD — no BUY conviction permitted above VIX 18.</span></div><div class='sec-card'><span class='sec-name'>Telecom - Infrastructure</span><span class='sec-sig' style='color:#7d8590'>HOLD</span><span class="sec-sm">HOLDING</span><span class='sec-why'>5D +1.7%, 10D +5.5%, 20D +3.9%; vol_ratio 1.1 confirms HOLDING. Delivery trend -1.9% weakens the case; VIX cap restricts to HOLD only.</span></div><div class='sec-card'><span class='sec-name'>Power Generation</span><span class='sec-sig' style='color:#e3b341'>WATCH</span><span class="sec-sm">MARKDOWN</span><span class='sec-why'>5D +2.7% but 10D -1.2% and 20D -6.5% indicate distribution beginning; JSWENERGY shows delivery spike (ratio 5.0) but sector in MARKDOWN — watch for sector confirmation before re-engaging.</span></div></div>
+    <div><div style='font-size:11px;color:#f85149;font-weight:700;margin-bottom:6px'>▼ LAGGING</div>
+      <div class='sec-card'><span class='sec-name'>Pharmaceuticals</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>Large 106-stock cohort with all three windows negative: 5D -0.2%, 10D -2.9%, 20D -5.9%. Vol_ratio 0.8 below neutral. Broad sector weakness in BEAR regime.</span></div><div class='sec-card'><span class='sec-name'>Iron & Steel</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">MARKDOWN</span><span class='sec-why'>5D -1.8%, 10D -6.4%, 20D -6.7% — consistent three-window decline. Sector in structural MARKDOWN with no institutional re-accumulation signal.</span></div><div class='sec-card'><span class='sec-name'>Private Sector Bank</span><span class='sec-sig' style='color:#f85149'>AVOID</span><span class="sec-sm">RED</span><span class='sec-why'>5D -6.7%, 10D -9.1%, 20D -9.4% — uniform aggressive selloff across all timeframes. BankNifty futures LONG_UNWINDING (-3,095 lots) reinforces institutional exit.</span></div><div class='sec-card'><span class='sec-name'>Aerospace & Defense</span><span class='sec-sig' style='color:#e3b341'>WATCH</span><span class="sec-sm">NEUTRAL</span><span class='sec-why'>5D -0.2%, 10D +3.3%, 20D +0.1%; vol_ratio 0.6 and vol_spike only 5.6% — failed industry gate. No positive majority in 5D/10D/20D confirms neutral holding pattern.</span></div></div>
+  </div>
+  <div style='color:var(--muted);font-size:12px;margin-top:8px'>Defensive utilities (power transmission, telecom infrastructure) and isolated pharma names show relative strength, but no sector qualifies for BUY conviction under AVOID_ALL OI cap and VIX 21.52 ELEVATED regime.</div>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Delivery Signal</div>
+  <div style='color:#f85149;font-weight:700'>DISTRIBUTING</div>
+  <div style='color:var(--muted);font-size:12px;margin-top:6px'>Stage 2 identified 17 CLEAN candidates and 1 SUSPECT (CGCL) among gate-cleared stocks, with top delivery spikes in CGCL (spike_ratio 5.8, deliv_pct 71.4%), JSWENERGY (5.0), TATAPOWER (3.9), and JINDALSAW (4.18 — gate-failed). Despite individual delivery spikes signaling accumulation in isolated names, FII macro posture of net -226,327 lots SHORT and cash -7,050 cr confirms broad smart-money distribution dominates over stock-level signals.</div>
+  <table style='margin-top:10px'>
+    <tr><th>Symbol</th><th>Ratio</th><th>Note</th></tr>
+    <tr><td class='sym-td'>CGCL</td><td>5.8</td><td style='text-align:left;color:#e6edf3'>Highest delivery spike ratio (5.8, deliv_pct 71.4%); rs_5d +12.2% outperformance. However, SUSPECT classification — spike into flat/declining price with -5.3% 15D return flags potential reversal. OI cap AVOID_ALL overrides.</td></tr><tr><td class='sym-td'>JSWENERGY</td><td>5.0</td><td style='text-align:left;color:#e6edf3'>Delivery spike 5.0 into GREEN MA; 5D +8.1%, 15D +6.6%, rs_5d +12.5%. CLEAN classification, Power sector. 200D data not available but MA above all three. OI cap AVOID_ALL overrides.</td></tr><tr><td class='sym-td'>TATAPOWER</td><td>3.9</td><td style='text-align:left;color:#e6edf3'>Spike_ratio 3.9; 200D_high_dist -3.0%, 200D_position 81.9%, resilience_score 5, rs_5d +11.1%. All 4 confluence flags (D+M+R+H). CLEAN. OI cap AVOID_ALL overrides.</td></tr>
+  </table>
+</div>
+
+<div class='card'>
+  <div class='card-title'>Risk Flags</div>
+  <div class='warn'>⚠ OI divergence: weekly bearish (PCR W=0.697, NW=0.543) but monthly structure intact (PCR M=1.078 NEUTRAL, NM=0.973 NEUTRAL) — MR_LONG micro-pattern does NOT override macro BEAR</div><div class='warn'>⚠ AVOID_ALL OI cap active (score=-1.40): weekly PCR 0.697 contributes -1.00 (weight 0.50 × raw -2.0) + nxtweek PCR 0.543 contributes -0.40 (weight 0.20 × raw -2.0); total -1.40 far below -0.50 threshold</div><div class='warn'>⚠ TRIPLE_WALL at strike 23500 (PE support, week+month+nxtmonth) is only 139 pts (0.59%) below spot 23639 — within 1% danger zone; a breach triggers structural waterfall risk</div><div class='warn'>⚠ QUAD-WALL at strike 24000 (CE resistance, all four expiries) creates institutional ceiling 361 pts above spot; any attempted rally will face extreme supply pressure</div><div class='warn'>⚠ Weekly PCR 0.697 < 0.70 — aggressive CE writing confirms institutions pricing in further downside; ceiling is very close</div><div class='warn'>⚠ FII index futures net SHORT -226,327 lots (2-day consecutive selling streak) + FII cash equity net -7,050 cr; FII PE longs 926k >> CE longs 563k signals defensive hedging not bottom-fishing</div><div class='warn'>⚠ VIX 21.52 at 98.8th percentile of 52-week range — ELEVATED zone, RISING trend, +34.5% above 20DMA; no BUY conviction permitted</div><div class='warn'>⚠ FO quadrant SHORT_BUILDUP dominant (week + nxtweek + nxtmonth all SHORT_BUILDUP); Nifty near-month futures +3,131 lots YoD confirms fresh short accumulation, not reversal</div><div class='warn'>⚠ Breadth collapse: 2026-03-09 advance ratio 12.0% (440 decliners, 76 stocks fell >4% in one session); 2026-03-12 still only 39.0% advances with 53 new 52W lows vs 10 new highs</div><div class='warn'>⚠ 0 CLEAN candidates on watchlist — AVOID_ALL cap has cleared the entire watchlist; all 17 CLEAN + 1 SUSPECT gate-cleared candidates moved to avoid[]</div>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Watchlist <span style='font-size:10px;color:var(--muted);font-weight:400'>(hover symbol for reason)</span></div>
+  <table>
+    <tr><th>Symbol</th><th>LTP</th><th>Conv</th><th>Screeners</th></tr>
+    <tr><td colspan='4' class='muted'>No watchlist stocks today</td></tr>
+  </table>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Avoid</div>
+  <table><tr><th>Symbol</th><th>Gate / Reason</th></tr>
+    <tr><td class='sym-td'>TATAPOWER</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly PCR 0.697 + nxtweek PCR 0.543 EXTREMELY_BEARISH; FO quadrant SHORT_BUILDUP dominant; VIX 21.52 ELEVATED. Despite CONFLUENCE=4 (D+M+R+H), CLEAN, 200D_position 81.9%, resilience=5, rs_5d +11.1%, spike_ratio 3.9 — no new longs permitted under AVOID_ALL cap.</td></tr><tr><td class='sym-td'>COALINDIA</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly PCR 0.697 + nxtweek PCR 0.543 EXTREMELY_BEARISH; FO SHORT_BUILDUP; VIX 21.52. Despite CONFLUENCE=4 (D+M+R+H), CLEAN, 200D_position 100% (52W high), spike_ratio 2.2, rs_5d +9.0%, resilience=5 — AVOID_ALL cap prohibits watchlist entry.</td></tr><tr><td class='sym-td'>NATIONALUM</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP dominant. Additionally: industry NEUTRAL (5D +0.7%, 10D -1%, 20D -6%) — industry gate FAILED. RSI 83.5 extreme overbought adds reversal risk. CONFLUENCE=3 cannot override AVOID_ALL.</td></tr><tr><td class='sym-td'>AUROPHARMA</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly PCR 0.697, nxtweek 0.543 EXTREMELY_BEARISH; FO SHORT_BUILDUP. Additionally: Pharmaceuticals industry FAILED (5D -0.2%, 10D -2.9%, 20D -5.9%). Despite 200D_position 100%, rs_5d +11.5%, resilience=5 — AVOID_ALL cap prohibits entry.</td></tr><tr><td class='sym-td'>SUNPHARMA</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: Pharmaceuticals industry FAILED (5D -0.2%, 10D -2.9%, 20D -5.9%). 200D_position 97.7%, DELIV_PCT 66.9%, rs_5d +6.7% — fundamentals deferred until cap lifts.</td></tr><tr><td class='sym-td'>STLTECH</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: industry DISTRIBUTION (5D -3.3%, vol_spike 57.1%). Despite 200D_position 100%, rs_5d +20.2% extreme outperformance, 5D +15.7% — AVOID_ALL overrides all stock-level signals.</td></tr><tr><td class='sym-td'>LUPIN</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly PCR 0.697, nxtweek 0.543 EXTREMELY_BEARISH; SHORT_BUILDUP dominant. Additionally: Pharmaceuticals industry FAILED (negative 10D/20D). DELIV_PCT 62%, 200D_position 100% deferred until regime clears.</td></tr><tr><td class='sym-td'>NTPC</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; FO SHORT_BUILDUP. Additionally: Power Generation industry MARKDOWN (10D -1.2%, 20D -6.5%). Despite 200D_position 100%, DELIV_PCT 58.9%, Count_40D=36 (highest recurring) — AVOID_ALL prohibits entry.</td></tr><tr><td class='sym-td'>KTKBANK</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: Private Sector Bank industry RED (5D -6.7%, 10D -9.1%, 20D -9.4%) — severely lagging sector. Despite rs_5d +10.6% individual outperformance, sector headwind + AVOID_ALL = dual avoidance.</td></tr><tr><td class='sym-td'>POWERGRID</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Power-Transmission HOLDING sector, DELIV_PCT 57.1%, 200D_position 93.5% — defensive profile deferred. RSI 59.3 and 5D +1.4% offer limited near-term catalyst anyway.</td></tr><tr><td class='sym-td'>AEROFLEX</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; FO SHORT_BUILDUP. Additionally: Iron & Steel Products industry NEUTRAL (5D -1.1%, 10D -5.5%, 20D -7.2%) — FAILED. Despite 200D_position 100%, rs_5d +10.4% — AVOID_ALL cap overrides.</td></tr><tr><td class='sym-td'>NATCOPHARM</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: Pharmaceuticals industry FAILED (negative all windows). 200D_position 90.7%, resilience=4 — deferred pending cap lift.</td></tr><tr><td class='sym-td'>SBC</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: Garments & Apparels industry MARKDOWN (5D -2.1%, 10D -6.6%, 20D -14.2%) — aggressive MARKDOWN. Despite 200D_position 99%, AVOID_ALL + MARKDOWN sector = double avoidance.</td></tr><tr><td class='sym-td'>PFC</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: Financial Institution industry RED (10D -6.7%, 20D -8.6%). 5D +0.5%, 15D -1.1% (mild weakness). 200D_position 83.9% with negative 15D return is unconvincing. AVOID_ALL overrides.</td></tr><tr><td class='sym-td'>JINDALSTEL</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: Iron & Steel industry MARKDOWN (5D -1.8%, 10D -6.4%, 20D -6.7%). Despite 5D +3.5% outperformance and rs_5d +7.9%, MARKDOWN sector + AVOID_ALL = clear avoid.</td></tr><tr><td class='sym-td'>CGCL</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: SUSPECT classification — spike_ratio 5.8 into flat price (5D +7.8% but 15D -5.3% reversal risk); RSI 46.4; NBFC sector RED (5D -3.4%, 10D -8.4%, 20D -9.8%). AVOID_ALL + SUSPECT + RED sector = triple avoidance.</td></tr><tr><td class='sym-td'>JSWENERGY</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: Power Generation sector MARKDOWN (10D/20D negative). Despite spike_ratio 5.0, CLEAN, rs_5d +12.5%, 5D +8.1% — AVOID_ALL cap overrides all positive signals.</td></tr><tr><td class='sym-td'>HFCL</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Count_15D=2 (very low recurring, quality concern) and 15D follow-through only +0.9% despite 5D +6.3% spike. AVOID_ALL overrides even the HOLDING Telecom-Infra sector pass.</td></tr><tr><td class='sym-td'>AARTIIND</td><td style='color:#f85149;text-align:left'>OI cap AVOID_ALL (score=-1.40): weekly/nxtweek PCR EXTREMELY_BEARISH; SHORT_BUILDUP. Additionally: Specialty Chemicals industry NEUTRAL/FAILED (5D -0.7%, 10D -5.1%, 20D -9.7%); RSI 46.6 sub-neutral; 15D -3.0% (spike fading). AVOID_ALL + weak sector + fading momentum = clear avoid.</td></tr><tr><td class='sym-td'>JINDALSAW</td><td style='color:#f85149;text-align:left'>Gate 3 failed: 200D_high_dist=-20.8% breaches moderate drawdown threshold; 200D_position=45.9% mid-range; IN_D=0 (no clean delivery spike). Risk/reward unfavorable in BEAR regime. OI cap AVOID_ALL (score=-1.40) additionally prohibits entry.</td></tr><tr><td class='sym-td'>AGIIL</td><td style='color:#f85149;text-align:left'>Gate 1 failed: 200D_high_dist=-77.6%, 200D_position=6.7% — severe distribution trap. Spike_ratio 0.77 (no institutional conviction). MA_SIGNAL GREEN is a false positive with broken price structure. AVOID_ALL cap additionally applies.</td></tr><tr><td class='sym-td'>MUTHOOTFIN</td><td style='color:#f85149;text-align:left'>Gate 2 failed: MA_SIGNAL=RED + IN_D=1 — delivery spike 3.8 (DELIV_PCT 70.2%) into confirmed downtrend (5D -1.9%, 15D -6.2%, price below MA20+MA50). Classic institutional distribution trap. AVOID_ALL cap additionally prohibits entry.</td></tr><tr><td class='sym-td'>TVSMOTOR</td><td style='color:#f85149;text-align:left'>Gate 2 failed: MA_SIGNAL=RED + IN_D=1; spike_ratio 3.4, DELIV_PCT 53.5%; 5D -10.4%, 15D -11.9%. Price below MA20+MA50. 2/3 Wheelers sector in MARKDOWN. AVOID_ALL cap additionally applies.</td></tr><tr><td class='sym-td'>ASHOKLEY</td><td style='color:#f85149;text-align:left'>Gate 2 failed: MA_SIGNAL=RED + IN_D=1; spike_ratio 3.1, DELIV_PCT 57.5%; 5D -12.1%, 15D -14.3%. Price below MA20+MA50. Commercial vehicles sector weak. AVOID_ALL cap additionally applies.</td></tr><tr><td class='sym-td'>ATALREAL</td><td style='color:#f85149;text-align:left'>Gate 2 + Gate 1 failed: MA_SIGNAL=RED + IN_D=1; 200D_position=6.7% (severe downtrend); 5D -2%, 15D -12.4%; DELIV_PCT 51.7%, spike_ratio 2.7. Price below all MAs (MA_SCORE=1). Residential/Commercial Projects sector bearish. AVOID_ALL cap additionally applies.</td></tr><tr><td class='sym-td'>JAIBALAJI</td><td style='color:#f85149;text-align:left'>Confluence gate: MA_SIGNAL=NEUTRAL (not GREEN) + IN_D=1; 15D -0.6% (5D spike fading); Iron & Steel sector MARKDOWN. Quality insufficient for BEAR-regime standards. OI cap AVOID_ALL (score=-1.40) additionally prohibits any entry.</td></tr>
+  </table>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Themes</div>
+  <span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Institutional short buildup dominates near-term expiries — OI structure confirms bearish intent, not capitulation</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Defensive utility names (TATAPOWER, COALINDIA, NTPC, POWERGRID) showing relative resilience but deferred by AVOID_ALL cap</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>Pharma relative strength (AUROPHARMA rs_5d +11.5%, SUNPHARMA, LUPIN at 52W highs) — sector-level weakness vs stock-level divergence; unactionable under current cap</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>MR_LONG micro-divergence at monthly PCR 1.078 — potential bounce from 23500 triple-wall support on longer-term view, but insufficient to override weekly/nxtweek SHORT_BUILDUP</span><span class='chip' style='border-color:#58a6ff;color:#58a6ff'>FII vs retail divergence: FII net short while retail (client) long +139k lots — smart money positioned bearish against retail longs, a historically negative signal for near-term price action</span>
+</div>
+
+<div class='card full-width'>
+  <div class='card-title'>Action Plan</div>
+  <div style='font-size:13px;line-height:1.7'>The market is in a confirmed BEAR regime (score -1.40) with the OI conviction cap at AVOID_ALL — all long positions should be protected with tight stops and no new equity longs initiated under current conditions. The weekly PCR of 0.697 and next-week PCR of 0.543 reflect near-unanimous institutional bearishness, while VIX at 21.52 (98.8th percentile, RISING) adds a volatility premium that further penalizes long entries. Spot at 23639 sits only 139 pts above the triple-wall PE support at 23500; a clean break below 23500 would expose the 23000–22800 zone with no structural floor visible in OI data. Cash exposure should be reduced or hedged; leveraged longs and momentum chases are explicitly disallowed under this regime. Re-entry conditions require all three of the following to be satisfied simultaneously: (1) weekly PCR must recover above 0.80 signaling a shift from EXTREMELY_BEARISH to NEUTRAL, (2) VIX must drop below 18 before any BUY conviction is permitted, and (3) the FO quadrant must exit SHORT_BUILDUP — watch for LONG_BUILDUP or at minimum NEUTRAL quadrant confirmation before any new watchlist entries are considered.</div>
+</div>
+
+
+<div class='card full-width' style='margin-top:14px'>
+  <div class='card-title' style='cursor:pointer' onclick="
+    var el=document.getElementById('reasoning-body');
+    el.style.display=el.style.display==='none'?'block':'none';
+    this.textContent=el.style.display==='none'?
+      '🧠 STAGE 3 REASONING  ▶':'🧠 STAGE 3 REASONING  ▼'
+  ">🧠 STAGE 3 REASONING  ▶ (click to expand)</div>
+  <div id='reasoning-body' style='display:none;margin-top:10px;
+       font-family:monospace;font-size:12px;color:#a0b0c0;
+       line-height:1.7;white-space:pre-wrap'>1. OI CONVICTION CAP CHECK FIRST:<br>cap=AVOID_ALL, score=-1.40. Divergence=YES (weekly bearish PCR 0.697/0.543, monthly neutral PCR 1.078). Hard rule: watchlist[] MUST be empty. All Stage 2 candidates → avoid[] with OI cap reason. Risk flag for divergence must be added.<br><br>2. REGIME + VIX:<br>BEAR, HIGH confidence. VIX 21.52 ELEVATED zone (18-22), RISING, 98.8th percentile 52W. No BUY conviction allowed even without AVOID_ALL cap. FII net short -226,327 lots, cash -7,050 cr, 2-day consecutive selling streak. FO quadrant SHORT_BUILDUP dominant.<br><br>3. SECTOR ANALYSIS:<br>- E-Learning: MARKUP (5D 4.7%, 10D 4.0%, vol_ratio 1.8) - but under AVOID_ALL, irrelevant<br>- Telecom Infrastructure: HOLDING (5D 1.7%, 10D 5.5%)<br>- Aerospace &amp; Defense: NEUTRAL, failed industry gate<br>- Pharmaceuticals: NEUTRAL, all windows negative<br>- Power: Mixed (NTPC industry MARKDOWN, JSWENERGY MARKDOWN sector)<br>- Banking: RED sector<br><br>4. CANDIDATES → ALL TO AVOID[] due to AVOID_ALL cap:<br>All 19 gate-cleared candidates move to avoid with reason format: "OI cap AVOID_ALL (score=-1.40): &lt;cap_reason&gt;"<br><br>Stage 2 already avoided: JINDALSAW, AGIIL, MUTHOOTFIN, TVSMOTOR, ASHOKLEY, ATALREAL, JAIBALAJI<br><br>5. STACKED WALLS:<br>- 24000: QUAD-WALL (all 4 expiries) - within ~1.5% of spot (spot 23639, 24000 = +1.5%). This is within ~1.5%, close to 1% threshold but slightly above. The threshold says "within 1% of spot" = 23639 ± 236 = 23403-23875. 24000 is 361 pts away = 1.5%, so just outside the 1% threshold. But 23500 support is 139 pts away = 0.59% from spot - WITHIN 1%. Triple wall at 23500 is within 1% of spot → add risk flag.<br><br>Actually re-reading: "Any stacked TRIPLE_WALL within 1% of spot" - 23500 is 139 pts below spot 23639, that's 0.59% - yes within 1%. Add risk flag.<br><br>24000 is 361 pts above = 1.53% - outside 1%, but still a major resistance.<br><br>6. BREADTH:<br>Very weak. Mar 9 was catastrophic (12% advance ratio, 76 stocks down 4%+). Mar 12 showing 39% advance but 303 declines vs 195 advances. %&gt; EMA10 only 26.6%, %&gt; EMA20 23.2%. DETERIORATING trend. 52W lows climbing (53 on Mar 12).<br><br>7. RISK FLAGS:<br>- OI divergence: weekly bearish + monthly bullish<br>- cap=AVOID_ALL (score=-1.40)<br>- Triple wall at 23500 within 1% of spot (139 pts, 0.59%)<br>- Quad-wall at 24000 (all 4 expiries) - extremely strong resistance 361 pts away<br>- FII consecutive selling streak 2 days (not ≥3, so don't add this specific flag)<br>- PCR weekly 0.697 &lt; 0.70 (add: PCR &lt; 0.7 weekly - aggressive CE writing)<br>- VIX spike_alert=false, but VIX at 98.8th percentile is extreme<br>- Breadth deteriorating (39% advance on Mar 12, 53 52W lows)<br><br>FII streak is 2 days, not ≥3, so skip that specific flag.<br><br>PCR weekly = 0.697 &lt; 0.7 → add flag.<br><br>Now building the JSON:<br><br>For avoid[] - I need to include all Stage 2 candidates (both gate-cleared and gate-failed from avoided list) under avoid. The gate-failed ones from Stage 2's "avoided" list already have their reasons. The gate-cleared candidates get the OI cap reason.<br><br>Actually the instruction says: "move all Stage 2 candidates to avoid[] with reason format: 'OI cap AVOID_ALL (score=X): &lt;cap_reason&gt;'"<br><br>So all 19 gate-cleared candidates + the 7 already-avoided ones all go to avoid[]. For the 7 already avoided, should I use their gate reasons or the OI cap reason? I think the OI cap reason supersedes for all. But for clarity, the gate-failed ones could retain their gate reasons since they were already rejected at Stage 2. Let me use OI cap reason for the gate-cleared ones and retain gate reasons for the gate-failed (already avoided) ones - or I can add both.<br><br>I'll use OI cap for the gate-cleared ones (they would have been watchlist but get moved). The gate-failed ones keep their original reasons since they never made it through.<br><br>Let me structure the avoid[] array. There are 19 gate-cleared candidates and 7 pre-avoided = 26 total in avoid.<br><br>For action_plan - must end with re-entry conditions: weekly PCR &gt; 0.80 AND VIX &lt; 18 AND FO quadrant not SHORT_BUILDUP.<br><br>Let me now write the JSON carefully.<br><br>For oi_analysis:<br>- week_bias: BEARISH (PCR 0.697)<br>- nxtweek_bias: BEARISH (PCR 0.543)  <br>- month_bias: NEUTRAL (PCR 1.078)<br>- nxtmonth_bias: NEUTRAL (PCR 0.973)<br>- weekly_max_pain: 23900<br>- monthly_max_pain: 25000<br>- nearest_resistance: 24000<br>- nearest_support: 23500<br><br>For delivery_signal: TATAPOWER (spike_ratio 3.9), COALINDIA (2.2), CGCL (5.8), JSWENERGY (5.0), JINDALSAW (4.18) - but since all go to avoid, top_picks should reflect the highest spike ratios even noting they're in avoid context. Actually delivery_signal.top_picks is about smart money delivery signals - I can still list them as data points even if they're in avoid.<br><br>Smart money = DISTRIBUTING given FII selling.<br><br>Watchlist must be EMPTY.<br><br>Let me write the full JSON now.</div>
+</div>
+
+</div>
+</body>
+</html>
