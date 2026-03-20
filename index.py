@@ -1007,7 +1007,8 @@ footer a:hover{{color:var(--tx2)}}
 <!-- HERO -->
 <div class="hero">
   <img src="logo.png" alt="InfoAlpha"
-       style="height:80px;width:80px;object-fit:contain;margin-bottom:16px;border-radius:8px">
+       style="display:block;height:90px;width:90px;object-fit:contain;
+              margin:0 auto 20px;border-radius:8px">
   <div class="hero-tag">NSE India · Institutional Intelligence</div>
   <h1>Institutional Flow &amp; Options<br><span>Positioning Intelligence</span></h1>
   <p class="hero-sub">
