@@ -272,7 +272,7 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
     </div>
     <div class="fs-metrics">
       <div class="fs-metric">
-        <span class="fs-metric-label">STRENGTH</span>
+        <span class="fs-metric-label" title="Signal clarity — how aligned all indicators are. 10 = all signals confirm the regime. NOT a direction indicator.">CLARITY ⓘ</span>
         <span class="fs-metric-val" style="color:{scol}">{sig["strength"]}/10</span>
       </div>
       <div class="fs-metric">
@@ -318,8 +318,8 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
     <span class="hist-regime" style="background:{rbg};color:{rtx};border:1px solid {rbd}">{sig["regime"]}</span>
   </div>
   <div class="hist-strength">
-    <div class="str-bar-wrap"><div class="str-bar" style="width:{sig['strength']*10}%;background:{scol}"></div></div>
-    <span style="color:{scol};font-size:11px">{sig['strength']}/10</span>
+    <div class="str-bar-wrap" title="Signal clarity — 10 = all signals aligned"><div class="str-bar" style="width:{sig['strength']*10}%;background:{scol}"></div></div>
+    <span style="color:{scol};font-size:11px" title="Clarity: how aligned all signals are">{sig['strength']}/10 clarity</span>
   </div>
   <div class="hist-snip">{sig["synthesis"][:160] + "…" if len(sig["synthesis"]) > 160 else sig["synthesis"]}</div>
   <div class="hist-links">
