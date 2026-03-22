@@ -566,6 +566,15 @@ def generate_index(featured: dict, history: list, all_ai_files: list) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TEBE4BLSYD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-TEBE4BLSYD');
+</script>
+
 <title>{og_title}</title>
 <meta name="description"      content="{og_desc}">
 <meta name="keywords"         content="{keywords}">

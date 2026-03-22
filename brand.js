@@ -175,6 +175,18 @@
   </footer>`;
 
   /* ── 5. INJECT ──────────────────────────────────────────────────────────── */
+  // Inject Google Analytics (GA4) — once per page
+  if (!document.querySelector('script[src*="G-TEBE4BLSYD"]')) {
+    const gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-TEBE4BLSYD';
+    document.head.appendChild(gaScript);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TEBE4BLSYD');
+  }
+
   // Inject CSS
   const style = document.createElement('style');
   style.textContent = CSS;
