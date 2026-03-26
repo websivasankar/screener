@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSE Technical Levels — 2026-03-25</title>
+<style>
+:root{
+  --bg:#0d1117;--s:#161b22;--s2:#21262d;--bd:#30363d;--tx:#e6edf3;--mu:#7d8590;
+  --tab-active-color:#e3b341;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'Segoe UI',system-ui,sans-serif;
+      font-size:12px;padding:12px 14px 40px}
+.status{display:flex;gap:6px;flex-wrap:wrap;align-items:center;
+         padding:8px 12px;background:var(--s);border:1px solid var(--bd);
+         border-radius:8px;margin-bottom:10px}
+.reg{font-size:17px;font-weight:800;margin-right:2px}
+.b{border:1px solid;border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700}
+.sep{color:var(--bd)}
+.str{font-size:11px;font-weight:700}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--bd);margin-bottom:12px}
+.tab{
+  padding:7px 18px;background:transparent;border:none;color:var(--mu);
+  cursor:pointer;font-size:12px;font-weight:600;
+  border-bottom:2px solid transparent;
+  transition:color .15s,border-color .15s;
+}
+.tab.on{
+  color:var(--tab-active-color);
+  border-bottom-color:var(--tab-active-color);
+}
+.pane{display:none}.pane.on{display:block}
+.card{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:11px 13px;margin-bottom:8px}
+.ct{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--mu);
+     text-transform:uppercase;margin-bottom:8px}
+.wn{background:#2d1a00;border-left:3px solid #e3b341;padding:4px 8px;margin:3px 0;
+     border-radius:0 3px 3px 0;font-size:11px;line-height:1.5}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ins{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid var(--s2);align-items:flex-start}
+.ins-l{font-weight:700;color:#58a6ff;min-width:54px;font-size:10px;padding-top:1px;flex-shrink:0}
+.ins-t{font-size:11px;line-height:1.5}
+.disclaimer{background:#0d1a0d;border:1px solid #1e3a1e;border-radius:6px;padding:8px 12px;
+             margin-top:14px;font-size:10px;color:#4d8a4d;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="status">
+  <span class="reg" style="color:#79c0ff">TRANSITION</span>
+  <span class="b" style="color:#e3b341;border-color:#e3b34155">Moderate Signal</span>
+  <span class="sep">|</span>
+  <span class="b" style="color:#3fb950;border-color:#3fb95055">OI: Bullish</span>
+  <span class="sep">|</span>
+  <span class="b" style="color:#f85149;border-color:#f8514955">VIX: High Fear 24.64</span>
+  <span class="sep">|</span>
+  <span class="str" style="color:#e3b341">Signal Alignment 5/10</span>
+  <span class="sep">|</span>
+  <span style="color:#7d8590;font-size:10px">Nifty 23,306 · 2026-03-25</span>
+</div>
+
+<div class="card"><div class="ct">⚠ Structural Alerts</div><div class='wn' style='border-color:#f85149'>! India VIX 24.64 — elevated fear zone; structurally unfavourable for upside momentum</div><div class='wn' style='border-color:#f85149'>! FII index futures net short for 5 consecutive sessions — sustained institutional futures positioning on downside</div><div class='wn' style='border-color:#f85149'>! FII net short futures / retail client net long — positioning divergence historically resolves bearishly</div><div class='wn' style='border-color:#f85149'>! Triple OI wall at 23500 — highest-conviction structural level defended across 3+ expiries</div><div class='wn' style='border-color:#f85149'>! Triple OI wall at 23000 — highest-conviction structural level defended across 3+ expiries</div></div>
+
+<div class="tabs">
+  <button class="tab on"
+          data-bias-color="#e3b341"
+          onclick="sw('id',this)">
+    Intraday <span style='background:#e3b34122;color:#e3b341;border:1px solid #e3b34155;padding:1px 7px;border-radius:6px;font-size:10px;margin-left:6px;font-weight:700'>RANGE</span>
+  </button>
+  <button class="tab"
+          data-bias-color="#e3b341"
+          onclick="sw('wk',this)">
+    Weekly <span style='background:#e3b34122;color:#e3b341;border:1px solid #e3b34155;padding:1px 7px;border-radius:6px;font-size:10px;margin-left:6px;font-weight:700'>RANGE</span>
+  </button>
+  <button class="tab"
+          data-bias-color="#f85149"
+          onclick="sw('mo',this)">
+    Monthly <span style='background:#f8514922;color:#f85149;border:1px solid #f8514955;padding:1px 7px;border-radius:6px;font-size:10px;margin-left:6px;font-weight:700'>BEARISH</span>
+  </button>
+  <button class="tab"
+          data-bias-color="#7d8590"
+          onclick="sw('ctx',this)"
+          style="margin-left:auto;color:#7d8590">
+    Data Context
+  </button>
+</div>
+
+<div id="id" class="pane on">
+  
+<div style='position:relative;height:220px;background:#0d1117;border-radius:6px;margin:10px 0;overflow:hidden;border:1px solid #30363d'><div style='position:absolute;left:0;right:0;top:10px;height:1px;background:#ffa657;opacity:.8'></div><span style='position:absolute;right:8px;top:0px;font-size:10px;color:#ffa657;font-weight:600'>Bear Invalid</span><span style='position:absolute;left:8px;top:0px;font-size:10px;color:#ffa657'>23,575</span><div style='position:absolute;left:0;right:0;top:35px;height:1px;background:#f85149;opacity:.8'></div><span style='position:absolute;right:8px;top:21px;font-size:10px;color:#f85149;font-weight:600'>R2</span><span style='position:absolute;left:8px;top:21px;font-size:10px;color:#f85149'>23,500</span><div style='position:absolute;left:0;right:0;top:68px;height:2px;background:#f85149;opacity:.8'></div><span style='position:absolute;right:8px;top:54px;font-size:10px;color:#f85149;font-weight:600'>R1</span><span style='position:absolute;left:8px;top:54px;font-size:10px;color:#f85149'>23,400</span><div style='position:absolute;left:0;right:0;top:99px;height:2px;background:#79c0ff;opacity:.8'></div><span style='position:absolute;right:8px;top:85px;font-size:10px;color:#79c0ff;font-weight:600'>Spot 23306</span><span style='position:absolute;left:8px;top:85px;font-size:10px;color:#79c0ff'>23,306</span><div style='position:absolute;left:0;right:0;top:135px;height:2px;background:#3fb950;opacity:.8'></div><span style='position:absolute;right:8px;top:121px;font-size:10px;color:#3fb950;font-weight:600'>S1</span><span style='position:absolute;left:8px;top:121px;font-size:10px;color:#3fb950'>23,200</span><div style='position:absolute;left:0;right:0;top:201px;height:1px;background:#3fb950;opacity:.8'></div><span style='position:absolute;right:8px;top:187px;font-size:10px;color:#3fb950;font-weight:600'>S2</span><span style='position:absolute;left:8px;top:187px;font-size:10px;color:#3fb950'>23,000</span><div style='position:absolute;left:0;right:0;top:210px;height:1px;background:#ffa657;opacity:.8'></div></div>
+<div style='display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px'>
+  <div><div style='background:#1a0d0d;border:1px solid #3d1a1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#f85149;font-weight:700;margin-bottom:8px'>📉 BEAR PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bear Strength At</span><span style='color:#f87171;font-size:11px;font-weight:600'>23450-23500 zone where triple CE wall and weekly max pain converge</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R1</span><span style='color:#f87171;font-size:11px;font-weight:600'>23,400</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R2</span><span style='color:#f87171;font-size:11px;font-weight:600'>23,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#86efac;font-size:11px;font-weight:600'>23,300</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#86efac;font-size:11px;font-weight:600'>23,200</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Sustained trade above 23575 with volume expansion invalidates intraday short structure</span></div></div></div>
+  <div><div style='background:#0d1a0d;border:1px solid #1a3d1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#3fb950;font-weight:700;margin-bottom:8px'>📈 BULL PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bull Strength At</span><span style='color:#86efac;font-size:11px;font-weight:600'>23175-23225 zone near triple PE wall structural support</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S1</span><span style='color:#86efac;font-size:11px;font-weight:600'>23,200</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S2</span><span style='color:#86efac;font-size:11px;font-weight:600'>23,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>23,375</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>23,475</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Close below 22975 invalidates triple PE wall support and intraday long structure</span></div></div></div>
+</div>
+<div style='background:#161b22;border-left:2px solid #e3b341;border-radius:0 4px 4px 0;padding:7px 10px;font-size:11px;color:#8ca8c5;margin-top:6px;line-height:1.6'>📌 Short-covering quad with stk_sc=191 and zero long buildup makes intraday range-bound structure most reliable; fade extremes of 23000-23500 band.</div>
+</div>
+
+<div id="wk" class="pane">
+  
+<div style='position:relative;height:220px;background:#0d1117;border-radius:6px;margin:10px 0;overflow:hidden;border:1px solid #30363d'><div style='position:absolute;left:0;right:0;top:10px;height:1px;background:#ffa657;opacity:.8'></div><span style='position:absolute;right:8px;top:0px;font-size:10px;color:#ffa657;font-weight:600'>Bear Invalid</span><span style='position:absolute;left:8px;top:0px;font-size:10px;color:#ffa657'>23,700</span><div style='position:absolute;left:0;right:0;top:10px;height:1px;background:#f85149;opacity:.8'></div><div style='position:absolute;left:0;right:0;top:52px;height:2px;background:#f85149;opacity:.8'></div><span style='position:absolute;right:8px;top:38px;font-size:10px;color:#f85149;font-weight:600'>R1</span><span style='position:absolute;left:8px;top:38px;font-size:10px;color:#f85149'>23,500</span><div style='position:absolute;left:0;right:0;top:92px;height:2px;background:#79c0ff;opacity:.8'></div><span style='position:absolute;right:8px;top:78px;font-size:10px;color:#79c0ff;font-weight:600'>Spot 23306</span><span style='position:absolute;left:8px;top:78px;font-size:10px;color:#79c0ff'>23,306</span><div style='position:absolute;left:0;right:0;top:157px;height:2px;background:#3fb950;opacity:.8'></div><span style='position:absolute;right:8px;top:143px;font-size:10px;color:#3fb950;font-weight:600'>S1</span><span style='position:absolute;left:8px;top:143px;font-size:10px;color:#3fb950'>23,000</span><div style='position:absolute;left:0;right:0;top:199px;height:1px;background:#3fb950;opacity:.8'></div><span style='position:absolute;right:8px;top:185px;font-size:10px;color:#3fb950;font-weight:600'>S2</span><span style='position:absolute;left:8px;top:185px;font-size:10px;color:#3fb950'>22,800</span><div style='position:absolute;left:0;right:0;top:210px;height:1px;background:#ffa657;opacity:.8'></div></div>
+<div style='display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px'>
+  <div><div style='background:#1a0d0d;border:1px solid #3d1a1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#f85149;font-weight:700;margin-bottom:8px'>📉 BEAR PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bear Strength At</span><span style='color:#f87171;font-size:11px;font-weight:600'>23450-23500 triple CE wall zone with weekly expiry approaching Thursday</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R1</span><span style='color:#f87171;font-size:11px;font-weight:600'>23,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R2</span><span style='color:#f87171;font-size:11px;font-weight:600'>23,700</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#86efac;font-size:11px;font-weight:600'>23,200</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#86efac;font-size:11px;font-weight:600'>23,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Weekly close above 23700 with FII futures net position turning less negative invalidates weekly short structure</span></div></div></div>
+  <div><div style='background:#0d1a0d;border:1px solid #1a3d1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#3fb950;font-weight:700;margin-bottom:8px'>📈 BULL PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bull Strength At</span><span style='color:#86efac;font-size:11px;font-weight:600'>23000-23050 triple PE wall zone with expiry gravity support</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S1</span><span style='color:#86efac;font-size:11px;font-weight:600'>23,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S2</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,800</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>23,350</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>23,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Weekly close below 22750 with VIX expansion above 26 invalidates weekly long structure</span></div></div></div>
+</div>
+<div style='background:#161b22;border-left:2px solid #e3b341;border-radius:0 4px 4px 0;padding:7px 10px;font-size:11px;color:#8ca8c5;margin-top:6px;line-height:1.6'>📌 Weekly max pain at 23500 creates expiry gravity pull but triple CE wall at same strike is the dominant structural ceiling; short-covering exhaustion risk into Thursday expiry.</div>
+</div>
+
+<div id="mo" class="pane">
+  
+<div style='position:relative;height:220px;background:#0d1117;border-radius:6px;margin:10px 0;overflow:hidden;border:1px solid #30363d'><div style='position:absolute;left:0;right:0;top:10px;height:1px;background:#ffa657;opacity:.8'></div><span style='position:absolute;right:8px;top:0px;font-size:10px;color:#ffa657;font-weight:600'>Bear Invalid</span><span style='position:absolute;left:8px;top:0px;font-size:10px;color:#ffa657'>24,050</span><div style='position:absolute;left:0;right:0;top:16px;height:1px;background:#f85149;opacity:.8'></div><div style='position:absolute;left:0;right:0;top:78px;height:2px;background:#f85149;opacity:.8'></div><span style='position:absolute;right:8px;top:64px;font-size:10px;color:#f85149;font-weight:600'>R1</span><span style='position:absolute;left:8px;top:64px;font-size:10px;color:#f85149'>23,500</span><div style='position:absolute;left:0;right:0;top:103px;height:2px;background:#79c0ff;opacity:.8'></div><span style='position:absolute;right:8px;top:89px;font-size:10px;color:#79c0ff;font-weight:600'>Spot 23306</span><span style='position:absolute;left:8px;top:89px;font-size:10px;color:#79c0ff'>23,306</span><div style='position:absolute;left:0;right:0;top:141px;height:2px;background:#3fb950;opacity:.8'></div><span style='position:absolute;right:8px;top:127px;font-size:10px;color:#3fb950;font-weight:600'>S1</span><span style='position:absolute;left:8px;top:127px;font-size:10px;color:#3fb950'>23,000</span><div style='position:absolute;left:0;right:0;top:203px;height:1px;background:#3fb950;opacity:.8'></div><span style='position:absolute;right:8px;top:189px;font-size:10px;color:#3fb950;font-weight:600'>S2</span><span style='position:absolute;left:8px;top:189px;font-size:10px;color:#3fb950'>22,500</span><div style='position:absolute;left:0;right:0;top:210px;height:1px;background:#ffa657;opacity:.8'></div></div>
+<div style='display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px'>
+  <div><div style='background:#1a0d0d;border:1px solid #3d1a1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#f85149;font-weight:700;margin-bottom:8px'>📉 BEAR PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bear Strength At</span><span style='color:#f87171;font-size:11px;font-weight:600'>23450-23500 triple resistance wall zone where CE writers are institutionally anchored across monthly and next-month expiries</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R1</span><span style='color:#f87171;font-size:11px;font-weight:600'>23,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R2</span><span style='color:#f87171;font-size:11px;font-weight:600'>24,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#86efac;font-size:11px;font-weight:600'>23,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Monthly close above 24050 with FII futures net turning positive invalidates monthly bearish structural thesis</span></div></div></div>
+  <div><div style='background:#0d1a0d;border:1px solid #1a3d1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#3fb950;font-weight:700;margin-bottom:8px'>📈 BULL PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bull Strength At</span><span style='color:#86efac;font-size:11px;font-weight:600'>23000-23050 triple PE wall zone with monthly structural floor</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S1</span><span style='color:#86efac;font-size:11px;font-weight:600'>23,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S2</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>23,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>24,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Monthly close below 22450 with VIX sustaining above 26 invalidates monthly support structure</span></div></div></div>
+</div>
+<div style='background:#161b22;border-left:2px solid #f85149;border-radius:0 4px 4px 0;padding:7px 10px;font-size:11px;color:#8ca8c5;margin-top:6px;line-height:1.6'>📌 Spot 694 pts below monthly max pain (24000), FII 5-day short streak, VIX at 99.2 pct52w, and zero long buildup collectively define a structurally bearish monthly bias despite triple PE wall providing a floor at 23000.</div>
+</div>
+
+<div id="ctx" class="pane">
+  <div class="card">
+    <div class="ct">Technical Observations</div>
+    <div class="ins"><div class="ins-l">OI</div><div class="ins-t">Triple OI wall at 23500 (CE writers defending across weekly/monthly/nxtmonth) acts as an institutionally anchored ceiling of highest conviction; triple PE wall at 23000 provides equally strong structural floor, compressing spot into a 500-pt structural range with 23306 sitting in the lower half; all four expiry frames show LONG_BUILDUP quad but spot remains deeply below max pain on monthly (694 pts) and next-week (894 pts), indicating expiry gravity pull is upward but price has not yet responded.</div></div>
+    <div class="ins"><div class="ins-l">FII</div><div class="ins-t">FII futures net short -238126 contracts with 5-day consecutive short streak and fut_short 286979 vs fut_long 48853 — institutional futures positioning is structurally bearish; FII cash selling -1805cr offset by DII buying +5430cr confirms domestic support is the primary price stabilizer; FII options show PE_long 1018100 vs CE_long 589607 — net options positioning also skewed toward downside protection.</div></div>
+    <div class="ins"><div class="ins-l">F&O</div><div class="ins-t">Both Nifty and BankNifty in SHORT_COVERING quad with stk_sc=191 and stk_lb=0 — the entire rally is mechanically driven by short-covering with zero fresh institutional long participation; this is a structurally weak up-move that historically resolves bearishly once covering exhausts; client net long + FII net short positioning divergence is present and unresolved.</div></div>
+    <div class="ins"><div class="ins-l">BREADTH</div><div class="ins-t">Single-day breadth at 91.6% advances is extremely strong but 5-day average is only 50%, indicating today's breadth is an outlier spike rather than a sustained structural improvement; pct_ema20 at 29.6% and pct_ema40 at 21.0% confirm the majority of stocks remain below medium and longer-term moving averages — breadth structure is weak beneath today's surface reading.</div></div>
+  </div>
+  <div class="card">
+    <div class="ct">Data Anomalies</div>
+    <div class='wn'>! VIX at 24.64 (99.2 pct52w) while breadth shows 91.6% advances — fear-breadth divergence is structurally unusual</div><div class='wn'>! stk_sc=191 vs stk_lb=0 — entire up-move is short-covering driven, zero fresh long buildup</div><div class='wn'>! Spot is 694 pts below monthly max pain (24000) with LONG_BUILDUP quad across all expiries — positioning mismatch with price reality</div><div class='wn'>! FII 5-day streak SHORT in futures while DII buying 5430cr — institutional divergence persisting</div>
+  </div>
+  <div class="card">
+    <div class="ct">Market Structure Summary</div>
+    <div style="font-size:12px;line-height:1.8">Spot at 23306 is structurally trapped between triple OI walls at 23000 (floor) and 23500 (ceiling); VIX at 24.64 in fear zone suppresses directional conviction; the short-covering rally with zero long buildup, FII persistent futures short streak, and majority of stocks below 20/40 EMA collectively indicate structural weakness beneath today's breadth spike; expiry gravity from weekly max pain at 23500 may pull price higher into Thursday expiry, but monthly structure remains bearish with spot 694 pts below monthly max pain.</div>
+  </div>
+  <div class="card">
+    <div class="ct">Key Data Points to Watch</div>
+    <div style="font-size:12px;line-height:1.8">Structural range is 23000-23500 with highest-conviction walls on both sides; weekly expiry gravity at 23500 creates upward pull into Thursday; any approach to 23500 triple wall is a structurally defined resistance zone; 23000 triple wall is the structural floor — a close below invalidates near-term support structure; short-covering exhaustion near 23500 and fresh FII short addition would confirm bearish structural continuation toward 22800-22500.</div>
+  </div>
+</div>
+
+<div class="disclaimer">
+  ⓘ <strong>Educational / Informational Data Only.</strong>
+  This page presents technical market structure data derived from publicly available NSE EOD information
+  (options OI, FII participant data, breadth, VIX). It does not constitute investment advice, a buy/sell
+  recommendation, or a solicitation. InfoAlpha is not a SEBI-registered investment adviser.
+  All decisions are the sole responsibility of the individual. Past data patterns do not guarantee future outcomes.
+</div>
+
+<script>
+function sw(id, btn) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  document.documentElement.style.setProperty(
+    '--tab-active-color',
+    btn.dataset.biasColor || '#e3b341'
+  );
+}
+</script>
+<script src="brand.js"></script>
+</body>
+</html>
