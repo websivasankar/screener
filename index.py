@@ -1,14 +1,17 @@
 """
-index.py  —  InfoAlpha  |  Homepage Generator
+index.py  —  InfoAlpha  |  Trading Tools Generator
 ==================================================
-Reads the last 5 ai_analysis_v4.json files from screener/output/YYYY-MM-DD/
-and generates a product-grade index.html for GitHub Pages.
+Reads the last N ai_analysis_v4.json files from screener/output/YYYY-MM-DD/
+and generates tradingtool.html for GitHub Pages.
 
 Also copies the latest screener HTMLs and OI charts.
+The digital services homepage (index.html) is a separate static file — do NOT overwrite it.
 
 CHANGELOG:
   v2 — Trader view (Intraday / Weekly / Monthly bias + levels) now shown
-       in the featured signal card on the homepage, matching ai_analysis_v4.html.
+       in the featured signal card, matching ai_analysis_v4.html.
+  v3 — Output renamed to tradingtool.html (index.html is now the digital-services page).
+       Nav bar includes a "Digital Services" link back to index.html.
 
 Usage:
     python index.py
@@ -94,8 +97,6 @@ def load_signal(date_str: str, json_path: Path) -> dict:
     br_trend   = raw.get("breadth_trend",   "")
     anomalies  = raw.get("anomalies",       [])
     oi_narr    = raw.get("oi_narrative",    "")
-
-    # ── Trader levels (new) ────────────────────────────────────────────────
     trader     = raw.get("trader", {})
 
     try:
@@ -120,7 +121,7 @@ def load_signal(date_str: str, json_path: Path) -> dict:
         "breadth":     br_trend,
         "anomalies":   anomalies[:3],
         "oi_narr":     oi_narr,
-        "trader":      trader,          # ← NEW
+        "trader":      trader,
         "ai_file":     f"ai_analysis_v4_{ymd}.html",
         "ai_file_old": f"ai_analysis_{dmy}.html",
         "has_json":    True,
@@ -278,9 +279,7 @@ def cap_color(c: str) -> str:
 # ── TRADER VIEW HTML ──────────────────────────────────────────────────────────
 
 _BIAS_COLORS = {
-    # Canonical display values
     "BEARISH": "#f85149", "BULLISH": "#3fb950", "RANGE": "#e3b341",
-    # Legacy JSON values — map to same colors
     "SHORT": "#f85149", "LONG": "#3fb950",
 }
 
@@ -293,11 +292,9 @@ def _bias_col(bias: str) -> str:
     return _BIAS_COLORS.get(str(bias).upper(), "#7d8590")
 
 def _bias_label(bias: str) -> str:
-    """Return public-facing label — no buy/sell language."""
     return _BIAS_DISPLAY_MAP.get(str(bias).upper(), str(bias).upper())
 
 def _fmt(v) -> str:
-    """Format a level value as integer with comma, or — if zero/None."""
     try:
         iv = int(v)
         return f"{iv:,}" if iv else "—"
@@ -305,7 +302,6 @@ def _fmt(v) -> str:
         return "—"
 
 def _trader_tf_card(tf_label: str, t: dict, card_id: str) -> str:
-    """Render one technical levels card (intraday / weekly / monthly) — no buy/sell language."""
     if not t:
         return f"<div class='tv-tf'><div class='tv-tf-hdr'><span class='tv-tf-label'>{tf_label}</span></div><p class='tv-empty'>No data</p></div>"
 
@@ -320,14 +316,12 @@ def _trader_tf_card(tf_label: str, t: dict, card_id: str) -> str:
     s2       = _fmt(sup[1] if len(sup) > 1 else 0)
     note     = t.get("note", "")
 
-    # Bear pressure zone
     b_zone   = t.get("short_entry", "—") or "—"
     b_inv    = _fmt(t.get("short_stop", 0))
     b_mm1    = _fmt(t.get("short_t1",  0))
     b_mm2    = _fmt(t.get("short_t2",  0))
     b_inv_n  = t.get("invalidation_short", "—") or "—"
 
-    # Bull pressure zone
     u_zone   = t.get("long_entry", "—") or "—"
     u_inv    = _fmt(t.get("long_stop", 0))
     u_mm1    = _fmt(t.get("long_t1",  0))
@@ -388,32 +382,12 @@ def _trader_tf_card(tf_label: str, t: dict, card_id: str) -> str:
 
 
 def build_trader_section(trader: dict) -> str:
-    """Build the full 3-column trader view block for the featured card."""
     if not trader:
         return ""
 
     intra   = trader.get("intraday", {})
     weekly  = trader.get("weekly",   {})
     monthly = trader.get("monthly",  {})
-
-    # Summary bias pills for tab buttons — use normalised BEARISH/BULLISH labels
-    def _pill(label, t, tab_id):
-        raw_bias = str(t.get("bias", "RANGE")).upper() if t else "RANGE"
-        disp = _bias_label(raw_bias)
-        bc   = _bias_col(raw_bias)
-        return (f"<button class='tv-tab' data-target='{tab_id}' "
-                f"onclick='tvTab(this)' "
-                f"style='--tv-active:{bc}'>"
-                f"{label} "
-                f"<span style='background:{bc}22;color:{bc};border:1px solid {bc}44;"
-                f"padding:1px 6px;border-radius:5px;font-size:9px;font-weight:700'>{disp}</span>"
-                f"</button>")
-
-    tabs = (
-        _pill("Intraday", intra,   "tv-intraday") +
-        _pill("Weekly",  weekly,  "tv-weekly") +
-        _pill("Monthly", monthly, "tv-monthly")
-    )
 
     cards = (
         _trader_tf_card("Intraday", intra,   "tv-intraday") +
@@ -429,7 +403,6 @@ def build_trader_section(trader: dict) -> str:
 </div>
 <script>
 (function(){{
-  // Activate first tab on load
   var first = document.querySelector('.tv-tab');
   if(first) tvTab(first);
 }})();
@@ -472,7 +445,7 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
       </div>
       <div class="fs-metric">
         <span class="fs-metric-label">FII vs RETAIL OI</span>
-        <span class="fs-metric-val" style="color:{'#ff5e5e' if 'SHORT_CLIENT_LONG' in sig.get('fii','') else '#4cff8f' if 'LONG_CLIENT_SHORT' in sig.get('fii','') else '#7d8590'}">{sig.get("fii","—").replace("FII_SHORT_CLIENT_LONG","Diverge ↓").replace("FII_LONG_CLIENT_SHORT","Diverge ↑").replace("ALIGNED","Aligned")}</span>
+        <span class="fs-metric-val" style="color:{{'#ff5e5e' if 'SHORT_CLIENT_LONG' in sig.get('fii','') else '#4cff8f' if 'LONG_CLIENT_SHORT' in sig.get('fii','') else '#7d8590'}}">{sig.get("fii","—").replace("FII_SHORT_CLIENT_LONG","Diverge ↓").replace("FII_LONG_CLIENT_SHORT","Diverge ↑").replace("ALIGNED","Aligned")}</span>
       </div>
     </div>
   </div>
@@ -524,9 +497,9 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
 </div>"""
 
 
-# ── INDEX HTML ────────────────────────────────────────────────────────────────
+# ── TRADINGTOOL HTML ──────────────────────────────────────────────────────────
 
-def generate_index(featured: dict, history: list, all_ai_files: list) -> str:
+def generate_tradingtool(featured: dict, history: list, all_ai_files: list) -> str:
     hist_html = "".join(build_signal_card(s, False) for s in history)
     feat_html = build_signal_card(featured, True) if featured else "<p style='color:#7d8590'>No analysis data available yet.</p>"
 
@@ -541,7 +514,7 @@ def generate_index(featured: dict, history: list, all_ai_files: list) -> str:
     vix      = featured.get("vix_zone",  "")
     synth    = featured.get("synthesis", "")
     regime_emoji = {"BULL":"🟢","BEAR":"🔴","NEUTRAL":"🟡","TRANSITION":"🔵"}.get(regime,"⚪")
-    og_title  = f"InfoAlpha — {regime_emoji} {regime} | Signal Alignment {strength}/10 | {date_d}"
+    og_title  = f"InfoAlpha Trading Tools — {regime_emoji} {regime} | Signal Alignment {strength}/10 | {date_d}"
     og_desc   = (
         f"NSE market regime: {regime} (strength {strength}/10, VIX {vix}). "
         f"{synth[:160].rstrip('…')}… "
@@ -550,9 +523,9 @@ def generate_index(featured: dict, history: list, all_ai_files: list) -> str:
         "InfoAlpha — AI-powered NSE market regime engine. "
         "Institutional flow, FII OI, breadth, VIX, and options positioning — every trading day."
     )
-    og_url    = "https://infoalpha.in/"
+    og_url    = "https://infoalpha.in/tradingtool.html"
     og_image  = "https://infoalpha.in/banner.png"
-    site_name = "InfoAlpha"
+    site_name = "InfoAlpha Trading Tools"
     keywords  = (
         "NSE market regime, FII OI analysis, India VIX, Nifty options OI, "
         "market breadth, delivery spike screener, institutional flow, "
@@ -606,7 +579,7 @@ def generate_index(featured: dict, history: list, all_ai_files: list) -> str:
 {{
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "InfoAlpha",
+  "name": "InfoAlpha Trading Tools",
   "url": "{og_url}",
   "description": "AI-powered NSE market regime engine — institutional flow, FII OI, breadth, VIX, and options positioning intelligence.",
   "author": {{
@@ -627,72 +600,39 @@ def generate_index(featured: dict, history: list, all_ai_files: list) -> str:
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{{
-  --bg:#080d14;
-  --bg2:#0d1520;
-  --surface:#111923;
-  --surface2:#172030;
-  --border:#1e2d3d;
-  --border2:#243547;
-  --tx:#d4e4f7;
-  --tx2:#8ca8c5;
-  --tx3:#4d6a84;
-  --accent:#3b9eff;
-  --accent2:#1a6fcc;
-  --bull:#2ecc71;
-  --bear:#e74c3c;
-  --neu:#f39c12;
-  --mono:'Space Mono',monospace;
-  --sans:'Sora',sans-serif;
+  --bg:#080d14;--bg2:#0d1520;--surface:#111923;--surface2:#172030;
+  --border:#1e2d3d;--border2:#243547;--tx:#d4e4f7;--tx2:#8ca8c5;--tx3:#4d6a84;
+  --accent:#3b9eff;--accent2:#1a6fcc;--bull:#2ecc71;--bear:#e74c3c;--neu:#f39c12;
+  --mono:'Space Mono',monospace;--sans:'Sora',sans-serif;
 }}
 *{{box-sizing:border-box;margin:0;padding:0}}
 html{{scroll-behavior:smooth}}
-body{{
-  background:var(--bg);
-  color:var(--tx);
-  font-family:var(--sans);
-  font-size:13px;
-  min-height:100vh;
-  background-image:radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59,158,255,.08) 0%, transparent 60%);
-}}
-
-/* ── NAV ── */
-nav{{
-  position:sticky;top:0;z-index:100;
-  background:rgba(8,13,20,.92);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  padding:0 28px;
-  display:flex;align-items:center;justify-content:space-between;
-  height:54px;
-}}
+body{{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:13px;min-height:100vh;background-image:radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59,158,255,.08) 0%, transparent 60%);}}
+nav{{position:sticky;top:0;z-index:100;background:rgba(8,13,20,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:54px;}}
 .nav-brand{{display:flex;flex-direction:row;align-items:center;gap:10px;text-decoration:none}}
 .nav-brand-name{{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--accent);letter-spacing:.5px}}
 .nav-brand-sub{{font-size:9px;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase}}
-.nav-links{{display:flex;gap:24px;align-items:center}}
+.nav-links{{display:flex;gap:22px;align-items:center}}
 .nav-links a{{color:var(--tx2);text-decoration:none;font-size:12px;font-weight:600;letter-spacing:.3px;transition:color .15s}}
 .nav-links a:hover{{color:var(--tx)}}
-.nav-cta{{background:var(--accent);color:#000;font-weight:700;padding:6px 16px;border-radius:6px;font-size:11px;letter-spacing:.5px;text-decoration:none;transition:background .15s}}
-.nav-cta:hover{{background:#5aabff;color:#000}}
-
-/* ── HERO ── */
-.hero{{padding:70px 28px 50px;max-width:1100px;margin:0 auto;text-align:center}}
+.nav-cta{{background:var(--accent);color:#000!important;font-weight:700!important;padding:6px 16px;border-radius:6px;font-size:11px!important;letter-spacing:.5px;text-decoration:none;transition:background .15s}}
+.nav-cta:hover{{background:#5aabff!important}}
+.nav-home-link{{display:flex;align-items:center;gap:6px;background:rgba(59,158,255,.1);border:1px solid rgba(59,158,255,.25);color:var(--accent)!important;padding:5px 12px;border-radius:6px;font-size:11px!important;font-weight:700!important;letter-spacing:.3px;text-decoration:none;transition:all .15s;}}
+.nav-home-link:hover{{background:rgba(59,158,255,.2)!important}}
+.hero{{padding:56px 28px 42px;max-width:1100px;margin:0 auto;text-align:center}}
 .hero-tag{{display:inline-block;background:rgba(59,158,255,.12);border:1px solid rgba(59,158,255,.25);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:20px}}
-.hero h1{{font-size:clamp(28px,5vw,48px);font-weight:800;line-height:1.15;color:#e8f4ff;margin-bottom:16px}}
+.hero h1{{font-size:clamp(26px,4.5vw,44px);font-weight:800;line-height:1.15;color:#e8f4ff;margin-bottom:14px}}
 .hero h1 span{{color:var(--accent)}}
-.hero-sub{{color:var(--tx2);font-size:14px;max-width:600px;margin:0 auto 36px;line-height:1.7;font-weight:300}}
+.hero-sub{{color:var(--tx2);font-size:14px;max-width:600px;margin:0 auto 32px;line-height:1.7;font-weight:300}}
 .hero-stats{{display:flex;gap:0;justify-content:center;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:680px;margin:0 auto}}
 .hero-stat{{flex:1;padding:18px 12px;text-align:center;border-right:1px solid var(--border)}}
 .hero-stat:last-child{{border-right:none}}
 .hs-val{{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--tx)}}
 .hs-label{{font-size:9px;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px}}
-
-/* ── SECTION ── */
 .section{{max-width:1100px;margin:0 auto;padding:40px 28px}}
 .section-label{{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:6px;display:flex;align-items:center;gap:8px}}
 .section-label::before{{content:"";display:block;width:18px;height:1px;background:var(--border2)}}
 .section-title{{font-size:22px;font-weight:700;color:#e8f4ff;margin-bottom:24px}}
-
-/* ── FEATURED SIGNAL ── */
 .featured-signal{{background:var(--surface);border:1px solid var(--border2);border-radius:14px;overflow:hidden}}
 .fs-header{{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;gap:16px}}
 .fs-date{{font-family:var(--mono);font-size:11px;color:var(--tx2);letter-spacing:.5px}}
@@ -708,117 +648,42 @@ nav{{
 .fs-col{{padding:20px 24px;border-right:1px solid var(--border)}}
 .fs-col:last-child{{border-right:none}}
 .fs-section-title{{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);margin-bottom:10px}}
-.fs-section-label{{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tx3)}}
 .fs-text{{color:var(--tx2);font-size:12px;line-height:1.8}}
 .fs-risks{{padding:12px 24px;background:rgba(231,76,60,.03);border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px}}
 .risk-item{{background:rgba(231,76,60,.07);border:1px solid rgba(231,76,60,.15);color:#e74c3c;font-size:10px;padding:3px 10px;border-radius:5px;line-height:1.5}}
 .fs-footer{{padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:12px}}
 .btn-outline{{border:1px solid var(--border2);color:var(--accent);padding:6px 16px;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;letter-spacing:.3px;transition:all .15s}}
 .btn-outline:hover{{background:rgba(59,158,255,.1);border-color:var(--accent)}}
-
-/* ── TRADER VIEW (NEW) ── */
-.fs-trader-section{{
-  border-top:1px solid var(--border);
-  padding:16px 24px 20px;
-  background:rgba(13,21,32,.5);
-}}
-.fs-trader-header{{
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:10px;
-  margin-bottom:14px;
-}}
+.fs-trader-section{{border-top:1px solid var(--border);padding:16px 24px 20px;background:rgba(13,21,32,.5);}}
 .tv-tabs{{display:flex;gap:6px;flex-wrap:wrap}}
-.tv-tab{{
-  background:var(--surface2);
-  border:1px solid var(--border);
-  color:var(--tx3);
-  font-size:11px;font-weight:600;
-  padding:5px 12px;border-radius:6px;
-  cursor:pointer;
-  display:flex;align-items:center;gap:6px;
-  transition:all .15s;
-  --tv-active:#e3b341;
-}}
+.tv-tab{{background:var(--surface2);border:1px solid var(--border);color:var(--tx3);font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;--tv-active:#e3b341;}}
 .tv-tab:hover{{border-color:var(--border2);color:var(--tx2)}}
-.tv-tab.tv-active{{
-  border-color:var(--tv-active);
-  color:var(--tv-active);
-  background:rgba(255,255,255,.04);
-}}
+.tv-tab.tv-active{{border-color:var(--tv-active);color:var(--tv-active);background:rgba(255,255,255,.04);}}
 .tv-cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}
 @media(max-width:800px){{.tv-cards{{grid-template-columns:1fr}}}}
-.tv-tf{{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:12px 14px;
-  display:none;
-}}
+.tv-tf{{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:none;}}
 .tv-tf.tv-visible{{display:block}}
-.tv-tf-hdr{{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:10px;
-}}
-.tv-tf-label{{
-  font-family:var(--mono);
-  font-size:9px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--tx3);
-}}
-.tv-bias-pill{{
-  font-family:var(--mono);font-size:10px;font-weight:700;
-  padding:2px 8px;border-radius:5px;
-}}
-.tv-levels{{
-  background:rgba(0,0,0,.2);
-  border-radius:6px;padding:8px 10px;
-  margin-bottom:10px;
-}}
-.tv-level-row{{
-  display:flex;align-items:center;gap:8px;
-  padding:3px 0;
-}}
-.tv-lr-icon{{
-  font-family:var(--mono);font-size:10px;font-weight:700;
-  min-width:14px;
-}}
-.tv-lr-vals{{
-  font-family:var(--mono);font-size:11px;font-weight:600;
-  letter-spacing:.3px;
-}}
+.tv-tf-hdr{{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}}
+.tv-tf-label{{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);}}
+.tv-bias-pill{{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;}}
+.tv-levels{{background:rgba(0,0,0,.2);border-radius:6px;padding:8px 10px;margin-bottom:10px;}}
+.tv-level-row{{display:flex;align-items:center;gap:8px;padding:3px 0;}}
+.tv-lr-icon{{font-family:var(--mono);font-size:10px;font-weight:700;min-width:14px;}}
+.tv-lr-vals{{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.3px;}}
 .tv-setups{{display:flex;flex-direction:column;gap:8px}}
-.tv-setup{{
-  border-radius:6px;padding:8px 10px;
-  font-size:11px;
-}}
+.tv-setup{{border-radius:6px;padding:8px 10px;font-size:11px;}}
 .tv-short{{background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.15)}}
-.tv-long {{background:rgba(63,185,80,.06);border:1px solid rgba(63,185,80,.15)}}
-.tv-setup-title{{
-  font-size:9px;font-weight:700;letter-spacing:1px;
-  text-transform:uppercase;margin-bottom:6px;
-}}
+.tv-long{{background:rgba(63,185,80,.06);border:1px solid rgba(63,185,80,.15)}}
+.tv-setup-title{{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}}
 .tv-short .tv-setup-title{{color:#f85149}}
-.tv-long  .tv-setup-title{{color:#3fb950}}
+.tv-long .tv-setup-title{{color:#3fb950}}
 .tv-row{{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04)}}
 .tv-row:last-child{{border-bottom:none}}
 .tv-k{{color:var(--tx3);font-size:10px}}
 .tv-v{{font-size:10px;font-weight:600;text-align:right;max-width:60%;word-break:break-word}}
-.tv-entry-s{{color:#f87171}}
-.tv-entry-l{{color:#86efac}}
-.tv-stop   {{color:#ffa657}}
-.tv-tgt    {{color:#7dd3fc}}
-.tv-inv    {{color:var(--tx3);font-size:9px}}
-.tv-note{{
-  margin-top:8px;
-  border-left:2px solid #e3b341;
-  padding:5px 8px;
-  font-size:10px;color:var(--tx3);
-  line-height:1.6;
-  border-radius:0 4px 4px 0;
-  background:rgba(255,255,255,.02);
-}}
+.tv-entry-s{{color:#f87171}}.tv-entry-l{{color:#86efac}}.tv-stop{{color:#ffa657}}.tv-tgt{{color:#7dd3fc}}.tv-inv{{color:var(--tx3);font-size:9px}}
+.tv-note{{margin-top:8px;border-left:2px solid #e3b341;padding:5px 8px;font-size:10px;color:var(--tx3);line-height:1.6;border-radius:0 4px 4px 0;background:rgba(255,255,255,.02);}}
 .tv-empty{{color:var(--tx3);font-size:11px;font-style:italic;padding:8px 0}}
-
-/* ── HISTORY CARDS ── */
 .hist-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}}
 .hist-card{{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .15s,transform .15s}}
 .hist-card:hover{{border-color:var(--border2);transform:translateY(-2px)}}
@@ -832,8 +697,6 @@ nav{{
 .hist-links{{display:flex;gap:10px}}
 .hist-links a{{color:var(--accent);font-size:10px;text-decoration:none;font-weight:600}}
 .hist-links a:hover{{text-decoration:underline}}
-
-/* ── TOOL GRID ── */
 .tool-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}}
 .tool-card{{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;text-decoration:none;transition:border-color .15s,background .15s;display:block}}
 .tool-card:hover{{border-color:var(--accent2);background:var(--surface2)}}
@@ -841,23 +704,17 @@ nav{{
 .tool-name{{font-weight:700;font-size:13px;color:#e8f4ff;margin-bottom:4px}}
 .tool-desc{{color:var(--tx3);font-size:11px;line-height:1.5}}
 .tool-badge{{display:inline-block;margin-top:8px;background:rgba(59,158,255,.1);color:var(--accent);font-size:9px;padding:2px 7px;border-radius:4px;letter-spacing:.5px;font-weight:600}}
-
-/* ── HOW IT WORKS ── */
 .how-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}}
 .how-step{{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 18px;position:relative;overflow:hidden}}
 .how-step::before{{content:attr(data-num);position:absolute;top:-10px;right:14px;font-family:var(--mono);font-size:72px;font-weight:700;color:rgba(59,158,255,.04);line-height:1}}
 .how-step-title{{font-weight:700;font-size:13px;color:#e8f4ff;margin-bottom:6px}}
 .how-step-desc{{color:var(--tx3);font-size:11px;line-height:1.65}}
-
-/* ── REPORTS LIST ── */
 .reports-list{{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}}
 .reports-list li{{list-style:none;border-bottom:1px solid var(--border);padding:10px 18px;display:flex;align-items:center;gap:8px}}
 .reports-list li:last-child{{border-bottom:none}}
 .reports-list li::before{{content:"▸";color:var(--accent);font-size:11px}}
 .reports-list li a{{color:var(--tx2);text-decoration:none;font-family:var(--mono);font-size:11px;transition:color .15s}}
 .reports-list li a:hover{{color:var(--accent)}}
-
-/* ── ABOUT / SOCIAL ── */
 .about-grid{{display:grid;grid-template-columns:2fr 1fr;gap:20px}}
 @media(max-width:700px){{.about-grid{{grid-template-columns:1fr}}}}
 .about-card{{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}}
@@ -868,25 +725,16 @@ nav{{
 .social-link-text{{color:var(--tx2);font-size:11px;font-weight:600}}
 .support-box{{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;margin-top:20px}}
 .upi-block{{background:rgba(59,158,255,.06);border:1px solid rgba(59,158,255,.15);border-radius:8px;padding:16px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;color:var(--accent)}}
-
-/* ── CTA BANNER ── */
 .cta-banner{{background:linear-gradient(135deg,#0a1f3d 0%,#0d2848 100%);border:1px solid rgba(59,158,255,.2);border-radius:14px;padding:42px 32px;text-align:center;margin:40px 28px;max-width:1100px;margin-left:auto;margin-right:auto}}
 .cta-title{{font-size:22px;font-weight:800;color:#e8f4ff;margin-bottom:10px}}
 .cta-sub{{color:var(--tx2);font-size:13px;margin-bottom:22px}}
 .cta-btn{{background:var(--accent);color:#000;padding:12px 32px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;display:inline-block;transition:background .15s}}
 .cta-btn:hover{{background:#5aabff;color:#000}}
-
-/* ── FOOTER ── */
 footer{{border-top:1px solid var(--border);padding:20px 28px;text-align:center;color:var(--tx3);font-size:11px}}
 footer a{{color:var(--tx3);text-decoration:none}}
 footer a:hover{{color:var(--tx2)}}
 .divider{{height:1px;background:var(--border);max-width:1100px;margin:0 auto}}
-
-@media(max-width:600px){{
-  .nav-links{{display:none}}
-  .hero{{padding:48px 16px 36px}}
-  .section{{padding:28px 16px}}
-}}
+@media(max-width:600px){{.nav-links{{display:none}}.hero{{padding:48px 16px 36px}}.section{{padding:28px 16px}}}}
 </style>
 </head>
 
@@ -894,7 +742,7 @@ footer a:hover{{color:var(--tx2)}}
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-brand">
+  <a href="index.html" class="nav-brand">
     <img src="logo.png" alt="InfoAlpha logo" style="height:40px;width:40px;object-fit:contain;border-radius:4px">
     <div>
       <span class="nav-brand-name">InfoAlpha</span>
@@ -907,6 +755,7 @@ footer a:hover{{color:var(--tx2)}}
     <a href="#oi">OI Charts</a>
     <a href="#reports">AI Reports</a>
     <a href="#about">About</a>
+    <a href="index.html" class="nav-home-link">🌐 Digital Services</a>
     <a href="https://t.me/volumepricemove" target="_blank" class="nav-cta" style="background:#229ED9">✈ Telegram</a>
     <a href="https://www.youtube.com/@InfoAlphain" target="_blank" class="nav-cta">▶ YouTube</a>
   </div>
@@ -949,42 +798,12 @@ footer a:hover{{color:var(--tx2)}}
   <div class="section-label">Market Screeners</div>
   <div class="section-title">Signal Dashboards</div>
   <div class="tool-grid">
-    <a href="breadth.html" class="tool-card" target="_blank">
-      <div class="tool-icon">📊</div>
-      <div class="tool-name">Breadth Analysis</div>
-      <div class="tool-desc">Advances/declines, EMA% and market participation across N50/N200/N500</div>
-      <span class="tool-badge">60-day history</span>
-    </a>
-    <a href="delivery_spike.html" class="tool-card" target="_blank">
-      <div class="tool-icon">📦</div>
-      <div class="tool-name">Delivery Spike</div>
-      <div class="tool-desc">Institutional accumulation detection — 2× delivery spikes filtered for HFT noise</div>
-      <span class="tool-badge">smart money</span>
-    </a>
-    <a href="highlow.html" class="tool-card" target="_blank">
-      <div class="tool-icon">📈</div>
-      <div class="tool-name">High / Low Resilience</div>
-      <div class="tool-desc">Position within 5D–200D range. Fully resilient = above 80% across all periods</div>
-      <span class="tool-badge">5 periods</span>
-    </a>
-    <a href="momentum_ma.html" class="tool-card" target="_blank">
-      <div class="tool-icon">🚀</div>
-      <div class="tool-name">Momentum / MA</div>
-      <div class="tool-desc">MA5/20/50/200 scores, ATR%, RSI, and relative strength vs NIFTYBEES</div>
-      <span class="tool-badge">RS leaders tab</span>
-    </a>
-    <a href="recurring_entry.html" class="tool-card" target="_blank">
-      <div class="tool-icon">🔁</div>
-      <div class="tool-name">Recurring Entry</div>
-      <div class="tool-desc">Stocks qualifying on 4+/6 score repeatedly — relative delivery vs own 60D avg</div>
-      <span class="tool-badge">40-day scan</span>
-    </a>
-    <a href="sector_rotation.html" class="tool-card" target="_blank">
-      <div class="tool-icon">⚡</div>
-      <div class="tool-name">Sector Rotation</div>
-      <div class="tool-desc">Smart money phase (Accumulation / Markup / Distribution) by sector and industry</div>
-      <span class="tool-badge">SM signals</span>
-    </a>
+    <a href="breadth.html" class="tool-card" target="_blank"><div class="tool-icon">📊</div><div class="tool-name">Breadth Analysis</div><div class="tool-desc">Advances/declines, EMA% and market participation across N50/N200/N500</div><span class="tool-badge">60-day history</span></a>
+    <a href="delivery_spike.html" class="tool-card" target="_blank"><div class="tool-icon">📦</div><div class="tool-name">Delivery Spike</div><div class="tool-desc">Institutional accumulation detection — 2× delivery spikes filtered for HFT noise</div><span class="tool-badge">smart money</span></a>
+    <a href="highlow.html" class="tool-card" target="_blank"><div class="tool-icon">📈</div><div class="tool-name">High / Low Resilience</div><div class="tool-desc">Position within 5D–200D range. Fully resilient = above 80% across all periods</div><span class="tool-badge">5 periods</span></a>
+    <a href="momentum_ma.html" class="tool-card" target="_blank"><div class="tool-icon">🚀</div><div class="tool-name">Momentum / MA</div><div class="tool-desc">MA5/20/50/200 scores, ATR%, RSI, and relative strength vs NIFTYBEES</div><span class="tool-badge">RS leaders tab</span></a>
+    <a href="recurring_entry.html" class="tool-card" target="_blank"><div class="tool-icon">🔁</div><div class="tool-name">Recurring Entry</div><div class="tool-desc">Stocks qualifying on 4+/6 score repeatedly — relative delivery vs own 60D avg</div><span class="tool-badge">40-day scan</span></a>
+    <a href="sector_rotation.html" class="tool-card" target="_blank"><div class="tool-icon">⚡</div><div class="tool-name">Sector Rotation</div><div class="tool-desc">Smart money phase (Accumulation / Markup / Distribution) by sector and industry</div><span class="tool-badge">SM signals</span></a>
   </div>
 </div>
 
@@ -995,46 +814,14 @@ footer a:hover{{color:var(--tx2)}}
   <div class="section-label">Derivatives Intelligence</div>
   <div class="section-title">Options OI Structure</div>
   <div class="tool-grid">
-    <a href="options_oi_chart.html" class="tool-card" target="_blank">
-      <div class="tool-icon">🎯</div>
-      <div class="tool-name">Weekly OI</div>
-      <div class="tool-desc">CE vs PE open interest — current week expiry</div>
-    </a>
-    <a href="options_oi_chartnxtweek.html" class="tool-card" target="_blank">
-      <div class="tool-icon">🎯</div>
-      <div class="tool-name">Next Week OI</div>
-      <div class="tool-desc">Next expiry positioning analysis</div>
-    </a>
-    <a href="options_oi_chartmonth.html" class="tool-card" target="_blank">
-      <div class="tool-icon">📅</div>
-      <div class="tool-name">Monthly OI</div>
-      <div class="tool-desc">Monthly expiry option structure and max pain</div>
-    </a>
-    <a href="options_oi_chartnxtmonth.html" class="tool-card" target="_blank">
-      <div class="tool-icon">📅</div>
-      <div class="tool-name">Next Month OI</div>
-      <div class="tool-desc">Next month institutional positioning data</div>
-    </a>
-    <a href="csvweek.html" class="tool-card" target="_blank">
-      <div class="tool-icon">🔍</div>
-      <div class="tool-name">OI Filter — Weekly</div>
-      <div class="tool-desc">Filtered OI table with building/unwinding tags</div>
-    </a>
-    <a href="csvmonth.html" class="tool-card" target="_blank">
-      <div class="tool-icon">🔍</div>
-      <div class="tool-name">OI Filter — Monthly</div>
-      <div class="tool-desc">Monthly OI table with change analysis</div>
-    </a>
-    <a href="Dashboard.html" class="tool-card" target="_blank">
-      <div class="tool-icon">📉</div>
-      <div class="tool-name">OI Changes — Weekly</div>
-      <div class="tool-desc">4-day comparison of weekly OI movement</div>
-    </a>
-    <a href="DashboardMonth.html" class="tool-card" target="_blank">
-      <div class="tool-icon">📉</div>
-      <div class="tool-name">OI Changes — Monthly</div>
-      <div class="tool-desc">4-day comparison of monthly OI movement</div>
-    </a>
+    <a href="options_oi_chart.html" class="tool-card" target="_blank"><div class="tool-icon">🎯</div><div class="tool-name">Weekly OI</div><div class="tool-desc">CE vs PE open interest — current week expiry</div></a>
+    <a href="options_oi_chartnxtweek.html" class="tool-card" target="_blank"><div class="tool-icon">🎯</div><div class="tool-name">Next Week OI</div><div class="tool-desc">Next expiry positioning analysis</div></a>
+    <a href="options_oi_chartmonth.html" class="tool-card" target="_blank"><div class="tool-icon">📅</div><div class="tool-name">Monthly OI</div><div class="tool-desc">Monthly expiry option structure and max pain</div></a>
+    <a href="options_oi_chartnxtmonth.html" class="tool-card" target="_blank"><div class="tool-icon">📅</div><div class="tool-name">Next Month OI</div><div class="tool-desc">Next month institutional positioning data</div></a>
+    <a href="csvweek.html" class="tool-card" target="_blank"><div class="tool-icon">🔍</div><div class="tool-name">OI Filter — Weekly</div><div class="tool-desc">Filtered OI table with building/unwinding tags</div></a>
+    <a href="csvmonth.html" class="tool-card" target="_blank"><div class="tool-icon">🔍</div><div class="tool-name">OI Filter — Monthly</div><div class="tool-desc">Monthly OI table with change analysis</div></a>
+    <a href="Dashboard.html" class="tool-card" target="_blank"><div class="tool-icon">📉</div><div class="tool-name">OI Changes — Weekly</div><div class="tool-desc">4-day comparison of weekly OI movement</div></a>
+    <a href="DashboardMonth.html" class="tool-card" target="_blank"><div class="tool-icon">📉</div><div class="tool-name">OI Changes — Monthly</div><div class="tool-desc">4-day comparison of monthly OI movement</div></a>
   </div>
 </div>
 
@@ -1056,26 +843,11 @@ footer a:hover{{color:var(--tx2)}}
   <div class="section-label">Methodology</div>
   <div class="section-title">How the System Works</div>
   <div class="how-grid">
-    <div class="how-step" data-num="01">
-      <div class="how-step-title">NSE EOD Data Collection</div>
-      <div class="how-step-desc">Daily bhav copy, FO participant OI (fao_participant_oi), FII cash stats, and VIX history downloaded from NSE archives.</div>
-    </div>
-    <div class="how-step" data-num="02">
-      <div class="how-step-title">Quant Feature Extraction</div>
-      <div class="how-step-desc">Breadth, delivery spikes, momentum MA, high/low resilience, sector rotation, and options OI structure computed per symbol.</div>
-    </div>
-    <div class="how-step" data-num="03">
-      <div class="how-step-title">Python Labels All Rules</div>
-      <div class="how-step-desc">Regime (BULL/BEAR/NEUTRAL/TRANSITION), VIX zone, conviction cap, FII vs Client divergence, breadth trend, and stock futures sentiment are all computed in Python — zero hallucination risk.</div>
-    </div>
-    <div class="how-step" data-num="04">
-      <div class="how-step-title">Claude Finds Anomalies</div>
-      <div class="how-step-desc">Claude receives raw numbers only — no labels, no rules. It identifies unusual patterns, writes the OI / FII / breadth / F&O narratives, synthesis, and action plan in a single API call.</div>
-    </div>
-    <div class="how-step" data-num="05">
-      <div class="how-step-title">Static Site Publish</div>
-      <div class="how-step-desc">All HTML reports and screeners are copied to GitHub Pages and served from infoalpha.in — no server, no login, no tracking.</div>
-    </div>
+    <div class="how-step" data-num="01"><div class="how-step-title">NSE EOD Data Collection</div><div class="how-step-desc">Daily bhav copy, FO participant OI (fao_participant_oi), FII cash stats, and VIX history downloaded from NSE archives.</div></div>
+    <div class="how-step" data-num="02"><div class="how-step-title">Quant Feature Extraction</div><div class="how-step-desc">Breadth, delivery spikes, momentum MA, high/low resilience, sector rotation, and options OI structure computed per symbol.</div></div>
+    <div class="how-step" data-num="03"><div class="how-step-title">Python Labels All Rules</div><div class="how-step-desc">Regime (BULL/BEAR/NEUTRAL/TRANSITION), VIX zone, conviction cap, FII vs Client divergence, breadth trend, and stock futures sentiment are all computed in Python — zero hallucination risk.</div></div>
+    <div class="how-step" data-num="04"><div class="how-step-title">Claude Finds Anomalies</div><div class="how-step-desc">Claude receives raw numbers only — no labels, no rules. It identifies unusual patterns, writes the OI / FII / breadth / F&O narratives, synthesis, and action plan in a single API call.</div></div>
+    <div class="how-step" data-num="05"><div class="how-step-title">Static Site Publish</div><div class="how-step-desc">All HTML reports and screeners are copied to GitHub Pages and served from infoalpha.in — no server, no login, no tracking.</div></div>
   </div>
 </div>
 
@@ -1099,48 +871,29 @@ footer a:hover{{color:var(--tx2)}}
         model before feeding it to Claude for synthesis.
       </p>
       <p style="color:var(--tx3);font-size:11px;line-height:1.7">
-        Services: Website Development · Drupal · Market Research · Quant Analysis · AI & Data Training
+        Also offers: Website Development · Drupal · AWS Cloud · Digital Marketing · Training →
+        <a href="index.html" style="color:var(--accent);text-decoration:none;font-weight:700">infoalpha.in</a>
       </p>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-        <a href="https://wa.me/919884346789" target="_blank"
-           style="display:flex;align-items:center;gap:7px;background:#25D366;color:#000;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">
-          💬 WhatsApp Me
-        </a>
-        <a href="https://t.me/volumepricemove" target="_blank"
-           style="display:flex;align-items:center;gap:7px;background:#229ED9;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">
-          ✈ Telegram Channel
-        </a>
+        <a href="https://wa.me/919884346789" target="_blank" style="display:flex;align-items:center;gap:7px;background:#25D366;color:#000;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">💬 WhatsApp Me</a>
+        <a href="https://t.me/volumepricemove" target="_blank" style="display:flex;align-items:center;gap:7px;background:#229ED9;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">✈ Telegram</a>
+        <a href="index.html" style="display:flex;align-items:center;gap:7px;background:rgba(59,158,255,.15);border:1px solid rgba(59,158,255,.3);color:var(--accent);font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">🌐 Digital Services</a>
       </div>
       <div class="support-box" style="margin-top:20px;padding:20px">
-        <div style="color:var(--tx2);font-size:12px;line-height:1.7;margin-bottom:10px">
-          If you find these signals useful, consider supporting the infrastructure and research:
-        </div>
+        <div style="color:var(--tx2);font-size:12px;line-height:1.7;margin-bottom:10px">If you find these signals useful, consider supporting the infrastructure and research:</div>
         <div class="upi-block">💸 UPI: <strong>websivasankar@okicici</strong></div>
       </div>
     </div>
-
     <div>
       <div class="about-card" style="margin-bottom:12px">
         <div style="color:var(--tx3);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">Connect</div>
         <div class="social-links">
-          <a href="https://t.me/volumepricemove" class="social-link" target="_blank">
-            <span class="social-link-icon">✈</span><span class="social-link-text">Telegram @volumepricemove</span>
-          </a>
-          <a href="https://wa.me/919884346789" class="social-link" target="_blank">
-            <span class="social-link-icon">💬</span><span class="social-link-text">WhatsApp +91 98843 46789</span>
-          </a>
-          <a href="https://www.youtube.com/@InfoAlphain" class="social-link" target="_blank">
-            <span class="social-link-icon">▶</span><span class="social-link-text">YouTube @InfoAlphain</span>
-          </a>
-          <a href="https://www.linkedin.com/in/ssivasankar/" class="social-link" target="_blank">
-            <span class="social-link-icon">in</span><span class="social-link-text">LinkedIn · Sivasankar S</span>
-          </a>
-          <a href="https://x.com/ssankarsiva" class="social-link" target="_blank">
-            <span class="social-link-icon">𝕏</span><span class="social-link-text">@ssankarsiva</span>
-          </a>
-          <a href="https://www.drupal.org/u/ssankarsiva" class="social-link" target="_blank">
-            <span class="social-link-icon">🔵</span><span class="social-link-text">Drupal · ssankarsiva</span>
-          </a>
+          <a href="https://t.me/volumepricemove" class="social-link" target="_blank"><span class="social-link-icon">✈</span><span class="social-link-text">Telegram @volumepricemove</span></a>
+          <a href="https://wa.me/919884346789" class="social-link" target="_blank"><span class="social-link-icon">💬</span><span class="social-link-text">WhatsApp +91 98843 46789</span></a>
+          <a href="https://www.youtube.com/@InfoAlphain" class="social-link" target="_blank"><span class="social-link-icon">▶</span><span class="social-link-text">YouTube @InfoAlphain</span></a>
+          <a href="https://www.linkedin.com/in/ssivasankar/" class="social-link" target="_blank"><span class="social-link-icon">in</span><span class="social-link-text">LinkedIn · Sivasankar S</span></a>
+          <a href="https://x.com/ssankarsiva" class="social-link" target="_blank"><span class="social-link-icon">𝕏</span><span class="social-link-text">@ssankarsiva</span></a>
+          <a href="https://www.drupal.org/u/ssankarsiva" class="social-link" target="_blank"><span class="social-link-icon">🔵</span><span class="social-link-text">Drupal · ssankarsiva</span></a>
         </div>
       </div>
     </div>
@@ -1161,7 +914,7 @@ footer a:hover{{color:var(--tx2)}}
     All data presented is derived from publicly available NSE EOD information (bhav copy, FO participant OI, FII/DII cash stats, India VIX).
     Technical levels shown represent structural observations only and do not constitute buy/sell recommendations or investment advice.
     InfoAlpha and Sivasankar S are not registered with SEBI as investment advisers or research analysts.
-    Individuals are solely responsible for their own financial decisions. Past structural patterns do not guarantee future price outcomes.
+    Individuals are solely responsible for their own financial decisions.
   </p>
   <p style="margin-top:8px">
     <a href="https://t.me/volumepricemove" target="_blank">Telegram</a> &nbsp;·&nbsp;
@@ -1169,27 +922,21 @@ footer a:hover{{color:var(--tx2)}}
     <a href="https://www.youtube.com/@InfoAlphain" target="_blank">YouTube</a> &nbsp;·&nbsp;
     <a href="https://www.linkedin.com/in/ssivasankar/" target="_blank">LinkedIn</a> &nbsp;·&nbsp;
     <a href="https://x.com/ssankarsiva" target="_blank">X</a> &nbsp;·&nbsp;
+    <a href="index.html">← Digital Services</a> &nbsp;·&nbsp;
     <a href="https://infoalpha.in" target="_blank">infoalpha.in</a>
   </p>
 </footer>
 
-<!-- Trader View Tab JS (global — works for any featured card on page) -->
+<!-- Trader View Tab JS -->
 <script>
 function tvTab(btn) {{
   var target = btn.getAttribute('data-target');
-  // Deactivate all tabs and hide all cards
-  document.querySelectorAll('.tv-tab').forEach(function(b) {{
-    b.classList.remove('tv-active');
-  }});
-  document.querySelectorAll('.tv-tf').forEach(function(c) {{
-    c.classList.remove('tv-visible');
-  }});
-  // Activate clicked tab and show matching card
+  document.querySelectorAll('.tv-tab').forEach(function(b) {{ b.classList.remove('tv-active'); }});
+  document.querySelectorAll('.tv-tf').forEach(function(c) {{ c.classList.remove('tv-visible'); }});
   btn.classList.add('tv-active');
   var card = document.getElementById(target);
   if (card) card.classList.add('tv-visible');
 }}
-// Auto-activate first tab on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {{
   var first = document.querySelector('.tv-tab');
   if (first) tvTab(first);
@@ -1238,7 +985,7 @@ def main():
 
     def _ai_file_date(fname: str) -> str:
         import re as _re
-        stem = fname.replace("ai_analysis_v5_", "").replace("ai_analysis_v4_", "").replace("ai_analysis_", "").replace(".html", "")
+        stem = fname.replace("ai_analysis_v5_","").replace("ai_analysis_v4_","").replace("ai_analysis_","").replace(".html","")
         parts = stem.split("_")
         parts = [p for p in parts if p.isdigit()]
         if len(parts) < 3:
@@ -1261,17 +1008,22 @@ def main():
             _date_map[key] = fname
     all_ai = [v for _, v in sorted(_date_map.items(), reverse=True)]
 
-    html = generate_index(featured, history_signals, all_ai)
-    out  = DEST_FOLDER / "index.html"
+    html = generate_tradingtool(featured, history_signals, all_ai)
+    out  = DEST_FOLDER / "tradingtool.html"
     out.write_text(html, encoding="utf-8")
+
+    # IMPORTANT: Do NOT overwrite index.html — it is the static digital services page
+    print("NOTE: index.html (digital services page) was NOT touched.")
 
     print("Injecting brand into existing HTML files …")
     for f in DEST_FOLDER.glob("*.html"):
-        if f.name == "index.html":
+        if f.name in ("tradingtool.html", "index.html"):
             continue
+        if f.name in ("index.html", "index.html"):
+            continue        
         inject_brand(f)
 
-    print(f"✅  index.html written → {out}")
+    print(f"✅  tradingtool.html written → {out}")
     print(f"    Featured: {featured.get('date_raw','none')} {featured.get('regime','')}")
     print(f"    History:  {[s['date_raw'] for s in history_signals]}")
 
