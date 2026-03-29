@@ -1,5 +1,5 @@
 /**
- * brand.js — InfoAlpha Shared Header & Footer
+ * brand.js — InfoAlpha Shared Header & Footer  (WHITE THEME)
  * =============================================
  * Add ONE line to any page's <body> to get the full branded nav + footer:
  *
@@ -19,9 +19,10 @@
   const CSS = `
   .ia-nav {
     position: sticky; top: 0; z-index: 9999;
-    background: rgba(8,13,20,.96);
+    background: rgba(255,255,255,.97);
     backdrop-filter: blur(14px);
-    border-bottom: 1px solid #1e2d3d;
+    border-bottom: 1px solid #d1d5db;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
     padding: 0 20px;
     display: flex; align-items: center; justify-content: space-between;
     height: 52px;
@@ -38,25 +39,25 @@
   .ia-brand-text { display: flex; flex-direction: column; gap: 1px; }
   .ia-brand-name {
     font-family: 'Space Mono', monospace, 'Courier New';
-    font-weight: 700; font-size: 13px; color: #3b9eff; letter-spacing: .4px;
+    font-weight: 700; font-size: 13px; color: #1a6fcc; letter-spacing: .4px;
     line-height: 1;
   }
   .ia-brand-sub {
-    font-size: 8px; color: #4d6a84;
+    font-size: 8px; color: #6b7280;
     letter-spacing: 1.5px; text-transform: uppercase;
   }
   .ia-nav-links {
     display: flex; align-items: center; gap: 4px; flex-wrap: nowrap;
   }
   .ia-nav-links a {
-    color: #8ca8c5; text-decoration: none;
+    color: #374151; text-decoration: none;
     font-size: 11px; font-weight: 600;
     padding: 5px 10px; border-radius: 6px;
     transition: color .15s, background .15s;
     white-space: nowrap;
   }
-  .ia-nav-links a:hover { color: #d4e4f7; background: rgba(59,158,255,.08); }
-  .ia-nav-links a.ia-active { color: #3b9eff; background: rgba(59,158,255,.1); }
+  .ia-nav-links a:hover { color: #111827; background: rgba(26,111,204,.07); }
+  .ia-nav-links a.ia-active { color: #1a6fcc; background: rgba(26,111,204,.09); }
   .ia-nav-cta {
     padding: 5px 13px !important;
     border-radius: 6px !important;
@@ -79,12 +80,12 @@
   /* ── footer ── */
   .ia-footer {
     margin-top: 48px;
-    border-top: 1px solid #1e2d3d;
-    background: #080d14;
+    border-top: 1px solid #d1d5db;
+    background: #f3f4f6;
     padding: 24px 20px 20px;
     font-family: 'Segoe UI', system-ui, sans-serif;
     font-size: 11px;
-    color: #4d6a84;
+    color: #6b7280;
     box-sizing: border-box;
   }
   .ia-footer-inner {
@@ -98,27 +99,28 @@
     text-decoration: none;
   }
   .ia-footer-brand img {
-    height: 28px; width: 28px; object-fit: contain; border-radius: 3px; opacity: .85;
+    height: 28px; width: 28px; object-fit: contain; border-radius: 3px;
   }
   .ia-footer-brand-name {
-    font-weight: 700; font-size: 12px; color: #3b9eff;
+    font-weight: 700; font-size: 12px; color: #1a6fcc;
     font-family: 'Space Mono', monospace, 'Courier New';
   }
   .ia-footer-links {
     display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
   }
   .ia-footer-links a {
-    color: #4d6a84; text-decoration: none;
+    color: #6b7280; text-decoration: none;
     font-size: 10px; padding: 3px 8px;
-    border: 1px solid #1e2d3d; border-radius: 4px;
+    border: 1px solid #d1d5db; border-radius: 4px;
+    background: #fff;
     transition: color .15s, border-color .15s;
     white-space: nowrap;
   }
-  .ia-footer-links a:hover { color: #8ca8c5; border-color: #243547; }
+  .ia-footer-links a:hover { color: #1a6fcc; border-color: #9ca3af; }
   .ia-footer-disc {
-    width: 100%; font-size: 10px; color: #2a3d50;
+    width: 100%; font-size: 10px; color: #9ca3af;
     text-align: center; margin-top: 10px;
-    border-top: 1px solid #111923; padding-top: 10px;
+    border-top: 1px solid #e5e7eb; padding-top: 10px;
   }
   `;
 

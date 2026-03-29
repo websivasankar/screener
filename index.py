@@ -12,6 +12,7 @@ CHANGELOG:
        in the featured signal card, matching ai_analysis_v4.html.
   v3 — Output renamed to tradingtool.html (index.html is now the digital-services page).
        Nav bar includes a "Digital Services" link back to index.html.
+  v4 — White theme: background white, font black.
 
 Usage:
     python index.py
@@ -250,37 +251,38 @@ def copy_screener_files(src_date_dir: Path):
                 inject_brand(dst)
 
 
-# ── REGIME COLORS ─────────────────────────────────────────────────────────────
+# ── REGIME COLORS (adjusted for white background) ─────────────────────────────
 
 def regime_colors(regime: str) -> tuple:
+    """Returns (bg, text_color, border) tuples — light versions for white theme."""
     r = regime.upper()
     if r in ("BULL", "BULLISH"):
-        return "#0d3d1e", "#4cff8f", "#1a6b35"
+        return "#dcfce7", "#15803d", "#bbf7d0"
     if r in ("BEAR", "BEARISH"):
-        return "#3d0d0d", "#ff5e5e", "#6b1a1a"
+        return "#fee2e2", "#b91c1c", "#fecaca"
     if r == "TRANSITION":
-        return "#0d1a3d", "#79c0ff", "#1a3d6b"
-    return "#2a2300", "#fde68a", "#4a3f00"
+        return "#dbeafe", "#1d4ed8", "#bfdbfe"
+    return "#fef9c3", "#92400e", "#fef08a"
 
 
 def strength_color(s: int) -> str:
-    if s >= 7: return "#4cff8f"
-    if s >= 4: return "#fde68a"
-    return "#ff5e5e"
+    if s >= 7: return "#15803d"
+    if s >= 4: return "#92400e"
+    return "#b91c1c"
 
 
 def cap_color(c: str) -> str:
     c = c.upper()
-    if c == "HIGH":       return "#4cff8f"
-    if c == "AVOID_ALL":  return "#ff5e5e"
-    return "#fde68a"
+    if c == "HIGH":       return "#15803d"
+    if c == "AVOID_ALL":  return "#b91c1c"
+    return "#92400e"
 
 
 # ── TRADER VIEW HTML ──────────────────────────────────────────────────────────
 
 _BIAS_COLORS = {
-    "BEARISH": "#f85149", "BULLISH": "#3fb950", "RANGE": "#e3b341",
-    "SHORT": "#f85149", "LONG": "#3fb950",
+    "BEARISH": "#b91c1c", "BULLISH": "#15803d", "RANGE": "#92400e",
+    "SHORT": "#b91c1c", "LONG": "#15803d",
 }
 
 _BIAS_DISPLAY_MAP = {
@@ -289,7 +291,7 @@ _BIAS_DISPLAY_MAP = {
 }
 
 def _bias_col(bias: str) -> str:
-    return _BIAS_COLORS.get(str(bias).upper(), "#7d8590")
+    return _BIAS_COLORS.get(str(bias).upper(), "#374151")
 
 def _bias_label(bias: str) -> str:
     return _BIAS_DISPLAY_MAP.get(str(bias).upper(), str(bias).upper())
@@ -361,16 +363,16 @@ def _trader_tf_card(tf_label: str, t: dict, card_id: str) -> str:
 <div class='tv-tf' id='{card_id}'>
   <div class='tv-tf-hdr'>
     <span class='tv-tf-label'>{tf_label}</span>
-    <span class='tv-bias-pill' style='background:{bc}22;color:{bc};border:1px solid {bc}55'>{bias}</span>
+    <span class='tv-bias-pill' style='background:{bc}18;color:{bc};border:1px solid {bc}44'>{bias}</span>
   </div>
   <div class='tv-levels'>
     <div class='tv-level-row'>
-      <span class='tv-lr-icon' style='color:#f85149'>R</span>
-      <span class='tv-lr-vals' style='color:#f87171'>{r1} <span style='opacity:.5'>/</span> {r2}</span>
+      <span class='tv-lr-icon' style='color:#b91c1c'>R</span>
+      <span class='tv-lr-vals' style='color:#b91c1c'>{r1} <span style='opacity:.4'>/</span> {r2}</span>
     </div>
     <div class='tv-level-row'>
-      <span class='tv-lr-icon' style='color:#3fb950'>S</span>
-      <span class='tv-lr-vals' style='color:#86efac'>{s1} <span style='opacity:.5'>/</span> {s2}</span>
+      <span class='tv-lr-icon' style='color:#15803d'>S</span>
+      <span class='tv-lr-vals' style='color:#15803d'>{s1} <span style='opacity:.4'>/</span> {s2}</span>
     </div>
   </div>
   <div class='tv-setups'>
@@ -418,7 +420,7 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
     scol  = strength_color(sig["strength"])
     ccol  = cap_color(sig["cap"])
     vix   = sig.get("vix_zone", "")
-    vix_c = "#ff5e5e" if vix in ("HIGH_FEAR", "CRISIS", "ELEVATED") else "#4cff8f" if vix in ("LOW", "NORMAL") else "#fde68a"
+    vix_c = "#b91c1c" if vix in ("HIGH_FEAR", "CRISIS", "ELEVATED") else "#15803d" if vix in ("LOW", "NORMAL") else "#92400e"
 
     if is_featured:
         trader_html = build_trader_section(sig.get("trader", {}))
@@ -445,12 +447,12 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
       </div>
       <div class="fs-metric">
         <span class="fs-metric-label">FII vs RETAIL OI</span>
-        <span class="fs-metric-val" style="color:{{'#ff5e5e' if 'SHORT_CLIENT_LONG' in sig.get('fii','') else '#4cff8f' if 'LONG_CLIENT_SHORT' in sig.get('fii','') else '#7d8590'}}">{sig.get("fii","—").replace("FII_SHORT_CLIENT_LONG","Diverge ↓").replace("FII_LONG_CLIENT_SHORT","Diverge ↑").replace("ALIGNED","Aligned")}</span>
+        <span class="fs-metric-val" style="color:{{'#b91c1c' if 'SHORT_CLIENT_LONG' in sig.get('fii','') else '#15803d' if 'LONG_CLIENT_SHORT' in sig.get('fii','') else '#6b7280'}}">{sig.get("fii","—").replace("FII_SHORT_CLIENT_LONG","Diverge ↓").replace("FII_LONG_CLIENT_SHORT","Diverge ↑").replace("ALIGNED","Aligned")}</span>
       </div>
     </div>
   </div>
 
-  {'<div class="fs-anomalies">' + "".join(f'<div class="anom-tag">⚡ {a}</div>' for a in sig["anomalies"]) + '</div>' if sig["anomalies"] else ""}
+{'<div class="fs-anomalies">' + "".join(f'<div class="anom-tag">⚡ {a}</div>' for a in sig["anomalies"]) + '</div>' if sig["anomalies"] else ""}
 
   <div class="fs-body">
     <div class="fs-col">
@@ -463,11 +465,11 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
     </div>
   </div>
 
-  {'<div class="fs-risks">' + "".join(f'<div class="risk-item">⚠ {r}</div>' for r in sig["risks"]) + '</div>' if sig["risks"] else ""}
+ {'<div class="fs-risks">' + "".join(f'<div class="risk-item">⚠ {r}</div>' for r in sig["risks"]) + '</div>' if sig["risks"] else ""}
 
   {trader_html}
 
-  <div style="padding:10px 24px 14px;border-top:1px solid var(--border);background:rgba(13,21,32,.4)">
+  <div style="padding:10px 24px 14px;border-top:1px solid var(--border);background:#fafafa">
     <p style="font-size:10px;color:var(--tx3);line-height:1.6">
       ⓘ <strong style="color:var(--tx3)">Educational data only.</strong>
       Technical levels derived from public NSE OI, FII participant data &amp; VIX.
@@ -501,7 +503,7 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
 
 def generate_tradingtool(featured: dict, history: list, all_ai_files: list) -> str:
     hist_html = "".join(build_signal_card(s, False) for s in history)
-    feat_html = build_signal_card(featured, True) if featured else "<p style='color:#7d8590'>No analysis data available yet.</p>"
+    feat_html = build_signal_card(featured, True) if featured else "<p style='color:#6b7280'>No analysis data available yet.</p>"
 
     report_links = "\n".join(
         f'<li><a href="{f}" target="_blank">{f}</a></li>'
@@ -572,7 +574,7 @@ def generate_tradingtool(featured: dict, history: list, all_ai_files: list) -> s
 <meta name="twitter:description" content="{og_desc}">
 <meta name="twitter:image"       content="{og_image}">
 
-<meta name="theme-color" content="#080d14">
+<meta name="theme-color" content="#ffffff">
 <meta name="application-name" content="InfoAlpha">
 
 <script type="application/ld+json">
@@ -600,28 +602,28 @@ def generate_tradingtool(featured: dict, history: list, all_ai_files: list) -> s
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{{
-  --bg:#080d14;--bg2:#0d1520;--surface:#111923;--surface2:#172030;
-  --border:#1e2d3d;--border2:#243547;--tx:#d4e4f7;--tx2:#8ca8c5;--tx3:#4d6a84;
-  --accent:#3b9eff;--accent2:#1a6fcc;--bull:#2ecc71;--bear:#e74c3c;--neu:#f39c12;
+  --bg:#ffffff;--bg2:#f8f9fa;--surface:#f0f2f5;--surface2:#e8eaed;
+  --border:#d1d5db;--border2:#9ca3af;--tx:#111827;--tx2:#374151;--tx3:#6b7280;
+  --accent:#1a6fcc;--accent2:#1558a8;--bull:#15803d;--bear:#b91c1c;--neu:#92400e;
   --mono:'Space Mono',monospace;--sans:'Sora',sans-serif;
 }}
 *{{box-sizing:border-box;margin:0;padding:0}}
 html{{scroll-behavior:smooth}}
-body{{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:13px;min-height:100vh;background-image:radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59,158,255,.08) 0%, transparent 60%);}}
-nav{{position:sticky;top:0;z-index:100;background:rgba(8,13,20,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:54px;}}
+body{{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:13px;min-height:100vh;background-image:radial-gradient(ellipse 80% 50% at 50% -20%, rgba(26,111,204,.04) 0%, transparent 60%);}}
+nav{{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.06);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:54px;}}
 .nav-brand{{display:flex;flex-direction:row;align-items:center;gap:10px;text-decoration:none}}
 .nav-brand-name{{font-family:var(--mono);font-weight:700;font-size:14px;color:var(--accent);letter-spacing:.5px}}
 .nav-brand-sub{{font-size:9px;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase}}
 .nav-links{{display:flex;gap:22px;align-items:center}}
 .nav-links a{{color:var(--tx2);text-decoration:none;font-size:12px;font-weight:600;letter-spacing:.3px;transition:color .15s}}
 .nav-links a:hover{{color:var(--tx)}}
-.nav-cta{{background:var(--accent);color:#000!important;font-weight:700!important;padding:6px 16px;border-radius:6px;font-size:11px!important;letter-spacing:.5px;text-decoration:none;transition:background .15s}}
-.nav-cta:hover{{background:#5aabff!important}}
-.nav-home-link{{display:flex;align-items:center;gap:6px;background:rgba(59,158,255,.1);border:1px solid rgba(59,158,255,.25);color:var(--accent)!important;padding:5px 12px;border-radius:6px;font-size:11px!important;font-weight:700!important;letter-spacing:.3px;text-decoration:none;transition:all .15s;}}
-.nav-home-link:hover{{background:rgba(59,158,255,.2)!important}}
+.nav-cta{{background:var(--accent);color:#fff!important;font-weight:700!important;padding:6px 16px;border-radius:6px;font-size:11px!important;letter-spacing:.5px;text-decoration:none;transition:background .15s}}
+.nav-cta:hover{{background:var(--accent2)!important}}
+.nav-home-link{{display:flex;align-items:center;gap:6px;background:rgba(26,111,204,.08);border:1px solid rgba(26,111,204,.2);color:var(--accent)!important;padding:5px 12px;border-radius:6px;font-size:11px!important;font-weight:700!important;letter-spacing:.3px;text-decoration:none;transition:all .15s;}}
+.nav-home-link:hover{{background:rgba(26,111,204,.14)!important}}
 .hero{{padding:56px 28px 42px;max-width:1100px;margin:0 auto;text-align:center}}
-.hero-tag{{display:inline-block;background:rgba(59,158,255,.12);border:1px solid rgba(59,158,255,.25);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:20px}}
-.hero h1{{font-size:clamp(26px,4.5vw,44px);font-weight:800;line-height:1.15;color:#e8f4ff;margin-bottom:14px}}
+.hero-tag{{display:inline-block;background:rgba(26,111,204,.07);border:1px solid rgba(26,111,204,.18);color:var(--accent);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:20px}}
+.hero h1{{font-size:clamp(26px,4.5vw,44px);font-weight:800;line-height:1.15;color:var(--tx);margin-bottom:14px}}
 .hero h1 span{{color:var(--accent)}}
 .hero-sub{{color:var(--tx2);font-size:14px;max-width:600px;margin:0 auto 32px;line-height:1.7;font-weight:300}}
 .hero-stats{{display:flex;gap:0;justify-content:center;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;max-width:680px;margin:0 auto}}
@@ -632,61 +634,61 @@ nav{{position:sticky;top:0;z-index:100;background:rgba(8,13,20,.92);backdrop-fil
 .section{{max-width:1100px;margin:0 auto;padding:40px 28px}}
 .section-label{{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:6px;display:flex;align-items:center;gap:8px}}
 .section-label::before{{content:"";display:block;width:18px;height:1px;background:var(--border2)}}
-.section-title{{font-size:22px;font-weight:700;color:#e8f4ff;margin-bottom:24px}}
-.featured-signal{{background:var(--surface);border:1px solid var(--border2);border-radius:14px;overflow:hidden}}
-.fs-header{{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;gap:16px}}
+.section-title{{font-size:22px;font-weight:700;color:var(--tx);margin-bottom:24px}}
+.featured-signal{{background:var(--bg);border:1px solid var(--border2);border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}}
+.fs-header{{padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;gap:16px;background:var(--bg)}}
 .fs-date{{font-family:var(--mono);font-size:11px;color:var(--tx2);letter-spacing:.5px}}
 .fs-regime-pill{{padding:5px 16px;border-radius:8px;font-family:var(--mono);font-weight:700;font-size:14px;border:1px solid;letter-spacing:1px}}
 .fs-metrics{{display:flex;gap:20px;margin-left:auto;flex-wrap:wrap}}
 .fs-metric{{display:flex;flex-direction:column;align-items:center;gap:2px}}
 .fs-metric-label{{font-size:8px;letter-spacing:1.5px;color:var(--tx3);text-transform:uppercase}}
 .fs-metric-val{{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--tx2)}}
-.fs-anomalies{{padding:12px 24px;background:rgba(243,156,18,.04);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px}}
-.anom-tag{{background:rgba(243,156,18,.08);border:1px solid rgba(243,156,18,.2);color:#f39c12;font-size:10px;padding:3px 10px;border-radius:5px;line-height:1.5}}
+.fs-anomalies{{padding:12px 24px;background:#fffbeb;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px}}
+.anom-tag{{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2);color:#d97706;font-size:10px;padding:3px 10px;border-radius:5px;line-height:1.5}}
 .fs-body{{display:grid;grid-template-columns:1fr 1fr;gap:0}}
 @media(max-width:700px){{.fs-body{{grid-template-columns:1fr}}}}
 .fs-col{{padding:20px 24px;border-right:1px solid var(--border)}}
 .fs-col:last-child{{border-right:none}}
 .fs-section-title{{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);margin-bottom:10px}}
 .fs-text{{color:var(--tx2);font-size:12px;line-height:1.8}}
-.fs-risks{{padding:12px 24px;background:rgba(231,76,60,.03);border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px}}
-.risk-item{{background:rgba(231,76,60,.07);border:1px solid rgba(231,76,60,.15);color:#e74c3c;font-size:10px;padding:3px 10px;border-radius:5px;line-height:1.5}}
-.fs-footer{{padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:12px}}
+.fs-risks{{padding:12px 24px;background:#fef2f2;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px}}
+.risk-item{{background:rgba(185,28,28,.06);border:1px solid rgba(185,28,28,.15);color:#b91c1c;font-size:10px;padding:3px 10px;border-radius:5px;line-height:1.5}}
+.fs-footer{{padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:12px;background:var(--bg2)}}
 .btn-outline{{border:1px solid var(--border2);color:var(--accent);padding:6px 16px;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;letter-spacing:.3px;transition:all .15s}}
-.btn-outline:hover{{background:rgba(59,158,255,.1);border-color:var(--accent)}}
-.fs-trader-section{{border-top:1px solid var(--border);padding:16px 24px 20px;background:rgba(13,21,32,.5);}}
+.btn-outline:hover{{background:rgba(26,111,204,.07);border-color:var(--accent)}}
+.fs-trader-section{{border-top:1px solid var(--border);padding:16px 24px 20px;background:var(--surface);}}
 .tv-tabs{{display:flex;gap:6px;flex-wrap:wrap}}
-.tv-tab{{background:var(--surface2);border:1px solid var(--border);color:var(--tx3);font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;--tv-active:#e3b341;}}
+.tv-tab{{background:var(--bg);border:1px solid var(--border);color:var(--tx3);font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;--tv-active:#92400e;}}
 .tv-tab:hover{{border-color:var(--border2);color:var(--tx2)}}
-.tv-tab.tv-active{{border-color:var(--tv-active);color:var(--tv-active);background:rgba(255,255,255,.04);}}
+.tv-tab.tv-active{{border-color:var(--tv-active);color:var(--tv-active);background:rgba(146,64,14,.05);}}
 .tv-cards{{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}}
 @media(max-width:800px){{.tv-cards{{grid-template-columns:1fr}}}}
-.tv-tf{{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:none;}}
+.tv-tf{{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:none;}}
 .tv-tf.tv-visible{{display:block}}
 .tv-tf-hdr{{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}}
 .tv-tf-label{{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);}}
 .tv-bias-pill{{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px;}}
-.tv-levels{{background:rgba(0,0,0,.2);border-radius:6px;padding:8px 10px;margin-bottom:10px;}}
+.tv-levels{{background:var(--surface);border-radius:6px;padding:8px 10px;margin-bottom:10px;border:1px solid var(--border)}}
 .tv-level-row{{display:flex;align-items:center;gap:8px;padding:3px 0;}}
 .tv-lr-icon{{font-family:var(--mono);font-size:10px;font-weight:700;min-width:14px;}}
 .tv-lr-vals{{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.3px;}}
 .tv-setups{{display:flex;flex-direction:column;gap:8px}}
 .tv-setup{{border-radius:6px;padding:8px 10px;font-size:11px;}}
-.tv-short{{background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.15)}}
-.tv-long{{background:rgba(63,185,80,.06);border:1px solid rgba(63,185,80,.15)}}
+.tv-short{{background:rgba(185,28,28,.04);border:1px solid rgba(185,28,28,.12)}}
+.tv-long{{background:rgba(21,128,61,.04);border:1px solid rgba(21,128,61,.12)}}
 .tv-setup-title{{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}}
-.tv-short .tv-setup-title{{color:#f85149}}
-.tv-long .tv-setup-title{{color:#3fb950}}
-.tv-row{{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.04)}}
+.tv-short .tv-setup-title{{color:#b91c1c}}
+.tv-long .tv-setup-title{{color:#15803d}}
+.tv-row{{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(0,0,0,.05)}}
 .tv-row:last-child{{border-bottom:none}}
 .tv-k{{color:var(--tx3);font-size:10px}}
 .tv-v{{font-size:10px;font-weight:600;text-align:right;max-width:60%;word-break:break-word}}
-.tv-entry-s{{color:#f87171}}.tv-entry-l{{color:#86efac}}.tv-stop{{color:#ffa657}}.tv-tgt{{color:#7dd3fc}}.tv-inv{{color:var(--tx3);font-size:9px}}
-.tv-note{{margin-top:8px;border-left:2px solid #e3b341;padding:5px 8px;font-size:10px;color:var(--tx3);line-height:1.6;border-radius:0 4px 4px 0;background:rgba(255,255,255,.02);}}
+.tv-entry-s{{color:#b91c1c}}.tv-entry-l{{color:#15803d}}.tv-stop{{color:#d97706}}.tv-tgt{{color:#1a6fcc}}.tv-inv{{color:var(--tx3);font-size:9px}}
+.tv-note{{margin-top:8px;border-left:2px solid #92400e;padding:5px 8px;font-size:10px;color:var(--tx3);line-height:1.6;border-radius:0 4px 4px 0;background:rgba(146,64,14,.03);}}
 .tv-empty{{color:var(--tx3);font-size:11px;font-style:italic;padding:8px 0}}
 .hist-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}}
-.hist-card{{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .15s,transform .15s}}
-.hist-card:hover{{border-color:var(--border2);transform:translateY(-2px)}}
+.hist-card{{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;transition:border-color .15s,transform .15s,box-shadow .15s}}
+.hist-card:hover{{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.07)}}
 .hist-top{{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}}
 .hist-date{{font-family:var(--mono);font-size:10px;color:var(--tx3)}}
 .hist-regime{{padding:2px 8px;border-radius:5px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.5px}}
@@ -698,18 +700,18 @@ nav{{position:sticky;top:0;z-index:100;background:rgba(8,13,20,.92);backdrop-fil
 .hist-links a{{color:var(--accent);font-size:10px;text-decoration:none;font-weight:600}}
 .hist-links a:hover{{text-decoration:underline}}
 .tool-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}}
-.tool-card{{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;text-decoration:none;transition:border-color .15s,background .15s;display:block}}
-.tool-card:hover{{border-color:var(--accent2);background:var(--surface2)}}
+.tool-card{{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px 18px;text-decoration:none;transition:border-color .15s,background .15s,box-shadow .15s;display:block}}
+.tool-card:hover{{border-color:var(--accent2);background:var(--surface);box-shadow:0 2px 8px rgba(0,0,0,.07)}}
 .tool-icon{{font-size:20px;margin-bottom:10px}}
-.tool-name{{font-weight:700;font-size:13px;color:#e8f4ff;margin-bottom:4px}}
+.tool-name{{font-weight:700;font-size:13px;color:var(--tx);margin-bottom:4px}}
 .tool-desc{{color:var(--tx3);font-size:11px;line-height:1.5}}
-.tool-badge{{display:inline-block;margin-top:8px;background:rgba(59,158,255,.1);color:var(--accent);font-size:9px;padding:2px 7px;border-radius:4px;letter-spacing:.5px;font-weight:600}}
+.tool-badge{{display:inline-block;margin-top:8px;background:rgba(26,111,204,.07);color:var(--accent);font-size:9px;padding:2px 7px;border-radius:4px;letter-spacing:.5px;font-weight:600}}
 .how-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}}
-.how-step{{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 18px;position:relative;overflow:hidden}}
-.how-step::before{{content:attr(data-num);position:absolute;top:-10px;right:14px;font-family:var(--mono);font-size:72px;font-weight:700;color:rgba(59,158,255,.04);line-height:1}}
-.how-step-title{{font-weight:700;font-size:13px;color:#e8f4ff;margin-bottom:6px}}
+.how-step{{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:20px 18px;position:relative;overflow:hidden}}
+.how-step::before{{content:attr(data-num);position:absolute;top:-10px;right:14px;font-family:var(--mono);font-size:72px;font-weight:700;color:rgba(26,111,204,.04);line-height:1}}
+.how-step-title{{font-weight:700;font-size:13px;color:var(--tx);margin-bottom:6px}}
 .how-step-desc{{color:var(--tx3);font-size:11px;line-height:1.65}}
-.reports-list{{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}}
+.reports-list{{background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden}}
 .reports-list li{{list-style:none;border-bottom:1px solid var(--border);padding:10px 18px;display:flex;align-items:center;gap:8px}}
 .reports-list li:last-child{{border-bottom:none}}
 .reports-list li::before{{content:"▸";color:var(--accent);font-size:11px}}
@@ -717,22 +719,22 @@ nav{{position:sticky;top:0;z-index:100;background:rgba(8,13,20,.92);backdrop-fil
 .reports-list li a:hover{{color:var(--accent)}}
 .about-grid{{display:grid;grid-template-columns:2fr 1fr;gap:20px}}
 @media(max-width:700px){{.about-grid{{grid-template-columns:1fr}}}}
-.about-card{{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}}
+.about-card{{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:24px}}
 .social-links{{display:flex;flex-direction:column;gap:10px;margin-top:16px}}
-.social-link{{display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;transition:border-color .15s}}
+.social-link{{display:flex;align-items:center;gap:10px;text-decoration:none;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 14px;transition:border-color .15s}}
 .social-link:hover{{border-color:var(--border2)}}
 .social-link-icon{{font-size:16px}}
 .social-link-text{{color:var(--tx2);font-size:11px;font-weight:600}}
 .support-box{{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;margin-top:20px}}
-.upi-block{{background:rgba(59,158,255,.06);border:1px solid rgba(59,158,255,.15);border-radius:8px;padding:16px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;color:var(--accent)}}
-.cta-banner{{background:linear-gradient(135deg,#0a1f3d 0%,#0d2848 100%);border:1px solid rgba(59,158,255,.2);border-radius:14px;padding:42px 32px;text-align:center;margin:40px 28px;max-width:1100px;margin-left:auto;margin-right:auto}}
-.cta-title{{font-size:22px;font-weight:800;color:#e8f4ff;margin-bottom:10px}}
+.upi-block{{background:rgba(26,111,204,.06);border:1px solid rgba(26,111,204,.15);border-radius:8px;padding:16px 20px;margin-top:14px;font-family:var(--mono);font-size:13px;color:var(--accent)}}
+.cta-banner{{background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border:1px solid rgba(26,111,204,.2);border-radius:14px;padding:42px 32px;text-align:center;margin:40px 28px;max-width:1100px;margin-left:auto;margin-right:auto}}
+.cta-title{{font-size:22px;font-weight:800;color:var(--tx);margin-bottom:10px}}
 .cta-sub{{color:var(--tx2);font-size:13px;margin-bottom:22px}}
-.cta-btn{{background:var(--accent);color:#000;padding:12px 32px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;display:inline-block;transition:background .15s}}
-.cta-btn:hover{{background:#5aabff;color:#000}}
-footer{{border-top:1px solid var(--border);padding:20px 28px;text-align:center;color:var(--tx3);font-size:11px}}
+.cta-btn{{background:var(--accent);color:#fff;padding:12px 32px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;display:inline-block;transition:background .15s}}
+.cta-btn:hover{{background:var(--accent2);color:#fff}}
+footer{{border-top:1px solid var(--border);padding:20px 28px;text-align:center;color:var(--tx3);font-size:11px;background:var(--bg2)}}
 footer a{{color:var(--tx3);text-decoration:none}}
-footer a:hover{{color:var(--tx2)}}
+footer a:hover{{color:var(--accent)}}
 .divider{{height:1px;background:var(--border);max-width:1100px;margin:0 auto}}
 @media(max-width:600px){{.nav-links{{display:none}}.hero{{padding:48px 16px 36px}}.section{{padding:28px 16px}}}}
 </style>
@@ -846,7 +848,7 @@ footer a:hover{{color:var(--tx2)}}
     <div class="how-step" data-num="01"><div class="how-step-title">NSE EOD Data Collection</div><div class="how-step-desc">Daily bhav copy, FO participant OI (fao_participant_oi), FII cash stats, and VIX history downloaded from NSE archives.</div></div>
     <div class="how-step" data-num="02"><div class="how-step-title">Quant Feature Extraction</div><div class="how-step-desc">Breadth, delivery spikes, momentum MA, high/low resilience, sector rotation, and options OI structure computed per symbol.</div></div>
     <div class="how-step" data-num="03"><div class="how-step-title">Python Labels All Rules</div><div class="how-step-desc">Regime (BULL/BEAR/NEUTRAL/TRANSITION), VIX zone, conviction cap, FII vs Client divergence, breadth trend, and stock futures sentiment are all computed in Python — zero hallucination risk.</div></div>
-    <div class="how-step" data-num="04"><div class="how-step-title">Claude Finds Anomalies</div><div class="how-step-desc">Claude receives raw numbers only — no labels, no rules. It identifies unusual patterns, writes the OI / FII / breadth / F&O narratives, synthesis, and action plan in a single API call.</div></div>
+    <div class="how-step" data-num="04"><div class="how-step-title">Claude Finds Anomalies</div><div class="how-step-desc">Claude receives raw numbers only — no labels, no rules. It identifies unusual patterns, writes the OI / FII / breadth / F&amp;O narratives, synthesis, and action plan in a single API call.</div></div>
     <div class="how-step" data-num="05"><div class="how-step-title">Static Site Publish</div><div class="how-step-desc">All HTML reports and screeners are copied to GitHub Pages and served from infoalpha.in — no server, no login, no tracking.</div></div>
   </div>
 </div>
@@ -875,9 +877,9 @@ footer a:hover{{color:var(--tx2)}}
         <a href="index.html" style="color:var(--accent);text-decoration:none;font-weight:700">infoalpha.in</a>
       </p>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-        <a href="https://wa.me/919884346789" target="_blank" style="display:flex;align-items:center;gap:7px;background:#25D366;color:#000;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">💬 WhatsApp Me</a>
+        <a href="https://wa.me/919884346789" target="_blank" style="display:flex;align-items:center;gap:7px;background:#25D366;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">💬 WhatsApp Me</a>
         <a href="https://t.me/volumepricemove" target="_blank" style="display:flex;align-items:center;gap:7px;background:#229ED9;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">✈ Telegram</a>
-        <a href="index.html" style="display:flex;align-items:center;gap:7px;background:rgba(59,158,255,.15);border:1px solid rgba(59,158,255,.3);color:var(--accent);font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">🌐 Digital Services</a>
+        <a href="index.html" style="display:flex;align-items:center;gap:7px;background:rgba(26,111,204,.1);border:1px solid rgba(26,111,204,.25);color:var(--accent);font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">🌐 Digital Services</a>
       </div>
       <div class="support-box" style="margin-top:20px;padding:20px">
         <div style="color:var(--tx2);font-size:12px;line-height:1.7;margin-bottom:10px">If you find these signals useful, consider supporting the infrastructure and research:</div>
@@ -910,7 +912,7 @@ footer a:hover{{color:var(--tx2)}}
 <!-- FOOTER -->
 <footer>
   <p>InfoAlpha — NSE Technical Structure Data &nbsp;·&nbsp; Educational / Informational Purpose Only &nbsp;·&nbsp; Not Investment Advice &nbsp;·&nbsp; Not SEBI-Registered</p>
-  <p style="margin-top:5px;font-size:10px;color:#2a3d50;max-width:860px;margin-left:auto;margin-right:auto;line-height:1.6">
+  <p style="margin-top:5px;font-size:10px;color:#9ca3af;max-width:860px;margin-left:auto;margin-right:auto;line-height:1.6">
     All data presented is derived from publicly available NSE EOD information (bhav copy, FO participant OI, FII/DII cash stats, India VIX).
     Technical levels shown represent structural observations only and do not constitute buy/sell recommendations or investment advice.
     InfoAlpha and Sivasankar S are not registered with SEBI as investment advisers or research analysts.
@@ -1019,8 +1021,6 @@ def main():
     for f in DEST_FOLDER.glob("*.html"):
         if f.name in ("tradingtool.html", "index.html"):
             continue
-        if f.name in ("index.html", "index.html"):
-            continue        
         inject_brand(f)
 
     print(f"✅  tradingtool.html written → {out}")

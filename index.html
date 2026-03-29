@@ -27,7 +27,7 @@
 <meta name="twitter:description" content="Professional web development, Drupal, AWS hosting, SEO and digital marketing services by Sivasankar S.">
 <meta name="twitter:image" content="https://infoalpha.in/banner.png">
 
-<meta name="theme-color" content="#080d14">
+<meta name="theme-color" content="#ffffff">
 <meta name="application-name" content="InfoAlpha">
 
 <script type="application/ld+json">
@@ -57,20 +57,20 @@
 
 <style>
 :root {
-  --bg: #080d14;
-  --bg2: #0d1520;
-  --surface: #111923;
-  --surface2: #172030;
-  --border: #1e2d3d;
-  --border2: #243547;
-  --tx: #d4e4f7;
-  --tx2: #8ca8c5;
-  --tx3: #4d6a84;
-  --accent: #3b9eff;
-  --accent2: #1a6fcc;
-  --green: #2ecc71;
-  --orange: #f39c12;
-  --purple: #9b59b6;
+  --bg: #ffffff;
+  --bg2: #f8f9fa;
+  --surface: #f0f2f5;
+  --surface2: #e8eaed;
+  --border: #d1d5db;
+  --border2: #9ca3af;
+  --tx: #111827;
+  --tx2: #374151;
+  --tx3: #6b7280;
+  --accent: #1a6fcc;
+  --accent2: #1558a8;
+  --green: #16a34a;
+  --orange: #d97706;
+  --purple: #7c3aed;
   --mono: 'Space Mono', monospace;
   --sans: 'Sora', sans-serif;
 }
@@ -83,15 +83,16 @@ body {
   font-size: 13px;
   min-height: 100vh;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59,158,255,.08) 0%, transparent 60%);
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(26,111,204,.04) 0%, transparent 60%);
 }
 
 /* ── NAV ── */
 nav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(8,13,20,.92);
+  background: rgba(255,255,255,.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,.06);
   padding: 0 28px;
   display: flex; align-items: center; justify-content: space-between;
   height: 54px;
@@ -102,24 +103,24 @@ nav {
 .nav-links { display: flex; gap: 22px; align-items: center; }
 .nav-links a { color: var(--tx2); text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: .3px; transition: color .15s; }
 .nav-links a:hover { color: var(--tx); }
-.nav-cta { background: var(--accent); color: #000 !important; font-weight: 700 !important; padding: 6px 16px; border-radius: 6px; font-size: 11px !important; letter-spacing: .5px; text-decoration: none; transition: background .15s; }
-.nav-cta:hover { background: #5aabff !important; }
+.nav-cta { background: var(--accent); color: #fff !important; font-weight: 700 !important; padding: 6px 16px; border-radius: 6px; font-size: 11px !important; letter-spacing: .5px; text-decoration: none; transition: background .15s; }
+.nav-cta:hover { background: var(--accent2) !important; }
 .nav-trading-link {
   display: flex; align-items: center; gap: 6px;
-  background: rgba(243,156,18,.12); border: 1px solid rgba(243,156,18,.3);
-  color: #f39c12 !important; padding: 5px 12px; border-radius: 6px;
+  background: rgba(217,119,6,.08); border: 1px solid rgba(217,119,6,.25);
+  color: #d97706 !important; padding: 5px 12px; border-radius: 6px;
   font-size: 11px !important; font-weight: 700 !important; letter-spacing: .3px;
   text-decoration: none; transition: all .15s;
 }
-.nav-trading-link:hover { background: rgba(243,156,18,.2) !important; }
+.nav-trading-link:hover { background: rgba(217,119,6,.15) !important; }
 
 /* ── HERO BANNER ── */
 .hero-banner { width: 100%; overflow: hidden; }
 
 /* ── HERO ── */
 .hero { padding: 70px 28px 56px; max-width: 1100px; margin: 0 auto; text-align: center; }
-.hero-tag { display: inline-block; background: rgba(59,158,255,.12); border: 1px solid rgba(59,158,255,.25); color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; }
-.hero h1 { font-size: clamp(28px,5vw,50px); font-weight: 800; line-height: 1.15; color: #e8f4ff; margin-bottom: 16px; }
+.hero-tag { display: inline-block; background: rgba(26,111,204,.08); border: 1px solid rgba(26,111,204,.2); color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; }
+.hero h1 { font-size: clamp(28px,5vw,50px); font-weight: 800; line-height: 1.15; color: var(--tx); margin-bottom: 16px; }
 .hero h1 span { color: var(--accent); }
 .hero-sub { color: var(--tx2); font-size: 14px; max-width: 620px; margin: 0 auto 38px; line-height: 1.8; font-weight: 300; }
 .hero-stats { display: flex; gap: 0; justify-content: center; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 700px; margin: 0 auto 30px; }
@@ -128,16 +129,16 @@ nav {
 .hs-val { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--tx); }
 .hs-label { font-size: 9px; color: var(--tx3); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; }
 .hero-cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
-.btn-primary { background: var(--accent); color: #000; padding: 12px 28px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background .15s; }
-.btn-primary:hover { background: #5aabff; }
+.btn-primary { background: var(--accent); color: #fff; padding: 12px 28px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background .15s; }
+.btn-primary:hover { background: var(--accent2); }
 .btn-secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all .15s; }
-.btn-secondary:hover { background: rgba(59,158,255,.1); }
+.btn-secondary:hover { background: rgba(26,111,204,.07); }
 
 /* ── SECTION ── */
 .section { max-width: 1100px; margin: 0 auto; padding: 44px 28px; }
 .section-label { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--tx3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
 .section-label::before { content: ""; display: block; width: 18px; height: 1px; background: var(--border2); }
-.section-title { font-size: 22px; font-weight: 700; color: #e8f4ff; margin-bottom: 8px; }
+.section-title { font-size: 22px; font-weight: 700; color: var(--tx); margin-bottom: 8px; }
 .section-desc { color: var(--tx2); font-size: 13px; line-height: 1.8; max-width: 640px; margin-bottom: 28px; font-weight: 300; }
 
 /* ── DIVIDER ── */
@@ -146,8 +147,8 @@ nav {
 /* ── SERVICE GRID ── */
 .service-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
 .service-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-  padding: 24px 22px; transition: border-color .2s, transform .2s, background .2s;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+  padding: 24px 22px; transition: border-color .2s, transform .2s, background .2s, box-shadow .2s;
   position: relative; overflow: hidden;
 }
 .service-card::before {
@@ -155,74 +156,74 @@ nav {
   background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent)), transparent);
   opacity: 0; transition: opacity .2s;
 }
-.service-card:hover { border-color: var(--border2); transform: translateY(-3px); background: var(--surface2); }
+.service-card:hover { border-color: var(--border2); transform: translateY(-3px); background: var(--surface); box-shadow: 0 4px 16px rgba(0,0,0,.07); }
 .service-card:hover::before { opacity: 1; }
 .service-icon { font-size: 26px; margin-bottom: 14px; display: block; }
-.service-name { font-weight: 700; font-size: 15px; color: #e8f4ff; margin-bottom: 6px; }
+.service-name { font-weight: 700; font-size: 15px; color: var(--tx); margin-bottom: 6px; }
 .service-desc { color: var(--tx3); font-size: 11px; line-height: 1.7; margin-bottom: 12px; }
 .service-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.service-tag { background: rgba(59,158,255,.08); border: 1px solid rgba(59,158,255,.15); color: var(--accent); font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: .5px; }
+.service-tag { background: rgba(26,111,204,.07); border: 1px solid rgba(26,111,204,.15); color: var(--accent); font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: .5px; }
 
 /* ── PROCESS STEPS ── */
 .process-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-.process-step { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px 18px; position: relative; overflow: hidden; }
-.process-step::before { content: attr(data-num); position: absolute; top: -8px; right: 12px; font-family: var(--mono); font-size: 72px; font-weight: 700; color: rgba(59,158,255,.05); line-height: 1; }
+.process-step { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 22px 18px; position: relative; overflow: hidden; }
+.process-step::before { content: attr(data-num); position: absolute; top: -8px; right: 12px; font-family: var(--mono); font-size: 72px; font-weight: 700; color: rgba(26,111,204,.05); line-height: 1; }
 .process-step-num { font-family: var(--mono); font-size: 10px; color: var(--accent); font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
-.process-step-title { font-weight: 700; font-size: 13px; color: #e8f4ff; margin-bottom: 6px; }
+.process-step-title { font-weight: 700; font-size: 13px; color: var(--tx); margin-bottom: 6px; }
 .process-step-desc { color: var(--tx3); font-size: 11px; line-height: 1.65; }
 
 /* ── WHY CHOOSE ── */
 .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
-.why-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; display: flex; gap: 14px; align-items: flex-start; transition: border-color .15s; }
-.why-card:hover { border-color: var(--border2); }
+.why-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 18px; display: flex; gap: 14px; align-items: flex-start; transition: border-color .15s, box-shadow .15s; }
+.why-card:hover { border-color: var(--border2); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
 .why-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-.why-title { font-weight: 700; font-size: 12px; color: #e8f4ff; margin-bottom: 4px; }
+.why-title { font-weight: 700; font-size: 12px; color: var(--tx); margin-bottom: 4px; }
 .why-desc { color: var(--tx3); font-size: 11px; line-height: 1.6; }
 
 /* ── EDUCATION ── */
-.edu-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 14px; overflow: hidden; }
-.edu-header { padding: 24px; border-bottom: 1px solid var(--border); background: rgba(155,89,182,.04); }
-.edu-badge { display: inline-block; background: rgba(155,89,182,.15); border: 1px solid rgba(155,89,182,.3); color: #c39bd3; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 12px; }
-.edu-title { font-size: 18px; font-weight: 700; color: #e8f4ff; margin-bottom: 6px; }
+.edu-card { background: var(--bg); border: 1px solid var(--border2); border-radius: 14px; overflow: hidden; }
+.edu-header { padding: 24px; border-bottom: 1px solid var(--border); background: rgba(124,58,237,.03); }
+.edu-badge { display: inline-block; background: rgba(124,58,237,.08); border: 1px solid rgba(124,58,237,.2); color: #7c3aed; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 12px; }
+.edu-title { font-size: 18px; font-weight: 700; color: var(--tx); margin-bottom: 6px; }
 .edu-sub { color: var(--tx2); font-size: 12px; line-height: 1.7; }
 .edu-body { padding: 20px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 @media(max-width:680px) { .edu-body { grid-template-columns: 1fr; } }
-.edu-module { padding: 14px; background: rgba(0,0,0,.2); border-radius: 8px; }
+.edu-module { padding: 14px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border); }
 .edu-module-title { font-size: 11px; font-weight: 700; color: var(--tx2); margin-bottom: 8px; display: flex; align-items: center; gap: 7px; }
 .edu-module-list { list-style: none; }
 .edu-module-list li { font-size: 11px; color: var(--tx3); padding: 4px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; }
 .edu-module-list li:last-child { border-bottom: none; }
 .edu-module-list li::before { content: "›"; color: var(--accent); font-weight: 700; }
 .edu-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
-.edu-cta { background: rgba(155,89,182,.15); border: 1px solid rgba(155,89,182,.3); color: #c39bd3; padding: 8px 20px; border-radius: 6px; font-size: 12px; font-weight: 700; text-decoration: none; transition: all .15s; }
-.edu-cta:hover { background: rgba(155,89,182,.25); }
+.edu-cta { background: rgba(124,58,237,.08); border: 1px solid rgba(124,58,237,.2); color: #7c3aed; padding: 8px 20px; border-radius: 6px; font-size: 12px; font-weight: 700; text-decoration: none; transition: all .15s; }
+.edu-cta:hover { background: rgba(124,58,237,.15); }
 
 /* ── CTA BANNER ── */
-.cta-banner { background: linear-gradient(135deg, #0a1f3d 0%, #0d2848 100%); border: 1px solid rgba(59,158,255,.2); border-radius: 14px; padding: 48px 32px; text-align: center; margin: 40px 28px; max-width: 1100px; margin-left: auto; margin-right: auto; }
-.cta-title { font-size: 24px; font-weight: 800; color: #e8f4ff; margin-bottom: 10px; }
+.cta-banner { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1px solid rgba(26,111,204,.2); border-radius: 14px; padding: 48px 32px; text-align: center; margin: 40px 28px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+.cta-title { font-size: 24px; font-weight: 800; color: var(--tx); margin-bottom: 10px; }
 .cta-sub { color: var(--tx2); font-size: 13px; margin-bottom: 24px; }
-.cta-btn { background: var(--accent); color: #000; padding: 13px 34px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block; transition: background .15s; }
-.cta-btn:hover { background: #5aabff; color: #000; }
+.cta-btn { background: var(--accent); color: #fff; padding: 13px 34px; border-radius: 8px; font-weight: 700; font-size: 13px; text-decoration: none; display: inline-block; transition: background .15s; }
+.cta-btn:hover { background: var(--accent2); color: #fff; }
 
 /* ── TRADING PROMO CARD ── */
 .trading-promo {
-  background: linear-gradient(135deg, #0d1a10 0%, #111e14 100%);
-  border: 1px solid rgba(46,204,113,.2); border-radius: 14px; padding: 32px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 1px solid rgba(22,163,74,.2); border-radius: 14px; padding: 32px;
   display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
 }
 .trading-promo-icon { font-size: 44px; flex-shrink: 0; }
 .trading-promo-body { flex: 1; min-width: 200px; }
-.trading-promo-title { font-size: 18px; font-weight: 700; color: #e8f4ff; margin-bottom: 6px; }
+.trading-promo-title { font-size: 18px; font-weight: 700; color: var(--tx); margin-bottom: 6px; }
 .trading-promo-desc { color: var(--tx2); font-size: 12px; line-height: 1.8; margin-bottom: 14px; }
 .trading-promo-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-.trading-promo-tag { background: rgba(46,204,113,.08); border: 1px solid rgba(46,204,113,.2); color: #2ecc71; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: .5px; }
-.trading-promo-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(46,204,113,.15); border: 1px solid rgba(46,204,113,.35); color: #2ecc71; padding: 10px 22px; border-radius: 8px; font-weight: 700; font-size: 12px; text-decoration: none; transition: all .15s; }
-.trading-promo-btn:hover { background: rgba(46,204,113,.25); }
+.trading-promo-tag { background: rgba(22,163,74,.07); border: 1px solid rgba(22,163,74,.2); color: #16a34a; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 4px; letter-spacing: .5px; }
+.trading-promo-btn { display: inline-flex; align-items: center; gap: 8px; background: rgba(22,163,74,.1); border: 1px solid rgba(22,163,74,.3); color: #16a34a; padding: 10px 22px; border-radius: 8px; font-weight: 700; font-size: 12px; text-decoration: none; transition: all .15s; }
+.trading-promo-btn:hover { background: rgba(22,163,74,.18); }
 
 /* ── FOOTER ── */
-footer { border-top: 1px solid var(--border); padding: 24px 28px; text-align: center; color: var(--tx3); font-size: 11px; }
+footer { border-top: 1px solid var(--border); padding: 24px 28px; text-align: center; color: var(--tx3); font-size: 11px; background: var(--bg2); }
 footer a { color: var(--tx3); text-decoration: none; }
-footer a:hover { color: var(--tx2); }
+footer a:hover { color: var(--accent); }
 
 @media(max-width: 600px) {
   .nav-links { display: none; }
@@ -266,11 +267,8 @@ footer a:hover { color: var(--tx2); }
 </nav>
 
 <!-- HERO -->
-<div class="hero-banner" style="
-  background:url('banner.png') center/cover no-repeat;
-  position:relative;border-bottom:1px solid var(--border);
-">
-  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,13,20,.55) 0%,rgba(8,13,20,.92) 100%)"></div>
+<div class="hero-banner">
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.88) 100%)"></div>
   <div class="hero" style="position:relative;z-index:1;padding-top:80px;padding-bottom:64px">
     <div class="hero-tag">Web Development · Cloud · SEO · Digital Marketing · Training</div>
     <h1>Your Trusted<br><span>Digital Services Partner</span></h1>
@@ -282,7 +280,7 @@ footer a:hover { color: var(--tx2); }
     <div class="hero-profile" style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:32px;flex-wrap:wrap">
       <img src="profile.jpg" alt="Sivasankar S — InfoAlpha" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)">
       <div style="text-align:left">
-        <div style="font-weight:700;font-size:14px;color:#e8f4ff">Sivasankar S</div>
+        <div style="font-weight:700;font-size:14px;color:var(--tx)">Sivasankar S</div>
         <div style="font-size:11px;color:var(--tx2)">Developer · Drupal Specialist · Digital Marketer</div>
         <div style="font-size:10px;color:var(--tx3);margin-top:2px">10+ Years Experience &nbsp;·&nbsp; infoalpha.in</div>
       </div>
@@ -310,7 +308,7 @@ footer a:hover { color: var(--tx2); }
   <p class="section-desc">From simple landing pages to complex enterprise portals — designed to load fast, rank well, and convert visitors into customers.</p>
   <div class="service-grid">
 
-    <div class="service-card" style="--card-accent:#3b9eff">
+    <div class="service-card" style="--card-accent:#1a6fcc">
       <span class="service-icon">🌐</span>
       <div class="service-name">Static Website Development</div>
       <div class="service-desc">Blazing-fast, SEO-friendly static sites for businesses, portfolios, and product launches. Hosted on CDN for near-zero latency worldwide.</div>
@@ -322,39 +320,39 @@ footer a:hover { color: var(--tx2); }
       </div>
     </div>
 
-    <div class="service-card" style="--card-accent:#2ecc71">
+    <div class="service-card" style="--card-accent:#16a34a">
       <span class="service-icon">⚙️</span>
       <div class="service-name">Dynamic Website Development</div>
       <div class="service-desc">Full-featured dynamic sites with CMS, user authentication, custom dashboards, and real-time data integration for complex business needs.</div>
       <div class="service-tags">
-        <span class="service-tag">PHP / Node.js</span>
-        <span class="service-tag">MySQL / Postgres</span>
-        <span class="service-tag">REST APIs</span>
-        <span class="service-tag">CMS</span>
+        <span class="service-tag" style="background:rgba(22,163,74,.07);border-color:rgba(22,163,74,.2);color:#16a34a">PHP / Node.js</span>
+        <span class="service-tag" style="background:rgba(22,163,74,.07);border-color:rgba(22,163,74,.2);color:#16a34a">MySQL / Postgres</span>
+        <span class="service-tag" style="background:rgba(22,163,74,.07);border-color:rgba(22,163,74,.2);color:#16a34a">REST APIs</span>
+        <span class="service-tag" style="background:rgba(22,163,74,.07);border-color:rgba(22,163,74,.2);color:#16a34a">CMS</span>
       </div>
     </div>
 
-    <div class="service-card" style="--card-accent:#9b59b6">
+    <div class="service-card" style="--card-accent:#7c3aed">
       <span class="service-icon">🔷</span>
       <div class="service-name">Drupal Web App Development</div>
       <div class="service-desc">Enterprise-grade Drupal builds: custom modules, themes, content architecture, multilingual support, and Drupal migrations. Certified community contributor.</div>
       <div class="service-tags">
-        <span class="service-tag">Drupal 10/11</span>
-        <span class="service-tag">Custom Modules</span>
-        <span class="service-tag">Migrations</span>
-        <span class="service-tag">Multisite</span>
+        <span class="service-tag" style="background:rgba(124,58,237,.07);border-color:rgba(124,58,237,.2);color:#7c3aed">Drupal 10/11</span>
+        <span class="service-tag" style="background:rgba(124,58,237,.07);border-color:rgba(124,58,237,.2);color:#7c3aed">Custom Modules</span>
+        <span class="service-tag" style="background:rgba(124,58,237,.07);border-color:rgba(124,58,237,.2);color:#7c3aed">Migrations</span>
+        <span class="service-tag" style="background:rgba(124,58,237,.07);border-color:rgba(124,58,237,.2);color:#7c3aed">Multisite</span>
       </div>
     </div>
 
-    <div class="service-card" style="--card-accent:#f39c12">
+    <div class="service-card" style="--card-accent:#d97706">
       <span class="service-icon">🎨</span>
       <div class="service-name">UI / UX Design</div>
       <div class="service-desc">User-first interface design: wireframes, prototypes, component systems, and pixel-perfect implementation optimised for conversion and accessibility.</div>
       <div class="service-tags">
-        <span class="service-tag">Figma</span>
-        <span class="service-tag">Responsive</span>
-        <span class="service-tag">Accessibility</span>
-        <span class="service-tag">Design Systems</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">Figma</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">Responsive</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">Accessibility</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">Design Systems</span>
       </div>
     </div>
 
@@ -370,36 +368,36 @@ footer a:hover { color: var(--tx2); }
   <p class="section-desc">Reliable, scalable cloud infrastructure tailored to your workload — from simple S3 static hosting to full EC2 + RDS production environments.</p>
   <div class="service-grid">
 
-    <div class="service-card" style="--card-accent:#ff9900">
+    <div class="service-card" style="--card-accent:#d97706">
       <span class="service-icon">☁️</span>
       <div class="service-name">Static Site Hosting</div>
       <div class="service-desc">S3 + CloudFront setup for lightning-fast global delivery of static websites with custom domains, SSL, and cache invalidation.</div>
       <div class="service-tags">
-        <span class="service-tag" style="background:rgba(255,153,0,.08);border-color:rgba(255,153,0,.2);color:#ff9900">S3</span>
-        <span class="service-tag" style="background:rgba(255,153,0,.08);border-color:rgba(255,153,0,.2);color:#ff9900">CloudFront</span>
-        <span class="service-tag" style="background:rgba(255,153,0,.08);border-color:rgba(255,153,0,.2);color:#ff9900">Route 53</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">S3</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">CloudFront</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">Route 53</span>
       </div>
     </div>
 
-    <div class="service-card" style="--card-accent:#ff9900">
+    <div class="service-card" style="--card-accent:#d97706">
       <span class="service-icon">🖥️</span>
       <div class="service-name">Application Servers (EC2)</div>
       <div class="service-desc">EC2 instance setup, configuration, security hardening, auto-scaling groups, and load balancer configuration for production Drupal / PHP apps.</div>
       <div class="service-tags">
-        <span class="service-tag" style="background:rgba(255,153,0,.08);border-color:rgba(255,153,0,.2);color:#ff9900">EC2</span>
-        <span class="service-tag" style="background:rgba(255,153,0,.08);border-color:rgba(255,153,0,.2);color:#ff9900">RDS</span>
-        <span class="service-tag" style="background:rgba(255,153,0,.08);border-color:rgba(255,153,0,.2);color:#ff9900">Auto Scaling</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">EC2</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">RDS</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">Auto Scaling</span>
       </div>
     </div>
 
-    <div class="service-card" style="--card-accent:#ff9900">
+    <div class="service-card" style="--card-accent:#d97706">
       <span class="service-icon">🔒</span>
       <div class="service-name">SSL, DNS & Security</div>
       <div class="service-desc">Full domain management — Route 53 DNS, ACM SSL certificates, WAF rules, IAM policies, and CloudWatch monitoring for peace of mind.</div>
       <div class="service-tags">
-        <span class="service-tag" style="background:rgba(255,153,0,.08);border-color:rgba(255,153,0,.2);color:#ff9900">ACM SSL</span>
-        <span class="service-tag" style="background:rgba(255,153,0,.08);border-color:rgba(255,153,0,.2);color:#ff9900">WAF</span>
-        <span class="service-tag" style="background:rgba(255,153,0,.08);border-color:rgba(255,153,0,.2);color:#ff9900">CloudWatch</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">ACM SSL</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">WAF</span>
+        <span class="service-tag" style="background:rgba(217,119,6,.07);border-color:rgba(217,119,6,.2);color:#d97706">CloudWatch</span>
       </div>
     </div>
 
@@ -415,48 +413,48 @@ footer a:hover { color: var(--tx2); }
   <p class="section-desc">Rank higher, reach more people, and turn clicks into customers — with data-driven marketing across every channel that matters.</p>
   <div class="service-grid">
 
-    <div class="service-card" style="--card-accent:#34a853">
+    <div class="service-card" style="--card-accent:#16a34a">
       <span class="service-icon">🔍</span>
       <div class="service-name">SEO Optimisation</div>
       <div class="service-desc">On-page, technical, and off-page SEO — keyword research, site audit, structured data, Core Web Vitals, and monthly ranking reports.</div>
       <div class="service-tags">
-        <span class="service-tag" style="background:rgba(52,168,83,.08);border-color:rgba(52,168,83,.2);color:#34a853">On-Page SEO</span>
-        <span class="service-tag" style="background:rgba(52,168,83,.08);border-color:rgba(52,168,83,.2);color:#34a853">Technical SEO</span>
-        <span class="service-tag" style="background:rgba(52,168,83,.08);border-color:rgba(52,168,83,.2);color:#34a853">Schema / Rich Results</span>
+        <span class="service-tag" style="background:rgba(22,163,74,.07);border-color:rgba(22,163,74,.2);color:#16a34a">On-Page SEO</span>
+        <span class="service-tag" style="background:rgba(22,163,74,.07);border-color:rgba(22,163,74,.2);color:#16a34a">Technical SEO</span>
+        <span class="service-tag" style="background:rgba(22,163,74,.07);border-color:rgba(22,163,74,.2);color:#16a34a">Schema / Rich Results</span>
       </div>
     </div>
 
-    <div class="service-card" style="--card-accent:#4285f4">
+    <div class="service-card" style="--card-accent:#1a6fcc">
       <span class="service-icon">📊</span>
       <div class="service-name">Google Business Profile</div>
       <div class="service-desc">Set up, verify, and optimise your GMB listing for local search dominance — posts, reviews strategy, Q&A, and map pack ranking.</div>
       <div class="service-tags">
-        <span class="service-tag" style="background:rgba(66,133,244,.08);border-color:rgba(66,133,244,.2);color:#4285f4">Local SEO</span>
-        <span class="service-tag" style="background:rgba(66,133,244,.08);border-color:rgba(66,133,244,.2);color:#4285f4">GMB Optimisation</span>
-        <span class="service-tag" style="background:rgba(66,133,244,.08);border-color:rgba(66,133,244,.2);color:#4285f4">Reviews Strategy</span>
+        <span class="service-tag">Local SEO</span>
+        <span class="service-tag">GMB Optimisation</span>
+        <span class="service-tag">Reviews Strategy</span>
       </div>
     </div>
 
-    <div class="service-card" style="--card-accent:#ea4335">
+    <div class="service-card" style="--card-accent:#dc2626">
       <span class="service-icon">📈</span>
       <div class="service-name">Analytics & Advertising</div>
       <div class="service-desc">GA4 setup, custom event tracking, Google Ads / Meta Ads campaign management, conversion optimisation, and ROI-focused reporting.</div>
       <div class="service-tags">
-        <span class="service-tag" style="background:rgba(234,67,53,.08);border-color:rgba(234,67,53,.2);color:#ea4335">GA4</span>
-        <span class="service-tag" style="background:rgba(234,67,53,.08);border-color:rgba(234,67,53,.2);color:#ea4335">Google Ads</span>
-        <span class="service-tag" style="background:rgba(234,67,53,.08);border-color:rgba(234,67,53,.2);color:#ea4335">Conversion Tracking</span>
+        <span class="service-tag" style="background:rgba(220,38,38,.07);border-color:rgba(220,38,38,.2);color:#dc2626">GA4</span>
+        <span class="service-tag" style="background:rgba(220,38,38,.07);border-color:rgba(220,38,38,.2);color:#dc2626">Google Ads</span>
+        <span class="service-tag" style="background:rgba(220,38,38,.07);border-color:rgba(220,38,38,.2);color:#dc2626">Conversion Tracking</span>
       </div>
     </div>
 
-    <div class="service-card" style="--card-accent:#1877f2">
+    <div class="service-card" style="--card-accent:#1d4ed8">
       <span class="service-icon">📱</span>
       <div class="service-name">Social Media Marketing</div>
       <div class="service-desc">Facebook and Instagram growth strategy — content calendar, paid campaigns, audience targeting, retargeting funnels, and performance analytics.</div>
       <div class="service-tags">
-        <span class="service-tag" style="background:rgba(24,119,242,.08);border-color:rgba(24,119,242,.2);color:#1877f2">Facebook</span>
-        <span class="service-tag" style="background:rgba(24,119,242,.08);border-color:rgba(24,119,242,.2);color:#1877f2">Instagram</span>
-        <span class="service-tag" style="background:rgba(24,119,242,.08);border-color:rgba(24,119,242,.2);color:#1877f2">Meta Ads</span>
-        <span class="service-tag" style="background:rgba(24,119,242,.08);border-color:rgba(24,119,242,.2);color:#1877f2">Reels / Stories</span>
+        <span class="service-tag" style="background:rgba(29,78,216,.07);border-color:rgba(29,78,216,.2);color:#1d4ed8">Facebook</span>
+        <span class="service-tag" style="background:rgba(29,78,216,.07);border-color:rgba(29,78,216,.2);color:#1d4ed8">Instagram</span>
+        <span class="service-tag" style="background:rgba(29,78,216,.07);border-color:rgba(29,78,216,.2);color:#1d4ed8">Meta Ads</span>
+        <span class="service-tag" style="background:rgba(29,78,216,.07);border-color:rgba(29,78,216,.2);color:#1d4ed8">Reels / Stories</span>
       </div>
     </div>
 
@@ -519,7 +517,7 @@ footer a:hover { color: var(--tx2); }
       <div style="color:var(--tx3);font-size:11px">Available as 1-on-1 mentoring, group sessions, or corporate workshops</div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <a href="course_pricing.html" target="_blank" class="edu-cta">View Course Pricing →</a>
-        <a href="https://wa.me/919884346789" target="_blank" class="edu-cta" style="background:rgba(46,204,113,.12);border-color:rgba(46,204,113,.3);color:#2ecc71">💬 Enquire Now</a>
+        <a href="https://wa.me/919884346789" target="_blank" class="edu-cta" style="background:rgba(22,163,74,.08);border-color:rgba(22,163,74,.25);color:#16a34a">💬 Enquire Now</a>
       </div>
     </div>
   </div>
@@ -624,7 +622,7 @@ footer a:hover { color: var(--tx2); }
 
 <!-- CTA BANNER -->
 <div class="cta-banner">
-  <img src="profile.jpg" alt="Sivasankar S" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid rgba(59,158,255,.5);margin-bottom:16px;display:block;margin-left:auto;margin-right:auto">
+  <img src="profile.jpg" alt="Sivasankar S" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid rgba(26,111,204,.4);margin-bottom:16px;display:block;margin-left:auto;margin-right:auto">
   <div class="cta-title">Let's Build Your Digital Presence</div>
   <div class="cta-sub">Website · Drupal App · AWS Hosting · SEO · Social Media · Training — free consultation, no obligation</div>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
