@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSE Technical Levels — 2026-03-30</title>
+<style>
+:root{
+  --bg:#0d1117;--s:#161b22;--s2:#21262d;--bd:#30363d;--tx:#e6edf3;--mu:#7d8590;
+  --tab-active-color:#f85149;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font-family:'Segoe UI',system-ui,sans-serif;
+      font-size:12px;padding:12px 14px 40px}
+.status{display:flex;gap:6px;flex-wrap:wrap;align-items:center;
+         padding:8px 12px;background:var(--s);border:1px solid var(--bd);
+         border-radius:8px;margin-bottom:10px}
+.reg{font-size:17px;font-weight:800;margin-right:2px}
+.b{border:1px solid;border-radius:8px;padding:2px 8px;font-size:10px;font-weight:700}
+.sep{color:var(--bd)}
+.str{font-size:11px;font-weight:700}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--bd);margin-bottom:12px}
+.tab{
+  padding:7px 18px;background:transparent;border:none;color:var(--mu);
+  cursor:pointer;font-size:12px;font-weight:600;
+  border-bottom:2px solid transparent;
+  transition:color .15s,border-color .15s;
+}
+.tab.on{
+  color:var(--tab-active-color);
+  border-bottom-color:var(--tab-active-color);
+}
+.pane{display:none}.pane.on{display:block}
+.card{background:var(--s);border:1px solid var(--bd);border-radius:8px;padding:11px 13px;margin-bottom:8px}
+.ct{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--mu);
+     text-transform:uppercase;margin-bottom:8px}
+.wn{background:#2d1a00;border-left:3px solid #e3b341;padding:4px 8px;margin:3px 0;
+     border-radius:0 3px 3px 0;font-size:11px;line-height:1.5}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ins{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid var(--s2);align-items:flex-start}
+.ins-l{font-weight:700;color:#58a6ff;min-width:54px;font-size:10px;padding-top:1px;flex-shrink:0}
+.ins-t{font-size:11px;line-height:1.5}
+.disclaimer{background:#0d1a0d;border:1px solid #1e3a1e;border-radius:6px;padding:8px 12px;
+             margin-top:14px;font-size:10px;color:#4d8a4d;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="status">
+  <span class="reg" style="color:#f85149">BEAR</span>
+  <span class="b" style="color:#3fb950;border-color:#3fb95055">Strong Signal</span>
+  <span class="sep">|</span>
+  <span class="b" style="color:#f85149;border-color:#f8514955">OI: Bearish</span>
+  <span class="sep">|</span>
+  <span class="b" style="color:#f85149;border-color:#f8514955">VIX: Crisis 27.89</span>
+  <span class="sep">|</span>
+  <span class="str" style="color:#3fb950">Signal Alignment 9/10</span>
+  <span class="sep">|</span>
+  <span style="color:#7d8590;font-size:10px">Nifty 22,331 · 2026-03-30</span>
+</div>
+
+<div class="card"><div class="ct">⚠ Structural Alerts</div><div class='wn' style='border-color:#f85149'>! OI positioning strongly bearish across expiries (PCR weighted score -0.70)</div><div class='wn' style='border-color:#f85149'>! India VIX 27.89 — elevated fear zone; structurally unfavourable for upside momentum</div><div class='wn' style='border-color:#f85149'>! FII index futures net short for 5 consecutive sessions — sustained institutional futures positioning on downside</div><div class='wn' style='border-color:#f85149'>! FII net short futures / retail client net long — positioning divergence historically resolves bearishly</div><div class='wn' style='border-color:#f85149'>! Breadth 10.6% advances — broad market participation narrow, widespread weakness confirmed</div></div>
+
+<div class="tabs">
+  <button class="tab on"
+          data-bias-color="#f85149"
+          onclick="sw('id',this)">
+    Intraday <span style='background:#f8514922;color:#f85149;border:1px solid #f8514955;padding:1px 7px;border-radius:6px;font-size:10px;margin-left:6px;font-weight:700'>BEARISH</span>
+  </button>
+  <button class="tab"
+          data-bias-color="#f85149"
+          onclick="sw('wk',this)">
+    Weekly <span style='background:#f8514922;color:#f85149;border:1px solid #f8514955;padding:1px 7px;border-radius:6px;font-size:10px;margin-left:6px;font-weight:700'>BEARISH</span>
+  </button>
+  <button class="tab"
+          data-bias-color="#e3b341"
+          onclick="sw('mo',this)">
+    Monthly <span style='background:#e3b34122;color:#e3b341;border:1px solid #e3b34155;padding:1px 7px;border-radius:6px;font-size:10px;margin-left:6px;font-weight:700'>RANGE</span>
+  </button>
+  <button class="tab"
+          data-bias-color="#7d8590"
+          onclick="sw('ctx',this)"
+          style="margin-left:auto;color:#7d8590">
+    Data Context
+  </button>
+</div>
+
+<div id="id" class="pane on">
+  
+<div style='position:relative;height:220px;background:#0d1117;border-radius:6px;margin:10px 0;overflow:hidden;border:1px solid #30363d'><div style='position:absolute;left:0;right:0;top:10px;height:1px;background:#ffa657;opacity:.8'></div><span style='position:absolute;right:8px;top:0px;font-size:10px;color:#ffa657;font-weight:600'>Bear Invalid</span><span style='position:absolute;left:8px;top:0px;font-size:10px;color:#ffa657'>22,500</span><div style='position:absolute;left:0;right:0;top:10px;height:1px;background:#f85149;opacity:.8'></div><div style='position:absolute;left:0;right:0;top:102px;height:2px;background:#f85149;opacity:.8'></div><span style='position:absolute;right:8px;top:88px;font-size:10px;color:#f85149;font-weight:600'>R1</span><span style='position:absolute;left:8px;top:88px;font-size:10px;color:#f85149'>22,350</span><div style='position:absolute;left:0;right:0;top:114px;height:2px;background:#79c0ff;opacity:.8'></div><div style='position:absolute;left:0;right:0;top:133px;height:2px;background:#3fb950;opacity:.8'></div><span style='position:absolute;right:8px;top:119px;font-size:10px;color:#3fb950;font-weight:600'>S1</span><span style='position:absolute;left:8px;top:119px;font-size:10px;color:#3fb950'>22,300</span><div style='position:absolute;left:0;right:0;top:194px;height:1px;background:#3fb950;opacity:.8'></div><span style='position:absolute;right:8px;top:180px;font-size:10px;color:#3fb950;font-weight:600'>S2</span><span style='position:absolute;left:8px;top:180px;font-size:10px;color:#3fb950'>22,200</span><div style='position:absolute;left:0;right:0;top:210px;height:1px;background:#ffa657;opacity:.8'></div></div>
+<div style='display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px'>
+  <div><div style='background:#1a0d0d;border:1px solid #3d1a1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#f85149;font-weight:700;margin-bottom:8px'>📉 BEAR PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bear Strength At</span><span style='color:#f87171;font-size:11px;font-weight:600'>22340-22375 zone — weekly OI resistance at 22350, any bounce into this zone with VIX holding above 26</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R1</span><span style='color:#f87171;font-size:11px;font-weight:600'>22,350</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R2</span><span style='color:#f87171;font-size:11px;font-weight:600'>22,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,275</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,175</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Sustained trade above 22500 with VIX drop below 25 invalidates intraday bear structure</span></div></div></div>
+  <div><div style='background:#0d1a0d;border:1px solid #1a3d1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#3fb950;font-weight:700;margin-bottom:8px'>📈 BULL PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bull Strength At</span><span style='color:#86efac;font-size:11px;font-weight:600'>22275-22300 zone — double support floor weekly/next-weekly PE wall, only on VIX reversal signal</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S1</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,300</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S2</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,200</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>22,350</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>22,450</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Close below 22275 on volume invalidates double support floor thesis</span></div></div></div>
+</div>
+<div style='background:#161b22;border-left:2px solid #f85149;border-radius:0 4px 4px 0;padding:7px 10px;font-size:11px;color:#8ca8c5;margin-top:6px;line-height:1.6'>📌 Spot at 22331 is pinned between weekly OI resistance 22350 and double support 22300 — range is compressed with bear bias given SHORT_BUILDUP quad and VIX at 27.89.</div>
+</div>
+
+<div id="wk" class="pane">
+  
+<div style='position:relative;height:220px;background:#0d1117;border-radius:6px;margin:10px 0;overflow:hidden;border:1px solid #30363d'><div style='position:absolute;left:0;right:0;top:10px;height:1px;background:#f85149;opacity:.8'></div><span style='position:absolute;right:8px;top:0px;font-size:10px;color:#f85149;font-weight:600'>R2</span><span style='position:absolute;left:8px;top:0px;font-size:10px;color:#f85149'>23,000</span><div style='position:absolute;left:0;right:0;top:60px;height:1px;background:#ffa657;opacity:.8'></div><span style='position:absolute;right:8px;top:46px;font-size:10px;color:#ffa657;font-weight:600'>Bear Invalid</span><span style='position:absolute;left:8px;top:46px;font-size:10px;color:#ffa657'>22,700</span><div style='position:absolute;left:0;right:0;top:93px;height:2px;background:#f85149;opacity:.8'></div><span style='position:absolute;right:8px;top:79px;font-size:10px;color:#f85149;font-weight:600'>R1</span><span style='position:absolute;left:8px;top:79px;font-size:10px;color:#f85149'>22,500</span><div style='position:absolute;left:0;right:0;top:121px;height:2px;background:#79c0ff;opacity:.8'></div><span style='position:absolute;right:8px;top:107px;font-size:10px;color:#79c0ff;font-weight:600'>Spot 22331</span><span style='position:absolute;left:8px;top:107px;font-size:10px;color:#79c0ff'>22,331</span><div style='position:absolute;left:0;right:0;top:126px;height:2px;background:#3fb950;opacity:.8'></div><div style='position:absolute;left:0;right:0;top:176px;height:1px;background:#3fb950;opacity:.8'></div><span style='position:absolute;right:8px;top:162px;font-size:10px;color:#3fb950;font-weight:600'>S2</span><span style='position:absolute;left:8px;top:162px;font-size:10px;color:#3fb950'>22,000</span><div style='position:absolute;left:0;right:0;top:210px;height:1px;background:#ffa657;opacity:.8'></div><span style='position:absolute;right:8px;top:196px;font-size:10px;color:#ffa657;font-weight:600'>Bull Invalid</span><span style='position:absolute;left:8px;top:196px;font-size:10px;color:#ffa657'>21,800</span></div>
+<div style='display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px'>
+  <div><div style='background:#1a0d0d;border:1px solid #3d1a1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#f85149;font-weight:700;margin-bottom:8px'>📉 BEAR PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bear Strength At</span><span style='color:#f87171;font-size:11px;font-weight:600'>22450-22500 zone — next-weekly max pain and stacked resistance, SHORT_BUILDUP across both weekly expiries</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R1</span><span style='color:#f87171;font-size:11px;font-weight:600'>22,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>R2</span><span style='color:#f87171;font-size:11px;font-weight:600'>23,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,150</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Weekly close above 22700 with PCR recovery above 0.90 invalidates weekly bear structure</span></div></div></div>
+  <div><div style='background:#0d1a0d;border:1px solid #1a3d1a;border-radius:6px;padding:10px 12px;margin-bottom:8px'><div style='font-size:9px;letter-spacing:1px;color:#3fb950;font-weight:700;margin-bottom:8px'>📈 BULL PRESSURE ZONE</div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Bull Strength At</span><span style='color:#86efac;font-size:11px;font-weight:600'>22050-22100 zone — approaching monthly/next-monthly double support at 22000, only on breadth recovery above 30%</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S1</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,300</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>S2</span><span style='color:#86efac;font-size:11px;font-weight:600'>22,000</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 1</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>22,300</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Measured Move 2</span><span style='color:#7dd3fc;font-size:11px;font-weight:600'>22,500</span></div><div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #21262d'><span style='color:#7d8590;font-size:11px'>Thesis Invalidates</span><span style='color:#ffa657;font-size:11px;font-weight:600'>Weekly close below 21950 invalidates 22000 double support floor</span></div></div></div>
+</div>
+<div style='background:#161b22;border-left:2px solid #f85149;border-radius:0 4px 4px 0;padding:7px 10px;font-size:11px;color:#8ca8c5;margin-top:6px;line-height:1.6'>📌 Weekly PCR 0.76 and next-weekly PCR 0.701 both in CE-writing dominance zone with SHORT_BUILDUP quad — structural resistance ceiling firmly at 22500, double floor at 22300 is the critical near-term level.</div>
+</div>
+
+<div id="mo" class="pane">
+  <p style='color:#7d8590;padding:16px'>No data</p>
+</div>
+
+<div id="ctx" class="pane">
+  <div class="card">
+    <div class="ct">Technical Observations</div>
+    <div class="ins"><div class="ins-l">OI</div><div class="ins-t">All four expiries in SHORT_BUILDUP quadrant — structurally uniform bear positioning across weekly, next-weekly, monthly, and next-monthly. Double resistance ceiling stacked at 23000 across monthly and next-monthly expiries by CE writers. Double support floors at 22300 (weekly/next-weekly) and 22000 (monthly/next-monthly). Spot at 22331 is sitting just above the 22300 double floor — a breach here opens path to 22000 double floor. Weekly PCR 0.76 and next-weekly PCR 0.701 both below 0.80 threshold, confirming CE writing dominance and structural resistance overhead. Monthly PCR 0.976 is relatively healthier but spot is 1169pts below monthly max pain at 23500, indicating severe downside dislocation.</div></div>
+    <div class="ins"><div class="ins-l">FII</div><div class="ins-t">FII futures net short -264046 contracts with 5-day change of -29538 — short streak of 5 consecutive days, institutionally committed bear positioning. FII cash selling -11163 Cr offset partially by DII buying +14895 Cr, but net institutional flow remains bearish. Client index net long 180743 vs FII net short — classic positioning divergence historically resolved bearishly. FII CE short 502548 vs CE long 270111 — net CE writing confirms structural resistance defense above current levels. PE long 625831 — FII holding significant downside protection, consistent with institutional hedging for further decline.</div></div>
+    <div class="ins"><div class="ins-l">F&O</div><div class="ins-t">Nifty and BankNifty both in LONG_UNWINDING quadrant — institutional longs being liquidated into weakness, not short-covering driven. stk_lu=189 long unwinds vs stk_sc=13 short covers — overwhelming long liquidation in individual stocks confirms broad de-risking. Absence of meaningful short-covering (stk_sc=13) means no structural floor being built from covering activity; downside pressure structurally intact.</div></div>
+    <div class="ins"><div class="ins-l">BREADTH</div><div class="ins-t">Advances 53 vs declines 446 — advance percentage 10.6% against 5-day average of 41.8%, representing a 75% collapse in breadth participation. Only 11.4% of stocks above EMA10, 9.2% above EMA20, 10.4% above EMA40 — market-wide structural deterioration across all timeframes, not sector-specific. This breadth profile is consistent with capitulation-phase selling rather than orderly correction.</div></div>
+  </div>
+  <div class="card">
+    <div class="ct">Data Anomalies</div>
+    <div class='wn'>! VIX at 27.89 — above 22 capitulation threshold, 100th percentile of 52-week range, structural fear zone active</div><div class='wn'>! Monthly max pain at 23500 with spot at 22331 — 1169pt gap signals extreme dislocation from expiry gravity</div><div class='wn'>! stk_lu=189 vs stk_sc=13 — long unwinding dominant, institutional equity liquidation in progress</div><div class='wn'>! Breadth: only 10.6% advances, 5d avg 41.8% — catastrophic breadth collapse, not a single-day anomaly</div><div class='wn'>! FII cash net -11163 Cr while DII buying 14895 Cr — DII absorption present but FII selling overwhelming</div>
+  </div>
+  <div class="card">
+    <div class="ct">Market Structure Summary</div>
+    <div style="font-size:12px;line-height:1.8">Structural alignment is uniformly bearish across all timeframes. VIX in capitulation zone at 27.89, all expiries in SHORT_BUILDUP, FII on 5-day short streak, breadth collapsed to 10.6%, long unwinding dominant in F&O, and spot trading 1169pts below monthly max pain. The 22300 double floor (weekly/next-weekly PE writers) is the immediate structural battleground — a sustained close below 22300 removes the near-term floor and exposes the 22000 double support (monthly/next-monthly). The 23000 double ceiling is institutionally defended by CE writers across two monthly expiries. No structural evidence of reversal — VIX elevation and breadth collapse suggest capitulation phase but not necessarily exhaustion bottom.</div>
+  </div>
+  <div class="card">
+    <div class="ct">Key Data Points to Watch</div>
+    <div style="font-size:12px;line-height:1.8">Bear structure dominant: short entries valid near 22500-22550 resistance zone (weekly OI resistance + next-weekly max pain). Structural floor at 22300 double support — breach confirms next leg toward 22000 double floor. Long structure only viable on reclaim of 22500 with VIX compression below 24. Monthly structural resolution requires reclaim of 23000 double ceiling to shift bias.</div>
+  </div>
+</div>
+
+<div class="disclaimer">
+  ⓘ <strong>Educational / Informational Data Only.</strong>
+  This page presents technical market structure data derived from publicly available NSE EOD information
+  (options OI, FII participant data, breadth, VIX). It does not constitute investment advice, a buy/sell
+  recommendation, or a solicitation. InfoAlpha is not a SEBI-registered investment adviser.
+  All decisions are the sole responsibility of the individual. Past data patterns do not guarantee future outcomes.
+</div>
+
+<script>
+function sw(id, btn) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  document.documentElement.style.setProperty(
+    '--tab-active-color',
+    btn.dataset.biasColor || '#e3b341'
+  );
+}
+</script>
+</body>
+</html>
