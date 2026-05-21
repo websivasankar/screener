@@ -762,7 +762,7 @@ footer a:hover{{color:var(--accent)}}
   <div class="hero-tag">NSE India · Institutional Intelligence</div>
   <h1>Institutional Flow &amp; Options<br><span>Structure Intelligence</span></h1>
   <p class="hero-sub">
-    Data-driven technical structure analysis — derived from Stock OHLCV data,
+    Data-driven technical structure analysis — derived from stock OHLCV data,
     options positioning.
     Understand <em>what the data shows</em>, not what to trade.
   </p>
@@ -822,7 +822,7 @@ footer a:hover{{color:var(--accent)}}
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
         <a href="https://wa.me/919884346789" target="_blank" style="display:flex;align-items:center;gap:7px;background:#25D366;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">💬 WhatsApp Me</a>
         <a href="https://t.me/volumepricemove" target="_blank" style="display:flex;align-items:center;gap:7px;background:#229ED9;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">✈ Telegram</a>
-        <a href="index.html" style="display:flex;align-items:center;gap:7px;background:rgba(26,111,204,.1);border:1px solid rgba(26,111,204,.25);color:var(--accent);font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">🌐 Digital Services</a>
+        <a href="digital.html" style="display:flex;align-items:center;gap:7px;background:rgba(26,111,204,.1);border:1px solid rgba(26,111,204,.25);color:var(--accent);font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">🌐 Digital Services</a>
       </div>
       <div class="support-box" style="margin-top:20px;padding:20px">
         <div style="color:var(--tx2);font-size:12px;line-height:1.7;margin-bottom:10px">If you find these signals useful, consider supporting the infrastructure and research:</div>
