@@ -762,8 +762,8 @@ footer a:hover{{color:var(--accent)}}
   <div class="hero-tag">NSE India · Institutional Intelligence</div>
   <h1>Institutional Flow &amp; Options<br><span>Structure Intelligence</span></h1>
   <p class="hero-sub">
-    Data-driven technical structure analysis — derived from FII participant OI,
-    options positioning across 4 expiries, market breadth, and India VIX.
+    Data-driven technical structure analysis — derived from Stock OHLCV data,
+    options positioning.
     Understand <em>what the data shows</em>, not what to trade.
   </p>
   <div class="hero-stats">
@@ -813,13 +813,7 @@ footer a:hover{{color:var(--accent)}}
       <p style="color:var(--tx2);font-size:13px;line-height:1.9;margin-bottom:14px">
         InfoAlpha is an independent market intelligence project built by
         <strong style="color:var(--tx)">Sivasankar S</strong> — a developer and quant analyst
-        combining institutional flow data, options positioning, and AI interpretation
-        to give retail traders an institutional-grade edge.
-      </p>
-      <p style="color:var(--tx2);font-size:13px;line-height:1.9;margin-bottom:14px">
-        The system runs every trading day after NSE EOD — processing FII participant OI,
-        breadth, delivery data, and 4-expiry options structure through a 3-day footprint
-        model before feeding it to Claude for synthesis.
+        combining institutional flow data, options positioning.
       </p>
       <p style="color:var(--tx3);font-size:11px;line-height:1.7">
         Also offers: Website Development · Drupal · AWS Cloud · Digital Marketing · Training →
@@ -873,7 +867,7 @@ footer a:hover{{color:var(--accent)}}
     <a href="https://www.youtube.com/@InfoAlphain" target="_blank">YouTube</a> &nbsp;·&nbsp;
     <a href="https://www.linkedin.com/in/ssivasankar/" target="_blank">LinkedIn</a> &nbsp;·&nbsp;
     <a href="https://x.com/ssankarsiva" target="_blank">X</a> &nbsp;·&nbsp;
-    <a href="index.html">← Digital Services</a> &nbsp;·&nbsp;
+    <a href="digital.html">← Digital Services</a> &nbsp;·&nbsp;
     <a href="https://infoalpha.in" target="_blank">infoalpha.in</a>
   </p>
 </footer>
