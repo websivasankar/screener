@@ -70,12 +70,11 @@ def find_date_dirs(base: Path, n: int) -> list:
             j = matches[0] if matches else None
         if j and Path(j).exists():
             result.append((d.name, Path(j)))
-            print(f"  Found: {d.name} → {Path(j).name}")
-        else:
-            print(f"  Skip : {d.name} — no ai_analysis*.json")
+            #print(f"  Found: {d.name} → {Path(j).name}")
+
         if len(result) >= n:
             break
-    return result
+    return []
 
 
 def load_signal(date_str: str, json_path: Path) -> dict:
@@ -232,23 +231,24 @@ def copy_screener_files(src_date_dir: Path):
             print(f"  Copied + branded OI: {f}")
 
     for d in SOURCE_BASE.iterdir():
+        continue
         if not d.is_dir():
             continue
         v4h = d / "ai_analysis_v4.html"
         if v4h.exists():
             dst_name = f"ai_analysis_v4_{d.name.replace('-', '_')}.html"
             dst = DEST_FOLDER / dst_name
-            shutil.copy(v4h, dst)
-            inject_brand(dst)
-            print(f"  Copied + branded report: {dst_name}")
+            #shutil.copy(v4h, dst)
+            #inject_brand(dst)
+            #print(f"  Copied + branded report: {dst_name}")
 
         legacy = d / "ai_analysis.html"
         if legacy.exists():
             dst_name = f"ai_analysis_{d.name.replace('-', '_')}.html"
             dst = DEST_FOLDER / dst_name
-            if not dst.exists():
-                shutil.copy(legacy, dst)
-                inject_brand(dst)
+            #if not dst.exists():
+            #    shutil.copy(legacy, dst)
+            #    inject_brand(dst)
 
 
 # ── REGIME COLORS (adjusted for white background) ─────────────────────────────
@@ -501,14 +501,9 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
 
 # ── TRADINGTOOL HTML ──────────────────────────────────────────────────────────
 
-def generate_tradingtool(featured: dict, history: list, all_ai_files: list) -> str:
+def generate_tradingtool(featured: dict, history: list) -> str:
     hist_html = "".join(build_signal_card(s, False) for s in history)
     feat_html = build_signal_card(featured, True) if featured else "<p style='color:#6b7280'>No analysis data available yet.</p>"
-
-    report_links = "\n".join(
-        f'<li><a href="{f}" target="_blank">{f}</a></li>'
-        for f in all_ai_files
-    )
 
     regime   = featured.get("regime",    "NEUTRAL")
     strength = featured.get("strength",  0)
@@ -752,12 +747,10 @@ footer a:hover{{color:var(--accent)}}
     </div>
   </a>
   <div class="nav-links">
-    <a href="course_pricing.html" target="_blank">Training</a>
     <a href="#signals">Signals</a>
     <a href="#oi">OI Charts</a>
-    <a href="#reports">AI Reports</a>
     <a href="#about">About</a>
-    <a href="index.html" class="nav-home-link">🌐 Digital Services</a>
+    <a href="digital.html" class="nav-home-link">🌐 Digital Services</a>
     <a href="https://t.me/volumepricemove" target="_blank" class="nav-cta" style="background:#229ED9">✈ Telegram</a>
     <a href="https://www.youtube.com/@InfoAlphain" target="_blank" class="nav-cta">▶ YouTube</a>
   </div>
@@ -775,25 +768,12 @@ footer a:hover{{color:var(--accent)}}
   </p>
   <div class="hero-stats">
     <div class="hero-stat"><div class="hs-val">6+</div><div class="hs-label">Screeners</div></div>
-    <div class="hero-stat"><div class="hs-val">4</div><div class="hs-label">OI Expiries</div></div>
-    <div class="hero-stat"><div class="hs-val">AI</div><div class="hs-label">Regime Engine</div></div>
+    <div class="hero-stat"><div class="hs-val">Monthly</div><div class="hs-label">OI Expirie</div></div>
+    
     <div class="hero-stat"><div class="hs-val">EOD</div><div class="hs-label">Daily Update</div></div>
   </div>
 </div>
 
-<div class="divider"></div>
-
-<!-- FEATURED SIGNAL -->
-<div class="section">
-  <div class="section-label">Latest Technical Analysis</div>
-  <div class="section-title">Market Structure — {featured.get("date_disp","") if featured else ""}</div>
-  {feat_html}
-</div>
-
-<!-- HISTORY -->
-{'<div class="section"><div class="section-label">Recent History</div><div class="section-title">Last ' + str(len(history)) + ' Trading Days</div><div class="hist-grid">' + hist_html + '</div></div>' if history else ""}
-
-<div class="divider"></div>
 
 <!-- SCREENERS -->
 <div class="section" id="signals">
@@ -816,40 +796,9 @@ footer a:hover{{color:var(--accent)}}
   <div class="section-label">Derivatives Intelligence</div>
   <div class="section-title">Options OI Structure</div>
   <div class="tool-grid">
-    <a href="options_oi_chart.html" class="tool-card" target="_blank"><div class="tool-icon">🎯</div><div class="tool-name">Weekly OI</div><div class="tool-desc">CE vs PE open interest — current week expiry</div></a>
-    <a href="options_oi_chartnxtweek.html" class="tool-card" target="_blank"><div class="tool-icon">🎯</div><div class="tool-name">Next Week OI</div><div class="tool-desc">Next expiry positioning analysis</div></a>
+
     <a href="options_oi_chartmonth.html" class="tool-card" target="_blank"><div class="tool-icon">📅</div><div class="tool-name">Monthly OI</div><div class="tool-desc">Monthly expiry option structure and max pain</div></a>
-    <a href="options_oi_chartnxtmonth.html" class="tool-card" target="_blank"><div class="tool-icon">📅</div><div class="tool-name">Next Month OI</div><div class="tool-desc">Next month institutional positioning data</div></a>
-    <a href="csvweek.html" class="tool-card" target="_blank"><div class="tool-icon">🔍</div><div class="tool-name">OI Filter — Weekly</div><div class="tool-desc">Filtered OI table with building/unwinding tags</div></a>
-    <a href="csvmonth.html" class="tool-card" target="_blank"><div class="tool-icon">🔍</div><div class="tool-name">OI Filter — Monthly</div><div class="tool-desc">Monthly OI table with change analysis</div></a>
-    <a href="Dashboard.html" class="tool-card" target="_blank"><div class="tool-icon">📉</div><div class="tool-name">OI Changes — Weekly</div><div class="tool-desc">4-day comparison of weekly OI movement</div></a>
-    <a href="DashboardMonth.html" class="tool-card" target="_blank"><div class="tool-icon">📉</div><div class="tool-name">OI Changes — Monthly</div><div class="tool-desc">4-day comparison of monthly OI movement</div></a>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- AI REPORTS ARCHIVE -->
-<div class="section" id="reports">
-  <div class="section-label">Archive</div>
-  <div class="section-title">All AI Daily Reports</div>
-  <ul class="reports-list">
-    {report_links}
-  </ul>
-</div>
-
-<div class="divider"></div>
-
-<!-- HOW IT WORKS -->
-<div class="section">
-  <div class="section-label">Methodology</div>
-  <div class="section-title">How the System Works</div>
-  <div class="how-grid">
-    <div class="how-step" data-num="01"><div class="how-step-title">NSE EOD Data Collection</div><div class="how-step-desc">Daily bhav copy, FO participant OI (fao_participant_oi), FII cash stats, and VIX history downloaded from NSE archives.</div></div>
-    <div class="how-step" data-num="02"><div class="how-step-title">Quant Feature Extraction</div><div class="how-step-desc">Breadth, delivery spikes, momentum MA, high/low resilience, sector rotation, and options OI structure computed per symbol.</div></div>
-    <div class="how-step" data-num="03"><div class="how-step-title">Python Labels All Rules</div><div class="how-step-desc">Regime (BULL/BEAR/NEUTRAL/TRANSITION), VIX zone, conviction cap, FII vs Client divergence, breadth trend, and stock futures sentiment are all computed in Python — zero hallucination risk.</div></div>
-    <div class="how-step" data-num="04"><div class="how-step-title">Claude Finds Anomalies</div><div class="how-step-desc">Claude receives raw numbers only — no labels, no rules. It identifies unusual patterns, writes the OI / FII / breadth / F&amp;O narratives, synthesis, and action plan in a single API call.</div></div>
-    <div class="how-step" data-num="05"><div class="how-step-title">Static Site Publish</div><div class="how-step-desc">All HTML reports and screeners are copied to GitHub Pages and served from infoalpha.in — no server, no login, no tracking.</div></div>
+    <a href="institutional_oi_dashboard.html" class="tool-card" target="_blank"><div class="tool-icon">📅</div><div class="tool-name">OI</div><div class="tool-desc">Dashboard for institutional OI analysis</div></a>
   </div>
 </div>
 
@@ -985,33 +934,8 @@ def main():
     history_signals = all_signals[1:args.days]
     print(f"Loaded {len(signals)} JSON signal(s) + {len(html_only)} HTML-only signal(s)")
 
-    def _ai_file_date(fname: str) -> str:
-        import re as _re
-        stem = fname.replace("ai_analysis_v5_","").replace("ai_analysis_v4_","").replace("ai_analysis_","").replace(".html","")
-        parts = stem.split("_")
-        parts = [p for p in parts if p.isdigit()]
-        if len(parts) < 3:
-            return "0000-00-00"
-        a, b, c = parts[0], parts[1], parts[2]
-        if len(a) == 4:
-            return f"{a}-{b.zfill(2)}-{c.zfill(2)}"
-        if len(c) == 4:
-            return f"{c}-{b.zfill(2)}-{a.zfill(2)}"
-        return "0000-00-00"
-
-    ai_candidates = [f.name for f in DEST_FOLDER.glob("ai_analysis*.html")]
-    _date_map: dict = {}
-    for fname in ai_candidates:
-        key = _ai_file_date(fname)
-        if key == "0000-00-00":
-            continue
-        existing = _date_map.get(key)
-        if existing is None or ("v4" in fname and "v4" not in existing):
-            _date_map[key] = fname
-    all_ai = [v for _, v in sorted(_date_map.items(), reverse=True)]
-
-    html = generate_tradingtool(featured, history_signals, all_ai)
-    out  = DEST_FOLDER / "tradingtool.html"
+    html = generate_tradingtool(featured, history_signals)
+    out  = DEST_FOLDER / "index.html"
     out.write_text(html, encoding="utf-8")
 
     # IMPORTANT: Do NOT overwrite index.html — it is the static digital services page
@@ -1019,7 +943,7 @@ def main():
 
     print("Injecting brand into existing HTML files …")
     for f in DEST_FOLDER.glob("*.html"):
-        if f.name in ("tradingtool.html", "index.html"):
+        if f.name in ("digital.html", "index.html"):
             continue
         inject_brand(f)
 
