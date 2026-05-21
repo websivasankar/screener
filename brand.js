@@ -145,7 +145,6 @@
       <a href="index.html"${isActive(['index'])} class="ia-hide-mobile">Home</a>
       <a href="index.html#signals"${isActive(['breadth','delivery','highlow','momentum','recurring','sector'])} class="ia-hide-mobile">Screeners</a>
       <a href="index.html#oi"${isActive(['options_oi','Dashboard','csvweek','csvmonth'])} class="ia-hide-mobile">OI Charts</a>
-      <a href="index.html#reports"${isActive(['ai_analysis'])} class="ia-hide-mobile">AI Reports</a>
       <a href="https://t.me/volumepricemove" target="_blank" class="ia-nav-cta ia-nav-cta-tg">✈ Telegram</a>
       <a href="https://www.youtube.com/@InfoAlphain" target="_blank" class="ia-nav-cta ia-nav-cta-yt">▶ YouTube</a>
     </div>
