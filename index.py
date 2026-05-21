@@ -517,7 +517,7 @@ def generate_tradingtool(featured: dict, history: list) -> str:
         f"{synth[:160].rstrip('…')}… "
         f"Daily institutional flow, FII OI, breadth & options positioning intelligence."
     ) if synth else (
-        "InfoAlpha — AI-powered NSE market regime engine. "
+        "InfoAlpha — Quantitative NSE market structure analytics. "
         "Institutional flow, FII OI, breadth, VIX, and options positioning — every trading day."
     )
     og_url    = "https://infoalpha.in/tradingtool.html"
@@ -578,7 +578,7 @@ def generate_tradingtool(featured: dict, history: list) -> str:
   "@type": "WebSite",
   "name": "InfoAlpha Trading Tools",
   "url": "{og_url}",
-  "description": "AI-powered NSE market regime engine — institutional flow, FII OI, breadth, VIX, and options positioning intelligence.",
+  "description": "Quantitative NSE market structure analytics",
   "author": {{
     "@type": "Person",
     "name": "Sivasankar S",
