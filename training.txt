@@ -1,0 +1,129 @@
+Quant Trading Training + InfoAlpha Access
+Learn Market Structure, Price Action & Systematic Trading Using Real NSE Data
+
+Program Fee: ₹8,000 (Full Program)
+
+This program is designed for:
+
+Students
+Working Professionals
+Traders
+Developers & Tech Learners
+Anyone interested in Data-Driven Market Analysis
+What You Will Learn
+Price Action & Market Structure
+Higher High (HH) & Higher Low (HL)
+Lower High (LH) & Lower Low (LL)
+Support & Resistance
+Trend Continuation & Reversal
+Breakout vs Fakeout
+Market Structure Reading
+Institutional Trend Behavior
+Technical Analysis Concepts
+Moving Averages (20 EMA / 50 EMA / 200 EMA)
+ATR (Average True Range)
+Fibonacci Retracement
+Volume & Momentum Analysis
+Relative Strength Analysis
+Trend Slope & Expansion
+Risk Management Concepts
+Multi-Timeframe Trading
+
+Understand how professional traders analyze:
+
+Monthly Trend
+Weekly Trend
+Daily Trend
+Intraday Structure
+Primary Trend
+Secondary Trend
+Market Noise vs Real Trend
+
+Learn how timeframe alignment improves trade quality and confidence.
+
+Quantitative Trading & Research
+Python for Quantitative Research
+NSE Data Pipelines
+Parquet Workflow
+Data Storage & Analysis
+Quantitative Models
+Multi-Factor Stock Ranking
+Sector Rotation Analysis
+Relative Strength Screening
+Options OI Analytics
+Build Your Own Trading Tools
+
+Learn how to:
+
+Create custom stock screeners
+Build systematic research workflows
+Automate stock analysis
+Generate market dashboards
+Analyze NSE market data using technology
+Included with the Program
+InfoAlpha Access
+NSE Screener Dashboard
+Quant Research Workflow
+Multi-Factor Stock Scoring System
+Systematic Trading Tool Access
+3 Months Free Top Sector + Stock Score Access
+Program Focus
+
+This training focuses on:
+
+Data-driven market analysis
+Price action understanding
+Quantitative research workflows
+Systematic swing trading
+Technology-assisted decision making
+
+This is not a buy/sell tips service.
+
+The goal is to help learners understand:
+
+How strong stocks behave
+How trends develop
+How institutions move markets
+How to use data and technology confidently
+Ideal For
+
+✔ Beginner Traders
+✔ Swing Traders
+✔ IT Professionals
+✔ Engineering Students
+✔ Market Enthusiasts
+✔ Traders wanting systematic workflows
+✔ Learners interested in Quant + Technical Analysis
+
+Learn Trading with Structure, Data & Technology
+Build Confidence Through Research — Not Random Tips
+----------------------------------
+Module Breakdown 4-5-Week(weekday 2-3 hours) and weekend(4 hours) Practical Quant Trading & Price Action Program
+
+Phase 1 — Market Foundations (4–6 Hours)
+Market structure
+HH, HL, LH, LL
+Support & Resistance
+Candlestick context
+Trend identification
+Phase 2 — Technical Analysis (6–8 Hours)
+Moving averages
+ATR
+Fibonacci
+Volume analysis
+Breakouts & reversals
+Multi-timeframe analysis
+Phase 3 — Quant & Research Workflow (6–8 Hours)
+Python basics
+NSE data pipeline
+Parquet workflow
+Stock screening
+Relative strength
+Sector rotation
+Phase 4 — Systematic Trading & Risk (4–6 Hours)
+Position sizing
+Risk management
+Portfolio structure
+Quant scoring
+Workflow automation
+Trading psychology
