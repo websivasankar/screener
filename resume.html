@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sivasankar Seenuvasan - Quant Product Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.3;
+            color: #333;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.4in;
+            background: white;
+            font-size: 10px;
+        }
+        
+        @media print {
+            body {
+                padding: 0.3in;
+                font-size: 9px;
+            }
+            .no-print {
+                display: none;
+            }
+            .section {
+                break-inside: avoid;
+                margin-bottom: 10px;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #2c5aa0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .header h1 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        
+        .contact-info {
+            font-size: 10px;
+            color: #666;
+        }
+        
+        .summary {
+            background: #f8f9fa;
+            padding: 12px;
+            border-left: 4px solid #2c5aa0;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .summary .title {
+            font-weight: bold;
+            font-size: 11px;
+            margin-bottom: 5px;
+            color: #2c5aa0;
+        }
+        
+        .section {
+            margin-bottom: 12px;
+        }
+        
+        .section-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #2c5aa0;
+            border-bottom: 2px solid #2c5aa0;
+            padding-bottom: 2px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .job {
+            margin-bottom: 16px;
+        }
+        
+        .job-header {
+            background: #f1f3f4;
+            padding: 8px 10px;
+            border-left: 3px solid #2c5aa0;
+            margin-bottom: 8px;
+        }
+        
+        .job-title {
+            font-size: 11px;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        
+        .job-company {
+            font-size: 10px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .job-content {
+            margin-left: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .product-highlight {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 8px 0;
+        }
+        
+        .product-title {
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 6px;
+            font-size: 10px;
+        }
+        
+        .achievements ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .achievements li {
+            margin-bottom: 4px;
+            padding-left: 10px;
+            position: relative;
+            font-size: 9px;
+            line-height: 1.3;
+        }
+        
+        .achievements li:before {
+            content: "•";
+            color: #2c5aa0;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .demo-link {
+            font-weight: bold;
+            color: #1976d2;
+            font-size: 9px;
+            margin-top: 5px;
+            display: block;
+        }
+        
+        .key-skills {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .skill-group h4 {
+            font-size: 10px;
+            color: #2c5aa0;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        
+        .skill-group ul {
+            list-style: none;
+            font-size: 9px;
+        }
+        
+        .skill-group li {
+            margin-bottom: 3px;
+            padding-left: 8px;
+            position: relative;
+        }
+        
+        .skill-group li:before {
+            content: "•";
+            color: #2c5aa0;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .portfolio {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 9px;
+        }
+        
+        .portfolio-category {
+            margin-bottom: 6px;
+        }
+        
+        .portfolio-category strong {
+            color: #2c5aa0;
+            display: block;
+            margin-bottom: 2px;
+            font-size: 10px;
+        }
+        
+        .education-personal {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            margin-top: 12px;
+        }
+        
+        .education h4, .personal h4 {
+            font-size: 10px;
+            color: #2c5aa0;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+        
+        .education p, .personal p {
+            font-size: 9px;
+            margin-bottom: 2px;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2c5aa0;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 1000;
+        }
+        
+        .print-button:hover {
+            background: #1e3d70;
+        }
+
+        .early-experience {
+            margin: 10px 0;
+            font-size: 9px;
+        }
+
+        .early-experience strong {
+            color: #2c5aa0;
+        }
+
+        .early-experience div {
+            font-size: 8px;
+            margin-top: 3px;
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button no-print" onclick="window.print()">Print/Save PDF</button>
+    
+    <div class="header">
+        <h1>SIVASANKAR SEENUVASAN</h1>
+        <div class="contact-info">
+            Kallakurichi, Tamil Nadu | websivasankar@gmail.com | 9884346789
+        </div>
+    </div>
+
+    <div class="summary">
+        <div class="title">Market Analytics Engineer | Quant Product Builder | Trading Systems Developer | 10+ Yrs Engineering</div>
+        <p>Technical product developer with hands-on experience building trading systems, market analysis tools, and full-stack SaaS products. Combines strong technical execution with product thinking, shaped by 10+ years in enterprise software and 4+ years focused on financial markets. Self-funded quant product builder with 4+ years of deep R&D building real-time trading systems, ML signal pipelines, and market microstructure tools — ready to contribute to prop desks, trading infra teams, or quant research roles with production-grade delivery and signal-thinking mindset.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Financial Markets & Product Experience</div>
+        <ul style="font-size: 9px; list-style: none; padding-left: 0; line-height: 1.3;">
+<li>• Built real-time Indian market analytics systems covering NIFTY, sector strength, breadth analysis, and stock screening workflows</li>
+<li>• Developed delivery + momentum based stock confluence screener with persistence tracking and accumulation analysis concepts</li>
+<li>• Built NIFTY Open Interest (OI) analytics tools for derivatives positioning, PCR analysis, and strike-level activity monitoring</li>
+<li>• Designed breadth and regime analysis frameworks using participation metrics, sector rotation, and market structure analysis</li>
+<li>• Developed scalable NSE bhavcopy parquet pipelines and time-series research infrastructure using Python</li>
+<li>• Experience in systematic trading workflows, market structure interpretation, and automated analytics/dashboard generation</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Key Skills & Core Capabilities</div>
+        <div class="key-skills">
+            <div class="skill-group">
+                <h4>Financial Markets & Trading Systems</h4>
+                <ul>
+                    <li>Trading platform development with real-time data processing and risk management</li>
+                    <li>Market microstructure analysis and quantitative research approaches</li>
+                    <li>Technical analysis implementation and systematic trading strategies</li>
+                    <li>Understanding of institutional infrastructure vs retail trading limitations</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <h4>Product Management & Strategy</h4>
+                <ul>
+                    <li>Product lifecycle management from concept to market deployment</li>
+                    <li>User research, market validation, and customer acquisition strategies</li>
+                    <li>SaaS business model design with freemium and subscription models</li>
+                    <li>Competitive analysis and product positioning in financial tools market</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <h4>Technical Foundation & Development</h4>
+                <ul>
+                    <li>Full-stack development enabling rapid prototyping and technical communication</li>
+                    <li>Database design for financial data and time-series optimization</li>
+                    <li>API development for trading systems and real-time integrations</li>
+                    <li>Cloud infrastructure (AWS) and system performance optimization</li>
+                </ul>
+            </div>
+            <div class="skill-group">
+                <h4>Tech Skills & Tools</h4>
+                <ul>
+                    <li>Languages: Python, JavaScript, PHP, SQL</li>
+                    <li>Financial Data: Time-series analysis, market data APIs, real-time processing</li>
+                    <li>Frameworks: React, Node.js, Django, RESTful APIs</li>
+                    <li>Infrastructure: AWS, Docker, MySQL, PostgreSQL, Git</li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 10px;">
+            <div class="skill-group">
+                <h4>Enterprise Leadership & Delivery</h4>
+                <ul>
+                    <li>Enterprise project delivery for major clients (Panasonic, Benefit One, TruGreen)</li>
+                    <li>Technical team leadership and cross-functional project management</li>
+                    <li>Client communication and solution architecture</li>
+                    <li>12+ years of technology experience providing deep technical credibility</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<!-- REPLACE ONLY THE "Financial Products Portfolio" SECTION WITH THIS -->
+
+<div class="section">
+    <div class="section-title">Financial Products Portfolio</div>
+    <div class="portfolio">
+        <div class="portfolio-grid">
+
+            <div class="portfolio-category">
+                <strong>InfoAlpha Market Analytics Platform</strong>
+                Comprehensive Indian market analytics platform featuring market breadth, sector strength, delivery analytics, and momentum research tools.
+                <br><br>
+                <strong>Website:</strong> https://infoalpha.in/
+            </div>
+
+            <div class="portfolio-category">
+                <strong>NIFTY OI & Derivatives Analytics</strong>
+                Built NIFTY Open Interest analysis tools covering OI buildup, unwinding, PCR behavior, strike concentration analysis, and derivatives positioning frameworks for directional bias analysis.
+            </div>
+
+            <div class="portfolio-category">
+                <strong>Stock Confluence Screener Engine</strong>
+                Developed NSE stock screener combining delivery volume, momentum persistence, sector strength, relative strength, breadth participation, and accumulation behavior for swing trade filtering.
+            </div>
+
+            <div class="portfolio-category">
+                <strong>Market Breadth & Regime Engine</strong>
+                Designed breadth analysis framework using advance-decline structures, percentage participation models, sector rotation, and regime detection concepts for market condition analysis.
+            </div>
+
+            <div class="portfolio-category">
+                <strong>NIFTY50 Real-time Trading System</strong>
+                Real-time multi-indicator tracking system for 50+ NIFTY stocks with sector rotation analysis, signal monitoring, and automated risk management.
+                <br><br>
+                <strong>GitHub:</strong> github.com/websivasankar/NIFTY50_TV_TRACKER
+            </div>
+
+            <div class="portfolio-category">
+                <strong>Quantitative Research & ML Signal Research</strong>
+                ML-powered research platform exploring market microstructure inefficiencies, signal persistence, order flow behavior, and predictive market analytics using historical NSE data.
+            </div>
+
+            <div class="portfolio-category">
+                <strong>Market Data Engineering Pipeline</strong>
+                Built NSE bhavcopy processing pipeline with parquet-based historical storage, symbol-wise processing architecture, and scalable time-series analytics workflows using Python.
+            </div>
+
+            <div class="portfolio-category">
+                <strong>Automated Market Content Workflows</strong>
+                Developed automated systems for generating educational market dashboards, trading videos, analytics visualizations, and Tamil/English stock market content workflows.
+            </div>
+
+        </div>
+    </div>
+</div>
+    <div class="section">
+        <div class="section-title">Professional Experience</div>
+        
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Founder / Quant Technologist – Trading Systems Lab</div>
+                <div class="job-company">Self-funded Research & Development | January 2023 - Present</div>
+            </div>
+            <div class="job-content">
+                <div class="product-highlight">
+                    <div class="product-title">NIFTY50 Real-time Trading System</div>
+                    <div class="achievements">
+                        <ul>
+                            <li>Built multi-indicator trading system for 50+ NIFTY stocks with real-time signal generation, automated risk controls, and sector rotation. Designed architecture for low-latency processing. Used in live evaluation.</li>
+                        </ul>
+                    </div>
+                    <div class="demo-link">GitHub Repository: https://github.com/websivasankar/NIFTY50_TV_TRACKER
+                    <br>Demo Video: https://www.youtube.com/watch?v=17OotQLnzOg    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="job">
+            <div class="job-content">
+                <div class="product-highlight">
+                    <div class="product-title">Market Microstructure Research Platform</div>
+                    <div class="achievements">
+                        <ul>
+                            <li>Researched algorithmic trading inefficiencies and order book imbalance patterns using ML approaches</li>
+                            <li>Built research framework combining predictive models with real tick data for backtesting strategies</li>
+                            <li>Discovered critical insights about execution speed vs prediction accuracy in live trading environments</li>
+                            <li>Identified institutional infrastructure advantages creating competitive moats individual traders cannot overcome</li>
+                            <li>Key learning: Platform and execution infrastructure often matter more than prediction models</li>
+                        </ul>
+                    </div>
+                    <div class="demo-link">GitHub Repository: https://github.com/websivasankar/MLInference</div>                    
+                </div>
+                
+                <div class="product-highlight">
+                    <div class="product-title">Indian Stock Screener Platform</div>
+                    <div class="achievements">
+                        <ul>
+                            <li>Product managed complete platform from user research to deployment and iteration</li>
+                            <li>Built screening system combining NSE data with technical indicators for retail trader workflows</li>
+                            <li>Designed modular approach supporting different trading strategies and user skill levels</li>
+                            <li>Validated product-market fit through user feedback and usage analytics</li>
+                        </ul>
+                    </div>
+                    <div class="demo-link">Demo Video: https://www.youtube.com/watch?v=j9lwJsk_iqM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Founder - Website Content Monitoring SaaS</div>
+                <div class="job-company">January 2020 - June 2021</div>
+            </div>
+            <div class="job-content">
+                <div class="product-highlight">
+                    <div class="product-title">Site Content Monitor (Complete SaaS Business)</div>
+                    <div class="achievements">
+                        <ul>
+                            <li>Led complete product lifecycle: market research, competitive analysis, product design, development, and launch</li>
+                            <li>Built technical platform supporting multiple monitoring types (visual, HTML, content) for different user needs</li>
+                            <li>Designed complete product lifecycle — feature design, backend infra, and user onboarding flows.</li>
+                            <li>Gained hands-on experience with SaaS metrics, user onboarding, and product-market fit validation</li>
+                        </ul>
+                    </div>
+                    <div class="demo-link">Demo Video: https://www.youtube.com/watch?v=8lC6tRoAxo0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div class="job-title">Senior Technical Lead</div>
+                <div class="job-company">V'nspire & Infosys | 2016 - 2022</div>
+            </div>
+            <div class="job-content">
+                <div class="achievements">
+                    <ul>
+                        <li>Led enterprise technology projects for major clients including Panasonic, Benefit One, and TruGreen</li>
+                        <li>Managed cross-functional teams (3+ members) with full technical and delivery responsibility</li>
+                        <li>Handled client communication, requirement gathering, and technical solution architecture</li>
+                        <li>Delivered complex platform migrations and high-traffic web applications</li>
+                        <li>Built foundation for understanding enterprise software needs and B2B product requirements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="early-experience">
+            <strong>Early Technical Experience (2009-2016):</strong>
+            <div>
+                <div>• <strong>QBurst, Mindtree, Nextwave, Gratus, GBI</strong> | Various technical roles building foundational skills</div>
+                <div>• Progressive responsibility growth from programmer to technical lead</div>
+                <div>• Experience across different technology stacks and business domains</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="education-personal">
+        <div class="education">
+            <div class="section-title">Education & Continuous Learning</div>
+            <h4>Bachelor's Degree in Computer Science Engineering</h4>
+            <p>E.V.P Engineering College, Anna University, Chennai | 2002-2007</p>
+            <p><strong>Financial Markets:</strong> Self-directed learning in trading systems, market analysis, and quantitative methods. Active investor with hands-on experience in option trading strategies and market regimes</p>
+            <p><strong>Open Source:</strong> Active contributor with hands-on experience(https://www.drupal.org/u/ssankarsiva) in collaborative development.</p>
+        </div>
+        
+        <div class="personal">
+            <div class="section-title">Additional Info</div>
+            <p><strong>Location:</strong> Kallakurichi, Tamil Nadu, India</p>
+            <p><strong>Languages:</strong> English, Tamil</p>
+            <p><strong>Availability:</strong> Open to relocation for the right opportunity</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Resume loaded. Click Print/Save PDF button or use Ctrl+P to export');
+        });
+    </script>
+</body>
+</html>
