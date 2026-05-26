@@ -8,11 +8,6 @@
     <priority>1.0</priority>
   </url>
 
-  <url>
-    <loc>https://infoalpha.in/tradingtool.html/</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
   <!-- Market Signal Dashboards -->
   <url>
     <loc>https://infoalpha.in/breadth.html</loc>
@@ -35,11 +30,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://infoalpha.in/recurring_entry.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://infoalpha.in/sector_rotation.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -47,85 +37,20 @@
 
   <!-- Options OI Charts -->
   <url>
-    <loc>https://infoalpha.in/options_oi_chart.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://infoalpha.in/options_oi_chartnxtweek.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://infoalpha.in/options_oi_chartmonth.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://infoalpha.in/options_oi_chartnxtmonth.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <!-- OI Filters -->
-  <url>
-    <loc>https://infoalpha.in/csvweek.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://infoalpha.in/csvmonth.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Market Dashboards -->
-  <url>
-    <loc>https://infoalpha.in/Dashboard.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
   <url>
     <loc>https://infoalpha.in/DashboardMonth.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- AI Daily Market Reports -->
   <url>
-    <loc>https://infoalpha.in/confluence_report.html</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://infoalpha.in/ai_analysis_13_03_2026.html</loc>
-    <changefreq>never</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://infoalpha.in/ai_analysis_12_03_2026.html</loc>
-    <changefreq>never</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://infoalpha.in/ai_analysis_11_03_2026.html</loc>
-    <changefreq>never</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://infoalpha.in/ai_analysis_10_03_2026.html</loc>
-    <changefreq>never</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://infoalpha.in/ai_analysis_09_03_2026.html</loc>
-    <changefreq>never</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://infoalpha.in/ai_analysis_06_03_2026.html</loc>
-    <changefreq>never</changefreq>
-    <priority>0.6</priority>
-  </url>
+    <loc>https://infoalpha.in/institutional_oi_dashboard.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>  
 
 </urlset>
