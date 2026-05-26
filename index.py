@@ -36,18 +36,18 @@ SCREENER_FILES = [
     "delivery_spike.html",
     "highlow.html",
     "momentum_ma.html",
-    "recurring_entry.html",
+    #"recurring_entry.html",
     "sector_rotation.html",
 ]
 
 OI_FILES = [
-    "options_oi_chart.html",
-    "options_oi_chartnxtweek.html",
+    #"options_oi_chart.html",
+    #"options_oi_chartnxtweek.html",
     "options_oi_chartmonth.html",
-    "options_oi_chartnxtmonth.html",
-    "csvweek.html",
-    "csvmonth.html",
-    "Dashboard.html",
+    #"options_oi_chartnxtmonth.html",
+    #"csvweek.html",
+    #"csvmonth.html",
+    #"Dashboard.html",
     "DashboardMonth.html",
 ]
 
@@ -223,6 +223,7 @@ def copy_screener_files(src_date_dir: Path):
 
     adv = Path(r"E:\stockscreener\advanced")
     for f in OI_FILES:
+        continue
         src = adv / f
         if src.exists():
             dst = DEST_FOLDER / f
@@ -767,7 +768,7 @@ footer a:hover{{color:var(--accent)}}
     Understand <em>what the data shows</em>, not what to trade.
   </p>
   <div class="hero-stats">
-    <div class="hero-stat"><div class="hs-val">6+</div><div class="hs-label">Screeners</div></div>
+    <div class="hero-stat"><div class="hs-val">5+</div><div class="hs-label">Screeners</div></div>
     <div class="hero-stat"><div class="hs-val">Monthly</div><div class="hs-label">OI Expirie</div></div>
     
     <div class="hero-stat"><div class="hs-val">EOD</div><div class="hs-label">Daily Update</div></div>
