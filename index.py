@@ -785,7 +785,7 @@ footer a:hover{{color:var(--accent)}}
     <a href="delivery_spike.html" class="tool-card" target="_blank"><div class="tool-icon">📦</div><div class="tool-name">Delivery Spike</div><div class="tool-desc">Institutional accumulation detection — 2× delivery spikes filtered for HFT noise</div><span class="tool-badge">smart money</span></a>
     <a href="highlow.html" class="tool-card" target="_blank"><div class="tool-icon">📈</div><div class="tool-name">High / Low Resilience</div><div class="tool-desc">Position within 5D–200D range. Fully resilient = above 80% across all periods</div><span class="tool-badge">5 periods</span></a>
     <a href="momentum_ma.html" class="tool-card" target="_blank"><div class="tool-icon">🚀</div><div class="tool-name">Momentum / MA</div><div class="tool-desc">MA5/20/50/200 scores, ATR%, RSI, and relative strength vs NIFTYBEES</div><span class="tool-badge">RS leaders tab</span></a>
-    <a href="recurring_entry.html" class="tool-card" target="_blank"><div class="tool-icon">🔁</div><div class="tool-name">Recurring Entry</div><div class="tool-desc">Stocks qualifying on 4+/6 score repeatedly — relative delivery vs own 60D avg</div><span class="tool-badge">40-day scan</span></a>
+    
     <a href="sector_rotation.html" class="tool-card" target="_blank"><div class="tool-icon">⚡</div><div class="tool-name">Sector Rotation</div><div class="tool-desc">Smart money phase (Accumulation / Markup / Distribution) by sector and industry</div><span class="tool-badge">SM signals</span></a>
   </div>
 </div>
