@@ -872,8 +872,7 @@ footer a:hover{{color:var(--accent)}}
 
     <p style="font-size:15px;color:#cbd5e1;margin-bottom:0;">
       Price Action Trading, Technical Analysis, Multi-Timeframe Trading,
-      Stock Screeners, Quant Models & Research,
-      Sector Rotation Analysis, and Options OI Analytics.
+      Options OI Analytics, and Regime Identification.
     </p>
 
     <p style="font-size:14px;color:#94a3b8;margin-top:10px;margin-bottom:0;">
