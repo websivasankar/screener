@@ -13,6 +13,9 @@ CHANGELOG:
   v3 — Output renamed to tradingtool.html (index.html is now the digital-services page).
        Nav bar includes a "Digital Services" link back to index.html.
   v4 — White theme: background white, font black.
+  v5 — Full SEO overhaul: optimised title, description, keywords, OG, Twitter,
+       Schema.org (WebSite + Person + BreadcrumbList), canonical, robots meta,
+       structured data for trading tools. Fixed output path to tradingtool.html.
 
 Usage:
     python index.py
@@ -70,11 +73,10 @@ def find_date_dirs(base: Path, n: int) -> list:
             j = matches[0] if matches else None
         if j and Path(j).exists():
             result.append((d.name, Path(j)))
-            #print(f"  Found: {d.name} → {Path(j).name}")
 
         if len(result) >= n:
             break
-    return []
+    return result
 
 
 def load_signal(date_str: str, json_path: Path) -> dict:
@@ -239,17 +241,11 @@ def copy_screener_files(src_date_dir: Path):
         if v4h.exists():
             dst_name = f"ai_analysis_v4_{d.name.replace('-', '_')}.html"
             dst = DEST_FOLDER / dst_name
-            #shutil.copy(v4h, dst)
-            #inject_brand(dst)
-            #print(f"  Copied + branded report: {dst_name}")
 
         legacy = d / "ai_analysis.html"
         if legacy.exists():
             dst_name = f"ai_analysis_{d.name.replace('-', '_')}.html"
             dst = DEST_FOLDER / dst_name
-            #if not dst.exists():
-            #    shutil.copy(legacy, dst)
-            #    inject_brand(dst)
 
 
 # ── REGIME COLORS (adjusted for white background) ─────────────────────────────
@@ -500,98 +496,192 @@ def build_signal_card(sig: dict, is_featured: bool) -> str:
 </div>"""
 
 
+# ── SEO HELPERS ───────────────────────────────────────────────────────────────
+
+# Primary site identity — matches your <meta> snippet exactly
+_SITE_TITLE       = "InfoAlpha | NSE Stock Screener India, Momentum Stocks & Institutional Flow Analysis"
+_SITE_DESCRIPTION = (
+    "InfoAlpha provides NSE stock screeners, momentum stock analysis, market breadth indicators, "
+    "institutional flow tracking, FII options OI analysis and sector rotation insights for "
+    "Indian traders and investors."
+)
+_SITE_KEYWORDS = (
+    "NSE stock screener India, momentum stocks India, institutional flow analysis NSE, "
+    "FII OI analysis, India VIX analysis, Nifty options open interest, market breadth NSE, "
+    "delivery spike screener, sector rotation NSE, FII vs retail OI, "
+    "market regime BULL BEAR NEUTRAL, EOD market analysis India, "
+    "NSE technical analysis, options OI chart Nifty, "
+    "InfoAlpha, infoalpha.in, Sivasankar S, PositionalSystem"
+)
+_SITE_URL         = "https://infoalpha.in/tradingtool.html"
+_SITE_CANONICAL   = "https://infoalpha.in/tradingtool.html"
+_SITE_IMAGE       = "https://infoalpha.in/banner.png"
+_SITE_NAME        = "InfoAlpha"
+_AUTHOR_NAME      = "Sivasankar S"
+_AUTHOR_LINKEDIN  = "https://www.linkedin.com/in/ssivasankar/"
+_AUTHOR_YOUTUBE   = "https://www.youtube.com/@InfoAlphain"
+_AUTHOR_TWITTER   = "@ssankarsiva"
+_AUTHOR_TELEGRAM  = "https://t.me/volumepricemove"
+
+
+def _build_seo_head(featured: dict) -> str:
+    """
+    Build the full <head> SEO block.
+
+    - Static title & description always use the primary brand copy.
+    - OG / Twitter cards are enriched with today's regime signal when available
+      (good for rich previews when shared on social) but the <title> and
+      meta description remain stable for Google indexing.
+    """
+    regime   = featured.get("regime", "")
+    strength = featured.get("strength", 0)
+    date_d   = featured.get("date_disp", "")
+    vix      = featured.get("vix_zone", "")
+    synth    = featured.get("synthesis", "")
+
+    # OG title: brand first, then today's signal context
+    if regime and date_d:
+        regime_emoji = {"BULL": "🟢", "BEAR": "🔴", "NEUTRAL": "🟡", "TRANSITION": "🔵"}.get(regime, "⚪")
+        og_title = (
+            f"InfoAlpha NSE Trading Tools — {regime_emoji} {regime} | "
+            f"Signal Alignment {strength}/10 | {date_d}"
+        )
+    else:
+        og_title = _SITE_TITLE
+
+    # OG description: richer signal context for social shares
+    if synth:
+        og_desc = (
+            f"NSE market regime: {regime} (signal {strength}/10, VIX zone: {vix}). "
+            f"{synth[:160].rstrip('…')}… "
+            "Track FII OI, market breadth, delivery spikes and sector rotation daily."
+        )
+    else:
+        og_desc = _SITE_DESCRIPTION
+
+    # Schema.org structured data
+    schema_website = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": _SITE_NAME,
+        "url": "https://infoalpha.in/",
+        "description": _SITE_DESCRIPTION,
+        "inLanguage": "en-IN",
+        "author": {
+            "@type": "Person",
+            "name": _AUTHOR_NAME,
+            "url": _AUTHOR_LINKEDIN,
+            "sameAs": [
+                _AUTHOR_YOUTUBE,
+                _AUTHOR_TWITTER,
+                _AUTHOR_LINKEDIN,
+                _AUTHOR_TELEGRAM,
+                "https://x.com/ssankarsiva",
+                "https://www.drupal.org/u/ssankarsiva"
+            ]
+        }
+    }
+
+    schema_webpage = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": _SITE_TITLE,
+        "description": _SITE_DESCRIPTION,
+        "url": _SITE_CANONICAL,
+        "isPartOf": {"@type": "WebSite", "url": "https://infoalpha.in/"},
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://infoalpha.in/"},
+                {"@type": "ListItem", "position": 2, "name": "Trading Tools", "item": _SITE_CANONICAL}
+            ]
+        }
+    }
+
+    schema_tools = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "NSE Market Screeners — InfoAlpha",
+        "description": "Free NSE stock screeners for Indian traders: breadth analysis, delivery spikes, momentum/MA scoring, high-low resilience and sector rotation.",
+        "url": _SITE_CANONICAL,
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Market Breadth Analysis",     "url": "https://infoalpha.in/breadth.html"},
+            {"@type": "ListItem", "position": 2, "name": "Delivery Spike Screener",     "url": "https://infoalpha.in/delivery_spike.html"},
+            {"@type": "ListItem", "position": 3, "name": "High / Low Resilience",       "url": "https://infoalpha.in/highlow.html"},
+            {"@type": "ListItem", "position": 4, "name": "Momentum & Moving Average",   "url": "https://infoalpha.in/momentum_ma.html"},
+            {"@type": "ListItem", "position": 5, "name": "Sector Rotation",             "url": "https://infoalpha.in/sector_rotation.html"},
+        ]
+    }
+
+    return f"""<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- ═══ PRIMARY SEO ═══════════════════════════════════════════════════════ -->
+<title>{_SITE_TITLE}</title>
+<meta name="description"   content="{_SITE_DESCRIPTION}">
+<meta name="keywords"      content="{_SITE_KEYWORDS}">
+<meta name="author"        content="{_AUTHOR_NAME} — InfoAlpha">
+<meta name="robots"        content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="googlebot"     content="index, follow">
+<link rel="canonical"      href="{_SITE_CANONICAL}">
+
+<!-- ═══ OPEN GRAPH (Facebook / WhatsApp / LinkedIn) ══════════════════════ -->
+<meta property="og:type"         content="website">
+<meta property="og:site_name"    content="{_SITE_NAME}">
+<meta property="og:title"        content="{og_title}">
+<meta property="og:description"  content="{og_desc}">
+<meta property="og:url"          content="{_SITE_CANONICAL}">
+<meta property="og:image"        content="{_SITE_IMAGE}">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt"    content="InfoAlpha — NSE Stock Screener & Institutional Flow Analysis">
+<meta property="og:locale"       content="en_IN">
+
+<!-- ═══ TWITTER / X CARD ════════════════════════════════════════════════ -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="{_AUTHOR_TWITTER}">
+<meta name="twitter:creator"     content="{_AUTHOR_TWITTER}">
+<meta name="twitter:title"       content="{og_title}">
+<meta name="twitter:description" content="{og_desc}">
+<meta name="twitter:image"       content="{_SITE_IMAGE}">
+<meta name="twitter:image:alt"   content="InfoAlpha NSE Trading Tools">
+
+<!-- ═══ MOBILE / APP META ════════════════════════════════════════════════ -->
+<meta name="theme-color"         content="#ffffff">
+<meta name="application-name"    content="InfoAlpha">
+<meta name="mobile-web-app-capable"      content="yes">
+<meta name="apple-mobile-web-app-title"  content="InfoAlpha">
+
+<!-- ═══ SCHEMA.ORG STRUCTURED DATA ══════════════════════════════════════ -->
+<script type="application/ld+json">{json.dumps(schema_website,  ensure_ascii=False)}</script>
+<script type="application/ld+json">{json.dumps(schema_webpage,  ensure_ascii=False)}</script>
+<script type="application/ld+json">{json.dumps(schema_tools,    ensure_ascii=False)}</script>"""
+
+
 # ── TRADINGTOOL HTML ──────────────────────────────────────────────────────────
 
 def generate_tradingtool(featured: dict, history: list) -> str:
     hist_html = "".join(build_signal_card(s, False) for s in history)
-    feat_html = build_signal_card(featured, True) if featured else "<p style='color:#6b7280'>No analysis data available yet.</p>"
+    feat_html = (
+        build_signal_card(featured, True)
+        if featured
+        else "<p style='color:#6b7280'>No analysis data available yet.</p>"
+    )
 
-    regime   = featured.get("regime",    "NEUTRAL")
-    strength = featured.get("strength",  0)
-    date_d   = featured.get("date_disp", "")
-    vix      = featured.get("vix_zone",  "")
-    synth    = featured.get("synthesis", "")
-    regime_emoji = {"BULL":"🟢","BEAR":"🔴","NEUTRAL":"🟡","TRANSITION":"🔵"}.get(regime,"⚪")
-    og_title  = f"InfoAlpha Trading Tools — {regime_emoji} {regime} | Signal Alignment {strength}/10 | {date_d}"
-    og_desc   = (
-        f"NSE market regime: {regime} (strength {strength}/10, VIX {vix}). "
-        f"{synth[:160].rstrip('…')}… "
-        f"Daily institutional flow, FII OI, breadth & options positioning intelligence."
-    ) if synth else (
-        "InfoAlpha — Quantitative NSE market structure analytics. "
-        "Institutional flow, FII OI, breadth, VIX, and options positioning — every trading day."
-    )
-    og_url    = "https://infoalpha.in/tradingtool.html"
-    og_image  = "https://infoalpha.in/banner.png"
-    site_name = "InfoAlpha Trading Tools"
-    keywords  = (
-        "NSE market regime, FII OI analysis, India VIX, Nifty options OI, "
-        "market breadth, delivery spike screener, institutional flow, "
-        "options open interest, BEAR BULL NEUTRAL signal, EOD analysis, "
-        "InfoAlpha, infoalpha.in, Sivasankar"
-    )
+    seo_head = _build_seo_head(featured)
 
     return f"""<!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+{seo_head}
 
-<!-- Google tag (gtag.js) -->
+<!-- ═══ ANALYTICS ════════════════════════════════════════════════════════ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TEBE4BLSYD"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){{dataLayer.push(arguments);}}
   gtag('js', new Date());
   gtag('config', 'G-TEBE4BLSYD');
-</script>
-
-<title>{og_title}</title>
-<meta name="description"      content="{og_desc}">
-<meta name="keywords"         content="{keywords}">
-<meta name="author"           content="Sivasankar S — InfoAlpha">
-<meta name="robots"           content="index, follow">
-<link rel="canonical"         href="{og_url}">
-
-<meta property="og:type"        content="website">
-<meta property="og:site_name"   content="{site_name}">
-<meta property="og:title"       content="{og_title}">
-<meta property="og:description" content="{og_desc}">
-<meta property="og:url"         content="{og_url}">
-<meta property="og:image"       content="{og_image}">
-<meta property="og:image:width"  content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale"      content="en_IN">
-
-<meta name="twitter:card"        content="summary_large_image">
-<meta name="twitter:site"        content="@ssankarsiva">
-<meta name="twitter:creator"     content="@ssankarsiva">
-<meta name="twitter:title"       content="{og_title}">
-<meta name="twitter:description" content="{og_desc}">
-<meta name="twitter:image"       content="{og_image}">
-
-<meta name="theme-color" content="#ffffff">
-<meta name="application-name" content="InfoAlpha">
-
-<script type="application/ld+json">
-{{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "InfoAlpha Trading Tools",
-  "url": "{og_url}",
-  "description": "Quantitative NSE market structure analytics",
-  "author": {{
-    "@type": "Person",
-    "name": "Sivasankar S",
-    "url": "https://www.linkedin.com/in/ssivasankar/",
-    "sameAs": [
-      "https://www.youtube.com/@InfoAlphain",
-      "https://x.com/ssankarsiva",
-      "https://www.linkedin.com/in/ssivasankar/",
-      "https://t.me/volumepricemove"
-    ]
-  }}
-}}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -740,8 +830,8 @@ footer a:hover{{color:var(--accent)}}
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-brand">
-    <img src="logo.png" alt="InfoAlpha logo" style="height:40px;width:40px;object-fit:contain;border-radius:4px">
+  <a href="index.html" class="nav-brand" aria-label="InfoAlpha — NSE Market Intelligence Home">
+    <img src="logo.png" alt="InfoAlpha NSE Stock Screener Logo" width="40" height="40" style="object-fit:contain;border-radius:4px">
     <div>
       <span class="nav-brand-name">InfoAlpha</span>
       <span class="nav-brand-sub">NSE Structure · Data Intelligence</span>
@@ -752,78 +842,122 @@ footer a:hover{{color:var(--accent)}}
     <a href="#oi">OI Charts</a>
     <a href="#about">About</a>
     <a href="digital.html" class="nav-home-link">🌐 Digital Services</a>
-    <a href="https://t.me/volumepricemove" target="_blank" class="nav-cta" style="background:#229ED9">✈ Telegram</a>
-    <a href="https://www.youtube.com/@InfoAlphain" target="_blank" class="nav-cta">▶ YouTube</a>
+    <a href="https://t.me/volumepricemove" target="_blank" rel="noopener" class="nav-cta" style="background:#229ED9">✈ Telegram</a>
+    <a href="https://www.youtube.com/@InfoAlphain" target="_blank" rel="noopener" class="nav-cta">▶ YouTube</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<div class="hero">
-  <img src="logo.png" alt="InfoAlpha" style="display:block;height:90px;width:90px;object-fit:contain;margin:0 auto 20px;border-radius:8px">
+<header class="hero">
+  <img src="logo.png" alt="InfoAlpha — NSE Stock Screener India" width="90" height="90"
+       style="display:block;object-fit:contain;margin:0 auto 20px;border-radius:8px">
   <div class="hero-tag">NSE India · Institutional Intelligence</div>
-  <h1>Institutional Flow &amp; Options<br><span>Structure Intelligence</span></h1>
+  <h1>NSE Stock Screener &amp; <span>Institutional Flow Analysis</span></h1>
   <p class="hero-sub">
-    Data-driven technical structure analysis — derived from stock OHLCV data,
-    options positioning.
-    Understand <em>what the data shows</em>, not what to trade.
+    Free NSE stock screeners — market breadth, delivery spikes, momentum,
+    FII options OI and sector rotation. Understand <em>what the data shows</em>,
+    not what to trade.
   </p>
-  <div class="hero-stats">
+  <div class="hero-stats" aria-label="Site statistics">
     <div class="hero-stat"><div class="hs-val">5+</div><div class="hs-label">Screeners</div></div>
-    <div class="hero-stat"><div class="hs-val">Monthly</div><div class="hs-label">OI Expirie</div></div>
-    
+    <div class="hero-stat"><div class="hs-val">Monthly</div><div class="hs-label">OI Expiry</div></div>
     <div class="hero-stat"><div class="hs-val">EOD</div><div class="hs-label">Daily Update</div></div>
   </div>
-</div>
-
+</header>
 
 <!-- SCREENERS -->
-<div class="section" id="signals">
+<main>
+<section class="section" id="signals" aria-labelledby="screeners-heading">
   <div class="section-label">Market Screeners</div>
-  <div class="section-title">Signal Dashboards</div>
+  <h2 class="section-title" id="screeners-heading">NSE Signal Dashboards</h2>
   <div class="tool-grid">
-    <a href="breadth.html" class="tool-card" target="_blank"><div class="tool-icon">📊</div><div class="tool-name">Breadth Analysis</div><div class="tool-desc">Advances/declines, EMA% and market participation across N50/N200/N500</div><span class="tool-badge">60-day history</span></a>
-    <a href="delivery_spike.html" class="tool-card" target="_blank"><div class="tool-icon">📦</div><div class="tool-name">Delivery Spike</div><div class="tool-desc">Institutional accumulation detection — 2× delivery spikes filtered for HFT noise</div><span class="tool-badge">smart money</span></a>
-    <a href="highlow.html" class="tool-card" target="_blank"><div class="tool-icon">📈</div><div class="tool-name">High / Low Resilience</div><div class="tool-desc">Position within 5D–200D range. Fully resilient = above 80% across all periods</div><span class="tool-badge">5 periods</span></a>
-    <a href="momentum_ma.html" class="tool-card" target="_blank"><div class="tool-icon">🚀</div><div class="tool-name">Momentum / MA</div><div class="tool-desc">MA5/20/50/200 scores, ATR%, RSI, and relative strength vs NIFTYBEES</div><span class="tool-badge">RS leaders tab</span></a>
-    
-    <a href="sector_rotation.html" class="tool-card" target="_blank"><div class="tool-icon">⚡</div><div class="tool-name">Sector Rotation</div><div class="tool-desc">Smart money phase (Accumulation / Markup / Distribution) by sector and industry</div><span class="tool-badge">SM signals</span></a>
+    <a href="breadth.html" class="tool-card" target="_blank" rel="noopener"
+       aria-label="NSE Market Breadth Analysis screener">
+      <div class="tool-icon">📊</div>
+      <div class="tool-name">Breadth Analysis</div>
+      <div class="tool-desc">Advances/declines, EMA% and market participation across N50/N200/N500</div>
+      <span class="tool-badge">60-day history</span>
+    </a>
+    <a href="delivery_spike.html" class="tool-card" target="_blank" rel="noopener"
+       aria-label="NSE Delivery Spike screener — institutional accumulation">
+      <div class="tool-icon">📦</div>
+      <div class="tool-name">Delivery Spike Screener</div>
+      <div class="tool-desc">Institutional accumulation detection — 2× delivery spikes filtered for HFT noise</div>
+      <span class="tool-badge">smart money</span>
+    </a>
+    <a href="highlow.html" class="tool-card" target="_blank" rel="noopener"
+       aria-label="NSE High Low Resilience screener">
+      <div class="tool-icon">📈</div>
+      <div class="tool-name">High / Low Resilience</div>
+      <div class="tool-desc">Position within 5D–200D range. Fully resilient = above 80% across all periods</div>
+      <span class="tool-badge">5 periods</span>
+    </a>
+    <a href="momentum_ma.html" class="tool-card" target="_blank" rel="noopener"
+       aria-label="NSE Momentum and Moving Average screener">
+      <div class="tool-icon">🚀</div>
+      <div class="tool-name">Momentum / MA Screener</div>
+      <div class="tool-desc">MA5/20/50/200 scores, ATR%, RSI, and relative strength vs NIFTYBEES</div>
+      <span class="tool-badge">RS leaders tab</span>
+    </a>
+    <a href="sector_rotation.html" class="tool-card" target="_blank" rel="noopener"
+       aria-label="NSE Sector Rotation screener">
+      <div class="tool-icon">⚡</div>
+      <div class="tool-name">Sector Rotation</div>
+      <div class="tool-desc">Smart money phase (Accumulation / Markup / Distribution) by sector and industry</div>
+      <span class="tool-badge">SM signals</span>
+    </a>
   </div>
-</div>
+</section>
 
 <div class="divider"></div>
 
 <!-- OI CHARTS -->
-<div class="section" id="oi">
+<section class="section" id="oi" aria-labelledby="oi-heading">
   <div class="section-label">Derivatives Intelligence</div>
-  <div class="section-title">Options OI Structure</div>
+  <h2 class="section-title" id="oi-heading">Nifty Options OI Structure</h2>
   <div class="tool-grid">
-
-    <a href="options_oi_chartmonth.html" class="tool-card" target="_blank"><div class="tool-icon">📅</div><div class="tool-name">Monthly OI</div><div class="tool-desc">Monthly expiry option structure and max pain</div></a>
-    <a href="institutional_oi_dashboard.html" class="tool-card" target="_blank"><div class="tool-icon">📅</div><div class="tool-name">OI</div><div class="tool-desc">Dashboard for institutional OI analysis</div></a>
+    <a href="options_oi_chartmonth.html" class="tool-card" target="_blank" rel="noopener"
+       aria-label="Nifty monthly options OI chart">
+      <div class="tool-icon">📅</div>
+      <div class="tool-name">Monthly OI Chart</div>
+      <div class="tool-desc">Monthly expiry option structure and max pain analysis</div>
+    </a>
+    <a href="institutional_oi_dashboard.html" class="tool-card" target="_blank" rel="noopener"
+       aria-label="Institutional OI dashboard">
+      <div class="tool-icon">🏛</div>
+      <div class="tool-name">Institutional OI Dashboard</div>
+      <div class="tool-desc">FII vs retail OI positioning — divergence signals and flow analysis</div>
+    </a>
   </div>
-</div>
+</section>
 
 <div class="divider"></div>
 
 <!-- ABOUT -->
-<div class="section" id="about">
+<section class="section" id="about" aria-labelledby="about-heading">
   <div class="section-label">About</div>
-  <div class="section-title">Who Builds This</div>
+  <h2 class="section-title" id="about-heading">Who Builds This</h2>
   <div class="about-grid">
     <div class="about-card">
       <p style="color:var(--tx2);font-size:13px;line-height:1.9;margin-bottom:14px">
-        InfoAlpha is an independent market intelligence project built by
+        InfoAlpha is an independent NSE market intelligence project built by
         <strong style="color:var(--tx)">Sivasankar S</strong> — a developer and quant analyst
-        combining institutional flow data, options positioning.
+        combining institutional flow data, options positioning and breadth analytics
+        to help Indian traders understand market structure.
       </p>
       <p style="color:var(--tx3);font-size:11px;line-height:1.7">
         Also offers: Website Development · Drupal · AWS Cloud · Digital Marketing · Training →
         <a href="index.html" style="color:var(--accent);text-decoration:none;font-weight:700">infoalpha.in</a>
       </p>
       <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
-        <a href="https://wa.me/919884346789" target="_blank" style="display:flex;align-items:center;gap:7px;background:#25D366;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">💬 WhatsApp Me</a>
-        <a href="https://t.me/volumepricemove" target="_blank" style="display:flex;align-items:center;gap:7px;background:#229ED9;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">✈ Telegram</a>
-        <a href="digital.html" style="display:flex;align-items:center;gap:7px;background:rgba(26,111,204,.1);border:1px solid rgba(26,111,204,.25);color:var(--accent);font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">🌐 Digital Services</a>
+        <a href="https://wa.me/919884346789" target="_blank" rel="noopener"
+           style="display:flex;align-items:center;gap:7px;background:#25D366;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none"
+           aria-label="WhatsApp Sivasankar S">💬 WhatsApp Me</a>
+        <a href="https://t.me/volumepricemove" target="_blank" rel="noopener"
+           style="display:flex;align-items:center;gap:7px;background:#229ED9;color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none"
+           aria-label="Telegram channel volumepricemove">✈ Telegram</a>
+        <a href="digital.html"
+           style="display:flex;align-items:center;gap:7px;background:rgba(26,111,204,.1);border:1px solid rgba(26,111,204,.25);color:var(--accent);font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;text-decoration:none">🌐 Digital Services</a>
       </div>
       <div class="support-box" style="margin-top:20px;padding:20px">
         <div style="color:var(--tx2);font-size:12px;line-height:1.7;margin-bottom:10px">If you find these signals useful, consider supporting the infrastructure and research:</div>
@@ -832,62 +966,55 @@ footer a:hover{{color:var(--accent)}}
     </div>
     <div>
       <div class="about-card" style="margin-bottom:12px">
-        <div style="color:var(--tx3);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">Connect</div>
-        <div class="social-links">
-          <a href="https://t.me/volumepricemove" class="social-link" target="_blank"><span class="social-link-icon">✈</span><span class="social-link-text">Telegram @volumepricemove</span></a>
-          <a href="https://wa.me/919884346789" class="social-link" target="_blank"><span class="social-link-icon">💬</span><span class="social-link-text">WhatsApp +91 98843 46789</span></a>
-          <a href="https://www.youtube.com/@InfoAlphain" class="social-link" target="_blank"><span class="social-link-icon">▶</span><span class="social-link-text">YouTube @InfoAlphain</span></a>
-          <a href="https://www.linkedin.com/in/ssivasankar/" class="social-link" target="_blank"><span class="social-link-icon">in</span><span class="social-link-text">LinkedIn · Sivasankar S</span></a>
-          <a href="https://x.com/ssankarsiva" class="social-link" target="_blank"><span class="social-link-icon">𝕏</span><span class="social-link-text">@ssankarsiva</span></a>
-          <a href="https://www.drupal.org/u/ssankarsiva" class="social-link" target="_blank"><span class="social-link-icon">🔵</span><span class="social-link-text">Drupal · ssankarsiva</span></a>
-        </div>
+        <div style="color:var(--tx3);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">Connect with InfoAlpha</div>
+        <nav class="social-links" aria-label="InfoAlpha social media links">
+          <a href="https://t.me/volumepricemove" class="social-link" target="_blank" rel="noopener me"><span class="social-link-icon">✈</span><span class="social-link-text">Telegram @volumepricemove</span></a>
+          <a href="https://wa.me/919884346789" class="social-link" target="_blank" rel="noopener"><span class="social-link-icon">💬</span><span class="social-link-text">WhatsApp +91 98843 46789</span></a>
+          <a href="https://www.youtube.com/@InfoAlphain" class="social-link" target="_blank" rel="noopener me"><span class="social-link-icon">▶</span><span class="social-link-text">YouTube @InfoAlphain</span></a>
+          <a href="https://www.linkedin.com/in/ssivasankar/" class="social-link" target="_blank" rel="noopener me"><span class="social-link-icon">in</span><span class="social-link-text">LinkedIn · Sivasankar S</span></a>
+          <a href="https://x.com/ssankarsiva" class="social-link" target="_blank" rel="noopener me"><span class="social-link-icon">𝕏</span><span class="social-link-text">@ssankarsiva</span></a>
+          <a href="https://www.drupal.org/u/ssankarsiva" class="social-link" target="_blank" rel="noopener me"><span class="social-link-icon">🔵</span><span class="social-link-text">Drupal · ssankarsiva</span></a>
+        </nav>
       </div>
     </div>
   </div>
-</div>
+</section>
+</main>
 
 <!-- CTA BANNER -->
 <div class="cta-banner">
 <section class="quant-training" style="padding:24px;border-radius:14px;background:#111827;color:#f3f4f6;line-height:1.8;border:1px solid #1f2937;">
-
   <h2 style="margin-bottom:10px;font-size:30px;font-weight:700;color:#ffffff;">
-    Quant Trading Online Training + Top Momentum stocks Access
+    Quant Trading Online Training + Top Momentum Stocks Access
   </h2>
-
   <p style="font-size:20px;color:#fbbf24;margin-bottom:18px;font-weight:600;">
     Program Fee: ₹8,000 (Full Program)
   </p>
-
   <p style="font-size:16px;color:#d1d5db;margin-bottom:16px;">
     NSE Screener Dashboard, Quant Research Demo,
     and <strong>12 Months Top Sector + Stock Score Access via Email</strong>.
   </p>
-
   <div style="margin-top:18px;padding:16px;border-radius:10px;background:#0f172a;border:1px solid #1e293b;">
-    
     <h3 style="font-size:18px;color:#ffffff;margin-bottom:10px;">
       Optional Training Sessions
     </h3>
-
     <p style="font-size:15px;color:#cbd5e1;margin-bottom:0;">
       Price Action Trading, Technical Analysis, Multi-Timeframe Trading,
       Options OI Analytics, and Market Regime Identification.
     </p>
-
     <p style="font-size:14px;color:#94a3b8;margin-top:10px;margin-bottom:0;">
       Training sessions are provided only on subscriber request.
     </p>
     <p style="font-size:14px;color:#94a3b8;margin-top:10px;margin-bottom:0;">
-    Educational Purpose Only. This is not investment advice or SEBI-registered research service.
+      Educational Purpose Only. This is not investment advice or SEBI-registered research service.
     </p>
   </div>
-
 </section>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <p>InfoAlpha — NSE Technical Structure Data &nbsp;·&nbsp; Educational / Informational Purpose Only &nbsp;·&nbsp; Not Investment Advice &nbsp;·&nbsp; Not SEBI-Registered</p>
+  <p>InfoAlpha — NSE Stock Screener India &amp; Market Intelligence &nbsp;·&nbsp; Educational / Informational Purpose Only &nbsp;·&nbsp; Not Investment Advice &nbsp;·&nbsp; Not SEBI-Registered</p>
   <p style="margin-top:5px;font-size:10px;color:#9ca3af;max-width:860px;margin-left:auto;margin-right:auto;line-height:1.6">
     All data presented is derived from publicly available NSE EOD information.
     Technical levels shown represent structural observations only and do not constitute buy/sell recommendations or investment advice.
@@ -895,13 +1022,13 @@ footer a:hover{{color:var(--accent)}}
     Individuals are solely responsible for their own financial decisions.
   </p>
   <p style="margin-top:8px">
-    <a href="https://t.me/volumepricemove" target="_blank">Telegram</a> &nbsp;·&nbsp;
-    <a href="https://wa.me/919884346789" target="_blank">WhatsApp</a> &nbsp;·&nbsp;
-    <a href="https://www.youtube.com/@InfoAlphain" target="_blank">YouTube</a> &nbsp;·&nbsp;
-    <a href="https://www.linkedin.com/in/ssivasankar/" target="_blank">LinkedIn</a> &nbsp;·&nbsp;
-    <a href="https://x.com/ssankarsiva" target="_blank">X</a> &nbsp;·&nbsp;
+    <a href="https://t.me/volumepricemove" target="_blank" rel="noopener">Telegram</a> &nbsp;·&nbsp;
+    <a href="https://wa.me/919884346789" target="_blank" rel="noopener">WhatsApp</a> &nbsp;·&nbsp;
+    <a href="https://www.youtube.com/@InfoAlphain" target="_blank" rel="noopener">YouTube</a> &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/ssivasankar/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp;
+    <a href="https://x.com/ssankarsiva" target="_blank" rel="noopener">X / Twitter</a> &nbsp;·&nbsp;
     <a href="digital.html">← Digital Services</a> &nbsp;·&nbsp;
-    <a href="https://infoalpha.in" target="_blank">infoalpha.in</a>
+    <a href="https://infoalpha.in" target="_blank" rel="noopener">infoalpha.in</a>
   </p>
 </footer>
 
@@ -962,15 +1089,15 @@ def main():
     print(f"Loaded {len(signals)} JSON signal(s) + {len(html_only)} HTML-only signal(s)")
 
     html = generate_tradingtool(featured, history_signals)
-    out  = DEST_FOLDER / "index.html"
-    out.write_text(html, encoding="utf-8")
 
-    # IMPORTANT: Do NOT overwrite index.html — it is the static digital services page
+    # ── Write to tradingtool.html — NEVER overwrite index.html ────────────────
+    out = DEST_FOLDER / "tradingtool.html"
+    out.write_text(html, encoding="utf-8")
     print("NOTE: index.html (digital services page) was NOT touched.")
 
     print("Injecting brand into existing HTML files …")
     for f in DEST_FOLDER.glob("*.html"):
-        if f.name in ("digital.html", "index.html"):
+        if f.name in ("digital.html", "index.html", "tradingtool.html"):
             continue
         inject_brand(f)
 
