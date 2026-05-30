@@ -513,8 +513,8 @@ _SITE_KEYWORDS = (
     "NSE technical analysis, options OI chart Nifty, "
     "InfoAlpha, infoalpha.in, Sivasankar S, PositionalSystem"
 )
-_SITE_URL         = "https://infoalpha.in/tradingtool.html"
-_SITE_CANONICAL   = "https://infoalpha.in/tradingtool.html"
+_SITE_URL         = "https://infoalpha.in/"
+_SITE_CANONICAL   = "https://infoalpha.in/"
 _SITE_IMAGE       = "https://infoalpha.in/banner.png"
 _SITE_NAME        = "InfoAlpha"
 _AUTHOR_NAME      = "Sivasankar S"
@@ -1090,18 +1090,17 @@ def main():
 
     html = generate_tradingtool(featured, history_signals)
 
-    # ── Write to tradingtool.html — NEVER overwrite index.html ────────────────
-    out = DEST_FOLDER / "tradingtool.html"
+    # ── Write to index.html (the stock screener / trading tool homepage) ────────
+    out = DEST_FOLDER / "index.html"
     out.write_text(html, encoding="utf-8")
-    print("NOTE: index.html (digital services page) was NOT touched.")
 
     print("Injecting brand into existing HTML files …")
     for f in DEST_FOLDER.glob("*.html"):
-        if f.name in ("digital.html", "index.html", "tradingtool.html"):
+        if f.name in ("digital.html", "index.html"):
             continue
         inject_brand(f)
 
-    print(f"✅  tradingtool.html written → {out}")
+    print(f"✅  index.html written → {out}")
     print(f"    Featured: {featured.get('date_raw','none')} {featured.get('regime','')}")
     print(f"    History:  {[s['date_raw'] for s in history_signals]}")
 
