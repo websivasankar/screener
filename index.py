@@ -533,31 +533,17 @@ def _build_seo_head(featured: dict) -> str:
       (good for rich previews when shared on social) but the <title> and
       meta description remain stable for Google indexing.
     """
-    regime   = featured.get("regime", "")
-    strength = featured.get("strength", 0)
-    date_d   = featured.get("date_disp", "")
-    vix      = featured.get("vix_zone", "")
-    synth    = featured.get("synthesis", "")
+    # featured dict still passed in — reserved for future dynamic enrichment
 
-    # OG title: brand first, then today's signal context
-    if regime and date_d:
-        regime_emoji = {"BULL": "🟢", "BEAR": "🔴", "NEUTRAL": "🟡", "TRANSITION": "🔵"}.get(regime, "⚪")
-        og_title = (
-            f"InfoAlpha NSE Trading Tools — {regime_emoji} {regime} | "
-            f"Signal Alignment {strength}/10 | {date_d}"
-        )
-    else:
-        og_title = _SITE_TITLE
+    # OG / Twitter title — fixed brand copy, consistent for all social platforms
+    og_title = "InfoAlpha | NSE Stock Screener India, Momentum Stocks & Institutional Flow Analysis"
 
-    # OG description: richer signal context for social shares
-    if synth:
-        og_desc = (
-            f"NSE market regime: {regime} (signal {strength}/10, VIX zone: {vix}). "
-            f"{synth[:160].rstrip('…')}… "
-            "Track FII OI, market breadth, delivery spikes and sector rotation daily."
-        )
-    else:
-        og_desc = _SITE_DESCRIPTION
+    # OG / Twitter description — clear, compelling, under 160 chars for social previews
+    og_desc = (
+        "Free NSE stock screeners for Indian traders — market breadth, delivery spikes, "
+        "momentum & MA scoring, FII options OI analysis and sector rotation. "
+        "Daily EOD updates. Educational purpose only."
+    )
 
     # Schema.org structured data
     schema_website = {
@@ -964,7 +950,6 @@ footer a:hover{{color:var(--accent)}}
         <div class="upi-block">💸 UPI: <strong>websivasankar@okicici</strong></div>
       </div>
     </div>
-    <div>
       <div class="about-card" style="margin-bottom:12px">
         <div style="color:var(--tx3);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px">Connect with InfoAlpha</div>
         <nav class="social-links" aria-label="InfoAlpha social media links">
@@ -976,7 +961,7 @@ footer a:hover{{color:var(--accent)}}
           <a href="https://www.drupal.org/u/ssankarsiva" class="social-link" target="_blank" rel="noopener me"><span class="social-link-icon">🔵</span><span class="social-link-text">Drupal · ssankarsiva</span></a>
         </nav>
       </div>
-    </div>
+
   </div>
 </section>
 </main>
