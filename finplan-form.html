@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinPlan Pro — Financial Planning Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1714;
+    --ink2: #4a4541;
+    --ink3: #8a8480;
+    --paper: #faf8f5;
+    --paper2: #f2efe9;
+    --paper3: #e8e4dc;
+    --gold: #b8860b;
+    --gold2: #d4a017;
+    --gold-light: #fdf6e3;
+    --accent: #2d5a3d;
+    --accent2: #3a7a52;
+    --danger: #8b2020;
+    --danger-light: #fdf0f0;
+    --border: #ddd8cf;
+    --radius: 4px;
+    --shadow: 0 1px 3px rgba(26,23,20,0.08), 0 4px 16px rgba(26,23,20,0.04);
+  }
+  html { font-size: 15px; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+  /* HEADER */
+  .site-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+    color: var(--gold2);
+  }
+  .logo span { color: var(--paper); font-style: italic; }
+  .header-sub { font-size: 0.75rem; color: var(--ink3); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* LAYOUT */
+  .app-shell { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* CLIENT BANNER */
+  .client-banner {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: var(--radius);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .client-avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .client-name { font-family: 'DM Serif Display', serif; font-size: 1.35rem; }
+  .client-meta { font-size: 0.78rem; color: #b0a898; margin-top: 3px; letter-spacing: 0.04em; }
+  .client-badges { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+  .cbadge {
+    font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .cbadge-gold { background: var(--gold-light); color: var(--gold); border: 1px solid var(--gold); }
+  .cbadge-green { background: #e8f5ed; color: var(--accent); border: 1px solid #b8d9c4; }
+
+  /* TABS */
+  .tabs-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 28px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 12px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink3);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.18s, border-color 0.18s;
+  }
+  .tab-btn:hover { color: var(--ink2); }
+  .tab-btn.active { color: var(--ink); border-bottom-color: var(--gold); font-weight: 600; }
+  .tab-number {
+    display: inline-block;
+    width: 18px; height: 18px;
+    background: var(--paper3);
+    border-radius: 50%;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 18px;
+    margin-right: 7px;
+    color: var(--ink3);
+  }
+  .tab-btn.active .tab-number { background: var(--gold); color: #fff; }
+
+  /* SECTION */
+  .form-section { display: none; }
+  .form-section.active { display: block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .section-desc { font-size: 0.82rem; color: var(--ink3); margin-bottom: 24px; }
+
+  /* CARDS */
+  .form-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .form-card-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--paper3);
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .col-span-2 { grid-column: span 2; }
+  .col-span-3 { grid-column: span 3; }
+
+  /* FORM FIELDS */
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink2);
+    letter-spacing: 0.03em;
+  }
+  .field input, .field select, .field textarea {
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--ink);
+    background: var(--paper);
+    outline: none;
+    transition: border-color 0.18s, background 0.18s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: var(--gold2);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(184,134,11,0.1);
+  }
+  .field input::placeholder { color: #c0bab0; }
+  .field textarea { resize: vertical; min-height: 72px; }
+  .field-prefix {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--paper);
+    overflow: hidden;
+    transition: border-color 0.18s;
+  }
+  .field-prefix:focus-within { border-color: var(--gold2); background: #fff; box-shadow: 0 0 0 3px rgba(184,134,11,0.1); }
+  .prefix-symbol {
+    padding: 9px 10px 9px 12px;
+    font-size: 0.82rem;
+    color: var(--ink3);
+    background: var(--paper2);
+    border-right: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .field-prefix input {
+    flex: 1;
+    padding: 9px 12px;
+    border: none;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--ink);
+    outline: none;
+  }
+
+  /* RISK QUESTIONS */
+  .risk-question { margin-bottom: 20px; }
+  .risk-q-text { font-size: 0.88rem; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+  .risk-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .risk-opt-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.82rem;
+    color: var(--ink2);
+    background: var(--paper);
+    transition: all 0.15s;
+  }
+  .risk-opt-label:hover { border-color: var(--gold2); background: var(--gold-light); }
+  .risk-opt-label input[type="radio"] { accent-color: var(--gold); }
+  .risk-opt-label.selected { border-color: var(--gold); background: var(--gold-light); color: var(--ink); font-weight: 500; }
+
+  /* RISK METER */
+  .risk-result-box {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .risk-score-circle {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .risk-score-num { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--gold2); line-height: 1; }
+  .risk-score-sub { font-size: 0.62rem; color: #888; letter-spacing: 0.08em; text-transform: uppercase; }
+  .risk-profile-name { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--gold2); }
+  .risk-profile-desc { font-size: 0.8rem; color: #b0a898; margin-top: 4px; max-width: 420px; }
+  .risk-bar-wrap { flex: 1; }
+  .risk-bar-track { height: 8px; border-radius: 4px; background: #333; position: relative; margin: 10px 0 4px; overflow: hidden; }
+  .risk-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #1D9E75, #d4a017, #c0392b); transition: width 0.5s; }
+  .risk-bar-labels { display: flex; justify-content: space-between; font-size: 0.65rem; color: #666; }
+
+  /* ACTION BAR */
+  .action-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 100;
+    box-shadow: 0 -4px 24px rgba(26,23,20,0.08);
+  }
+  .action-bar-left { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--ink3); }
+  .action-bar-right { margin-left: auto; display: flex; gap: 10px; }
+  .btn {
+    padding: 10px 22px;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.18s;
+    border: 1px solid transparent;
+  }
+  .btn-outline {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--ink2);
+  }
+  .btn-outline:hover { border-color: var(--ink3); color: var(--ink); background: var(--paper2); }
+  .btn-danger {
+    background: transparent;
+    border-color: #e0b0b0;
+    color: var(--danger);
+  }
+  .btn-danger:hover { background: var(--danger-light); border-color: var(--danger); }
+  .btn-gold {
+    background: var(--gold);
+    color: #fff;
+    border-color: var(--gold);
+  }
+  .btn-gold:hover { background: var(--gold2); }
+  .btn-green {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn-green:hover { background: var(--accent2); }
+
+  /* NAV ARROWS */
+  .tab-nav { display: flex; justify-content: space-between; margin-top: 8px; margin-bottom: 80px; }
+  .btn-nav {
+    padding: 9px 18px;
+    border-radius: var(--radius);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--ink2);
+    transition: all 0.15s;
+  }
+  .btn-nav:hover { border-color: var(--gold2); color: var(--gold); }
+
+  /* SUMMARY SECTION */
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .summary-block {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+  .summary-block-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--paper3);
+  }
+  .sum-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--paper3);
+    color: var(--ink2);
+  }
+  .sum-row:last-child { border-bottom: none; }
+  .sum-row .val { font-weight: 600; color: var(--ink); }
+  .sum-highlight {
+    background: var(--gold-light);
+    border-color: var(--gold);
+    margin-top: 4px;
+  }
+  .sum-row.big .val { font-size: 1rem; color: var(--gold); font-family: 'DM Serif Display', serif; }
+
+  /* PRINT STYLES */
+  @media print {
+    .site-header, .action-bar, .tabs-bar, .tab-nav, .btn { display: none !important; }
+    .form-section { display: block !important; }
+    .form-section + .form-section { page-break-before: always; }
+    body { background: #fff; }
+    .app-shell { padding: 0; max-width: 100%; }
+    .client-banner { background: #1a1714 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="site-header">
+  <div class="logo">FinPlan <span>Pro</span></div>
+  <div class="header-sub">Digital Financial Planning Platform</div>
+</div>
+
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useCallback } = React;
+
+const TABS = [
+  { id: 'personal', label: 'Personal Profile' },
+  { id: 'income', label: 'Income' },
+  { id: 'expenses', label: 'Expenses' },
+  { id: 'assets', label: 'Assets & Liabilities' },
+  { id: 'investments', label: 'Investments' },
+  { id: 'insurance', label: 'Insurance' },
+  { id: 'risk', label: 'Risk Profile' },
+  { id: 'summary', label: 'Summary' },
+];
+
+const DEFAULT_DATA = {
+  // Personal
+  name: '', dob: '', gender: '', marital: '', dependents: '', occupation: '',
+  retireAge: '60', lifeExp: '85', city: '', pan: '',
+  // Income
+  salariedIncome: '', businessIncome: '', rentalIncome: '',
+  dividendIncome: '', otherIncome: '', incomeGrowth: '8',
+  // Expenses
+  householdExp: '', dependentExp: '', emiObligation: '',
+  educationGoal: '', marriageGoal: '', retirementExp: '',
+  inflation: '6', emergencyMonths: '9',
+  // Assets
+  cash: '', savings: '', fd: '', gold: '', realEstate: '',
+  epfPpfNps: '', equity: '', mutualFunds: '', business: '',
+  homeLoan: '', personalLoan: '', vehicleLoan: '', creditCard: '',
+  // Investments
+  equityPct: '40', debtPct: '40', goldPct: '5', rePct: '10', cashPct: '5',
+  // Insurance
+  termCover: '', employerCover: '', familyFloater: '', criticalIllness: '',
+  // Risk answers (index of chosen option per question, -1 = none)
+  riskAnswers: [-1, -1, -1, -1, -1, -1],
+};
+
+const RISK_QUESTIONS = [
+  {
+    q: 'How would you react to a 20% portfolio fall?',
+    opts: ['Sell everything immediately', 'Sell some, hold the rest', 'Hold and wait for recovery', 'Buy more at lower prices'],
+    scores: [0, 5, 12, 20],
+  },
+  {
+    q: 'What is your primary investment horizon?',
+    opts: ['Less than 1 year', '1–3 years', '3–7 years', '7 years or more'],
+    scores: [0, 5, 12, 20],
+  },
+  {
+    q: 'How important is liquidity to you?',
+    opts: ['Very important — may need funds anytime', 'Somewhat important', 'Not very important', 'No near-term need at all'],
+    scores: [0, 5, 10, 15],
+  },
+  {
+    q: 'Describe your investing experience:',
+    opts: ['Never invested before', 'FDs and savings only', 'Mutual funds for a few years', 'Stocks, MFs, derivatives — extensive'],
+    scores: [0, 3, 8, 15],
+  },
+  {
+    q: 'How stable is your income source?',
+    opts: ['Unstable / irregular', 'Somewhat stable', 'Mostly stable salaried', 'Very stable — govt or pension backed'],
+    scores: [0, 3, 8, 15],
+  },
+  {
+    q: 'Primary goal for this portfolio?',
+    opts: ['Preserve capital at all costs', 'Beat inflation steadily', 'Moderate long-term growth', 'Maximum wealth creation'],
+    scores: [0, 3, 8, 10],
+  },
+];
+
+function getRiskProfile(score) {
+  if (score <= 20) return { label: 'Conservative', color: '#1D9E75', desc: 'Capital preservation is paramount. Suited to short horizons or those approaching retirement.' };
+  if (score <= 40) return { label: 'Moderately Conservative', color: '#5DCAA5', desc: 'Seeks modest returns over FDs with limited equity. Balanced stability over growth.' };
+  if (score <= 60) return { label: 'Balanced', color: '#d4a017', desc: 'Accepts moderate volatility for above-inflation returns. Medium-to-long investment horizon.' };
+  if (score <= 80) return { label: 'Growth', color: '#e07b20', desc: 'Comfortable with equity volatility; focused on long-term capital appreciation.' };
+  return { label: 'Aggressive', color: '#c0392b', desc: 'High risk tolerance, long horizon. Willing to accept significant drawdowns for maximum growth.' };
+}
+
+function fmtINR(val) {
+  const n = parseFloat(String(val).replace(/,/g, ''));
+  if (!val || isNaN(n)) return '—';
+  if (n >= 10000000) return '₹' + (n / 10000000).toFixed(2) + ' Cr';
+  if (n >= 100000) return '₹' + (n / 100000).toFixed(2) + ' L';
+  return '₹' + n.toLocaleString('en-IN');
+}
+
+function initials(name) {
+  return name.split(' ').filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0, 2) || 'FP';
+}
+
+function MoneyField({ label, name, value, onChange, placeholder = '0' }) {
+  return (
+    <div className="field">
+      <label>{label}</label>
+      <div className="field-prefix">
+        <span className="prefix-symbol">₹</span>
+        <input type="number" name={name} value={value} onChange={onChange} placeholder={placeholder} min="0" />
+      </div>
+    </div>
+  );
+}
+
+function TextField({ label, name, value, onChange, placeholder = '' }) {
+  return (
+    <div className="field">
+      <label>{label}</label>
+      <input type="text" name={name} value={value} onChange={onChange} placeholder={placeholder} />
+    </div>
+  );
+}
+
+function SelectField({ label, name, value, onChange, options }) {
+  return (
+    <div className="field">
+      <label>{label}</label>
+      <select name={name} value={value} onChange={onChange}>
+        <option value="">— Select —</option>
+        {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+    </div>
+  );
+}
+
+function PctField({ label, name, value, onChange }) {
+  return (
+    <div className="field">
+      <label>{label}</label>
+      <div className="field-prefix">
+        <span className="prefix-symbol">%</span>
+        <input type="number" name={name} value={value} onChange={onChange} min="0" max="100" step="0.5" />
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [data, setData] = useState(DEFAULT_DATA);
+
+  const handleChange = useCallback(e => {
+    const { name, value } = e.target;
+    setData(prev => ({ ...prev, [name]: value }));
+  }, []);
+
+  const handleRisk = useCallback((qi, oi) => {
+    setData(prev => {
+      const ra = [...prev.riskAnswers];
+      ra[qi] = oi;
+      return { ...prev, riskAnswers: ra };
+    });
+  }, []);
+
+  const clearAll = () => {
+    if (window.confirm('Clear all form data? This cannot be undone.')) {
+      setData(DEFAULT_DATA);
+      setActiveTab(0);
+    }
+  };
+
+  const generatePDF = () => {
+    window.print();
+  };
+
+  const riskScore = data.riskAnswers.reduce((acc, ans, qi) => {
+    if (ans < 0) return acc;
+    return acc + RISK_QUESTIONS[qi].scores[ans];
+  }, 0);
+  const riskProfile = getRiskProfile(riskScore);
+
+  const totalAssets = ['cash','savings','fd','gold','realEstate','epfPpfNps','equity','mutualFunds','business']
+    .reduce((a, k) => a + (parseFloat(data[k]) || 0), 0);
+  const totalLiabilities = ['homeLoan','personalLoan','vehicleLoan','creditCard']
+    .reduce((a, k) => a + (parseFloat(data[k]) || 0), 0);
+  const netWorth = totalAssets - totalLiabilities;
+
+  const monthlyIncome = (parseFloat(data.salariedIncome)||0) + (parseFloat(data.businessIncome)||0) + (parseFloat(data.rentalIncome)||0);
+  const monthlyExpense = (parseFloat(data.householdExp)||0) + (parseFloat(data.dependentExp)||0) + (parseFloat(data.emiObligation)||0);
+  const emergencyFundLow = monthlyExpense * 6;
+  const emergencyFundHigh = monthlyExpense * 12;
+
+  const clientAge = data.dob ? Math.floor((new Date() - new Date(data.dob)) / 31557600000) : null;
+
+  const tabs = TABS;
+
+  return (
+    <div className="app-shell">
+      {/* CLIENT BANNER */}
+      <div className="client-banner">
+        <div className="client-avatar">{initials(data.name || 'Financial Plan')}</div>
+        <div>
+          <div className="client-name">{data.name || 'New Client'}</div>
+          <div className="client-meta">
+            {clientAge ? `Age ${clientAge}` : 'Age —'}
+            {data.city ? ` · ${data.city}` : ''}
+            {data.occupation ? ` · ${data.occupation}` : ''}
+            {data.pan ? ` · PAN: ${data.pan}` : ''}
+          </div>
+        </div>
+        <div className="client-badges">
+          {riskProfile && data.riskAnswers.some(a => a >= 0) && (
+            <span className="cbadge cbadge-gold">{riskProfile.label}</span>
+          )}
+          {netWorth > 0 && <span className="cbadge cbadge-green">NW: {fmtINR(netWorth)}</span>}
+        </div>
+      </div>
+
+      {/* TABS */}
+      <div className="tabs-bar">
+        {tabs.map((t, i) => (
+          <button
+            key={t.id}
+            className={`tab-btn${activeTab === i ? ' active' : ''}`}
+            onClick={() => setActiveTab(i)}
+          >
+            <span className="tab-number">{i + 1}</span>{t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* TAB CONTENT */}
+
+      {/* 1. PERSONAL */}
+      <div className={`form-section${activeTab === 0 ? ' active' : ''}`} id="sec-personal">
+        <div className="section-title">Personal Profile</div>
+        <div className="section-desc">Basic information about the client — used across all planning calculations.</div>
+        <div className="form-card">
+          <div className="form-card-title">Identity & Demographics</div>
+          <div className="grid-3">
+            <TextField label="Full name" name="name" value={data.name} onChange={handleChange} placeholder="Rajan Mehta" />
+            <div className="field"><label>Date of birth</label><input type="date" name="dob" value={data.dob} onChange={handleChange} /></div>
+            <SelectField label="Gender" name="gender" value={data.gender} onChange={handleChange} options={[{value:'male',label:'Male'},{value:'female',label:'Female'},{value:'other',label:'Other'}]} />
+            <SelectField label="Marital status" name="marital" value={data.marital} onChange={handleChange} options={[{value:'single',label:'Single'},{value:'married',label:'Married'},{value:'divorced',label:'Divorced'},{value:'widowed',label:'Widowed'}]} />
+            <div className="field"><label>Number of dependents</label><input type="number" name="dependents" value={data.dependents} onChange={handleChange} min="0" placeholder="2" /></div>
+            <TextField label="Occupation / profession" name="occupation" value={data.occupation} onChange={handleChange} placeholder="Software Engineer" />
+            <TextField label="City of residence" name="city" value={data.city} onChange={handleChange} placeholder="Mumbai" />
+            <TextField label="PAN number" name="pan" value={data.pan} onChange={handleChange} placeholder="ABCDE1234F" />
+          </div>
+        </div>
+        <div className="form-card">
+          <div className="form-card-title">Planning Assumptions</div>
+          <div className="grid-3">
+            <div className="field"><label>Target retirement age</label><input type="number" name="retireAge" value={data.retireAge} onChange={handleChange} min="40" max="75" /></div>
+            <div className="field"><label>Life expectancy assumption</label><input type="number" name="lifeExp" value={data.lifeExp} onChange={handleChange} min="60" max="100" /></div>
+            <div className="field" style={{background:'var(--gold-light)', padding:'12px', borderRadius:'4px', border:'1px solid #e8d080'}}>
+              <label style={{color:'var(--gold)'}}>Planning horizon</label>
+              <div style={{fontSize:'1.1rem', fontFamily:'DM Serif Display, serif', paddingTop:'4px'}}>
+                {data.retireAge && data.lifeExp ? `${parseInt(data.lifeExp) - parseInt(data.retireAge)} yrs post-retirement` : '—'}
+              </div>
+              {clientAge && data.retireAge && <div style={{fontSize:'0.75rem', color:'var(--gold)', marginTop:'3px'}}>{parseInt(data.retireAge) - clientAge} yrs to retirement</div>}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. INCOME */}
+      <div className={`form-section${activeTab === 1 ? ' active' : ''}`} id="sec-income">
+        <div className="section-title">Income Details</div>
+        <div className="section-desc">All income sources — used to calculate savings capacity and HLV for insurance.</div>
+        <div className="form-card">
+          <div className="form-card-title">Monthly income sources</div>
+          <div className="grid-3">
+            <MoneyField label="Salaried income (monthly)" name="salariedIncome" value={data.salariedIncome} onChange={handleChange} />
+            <MoneyField label="Business income (monthly)" name="businessIncome" value={data.businessIncome} onChange={handleChange} />
+            <MoneyField label="Rental income (monthly)" name="rentalIncome" value={data.rentalIncome} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="form-card">
+          <div className="form-card-title">Annual income sources</div>
+          <div className="grid-3">
+            <MoneyField label="Dividend income (annual)" name="dividendIncome" value={data.dividendIncome} onChange={handleChange} />
+            <MoneyField label="Other income (annual)" name="otherIncome" value={data.otherIncome} onChange={handleChange} />
+            <PctField label="Expected income growth (%)" name="incomeGrowth" value={data.incomeGrowth} onChange={handleChange} />
+          </div>
+        </div>
+        {monthlyIncome > 0 && (
+          <div className="form-card" style={{background:'var(--gold-light)', border:'1px solid var(--gold)'}}>
+            <div className="form-card-title" style={{borderColor:'#e8d080'}}>Income snapshot</div>
+            <div className="grid-3">
+              <div><div style={{fontSize:'0.72rem', color:'var(--gold)', fontWeight:700, letterSpacing:'0.06em', textTransform:'uppercase'}}>Total monthly</div><div style={{fontFamily:'DM Serif Display, serif', fontSize:'1.4rem', marginTop:'4px'}}>{fmtINR(monthlyIncome)}</div></div>
+              <div><div style={{fontSize:'0.72rem', color:'var(--gold)', fontWeight:700, letterSpacing:'0.06em', textTransform:'uppercase'}}>Annual income</div><div style={{fontFamily:'DM Serif Display, serif', fontSize:'1.4rem', marginTop:'4px'}}>{fmtINR(monthlyIncome * 12)}</div></div>
+              <div><div style={{fontSize:'0.72rem', color:'var(--gold)', fontWeight:700, letterSpacing:'0.06em', textTransform:'uppercase'}}>HLV estimate</div><div style={{fontFamily:'DM Serif Display, serif', fontSize:'1.4rem', marginTop:'4px'}}>{fmtINR(monthlyIncome * 12 * 10)}</div><div style={{fontSize:'0.7rem', color:'var(--ink3)', marginTop:'2px'}}>10× annual income</div></div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 3. EXPENSES */}
+      <div className={`form-section${activeTab === 2 ? ' active' : ''}`} id="sec-expenses">
+        <div className="section-title">Expense Analysis</div>
+        <div className="section-desc">Monthly obligations and long-term goal expenses — drives emergency fund and retirement planning.</div>
+        <div className="form-card">
+          <div className="form-card-title">Monthly obligations</div>
+          <div className="grid-3">
+            <MoneyField label="Household expenses (monthly)" name="householdExp" value={data.householdExp} onChange={handleChange} />
+            <MoneyField label="Dependent expenses (monthly)" name="dependentExp" value={data.dependentExp} onChange={handleChange} />
+            <MoneyField label="EMI obligations (monthly)" name="emiObligation" value={data.emiObligation} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="form-card">
+          <div className="form-card-title">Goal-linked expenses</div>
+          <div className="grid-3">
+            <MoneyField label="Child education goal" name="educationGoal" value={data.educationGoal} onChange={handleChange} />
+            <MoneyField label="Marriage goal" name="marriageGoal" value={data.marriageGoal} onChange={handleChange} />
+            <MoneyField label="Retirement monthly expense" name="retirementExp" value={data.retirementExp} onChange={handleChange} />
+          </div>
+        </div>
+        <div className="form-card">
+          <div className="form-card-title">Assumptions</div>
+          <div className="grid-3">
+            <PctField label="Inflation assumption (%)" name="inflation" value={data.inflation} onChange={handleChange} />
+            <div className="field"><label>Emergency fund target (months)</label><input type="number" name="emergencyMonths" value={data.emergencyMonths} onChange={handleChange} min="3" max="24" /></div>
+            <div style={{display:'flex', flexDirection:'column', gap:'5px'}}>
+              <label style={{fontSize:'0.75rem', fontWeight:'600', color:'var(--ink2)', letterSpacing:'0.03em'}}>Emergency fund required</label>
+              <div style={{padding:'9px 12px', background:'var(--gold-light)', border:'1px solid var(--gold)', borderRadius:'var(--radius)', fontSize:'0.88rem', fontWeight:'600', color:'var(--gold)'}}>
+                {monthlyExpense > 0 ? `${fmtINR(emergencyFundLow)} – ${fmtINR(emergencyFundHigh)}` : '—'}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 4. ASSETS */}
+      <div className={`form-section${activeTab === 3 ? ' active' : ''}`} id="sec-assets">
+        <div className="section-title">Assets & Liabilities</div>
+        <div className="section-desc">Complete balance sheet — forms the foundation of net worth and retirement readiness.</div>
+        <div className="form-card">
+          <div className="form-card-title">Assets</div>
+          <div className="grid-3">
+            <MoneyField label="Cash on hand" name="cash" value={data.cash} onChange={handleChange} />
+            <MoneyField label="Savings account balance" name="savings" value={data.savings} onChange={handleChange} />
+            <MoneyField label="Fixed deposits" name="fd" value={data.fd} onChange={handleChange} />
+            <MoneyField label="Gold (market value)" name="gold" value={data.gold} onChange={handleChange} />
+            <MoneyField label="Real estate (market value)" name="realEstate" value={data.realEstate} onChange={handleChange} />
+            <MoneyField label="EPF / PPF / NPS corpus" name="epfPpfNps" value={data.epfPpfNps} onChange={handleChange} />
+            <MoneyField label="Direct equity holdings" name="equity" value={data.equity} onChange={handleChange} />
+            <MoneyField label="Mutual fund portfolio" name="mutualFunds" value={data.mutualFunds} onChange={handleChange} />
+            <MoneyField label="Business ownership value" name="business" value={data.business} onChange={handleChange} />
+          </div>
+          {totalAssets > 0 && (
+            <div style={{marginTop:'16px', padding:'12px 16px', background:'var(--paper2)', borderRadius:'var(--radius)', fontSize:'0.85rem', fontWeight:'600', color:'var(--accent)'}}>
+              Total assets: {fmtINR(totalAssets)}
+            </div>
+          )}
+        </div>
+        <div className="form-card">
+          <div className="form-card-title">Liabilities</div>
+          <div className="grid-3">
+            <MoneyField label="Home loan outstanding" name="homeLoan" value={data.homeLoan} onChange={handleChange} />
+            <MoneyField label="Personal loan" name="personalLoan" value={data.personalLoan} onChange={handleChange} />
+            <MoneyField label="Vehicle loan" name="vehicleLoan" value={data.vehicleLoan} onChange={handleChange} />
+            <MoneyField label="Credit card debt" name="creditCard" value={data.creditCard} onChange={handleChange} />
+          </div>
+          {totalLiabilities > 0 && (
+            <div style={{marginTop:'16px', padding:'12px 16px', background:'var(--danger-light)', borderRadius:'var(--radius)', fontSize:'0.85rem', fontWeight:'600', color:'var(--danger)'}}>
+              Total liabilities: {fmtINR(totalLiabilities)}
+            </div>
+          )}
+        </div>
+        {(totalAssets > 0 || totalLiabilities > 0) && (
+          <div className="form-card" style={{background: netWorth >= 0 ? 'var(--gold-light)' : 'var(--danger-light)', border: `1px solid ${netWorth >= 0 ? 'var(--gold)' : 'var(--danger)'}`}}>
+            <div style={{display:'flex', alignItems:'baseline', gap:'16px'}}>
+              <div style={{fontSize:'0.75rem', fontWeight:'700', letterSpacing:'0.08em', textTransform:'uppercase', color: netWorth >= 0 ? 'var(--gold)' : 'var(--danger)'}}>Net Worth</div>
+              <div style={{fontFamily:'DM Serif Display, serif', fontSize:'2rem', color: netWorth >= 0 ? 'var(--gold)' : 'var(--danger)'}}>{fmtINR(Math.abs(netWorth))}{netWorth < 0 ? ' (deficit)' : ''}</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 5. INVESTMENTS */}
+      <div className={`form-section${activeTab === 4 ? ' active' : ''}`} id="sec-investments">
+        <div className="section-title">Existing Investment Allocation</div>
+        <div className="section-desc">Current portfolio split across asset classes — used to identify rebalancing needs.</div>
+        <div className="form-card">
+          <div className="form-card-title">Current allocation (%)</div>
+          <div className="grid-3">
+            <PctField label="Equity (%)" name="equityPct" value={data.equityPct} onChange={handleChange} />
+            <PctField label="Debt (%)" name="debtPct" value={data.debtPct} onChange={handleChange} />
+            <PctField label="Gold (%)" name="goldPct" value={data.goldPct} onChange={handleChange} />
+            <PctField label="Real estate (%)" name="rePct" value={data.rePct} onChange={handleChange} />
+            <PctField label="Cash (%)" name="cashPct" value={data.cashPct} onChange={handleChange} />
+            <div style={{display:'flex', flexDirection:'column', gap:'5px', justifyContent:'center'}}>
+              <label style={{fontSize:'0.75rem', fontWeight:'600', color:'var(--ink2)'}}>Total</label>
+              {(() => {
+                const total = ['equityPct','debtPct','goldPct','rePct','cashPct'].reduce((a,k) => a + (parseFloat(data[k])||0), 0);
+                const ok = Math.abs(total - 100) < 0.01;
+                return <div style={{padding:'9px 12px', background: ok ? '#e8f5ed' : 'var(--danger-light)', border:`1px solid ${ok?'#b8d9c4':'var(--danger)'}`, borderRadius:'var(--radius)', fontWeight:'700', color: ok ? 'var(--accent)' : 'var(--danger)'}}>{total.toFixed(1)}% {ok ? '✓' : '≠ 100%'}</div>;
+              })()}
+            </div>
+          </div>
+          <div style={{marginTop:'16px'}}>
+            {(() => {
+              const vals = [
+                { label: 'Equity', pct: parseFloat(data.equityPct)||0, color: '#534AB7' },
+                { label: 'Debt', pct: parseFloat(data.debtPct)||0, color: '#1D9E75' },
+                { label: 'Gold', pct: parseFloat(data.goldPct)||0, color: '#d4a017' },
+                { label: 'Real estate', pct: parseFloat(data.rePct)||0, color: '#e07b20' },
+                { label: 'Cash', pct: parseFloat(data.cashPct)||0, color: '#888' },
+              ];
+              return (
+                <div>
+                  <div style={{display:'flex', height:'16px', borderRadius:'8px', overflow:'hidden', marginBottom:'10px'}}>
+                    {vals.map(v => v.pct > 0 && <div key={v.label} style={{width:`${v.pct}%`, background:v.color}} title={`${v.label}: ${v.pct}%`}></div>)}
+                  </div>
+                  <div style={{display:'flex', gap:'16px', flexWrap:'wrap', fontSize:'0.78rem', color:'var(--ink3)'}}>
+                    {vals.map(v => <span key={v.label}><span style={{display:'inline-block', width:'10px', height:'10px', borderRadius:'2px', background:v.color, marginRight:'5px', verticalAlign:'middle'}}></span>{v.label} {v.pct}%</span>)}
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        </div>
+      </div>
+
+      {/* 6. INSURANCE */}
+      <div className={`form-section${activeTab === 5 ? ' active' : ''}`} id="sec-insurance">
+        <div className="section-title">Insurance Review</div>
+        <div className="section-desc">Life and health coverage details — used to compute insurance gaps and HLV-based recommendations.</div>
+        <div className="form-card">
+          <div className="form-card-title">Life insurance</div>
+          <div className="grid-2">
+            <MoneyField label="Term insurance cover" name="termCover" value={data.termCover} onChange={handleChange} />
+            <MoneyField label="Employer group cover" name="employerCover" value={data.employerCover} onChange={handleChange} />
+          </div>
+          {monthlyIncome > 0 && (() => {
+            const hlv = monthlyIncome * 12 * 10;
+            const existing = (parseFloat(data.termCover)||0) + (parseFloat(data.employerCover)||0);
+            const gap = hlv - existing - totalLiabilities;
+            return gap > 0 ? (
+              <div style={{marginTop:'14px', padding:'12px 16px', background:'var(--danger-light)', border:'1px solid #e0b0b0', borderRadius:'var(--radius)', fontSize:'0.82rem', color:'var(--danger)'}}>
+                ⚠ Insurance gap: <strong>{fmtINR(gap)}</strong> — additional term cover recommended
+              </div>
+            ) : existing > 0 ? (
+              <div style={{marginTop:'14px', padding:'12px 16px', background:'#e8f5ed', border:'1px solid #b8d9c4', borderRadius:'var(--radius)', fontSize:'0.82rem', color:'var(--accent)'}}>
+                ✓ Insurance coverage appears adequate
+              </div>
+            ) : null;
+          })()}
+        </div>
+        <div className="form-card">
+          <div className="form-card-title">Health insurance</div>
+          <div className="grid-2">
+            <MoneyField label="Family floater cover" name="familyFloater" value={data.familyFloater} onChange={handleChange} />
+            <MoneyField label="Critical illness cover" name="criticalIllness" value={data.criticalIllness} onChange={handleChange} />
+          </div>
+          {!parseFloat(data.criticalIllness) && (
+            <div style={{marginTop:'14px', padding:'12px 16px', background:'#fff8e8', border:'1px solid var(--gold)', borderRadius:'var(--radius)', fontSize:'0.82rem', color:'var(--gold)'}}>
+              ℹ Consider a critical illness policy of ₹25–50 L for comprehensive health protection.
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* 7. RISK */}
+      <div className={`form-section${activeTab === 6 ? ' active' : ''}`} id="sec-risk">
+        <div className="section-title">Risk Profiling</div>
+        <div className="section-desc">Six questions to determine the client's risk tolerance and appropriate asset allocation.</div>
+        <div className="form-card">
+          <div className="form-card-title">Risk assessment questionnaire</div>
+          {RISK_QUESTIONS.map((rq, qi) => (
+            <div className="risk-question" key={qi}>
+              <div className="risk-q-text">{qi + 1}. {rq.q}</div>
+              <div className="risk-options-grid">
+                {rq.opts.map((opt, oi) => (
+                  <label key={oi} className={`risk-opt-label${data.riskAnswers[qi] === oi ? ' selected' : ''}`}>
+                    <input type="radio" name={`rq${qi}`} value={oi} checked={data.riskAnswers[qi] === oi} onChange={() => handleRisk(qi, oi)} />
+                    {opt}
+                  </label>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        {data.riskAnswers.some(a => a >= 0) && (
+          <div className="risk-result-box">
+            <div className="risk-score-circle">
+              <div className="risk-score-num">{riskScore}</div>
+              <div className="risk-score-sub">/ 95</div>
+            </div>
+            <div style={{flex:1}}>
+              <div className="risk-profile-name">{riskProfile.label}</div>
+              <div className="risk-profile-desc">{riskProfile.desc}</div>
+              <div className="risk-bar-wrap" style={{marginTop:'12px'}}>
+                <div className="risk-bar-track">
+                  <div className="risk-bar-fill" style={{width:`${(riskScore/95)*100}%`}}></div>
+                </div>
+                <div className="risk-bar-labels">
+                  <span>Conservative</span><span>Balanced</span><span>Aggressive</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 8. SUMMARY */}
+      <div className={`form-section${activeTab === 7 ? ' active' : ''}`} id="sec-summary">
+        <div className="section-title">Financial Plan Summary</div>
+        <div className="section-desc">Complete snapshot — review before generating the client PDF report.</div>
+        <div className="summary-grid">
+          <div className="summary-block">
+            <div className="summary-block-title">Personal profile</div>
+            <div className="sum-row"><span className="lbl">Client name</span><span className="val">{data.name || '—'}</span></div>
+            <div className="sum-row"><span className="lbl">Age</span><span className="val">{clientAge ? `${clientAge} years` : '—'}</span></div>
+            <div className="sum-row"><span className="lbl">Marital status</span><span className="val">{data.marital || '—'}</span></div>
+            <div className="sum-row"><span className="lbl">Dependents</span><span className="val">{data.dependents || '—'}</span></div>
+            <div className="sum-row"><span className="lbl">Retirement age</span><span className="val">{data.retireAge}</span></div>
+            <div className="sum-row"><span className="lbl">Years to retirement</span><span className="val">{clientAge && data.retireAge ? `${parseInt(data.retireAge) - clientAge} yrs` : '—'}</span></div>
+          </div>
+          <div className="summary-block">
+            <div className="summary-block-title">Income & expenses</div>
+            <div className="sum-row"><span className="lbl">Total monthly income</span><span className="val">{fmtINR(monthlyIncome)}</span></div>
+            <div className="sum-row"><span className="lbl">Annual income</span><span className="val">{fmtINR(monthlyIncome * 12)}</span></div>
+            <div className="sum-row"><span className="lbl">Monthly expenses</span><span className="val">{fmtINR(monthlyExpense)}</span></div>
+            <div className="sum-row"><span className="lbl">Monthly surplus</span><span className="val" style={{color: monthlyIncome - monthlyExpense > 0 ? 'var(--accent)' : 'var(--danger)'}}>{fmtINR(monthlyIncome - monthlyExpense)}</span></div>
+            <div className="sum-row"><span className="lbl">Emergency fund (6–12 mo)</span><span className="val">{monthlyExpense > 0 ? `${fmtINR(emergencyFundLow)} – ${fmtINR(emergencyFundHigh)}` : '—'}</span></div>
+          </div>
+          <div className="summary-block">
+            <div className="summary-block-title">Balance sheet</div>
+            <div className="sum-row"><span className="lbl">Total assets</span><span className="val">{fmtINR(totalAssets)}</span></div>
+            <div className="sum-row"><span className="lbl">Total liabilities</span><span className="val" style={{color:'var(--danger)'}}>{fmtINR(totalLiabilities)}</span></div>
+            <div className="sum-row big sum-highlight"><span className="lbl">Net worth</span><span className="val">{fmtINR(netWorth)}</span></div>
+          </div>
+          <div className="summary-block">
+            <div className="summary-block-title">Risk & allocation</div>
+            <div className="sum-row"><span className="lbl">Risk score</span><span className="val">{data.riskAnswers.some(a=>a>=0) ? riskScore : '—'} / 95</span></div>
+            <div className="sum-row"><span className="lbl">Risk profile</span><span className="val">{data.riskAnswers.some(a=>a>=0) ? riskProfile.label : '—'}</span></div>
+            <div className="sum-row"><span className="lbl">Current equity</span><span className="val">{data.equityPct}%</span></div>
+            <div className="sum-row"><span className="lbl">Current debt</span><span className="val">{data.debtPct}%</span></div>
+            <div className="sum-row"><span className="lbl">Gold + RE + Cash</span><span className="val">{(parseFloat(data.goldPct)||0)+(parseFloat(data.rePct)||0)+(parseFloat(data.cashPct)||0)}%</span></div>
+          </div>
+          <div className="summary-block">
+            <div className="summary-block-title">Insurance cover</div>
+            <div className="sum-row"><span className="lbl">Term insurance</span><span className="val">{fmtINR(parseFloat(data.termCover)||0)}</span></div>
+            <div className="sum-row"><span className="lbl">Employer cover</span><span className="val">{fmtINR(parseFloat(data.employerCover)||0)}</span></div>
+            <div className="sum-row"><span className="lbl">Family floater</span><span className="val">{fmtINR(parseFloat(data.familyFloater)||0)}</span></div>
+            <div className="sum-row"><span className="lbl">Critical illness</span><span className="val">{fmtINR(parseFloat(data.criticalIllness)||0)}</span></div>
+          </div>
+          <div className="summary-block">
+            <div className="summary-block-title">Goal planning</div>
+            <div className="sum-row"><span className="lbl">Education goal</span><span className="val">{fmtINR(parseFloat(data.educationGoal)||0)}</span></div>
+            <div className="sum-row"><span className="lbl">Marriage goal</span><span className="val">{fmtINR(parseFloat(data.marriageGoal)||0)}</span></div>
+            <div className="sum-row"><span className="lbl">Retirement expense / mo</span><span className="val">{fmtINR(parseFloat(data.retirementExp)||0)}</span></div>
+            <div className="sum-row"><span className="lbl">Inflation assumption</span><span className="val">{data.inflation}% p.a.</span></div>
+          </div>
+        </div>
+        <div style={{marginTop:'20px', marginBottom:'80px', textAlign:'center'}}>
+          <button className="btn btn-green" style={{padding:'14px 40px', fontSize:'0.92rem'}} onClick={generatePDF}>
+            ⬇ Generate PDF Report
+          </button>
+          <div style={{marginTop:'8px', fontSize:'0.75rem', color:'var(--ink3)'}}>Opens browser print dialog — save as PDF</div>
+        </div>
+      </div>
+
+      {/* TAB NAVIGATION */}
+      <div className="tab-nav">
+        {activeTab > 0 && <button className="btn-nav" onClick={() => setActiveTab(t => t - 1)}>← {tabs[activeTab - 1].label}</button>}
+        {activeTab < tabs.length - 1 && <button className="btn-nav" style={{marginLeft:'auto'}} onClick={() => setActiveTab(t => t + 1)}>{tabs[activeTab + 1].label} →</button>}
+      </div>
+
+      {/* ACTION BAR */}
+      <div className="action-bar">
+        <div className="action-bar-left">
+          <span>Tab {activeTab + 1} of {tabs.length}</span>
+          <span>·</span>
+          <span>{tabs[activeTab].label}</span>
+        </div>
+        <div className="action-bar-right">
+          <button className="btn btn-danger" onClick={clearAll}>Clear all</button>
+          {activeTab < 7 && <button className="btn btn-outline" onClick={() => setActiveTab(7)}>View summary</button>}
+          <button className="btn btn-gold" onClick={generatePDF}>Generate PDF</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
