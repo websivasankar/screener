@@ -6,28 +6,27 @@
 <title>Kumaran Capital — Financial Planning Form</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --ink: #0a1628;
-    --ink2: #2f4257;
-    --ink3: #6b7a90;
-    --paper: #f6f7fa;
-    --paper2: #eef1f6;
-    --paper3: #e2e6ec;
-    --silver: #6b7a94;
-    --silver-light: #c0cadd;
-    --silver-pale: #eef1f6;
-    --accent: #435469;
-    --growth: #2d5a3d;
-    --growth2: #3a7a52;
+    --ink: #1a1714;
+    --ink2: #4a4541;
+    --ink3: #8a8480;
+    --paper: #faf8f5;
+    --paper2: #f2efe9;
+    --paper3: #e8e4dc;
+    --gold: #b8860b;
+    --gold2: #d4a017;
+    --gold-light: #fdf6e3;
+    --accent: #2d5a3d;
+    --accent2: #3a7a52;
     --danger: #8b2020;
     --danger-light: #fdf0f0;
-    --border: #ccd3de;
+    --border: #ddd8cf;
     --radius: 4px;
     --shadow: 0 1px 3px rgba(26,23,20,0.08), 0 4px 16px rgba(26,23,20,0.04);
   }
@@ -47,15 +46,13 @@
     align-items: center;
     justify-content: space-between;
     height: 56px;
-    border-bottom: 2px solid var(--silver);
+    border-bottom: 2px solid var(--gold);
   }
-  .logo-group { display: flex; align-items: center; gap: 10px; }
-  .logo-group img { width: 32px; height: 32px; object-fit: contain; display: block; }
   .logo {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: 1.25rem;
     letter-spacing: 0.02em;
-    color: var(--silver-light);
+    color: var(--gold2);
   }
   .logo span { color: var(--paper); font-style: italic; }
   .header-sub { font-size: 0.75rem; color: var(--ink3); letter-spacing: 0.08em; text-transform: uppercase; }
@@ -77,22 +74,22 @@
   .client-avatar {
     width: 52px; height: 52px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--silver), var(--silver-light));
+    background: var(--gold);
     color: var(--ink);
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: 1.3rem;
     flex-shrink: 0;
   }
-  .client-name { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; }
-  .client-meta { font-size: 0.78rem; color: #9aa8c2; margin-top: 3px; letter-spacing: 0.04em; }
+  .client-name { font-family: 'DM Serif Display', serif; font-size: 1.35rem; }
+  .client-meta { font-size: 0.78rem; color: #b0a898; margin-top: 3px; letter-spacing: 0.04em; }
   .client-badges { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
   .cbadge {
     font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 600;
     letter-spacing: 0.05em; text-transform: uppercase;
   }
-  .cbadge-accent { background: var(--silver-pale); color: var(--accent); border: 1px solid var(--silver); }
-  .cbadge-green { background: #e8f5ed; color: var(--growth); border: 1px solid #b8d9c4; }
+  .cbadge-gold { background: var(--gold-light); color: var(--gold); border: 1px solid var(--gold); }
+  .cbadge-green { background: #e8f5ed; color: var(--accent); border: 1px solid #b8d9c4; }
 
   /* TABS */
   .tabs-bar {
@@ -121,7 +118,7 @@
     transition: color 0.18s, border-color 0.18s;
   }
   .tab-btn:hover { color: var(--ink2); }
-  .tab-btn.active { color: var(--ink); border-bottom-color: var(--silver); font-weight: 600; }
+  .tab-btn.active { color: var(--ink); border-bottom-color: var(--gold); font-weight: 600; }
   .tab-number {
     display: inline-block;
     width: 18px; height: 18px;
@@ -134,7 +131,7 @@
     margin-right: 7px;
     color: var(--ink3);
   }
-  .tab-btn.active .tab-number { background: var(--silver-light); color: var(--ink); }
+  .tab-btn.active .tab-number { background: var(--gold); color: #fff; }
 
   /* SECTION */
   .form-section { display: none; }
@@ -142,7 +139,7 @@
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
   .section-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: 1.4rem;
     color: var(--ink);
     margin-bottom: 6px;
@@ -163,7 +160,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--gold);
     margin-bottom: 18px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--paper3);
@@ -193,11 +190,11 @@
     transition: border-color 0.18s, background 0.18s;
   }
   .field input:focus, .field select:focus, .field textarea:focus {
-    border-color: var(--silver-light);
+    border-color: var(--gold2);
     background: #fff;
-    box-shadow: 0 0 0 3px rgba(107,122,148,0.18);
+    box-shadow: 0 0 0 3px rgba(184,134,11,0.1);
   }
-  .field input::placeholder { color: #a3aec2; }
+  .field input::placeholder { color: #c0bab0; }
   .field textarea { resize: vertical; min-height: 72px; }
   .field-prefix {
     display: flex;
@@ -208,7 +205,7 @@
     overflow: hidden;
     transition: border-color 0.18s;
   }
-  .field-prefix:focus-within { border-color: var(--silver-light); background: #fff; box-shadow: 0 0 0 3px rgba(107,122,148,0.18); }
+  .field-prefix:focus-within { border-color: var(--gold2); background: #fff; box-shadow: 0 0 0 3px rgba(184,134,11,0.1); }
   .prefix-symbol {
     padding: 9px 10px 9px 12px;
     font-size: 0.82rem;
@@ -245,9 +242,9 @@
     background: var(--paper);
     transition: all 0.15s;
   }
-  .risk-opt-label:hover { border-color: var(--silver-light); background: var(--silver-pale); }
-  .risk-opt-label input[type="radio"] { accent-color: var(--ink); }
-  .risk-opt-label.selected { border-color: var(--silver); background: var(--silver-pale); color: var(--ink); font-weight: 500; }
+  .risk-opt-label:hover { border-color: var(--gold2); background: var(--gold-light); }
+  .risk-opt-label input[type="radio"] { accent-color: var(--gold); }
+  .risk-opt-label.selected { border-color: var(--gold); background: var(--gold-light); color: var(--ink); font-weight: 500; }
 
   /* RISK METER */
   .risk-result-box {
@@ -263,19 +260,19 @@
   .risk-score-circle {
     width: 72px; height: 72px;
     border-radius: 50%;
-    border: 3px solid var(--silver);
+    border: 3px solid var(--gold);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .risk-score-num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--silver-light); line-height: 1; }
-  .risk-score-sub { font-size: 0.62rem; color: #9aa8c2; letter-spacing: 0.08em; text-transform: uppercase; }
-  .risk-profile-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--silver-light); }
-  .risk-profile-desc { font-size: 0.8rem; color: #9aa8c2; margin-top: 4px; max-width: 420px; }
+  .risk-score-num { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--gold2); line-height: 1; }
+  .risk-score-sub { font-size: 0.62rem; color: #888; letter-spacing: 0.08em; text-transform: uppercase; }
+  .risk-profile-name { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--gold2); }
+  .risk-profile-desc { font-size: 0.8rem; color: #b0a898; margin-top: 4px; max-width: 420px; }
   .risk-bar-wrap { flex: 1; }
-  .risk-bar-track { height: 8px; border-radius: 4px; background: #1c2c42; position: relative; margin: 10px 0 4px; overflow: hidden; }
+  .risk-bar-track { height: 8px; border-radius: 4px; background: #333; position: relative; margin: 10px 0 4px; overflow: hidden; }
   .risk-bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #1D9E75, #d4a017, #c0392b); transition: width 0.5s; }
-  .risk-bar-labels { display: flex; justify-content: space-between; font-size: 0.65rem; color: #7c8aa3; }
+  .risk-bar-labels { display: flex; justify-content: space-between; font-size: 0.65rem; color: #666; }
 
   /* ACTION BAR */
   .action-bar {
@@ -315,18 +312,18 @@
     color: var(--danger);
   }
   .btn-danger:hover { background: var(--danger-light); border-color: var(--danger); }
-  .btn-silver {
-    background: linear-gradient(135deg, var(--silver), var(--silver-light));
-    color: var(--ink);
-    border-color: var(--silver);
-  }
-  .btn-silver:hover { background: linear-gradient(135deg, var(--silver-light), var(--silver-light)); }
-  .btn-green {
-    background: var(--growth);
+  .btn-gold {
+    background: var(--gold);
     color: #fff;
-    border-color: var(--growth);
+    border-color: var(--gold);
   }
-  .btn-green:hover { background: var(--growth2); }
+  .btn-gold:hover { background: var(--gold2); }
+  .btn-green {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn-green:hover { background: var(--accent2); }
 
   /* NAV ARROWS */
   .tab-nav { display: flex; justify-content: space-between; margin-top: 8px; margin-bottom: 80px; }
@@ -341,7 +338,7 @@
     color: var(--ink2);
     transition: all 0.15s;
   }
-  .btn-nav:hover { border-color: var(--silver-light); color: var(--accent); }
+  .btn-nav:hover { border-color: var(--gold2); color: var(--gold); }
 
   /* SUMMARY SECTION */
   .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -356,7 +353,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--gold);
     margin-bottom: 14px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--paper3);
@@ -372,11 +369,11 @@
   .sum-row:last-child { border-bottom: none; }
   .sum-row .val { font-weight: 600; color: var(--ink); }
   .sum-highlight {
-    background: var(--silver-pale);
-    border-color: var(--silver);
+    background: var(--gold-light);
+    border-color: var(--gold);
     margin-top: 4px;
   }
-  .sum-row.big .val { font-size: 1rem; color: var(--accent); font-family: 'Cormorant Garamond', serif; }
+  .sum-row.big .val { font-size: 1rem; color: var(--gold); font-family: 'DM Serif Display', serif; }
 
   /* PRINT STYLES */
   @media print {
@@ -385,16 +382,13 @@
     .form-section + .form-section { page-break-before: always; }
     body { background: #fff; }
     .app-shell { padding: 0; max-width: 100%; }
-    .client-banner { background: #0a1628 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .client-banner { background: #1a1714 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
 </head>
 <body>
 <div class="site-header">
-  <div class="logo-group">
-    <img src="kumaran-capital-brand-logo-150x150.png" alt="Kumaran Capital" />
-    <div class="logo">Kumaran <span>Capital</span></div>
-  </div>
+  <div class="logo">Kumaran <span>Capital</span></div>
   <div class="header-sub">Digital Financial Planning Platform</div>
 </div>
 
@@ -633,7 +627,7 @@ function App() {
         </div>
         <div className="client-badges">
           {riskProfile && data.riskAnswers.some(a => a >= 0) && (
-            <span className="cbadge cbadge-accent">{riskProfile.label}</span>
+            <span className="cbadge cbadge-gold">{riskProfile.label}</span>
           )}
           {netWorth > 0 && <span className="cbadge cbadge-green">NW: {fmtINR(netWorth)}</span>}
         </div>
@@ -676,12 +670,12 @@ function App() {
           <div className="grid-3">
             <div className="field"><label>Target retirement age</label><input type="number" name="retireAge" value={data.retireAge} onChange={handleChange} min="40" max="75" /></div>
             <div className="field"><label>Life expectancy assumption</label><input type="number" name="lifeExp" value={data.lifeExp} onChange={handleChange} min="60" max="100" /></div>
-            <div className="field" style={{background:'var(--silver-pale)', padding:'12px', borderRadius:'4px', border:'1px solid #c9d3e0'}}>
-              <label style={{color:'var(--accent)'}}>Planning horizon</label>
-              <div style={{fontSize:'1.1rem', fontFamily:'Cormorant Garamond, serif', paddingTop:'4px'}}>
+            <div className="field" style={{background:'var(--gold-light)', padding:'12px', borderRadius:'4px', border:'1px solid #e8d080'}}>
+              <label style={{color:'var(--gold)'}}>Planning horizon</label>
+              <div style={{fontSize:'1.1rem', fontFamily:'DM Serif Display, serif', paddingTop:'4px'}}>
                 {data.retireAge && data.lifeExp ? `${parseInt(data.lifeExp) - parseInt(data.retireAge)} yrs post-retirement` : '—'}
               </div>
-              {clientAge && data.retireAge && <div style={{fontSize:'0.75rem', color:'var(--accent)', marginTop:'3px'}}>{parseInt(data.retireAge) - clientAge} yrs to retirement</div>}
+              {clientAge && data.retireAge && <div style={{fontSize:'0.75rem', color:'var(--gold)', marginTop:'3px'}}>{parseInt(data.retireAge) - clientAge} yrs to retirement</div>}
             </div>
           </div>
         </div>
@@ -708,12 +702,12 @@ function App() {
           </div>
         </div>
         {monthlyIncome > 0 && (
-          <div className="form-card" style={{background:'var(--silver-pale)', border:'1px solid var(--silver)'}}>
-            <div className="form-card-title" style={{borderColor:'#c9d3e0'}}>Income snapshot</div>
+          <div className="form-card" style={{background:'var(--gold-light)', border:'1px solid var(--gold)'}}>
+            <div className="form-card-title" style={{borderColor:'#e8d080'}}>Income snapshot</div>
             <div className="grid-3">
-              <div><div style={{fontSize:'0.72rem', color:'var(--accent)', fontWeight:700, letterSpacing:'0.06em', textTransform:'uppercase'}}>Total monthly</div><div style={{fontFamily:'Cormorant Garamond, serif', fontSize:'1.4rem', marginTop:'4px'}}>{fmtINR(monthlyIncome)}</div></div>
-              <div><div style={{fontSize:'0.72rem', color:'var(--accent)', fontWeight:700, letterSpacing:'0.06em', textTransform:'uppercase'}}>Annual income</div><div style={{fontFamily:'Cormorant Garamond, serif', fontSize:'1.4rem', marginTop:'4px'}}>{fmtINR(monthlyIncome * 12)}</div></div>
-              <div><div style={{fontSize:'0.72rem', color:'var(--accent)', fontWeight:700, letterSpacing:'0.06em', textTransform:'uppercase'}}>HLV estimate</div><div style={{fontFamily:'Cormorant Garamond, serif', fontSize:'1.4rem', marginTop:'4px'}}>{fmtINR(monthlyIncome * 12 * 10)}</div><div style={{fontSize:'0.7rem', color:'var(--ink3)', marginTop:'2px'}}>10× annual income</div></div>
+              <div><div style={{fontSize:'0.72rem', color:'var(--gold)', fontWeight:700, letterSpacing:'0.06em', textTransform:'uppercase'}}>Total monthly</div><div style={{fontFamily:'DM Serif Display, serif', fontSize:'1.4rem', marginTop:'4px'}}>{fmtINR(monthlyIncome)}</div></div>
+              <div><div style={{fontSize:'0.72rem', color:'var(--gold)', fontWeight:700, letterSpacing:'0.06em', textTransform:'uppercase'}}>Annual income</div><div style={{fontFamily:'DM Serif Display, serif', fontSize:'1.4rem', marginTop:'4px'}}>{fmtINR(monthlyIncome * 12)}</div></div>
+              <div><div style={{fontSize:'0.72rem', color:'var(--gold)', fontWeight:700, letterSpacing:'0.06em', textTransform:'uppercase'}}>HLV estimate</div><div style={{fontFamily:'DM Serif Display, serif', fontSize:'1.4rem', marginTop:'4px'}}>{fmtINR(monthlyIncome * 12 * 10)}</div><div style={{fontSize:'0.7rem', color:'var(--ink3)', marginTop:'2px'}}>10× annual income</div></div>
             </div>
           </div>
         )}
@@ -771,9 +765,9 @@ function App() {
               ))}
             </tbody>
             <tfoot>
-              <tr style={{background:'var(--silver-pale)', borderTop:'2px solid var(--silver)'}}>
-                <td style={{padding:'10px 12px', fontWeight:700, color:'var(--accent)', fontSize:'0.85rem', letterSpacing:'0.04em', textTransform:'uppercase'}}>Total Monthly Expense</td>
-                <td style={{padding:'10px 12px', textAlign:'right', fontFamily:'Cormorant Garamond, serif', fontSize:'1.15rem', color:'var(--accent)', fontWeight:700}}>
+              <tr style={{background:'var(--gold-light)', borderTop:'2px solid var(--gold)'}}>
+                <td style={{padding:'10px 12px', fontWeight:700, color:'var(--gold)', fontSize:'0.85rem', letterSpacing:'0.04em', textTransform:'uppercase'}}>Total Monthly Expense</td>
+                <td style={{padding:'10px 12px', textAlign:'right', fontFamily:'DM Serif Display, serif', fontSize:'1.15rem', color:'var(--gold)', fontWeight:700}}>
                   {householdExp > 0 ? fmtINR(householdExp) : '—'}
                 </td>
                 <td></td>
@@ -783,7 +777,7 @@ function App() {
           <button
             onClick={addExpenseRow}
             style={{marginTop:'12px', display:'flex', alignItems:'center', gap:'6px', background:'none', border:'1px dashed var(--border)', borderRadius:'var(--radius)', padding:'8px 16px', cursor:'pointer', fontSize:'0.8rem', color:'var(--ink3)', fontFamily:'DM Sans, sans-serif', fontWeight:600, letterSpacing:'0.04em', transition:'all 0.15s', width:'100%', justifyContent:'center'}}
-            onMouseEnter={e => { e.currentTarget.style.borderColor='var(--silver-light)'; e.currentTarget.style.color='var(--silver)'; e.currentTarget.style.background='var(--silver-pale)'; }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor='var(--gold2)'; e.currentTarget.style.color='var(--gold)'; e.currentTarget.style.background='var(--gold-light)'; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.color='var(--ink3)'; e.currentTarget.style.background='none'; }}
           >
             + Add expense row
@@ -811,7 +805,7 @@ function App() {
             <div className="field"><label>Emergency fund target (months)</label><input type="number" name="emergencyMonths" value={data.emergencyMonths} onChange={handleChange} min="3" max="24" /></div>
             <div style={{display:'flex', flexDirection:'column', gap:'5px'}}>
               <label style={{fontSize:'0.75rem', fontWeight:'600', color:'var(--ink2)', letterSpacing:'0.03em'}}>Emergency fund required</label>
-              <div style={{padding:'9px 12px', background:'var(--silver-pale)', border:'1px solid var(--silver)', borderRadius:'var(--radius)', fontSize:'0.88rem', fontWeight:'600', color:'var(--accent)'}}>
+              <div style={{padding:'9px 12px', background:'var(--gold-light)', border:'1px solid var(--gold)', borderRadius:'var(--radius)', fontSize:'0.88rem', fontWeight:'600', color:'var(--gold)'}}>
                 {monthlyExpense > 0 ? `${fmtINR(emergencyFundLow)} – ${fmtINR(emergencyFundHigh)}` : '—'}
               </div>
             </div>
@@ -837,7 +831,7 @@ function App() {
             <MoneyField label="Business ownership value" name="business" value={data.business} onChange={handleChange} />
           </div>
           {totalAssets > 0 && (
-            <div style={{marginTop:'16px', padding:'12px 16px', background:'var(--paper2)', borderRadius:'var(--radius)', fontSize:'0.85rem', fontWeight:'600', color:'var(--growth)'}}>
+            <div style={{marginTop:'16px', padding:'12px 16px', background:'var(--paper2)', borderRadius:'var(--radius)', fontSize:'0.85rem', fontWeight:'600', color:'var(--accent)'}}>
               Total assets: {fmtINR(totalAssets)}
             </div>
           )}
@@ -857,10 +851,10 @@ function App() {
           )}
         </div>
         {(totalAssets > 0 || totalLiabilities > 0) && (
-          <div className="form-card" style={{background: netWorth >= 0 ? 'var(--silver-pale)' : 'var(--danger-light)', border: `1px solid ${netWorth >= 0 ? 'var(--silver)' : 'var(--danger)'}`}}>
+          <div className="form-card" style={{background: netWorth >= 0 ? 'var(--gold-light)' : 'var(--danger-light)', border: `1px solid ${netWorth >= 0 ? 'var(--gold)' : 'var(--danger)'}`}}>
             <div style={{display:'flex', alignItems:'baseline', gap:'16px'}}>
-              <div style={{fontSize:'0.75rem', fontWeight:'700', letterSpacing:'0.08em', textTransform:'uppercase', color: netWorth >= 0 ? 'var(--accent)' : 'var(--danger)'}}>Net Worth</div>
-              <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:'2rem', color: netWorth >= 0 ? 'var(--accent)' : 'var(--danger)'}}>{fmtINR(Math.abs(netWorth))}{netWorth < 0 ? ' (deficit)' : ''}</div>
+              <div style={{fontSize:'0.75rem', fontWeight:'700', letterSpacing:'0.08em', textTransform:'uppercase', color: netWorth >= 0 ? 'var(--gold)' : 'var(--danger)'}}>Net Worth</div>
+              <div style={{fontFamily:'DM Serif Display, serif', fontSize:'2rem', color: netWorth >= 0 ? 'var(--gold)' : 'var(--danger)'}}>{fmtINR(Math.abs(netWorth))}{netWorth < 0 ? ' (deficit)' : ''}</div>
             </div>
           </div>
         )}
@@ -883,7 +877,7 @@ function App() {
               {(() => {
                 const total = ['equityPct','debtPct','goldPct','rePct','cashPct'].reduce((a,k) => a + (parseFloat(data[k])||0), 0);
                 const ok = Math.abs(total - 100) < 0.01;
-                return <div style={{padding:'9px 12px', background: ok ? '#e8f5ed' : 'var(--danger-light)', border:`1px solid ${ok?'#b8d9c4':'var(--danger)'}`, borderRadius:'var(--radius)', fontWeight:'700', color: ok ? 'var(--growth)' : 'var(--danger)'}}>{total.toFixed(1)}% {ok ? '✓' : '≠ 100%'}</div>;
+                return <div style={{padding:'9px 12px', background: ok ? '#e8f5ed' : 'var(--danger-light)', border:`1px solid ${ok?'#b8d9c4':'var(--danger)'}`, borderRadius:'var(--radius)', fontWeight:'700', color: ok ? 'var(--accent)' : 'var(--danger)'}}>{total.toFixed(1)}% {ok ? '✓' : '≠ 100%'}</div>;
               })()}
             </div>
           </div>
@@ -930,7 +924,7 @@ function App() {
                 ⚠ Insurance gap: <strong>{fmtINR(gap)}</strong> — additional term cover recommended
               </div>
             ) : existing > 0 ? (
-              <div style={{marginTop:'14px', padding:'12px 16px', background:'#e8f5ed', border:'1px solid #b8d9c4', borderRadius:'var(--radius)', fontSize:'0.82rem', color:'var(--growth)'}}>
+              <div style={{marginTop:'14px', padding:'12px 16px', background:'#e8f5ed', border:'1px solid #b8d9c4', borderRadius:'var(--radius)', fontSize:'0.82rem', color:'var(--accent)'}}>
                 ✓ Insurance coverage appears adequate
               </div>
             ) : null;
@@ -943,7 +937,7 @@ function App() {
             <MoneyField label="Critical illness cover" name="criticalIllness" value={data.criticalIllness} onChange={handleChange} />
           </div>
           {!parseFloat(data.criticalIllness) && (
-            <div style={{marginTop:'14px', padding:'12px 16px', background:'var(--silver-pale)', border:'1px solid var(--silver)', borderRadius:'var(--radius)', fontSize:'0.82rem', color:'var(--accent)'}}>
+            <div style={{marginTop:'14px', padding:'12px 16px', background:'#fff8e8', border:'1px solid var(--gold)', borderRadius:'var(--radius)', fontSize:'0.82rem', color:'var(--gold)'}}>
               ℹ Consider a critical illness policy of ₹25–50 L for comprehensive health protection.
             </div>
           )}
@@ -1011,7 +1005,7 @@ function App() {
             <div className="sum-row"><span className="lbl">Total monthly income</span><span className="val">{fmtINR(monthlyIncome)}</span></div>
             <div className="sum-row"><span className="lbl">Annual income</span><span className="val">{fmtINR(monthlyIncome * 12)}</span></div>
             <div className="sum-row"><span className="lbl">Monthly expense</span><span className="val">{fmtINR(monthlyExpense)}</span></div>
-            <div className="sum-row"><span className="lbl">Monthly surplus</span><span className="val" style={{color: monthlyIncome - monthlyExpense > 0 ? 'var(--growth)' : 'var(--danger)'}}>{fmtINR(monthlyIncome - monthlyExpense)}</span></div>
+            <div className="sum-row"><span className="lbl">Monthly surplus</span><span className="val" style={{color: monthlyIncome - monthlyExpense > 0 ? 'var(--accent)' : 'var(--danger)'}}>{fmtINR(monthlyIncome - monthlyExpense)}</span></div>
             <div className="sum-row"><span className="lbl">Emergency fund (6–12 mo)</span><span className="val">{monthlyExpense > 0 ? `${fmtINR(emergencyFundLow)} – ${fmtINR(emergencyFundHigh)}` : '—'}</span></div>
           </div>
           <div className="summary-block">
@@ -1067,7 +1061,7 @@ function App() {
         <div className="action-bar-right">
           <button className="btn btn-danger" onClick={clearAll}>Clear all</button>
           {activeTab < 7 && <button className="btn btn-outline" onClick={() => setActiveTab(7)}>View summary</button>}
-          <button className="btn btn-silver" onClick={generatePDF}>Generate PDF</button>
+          <button className="btn btn-gold" onClick={generatePDF}>Generate PDF</button>
         </div>
       </div>
     </div>

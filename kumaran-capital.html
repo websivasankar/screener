@@ -57,15 +57,16 @@
     :root {
       --navy: #0a1628;
       --navy-mid: #112244;
-      --gold: #c8973a;
-      --gold-light: #e8b85a;
-      --gold-pale: #f5e6c8;
-      --cream: #faf7f2;
+      --black: #05070c;
+      --silver: #828ba4;
+      --silver-light: #c0cadd;
+      --silver-pale: #eef1f6;
+      --offwhite: #f6f7fa;
       --white: #ffffff;
       --slate: #8899aa;
-      --text: #1a2a3a;
+      --text: #10192a;
       --text-light: #4a5a6a;
-      --border: rgba(200,151,58,0.2);
+      --border: rgba(130,139,164,0.25);
       --section-gap: 100px;
     }
 
@@ -75,7 +76,7 @@
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
+      background: var(--offwhite);
       color: var(--text);
       overflow-x: hidden;
     }
@@ -98,18 +99,19 @@
     }
     .nav-logo .logo-mark {
       width: 40px; height: 40px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 700; font-size: 20px; color: var(--navy);
+    }
+    .nav-logo .logo-mark img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
     }
     .nav-logo .brand {
       font-family: 'Cormorant Garamond', serif;
       font-size: 20px; font-weight: 600; color: var(--white);
       letter-spacing: 0.02em;
     }
-    .nav-logo .brand span { color: var(--gold); }
+    .nav-logo .brand span { color: var(--silver); }
 
     .nav-links {
       display: flex; align-items: center; gap: 32px; list-style: none;
@@ -120,14 +122,14 @@
       letter-spacing: 0.08em; text-transform: uppercase;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover { color: var(--silver); }
     .nav-links .nav-cta a {
-      background: var(--gold);
+      background: var(--silver);
       color: var(--navy);
       padding: 8px 20px; border-radius: 4px;
       font-weight: 600;
     }
-    .nav-links .nav-cta a:hover { background: var(--gold-light); color: var(--navy); }
+    .nav-links .nav-cta a:hover { background: var(--silver-light); color: var(--navy); }
 
     /* ─── HERO ─── */
     #hero {
@@ -141,14 +143,14 @@
     .hero-bg-pattern {
       position: absolute; inset: 0;
       background-image:
-        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(200,151,58,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(130,139,164,0.08) 0%, transparent 60%),
         radial-gradient(ellipse 40% 80% at 20% 80%, rgba(17,34,68,0.8) 0%, transparent 60%);
     }
     .hero-grid-lines {
       position: absolute; inset: 0; opacity: 0.04;
       background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(200,151,58,1) 60px, rgba(200,151,58,1) 61px),
-        repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(200,151,58,1) 60px, rgba(200,151,58,1) 61px);
+        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(130,139,164,1) 60px, rgba(130,139,164,1) 61px),
+        repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(130,139,164,1) 60px, rgba(130,139,164,1) 61px);
     }
 
     .hero-inner {
@@ -159,15 +161,16 @@
 
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(200,151,58,0.12); border: 1px solid var(--border);
+      background: rgba(130,139,164,0.12); border: 1px solid var(--border);
       border-radius: 100px; padding: 6px 16px;
       font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--gold);
+      text-transform: uppercase; color: var(--silver);
       margin-bottom: 24px;
+      margin-top: 10px;
     }
     .hero-badge::before {
       content: ''; width: 6px; height: 6px;
-      background: var(--gold); border-radius: 50%;
+      background: var(--silver); border-radius: 50%;
       animation: pulse 2s infinite;
     }
     @keyframes pulse {
@@ -181,7 +184,7 @@
       color: var(--white);
       margin-bottom: 16px;
     }
-    .hero-title .gold { color: var(--gold); }
+    .hero-title .accent { color: var(--silver); }
 
     .hero-tagline {
       font-family: 'Cormorant Garamond', serif;
@@ -199,7 +202,7 @@
     .hero-cta-group { display: flex; gap: 16px; flex-wrap: wrap; }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      background: linear-gradient(135deg, var(--silver), var(--silver-light));
       color: var(--navy);
       border: none; padding: 14px 32px;
       border-radius: 4px; font-size: 14px; font-weight: 600;
@@ -207,7 +210,7 @@
       text-decoration: none; display: inline-block;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,151,58,0.4); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(130,139,164,0.4); }
 
     .btn-secondary {
       background: transparent;
@@ -218,7 +221,7 @@
       cursor: pointer; text-decoration: none; display: inline-block;
       transition: border-color 0.2s, color 0.2s;
     }
-    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-secondary:hover { border-color: var(--silver); color: var(--silver); }
 
     .hero-stats {
       display: flex; gap: 40px; margin-top: 48px;
@@ -227,7 +230,7 @@
     .stat-item {}
     .stat-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 36px; font-weight: 700; color: var(--gold);
+      font-size: 36px; font-weight: 700; color: var(--silver);
     }
     .stat-label { font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
 
@@ -238,7 +241,7 @@
     .hero-card {
       width: 100%; max-width: 420px;
       background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(200,151,58,0.2);
+      border: 1px solid rgba(130,139,164,0.2);
       border-radius: 20px;
       padding: 40px;
       backdrop-filter: blur(10px);
@@ -264,7 +267,7 @@
 
     /* ─── TRUST BAR ─── */
     #trust {
-      background: var(--gold);
+      background: var(--silver);
       padding: 16px 48px;
       display: flex; align-items: center; justify-content: center;
       gap: 48px; flex-wrap: wrap;
@@ -285,13 +288,13 @@
 
     .section-label {
       font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--gold);
+      text-transform: uppercase; color: var(--silver);
       margin-bottom: 16px;
       display: flex; align-items: center; gap: 12px;
     }
     .section-label::before {
       content: ''; display: block;
-      width: 32px; height: 1px; background: var(--gold);
+      width: 32px; height: 1px; background: var(--silver);
     }
     .section-title {
       font-size: clamp(32px, 4vw, 52px);
@@ -324,7 +327,7 @@
     .why-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      background: linear-gradient(90deg, var(--silver), var(--silver-light));
       transform: scaleX(0); transform-origin: left;
       transition: transform 0.4s;
     }
@@ -332,7 +335,7 @@
 
     .why-icon {
       width: 56px; height: 56px; border-radius: 12px;
-      background: var(--gold-pale);
+      background: var(--silver-pale);
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 24px; font-size: 26px;
     }
@@ -354,26 +357,26 @@
 
     .pillar-card {
       background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(200,151,58,0.15);
+      border: 1px solid rgba(130,139,164,0.15);
       padding: 48px 36px;
       position: relative; transition: background 0.3s;
     }
-    .pillar-card:hover { background: rgba(200,151,58,0.08); }
+    .pillar-card:hover { background: rgba(130,139,164,0.08); }
 
     .pillar-num {
       font-family: 'Cormorant Garamond', serif;
       font-size: 72px; font-weight: 700;
-      color: rgba(200,151,58,0.12);
+      color: rgba(130,139,164,0.12);
       line-height: 1; margin-bottom: 24px;
     }
     .pillar-icon { font-size: 32px; margin-bottom: 16px; }
     .pillar-card h3 {
-      font-size: 20px; color: var(--gold); margin-bottom: 12px; font-weight: 600;
+      font-size: 20px; color: var(--silver); margin-bottom: 12px; font-weight: 600;
     }
     .pillar-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.75; }
 
     /* ─── PROCESS ─── */
-    #process { background: var(--cream); }
+    #process { background: var(--offwhite); }
 
     .process-steps {
       margin-top: 64px;
@@ -394,15 +397,15 @@
     }
     .step-num {
       width: 52px; height: 52px;
-      border: 2px solid var(--gold);
+      border: 2px solid var(--silver);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px; font-weight: 700; color: var(--gold);
+      font-size: 22px; font-weight: 700; color: var(--silver);
     }
     .step-line {
       width: 1px; height: 40px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
+      background: linear-gradient(to bottom, var(--silver), transparent);
       margin-top: 8px;
     }
     .step-row:last-child .step-line { display: none; }
@@ -421,7 +424,7 @@
     #offer::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(200,151,58,0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(130,139,164,0.08) 0%, transparent 70%);
     }
     .offer-inner {
       position: relative; z-index: 2;
@@ -440,7 +443,7 @@
     }
     .offer-count {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 80px; font-weight: 700; color: var(--gold);
+      font-size: 80px; font-weight: 700; color: var(--silver);
       line-height: 1;
     }
     .offer-label {
@@ -463,7 +466,7 @@
     }
     .contact-icon {
       width: 48px; height: 48px; flex-shrink: 0;
-      background: var(--gold-pale); border-radius: 10px;
+      background: var(--silver-pale); border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       font-size: 20px;
     }
@@ -471,7 +474,7 @@
     .contact-item p, .contact-item a {
       font-size: 15px; color: var(--text-light); text-decoration: none;
     }
-    .contact-item a:hover { color: var(--gold); }
+    .contact-item a:hover { color: var(--silver); }
 
     /* Social */
     .social-label {
@@ -499,11 +502,11 @@
       border: 1px solid rgba(10,22,40,0.15);
       border-radius: 8px; padding: 12px 16px;
       font-size: 14px; font-family: 'DM Sans', sans-serif;
-      color: var(--text); background: var(--cream);
+      color: var(--text); background: var(--offwhite);
       outline: none; transition: border-color 0.2s;
     }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--gold);
+      border-color: var(--silver);
     }
     .form-group textarea { resize: vertical; min-height: 100px; }
 
@@ -511,14 +514,14 @@
     #disclaimer {
       background: #0a1628;
       padding: 40px 0;
-      border-top: 1px solid rgba(200,151,58,0.15);
+      border-top: 1px solid rgba(130,139,164,0.15);
     }
     .disclaimer-inner {
       max-width: 1200px; margin: 0 auto; padding: 0 48px;
     }
     .disclaimer-title {
       font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--gold);
+      text-transform: uppercase; color: var(--silver);
       margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
     }
     .disclaimer-title::before { content: '⚠'; font-size: 14px; }
@@ -554,7 +557,7 @@
       font-size: 14px; color: rgba(255,255,255,0.55); text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-col a:hover { color: var(--gold); }
+    .footer-col a:hover { color: var(--silver); }
 
     .footer-bottom {
       display: flex; align-items: center; justify-content: space-between;
@@ -564,10 +567,10 @@
       display: flex; gap: 16px; flex-wrap: wrap;
     }
     .reg-badge {
-      background: rgba(200,151,58,0.1);
-      border: 1px solid rgba(200,151,58,0.2);
+      background: rgba(130,139,164,0.1);
+      border: 1px solid rgba(130,139,164,0.2);
       border-radius: 4px; padding: 4px 10px;
-      font-size: 11px; font-weight: 600; color: var(--gold);
+      font-size: 11px; font-weight: 600; color: var(--silver);
       letter-spacing: 0.06em;
     }
 
@@ -598,7 +601,7 @@
 <!-- ─── NAVIGATION ─── -->
 <nav>
   <div class="nav-logo">
-    <div class="logo-mark">K</div>
+    <div class="logo-mark"><img src="kumaran-capital-brand-logo-150x150.png" /></div>
     <div class="brand">Kumaran <span>Capital</span></div>
   </div>
   <ul class="nav-links">
@@ -606,7 +609,7 @@
     <li><a href="#pillars">Services</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="finplan-form.html" target="_blank" rel="noopener">Analysis ↗</a></li>
+    <li><a href="finplan-form.html" target="_blank" rel="noopener">Planning ↗</a></li>
     <li class="nav-cta"><a href="#offer">Free Consult</a></li>
   </ul>
 </nav>
@@ -619,7 +622,7 @@
     <div class="hero-content fade-up">
       <div class="hero-badge">AMFI Registered · NISM Certified · ARN 357785</div>
       <h1 class="hero-title">
-        Your <span class="gold">Prosperity</span>,<br>Our Priority
+        Your <span class="accent">Prosperity</span>,<br>Our Priority
       </h1>
       <p class="hero-tagline">"Building wealth is only half the battle"</p>
       <p class="hero-desc">
@@ -655,16 +658,16 @@
           <svg viewBox="0 0 360 120" preserveAspectRatio="none">
             <defs>
               <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#c8973a" stop-opacity="0.3"/>
-                <stop offset="100%" stop-color="#c8973a" stop-opacity="0"/>
+                <stop offset="0%" stop-color="#828ba4" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#828ba4" stop-opacity="0"/>
               </linearGradient>
             </defs>
             <path d="M0,100 C40,90 60,80 90,65 C120,50 130,70 160,55 C190,40 210,20 240,18 C270,16 300,25 360,10"
-              fill="none" stroke="#c8973a" stroke-width="2.5" stroke-linecap="round"/>
+              fill="none" stroke="#828ba4" stroke-width="2.5" stroke-linecap="round"/>
             <path d="M0,100 C40,90 60,80 90,65 C120,50 130,70 160,55 C190,40 210,20 240,18 C270,16 300,25 360,10 L360,120 L0,120 Z"
               fill="url(#chartGrad)"/>
-            <circle cx="360" cy="10" r="4" fill="#c8973a"/>
-            <circle cx="360" cy="10" r="8" fill="rgba(200,151,58,0.2)"/>
+            <circle cx="360" cy="10" r="4" fill="#828ba4"/>
+            <circle cx="360" cy="10" r="8" fill="rgba(130,139,164,0.2)"/>
           </svg>
         </div>
         <div class="card-metrics">
@@ -681,7 +684,7 @@
           <div class="card-metric">
             <div class="m-label">Risk Score</div>
             <div class="m-value">Low</div>
-            <div class="m-change" style="color:var(--gold);">✓ Optimised</div>
+            <div class="m-change" style="color:var(--silver);">✓ Optimised</div>
           </div>
           <div class="card-metric">
             <div class="m-label">Goal Track</div>
@@ -982,7 +985,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <div class="nav-logo">
-          <div class="logo-mark">K</div>
+          <div class="logo-mark"><img src="kumaran-capital-brand-logo-150x150.png" /></div>
           <div class="brand" style="color:var(--white);">Kumaran <span>Capital</span></div>
         </div>
         <p>Your Prosperity, Our Priority. Comprehensive financial planning for individuals and families seeking lasting financial independence.</p>
@@ -1001,7 +1004,7 @@
         <ul>
           <li><a href="#why">About Us</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="finplan-form.html" target="_blank" rel="noopener">Client Portal ↗</a></li>
+          <li><a href="finplan-form.html" target="_blank" rel="noopener">Planning ↗</a></li>
           <li><a href="#disclaimer">Disclaimer</a></li>
         </ul>
       </div>
@@ -1052,7 +1055,7 @@
     });
     navLinks.forEach(a => {
       a.style.color = a.getAttribute('href') === `#${current}`
-        ? 'var(--gold)' : '';
+        ? 'var(--silver)' : '';
     });
   });
 </script>
