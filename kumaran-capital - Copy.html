@@ -67,10 +67,6 @@
       --text-light: #4a5a6a;
       --border: rgba(130,139,164,0.25);
       --section-gap: 100px;
-      /* aliases — kept so existing var(--silver...) references below resolve */
-      --silver: var(--silvermain);
-      --silver-light: var(--silvermainlight);
-      --silver-pale: rgba(130,139,164,0.12);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -268,44 +264,6 @@
     .card-metric .m-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
     .card-metric .m-value { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--white); font-weight: 600; }
     .card-metric .m-change { font-size: 12px; color: #4ade80; margin-top: 4px; }
-
-    /* SIP calculator slider */
-    .sip-slider-row { margin: 0 0 24px; }
-    .sip-slider-label {
-      display: flex; align-items: baseline; justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .sip-slider-label span:first-child {
-      font-size: 11px; color: rgba(255,255,255,0.45);
-      text-transform: uppercase; letter-spacing: 0.06em;
-    }
-    .sip-slider-value {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 19px; font-weight: 600; color: var(--white);
-    }
-    .sip-range {
-      -webkit-appearance: none; appearance: none;
-      width: 100%; height: 4px; border-radius: 999px;
-      background: linear-gradient(90deg, var(--silvermain), var(--silvermainlight));
-      outline: none; cursor: pointer; display: block;
-    }
-    .sip-range::-webkit-slider-thumb {
-      -webkit-appearance: none; appearance: none;
-      width: 16px; height: 16px; border-radius: 50%;
-      background: var(--white); border: 3px solid var(--silvermain);
-      cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-    }
-    .sip-range::-moz-range-thumb {
-      width: 16px; height: 16px; border-radius: 50%;
-      background: var(--white); border: 3px solid var(--silvermain);
-      cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-      border: 3px solid var(--silvermain);
-    }
-    .sip-range::-moz-range-track { background: transparent; }
-    .sip-slider-scale {
-      display: flex; justify-content: space-between;
-      margin-top: 8px; font-size: 10px; color: rgba(255,255,255,0.3);
-    }
 
     /* ─── TRUST BAR ─── */
     #trust {
@@ -627,26 +585,13 @@
       nav { padding: 0 24px; }
       .nav-links { gap: 16px; }
       .nav-links li:not(.nav-cta):not(:last-child) { display: none; }
-      .hero-inner { grid-template-columns: 1fr; gap: 32px; padding: 40px 24px; }
-      .hero-visual { justify-content: stretch; }
-      .hero-card { max-width: 100%; padding: 24px; }
-      .mini-chart { height: 96px; margin-bottom: 20px; }
-      .card-metrics { gap: 12px; }
-      .card-metric { padding: 12px; }
-      .card-metric .m-value { font-size: 20px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
+      .hero-visual { display: none; }
       .why-grid, .pillars-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
       .container { padding: 0 24px; }
       #trust { padding: 16px 24px; gap: 24px; }
-    }
-
-    @media (max-width: 420px) {
-      .hero-card { padding: 20px; }
-      .card-metrics { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .card-metric .m-value { font-size: 18px; }
-      .footer-top { grid-template-columns: 1fr; }
-      .footer-regs { gap: 10px; }
     }
   </style>
 </head>
@@ -702,48 +647,34 @@
       <div class="hero-card">
         <div class="hero-card-header">
           <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.6);letter-spacing:0.04em;">WEALTH GROWTH</div>
-          <div style="font-size:11px;color:#4ade80;background:rgba(74,222,128,0.1);padding:4px 10px;border-radius:100px;font-weight:600;">▲ +94% · 10-Yr SIP</div>
+          <div style="font-size:11px;color:#4ade80;background:rgba(74,222,128,0.1);padding:4px 10px;border-radius:100px;font-weight:600;">▲ +18.4%</div>
         </div>
         <div class="mini-chart">
-          <svg viewBox="0 0 360 128" preserveAspectRatio="none">
+          <svg viewBox="0 0 360 120" preserveAspectRatio="none">
             <defs>
               <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#828ba4" stop-opacity="0.3"/>
                 <stop offset="100%" stop-color="#828ba4" stop-opacity="0"/>
               </linearGradient>
             </defs>
-            <!-- NIFTY 50 portfolio value: ₹1,000/month SIP, Jan 2015 – Dec 2025
-                 Invested ₹1.2L → grown to ≈₹2.33L (illustrative, index-only) -->
-            <path d="M 0.0,110.0 C 6.0,109.2 24.0,107.0 36.0,105.0 C 48.0,103.1 60.0,100.3 72.0,98.2 C 84.0,96.1 96.0,94.7 108.0,92.6 C 120.0,90.5 132.0,88.2 144.0,85.5 C 156.0,82.9 168.0,80.4 180.0,76.7 C 192.0,73.0 204.0,67.0 216.0,63.5 C 228.0,60.0 240.0,59.6 252.0,55.8 C 264.0,51.9 276.0,44.9 288.0,40.3 C 300.0,35.8 312.0,32.7 324.0,28.5 C 336.0,24.2 354.0,17.2 360.0,15.0"
+            <path d="M0,100 C40,90 60,80 90,65 C120,50 130,70 160,55 C190,40 210,20 240,18 C270,16 300,25 360,10"
               fill="none" stroke="#828ba4" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M 0.0,110.0 C 6.0,109.2 24.0,107.0 36.0,105.0 C 48.0,103.1 60.0,100.3 72.0,98.2 C 84.0,96.1 96.0,94.7 108.0,92.6 C 120.0,90.5 132.0,88.2 144.0,85.5 C 156.0,82.9 168.0,80.4 180.0,76.7 C 192.0,73.0 204.0,67.0 216.0,63.5 C 228.0,60.0 240.0,59.6 252.0,55.8 C 264.0,51.9 276.0,44.9 288.0,40.3 C 300.0,35.8 312.0,32.7 324.0,28.5 C 336.0,24.2 354.0,17.2 360.0,15.0 L360,128 L0,128 Z"
+            <path d="M0,100 C40,90 60,80 90,65 C120,50 130,70 160,55 C190,40 210,20 240,18 C270,16 300,25 360,10 L360,120 L0,120 Z"
               fill="url(#chartGrad)"/>
-            <circle cx="360" cy="15" r="4" fill="#828ba4"/>
-            <circle cx="360" cy="15" r="8" fill="rgba(130,139,164,0.2)"/>
-            <text x="0" y="124" font-size="9" fill="rgba(255,255,255,0.35)" font-family="DM Sans, sans-serif">2015</text>
-            <text x="336" y="124" font-size="9" fill="rgba(255,255,255,0.35)" font-family="DM Sans, sans-serif">2025</text>
+            <circle cx="360" cy="10" r="4" fill="#828ba4"/>
+            <circle cx="360" cy="10" r="8" fill="rgba(130,139,164,0.2)"/>
           </svg>
         </div>
-
-        <div class="sip-slider-row">
-          <div class="sip-slider-label">
-            <span>Monthly SIP</span>
-            <span class="sip-slider-value" id="sipAmtDisplay">₹1,000</span>
-          </div>
-          <input type="range" id="sipRange" class="sip-range" min="1000" max="100000" step="500" value="1000" aria-label="Monthly SIP amount, one thousand to one lakh rupees">
-          <div class="sip-slider-scale"><span>₹1,000</span><span>₹1,00,000</span></div>
-        </div>
-
         <div class="card-metrics">
           <div class="card-metric">
             <div class="m-label">Portfolio Value</div>
-            <div class="m-value" id="sipPortfolioValue">₹2.33L</div>
-            <div class="m-change">▲ +94% · 10-Yr</div>
+            <div class="m-value">₹24.6L</div>
+            <div class="m-change">▲ +12.3% YTD</div>
           </div>
           <div class="card-metric">
-            <div class="m-label">Total Invested</div>
-            <div class="m-value" id="sipInvestedValue">₹1.20L</div>
-            <div class="m-change" id="sipInvestedSub">₹1,000 × 120 mo</div>
+            <div class="m-label">SIP Running</div>
+            <div class="m-value">₹18K</div>
+            <div class="m-change">▲ Monthly</div>
           </div>
           <div class="card-metric">
             <div class="m-label">Risk Score</div>
@@ -980,7 +911,7 @@
   <div class="disclaimer-inner">
     <div class="disclaimer-title">Important Disclaimer & Regulatory Information</div>
     <p class="disclaimer-text">
-      <strong style="color:white;">Mutual fund investments are subject to market risks, read all scheme related documents carefully.</strong>
+      <strong style="color:white;">Mutual fund investments are subject to market risks, read all scheme related documents carefully."
     </p>
   </div>
 </div>
@@ -1048,45 +979,6 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // NIFTY 50 SIP calculator (hero card)
-  // Basis: ₹1,000/month invested in the NIFTY 50 price index, Jan 2015–Dec 2025,
-  // simulated month-by-month against actual year-end index levels -> final
-  // corpus ≈ ₹2,32,514 against ₹1,20,000 invested. Both invested amount and
-  // portfolio value scale linearly with the monthly SIP amount, so the curve
-  // shape stays the same — only these two figures need to move.
-  (function () {
-    const SIP_MONTHS = 120;
-    const VALUE_PER_RUPEE = 232.514; // portfolio value per ₹1 of monthly SIP over the 10-yr window
-
-    const range = document.getElementById('sipRange');
-    if (!range) return;
-    const amtDisplay = document.getElementById('sipAmtDisplay');
-    const portfolioEl = document.getElementById('sipPortfolioValue');
-    const investedEl = document.getElementById('sipInvestedValue');
-    const investedSubEl = document.getElementById('sipInvestedSub');
-
-    function formatCompactINR(num) {
-      if (num >= 1e7) return '₹' + (num / 1e7).toFixed(2) + 'Cr';
-      if (num >= 1e5) return '₹' + (num / 1e5).toFixed(2) + 'L';
-      if (num >= 1e3) return '₹' + (num / 1e3).toFixed(1) + 'K';
-      return '₹' + Math.round(num);
-    }
-
-    function update() {
-      const sip = parseInt(range.value, 10);
-      const invested = sip * SIP_MONTHS;
-      const portfolioValue = Math.round(sip * VALUE_PER_RUPEE);
-
-      amtDisplay.textContent = '₹' + sip.toLocaleString('en-IN');
-      portfolioEl.textContent = formatCompactINR(portfolioValue);
-      investedEl.textContent = formatCompactINR(invested);
-      investedSubEl.textContent = '₹' + sip.toLocaleString('en-IN') + ' × 120 mo';
-    }
-
-    range.addEventListener('input', update);
-    update();
-  })();
 
   // Nav active highlight on scroll
   const sections = document.querySelectorAll('section[id]');
